@@ -190,22 +190,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            Tags
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-aboutme">
+          <a href="/aboutme" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            AboutMe
           </a>
         </li>
       
@@ -314,7 +314,7 @@
         
           
           主题nextnext是现在算是最火的主题吧。直接clone并在项目配置中改动theme条目来使用。12$ cd your-hexo-site$ git clone https://github.com/iissnan/hexo-theme-next themes/next
-改变壁纸参见这里改变 he
+改变壁纸参见这里改变 hemes\next\source\css\ _custom\custom.styl增加以下代码：123456789101112131415// Custom styles.body &#123;    background:url(https://source.unsplash.com/random/1920x1080);    background-repeat: no-repeat;    background-attachment:fixed;    background-position:50% 50%;&#125;.main-inner &#123;     margin-top: 60px;    padding: 60px 60px 60px 60px;    backgroun
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -445,7 +445,13 @@
 主要流程
 
 基础数学知识
-别理太多，反正转换矩阵总是在坐标或者向量
+别理太多，反正转换矩阵总是在坐标或者向量的前面，公式一直都是 $$ Coord_{dst} = M_{transform} * Coord_{ori} $$ 如果要连续做两个变换，那么慢做转换那个矩阵反而要在前面。
+
+摄像机以及物体变换第一个要素是物体本身的世界坐标。在第一个步骤会被转化到以摄像头为原点的坐标系中。由于在OpenGL中，摄像头的位置是固定在(0,0,0)，并且朝向被固定在-z方向的，所以如果想要像在游戏引擎里面那种移动摄像头的操作的话，只能反过来转换物体的坐标。
+
+移动和变换的叠加可以通过变换矩阵相乘来实现
+
+$$ \therefore  M_{mv} = M_v * M_m $$$M_v$在前面意味着先做世界坐标上物体的变换，再做相机的变换，这个很合理。如果反过来相机先变换，那么物体的变换就不是在世界坐标上了，会
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -905,10 +911,10 @@
 
   
   <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
 
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
