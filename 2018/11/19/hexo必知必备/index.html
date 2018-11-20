@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="左未的blog">
 <meta property="og:description" content="主题nextnext是现在算是最火的主题吧。直接clone并在项目配置中改动theme条目来使用。12$ cd your-hexo-site$ git clone https://github.com/iissnan/hexo-theme-next themes/next 插件LaTex插件一个显示公式的插件，公式的语法和插件的安装详见该网站。 输入技巧输入图片首先要在项目的config文件里边把">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-20T02:51:08.015Z">
+<meta property="og:updated_time" content="2018-11-20T03:07:19.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo必备插件">
 <meta name="twitter:description" content="主题nextnext是现在算是最火的主题吧。直接clone并在项目配置中改动theme条目来使用。12$ cd your-hexo-site$ git clone https://github.com/iissnan/hexo-theme-next themes/next 插件LaTex插件一个显示公式的插件，公式的语法和插件的安装详见该网站。 输入技巧输入图片首先要在项目的config文件里边把">
@@ -308,7 +308,8 @@
 <h3 id="接入评论系统"><a href="#接入评论系统" class="headerlink" title="接入评论系统"></a>接入评论系统</h3><p>听说gitalk最好，所以接入gitalk。<br>首先参考以下两篇文章：<br><a href="https://asdfv1929.github.io/2018/01/20/gitalk/" target="_blank" rel="noopener">文章一</a><br><a href="https://iochen.com/2018/01/06/use-gitalk-in-hexo/" target="_blank" rel="noopener">文章二</a></p>
 <p>这两篇文章分别有问题和矛盾的地方，建议先跟着第一篇做，然后根据文章二修改next主题中关于gitalk的<strong>配置</strong>。文章一中的gitalk配置是不全的，会造成gitalk.swig在构建<code>var gitalk = new Gitalk()</code>的过程中产生语法问题，导致无法正确渲染div内容。</p>
 <p>文章二中在index.swig中加入<code>.gt-container a{border-bottom: none;}</code>这个操作不需要，改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include &apos;gitalk.swig&apos; %&#125;</span><br></pre></td></tr></table></figure></p>
-<p>另外一个问题是评论上方可能会出现<code>Error: i.concat(...).join is not a function</code>字样的报错，修复方式参考<a href="https://github.com/gitalk/gitalk/issues/114" target="_blank" rel="noopener">这里</a>：修改gitalk.swig<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">labels: &apos;&#123;&#123; theme.gitalk.labels &#125;&#125;&apos;.split(&apos;,&apos;).filter(l =&gt; l),</span><br></pre></td></tr></table></figure></p>
+<h4 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h4><p>另外一个问题是评论上方可能会出现<code>Error: i.concat(...).join is not a function</code>字样的报错，修复方式参考<a href="https://github.com/gitalk/gitalk/issues/114" target="_blank" rel="noopener">这里</a>：修改gitalk.swig<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">labels: &apos;&#123;&#123; theme.gitalk.labels &#125;&#125;&apos;.split(&apos;,&apos;).filter(l =&gt; l),</span><br></pre></td></tr></table></figure></p>
+<p><strong>Error: Validation Failed</strong><br>详见<a href="https://liujunzhou.cn/2018/8/10/gitalk-error/" target="_blank" rel="noopener">这里</a>。</p>
 <h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>为了方便我们不太懂前端的同学理解，说起来就是：</p>
 <ol>
 <li>在网页的底端插入一个id为gitalk-container的div</li>
@@ -465,7 +466,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主题"><span class="nav-number">1.</span> <span class="nav-text">主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#next"><span class="nav-number">1.0.1.</span> <span class="nav-text">next</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#插件"><span class="nav-number">2.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LaTex插件"><span class="nav-number">2.0.1.</span> <span class="nav-text">LaTex插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入技巧"><span class="nav-number">3.</span> <span class="nav-text">输入技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入图片"><span class="nav-number">3.0.1.</span> <span class="nav-text">输入图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接入评论系统"><span class="nav-number">3.0.2.</span> <span class="nav-text">接入评论系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原理"><span class="nav-number">3.0.2.1.</span> <span class="nav-text">原理</span></a></li></ol></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主题"><span class="nav-number">1.</span> <span class="nav-text">主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#next"><span class="nav-number">1.0.1.</span> <span class="nav-text">next</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#插件"><span class="nav-number">2.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LaTex插件"><span class="nav-number">2.0.1.</span> <span class="nav-text">LaTex插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入技巧"><span class="nav-number">3.</span> <span class="nav-text">输入技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入图片"><span class="nav-number">3.0.1.</span> <span class="nav-text">输入图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接入评论系统"><span class="nav-number">3.0.2.</span> <span class="nav-text">接入评论系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可能出现的问题"><span class="nav-number">3.0.2.1.</span> <span class="nav-text">可能出现的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理"><span class="nav-number">3.0.2.2.</span> <span class="nav-text">原理</span></a></li></ol></li></ol></li></div>
             
 
           </div>
@@ -662,7 +663,7 @@
           repo: 'EXkulo.github.io',
           owner: 'EXKulo',
           admin: ['EXKulo'],
-          id: location.pathname,
+          id: md5(location.pathname),
           labels: 'gitalk'.split(',').filter(l => l),
           perPage: 15,
           pagerDirection: 'last',
@@ -708,7 +709,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -716,5 +717,5 @@
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>
