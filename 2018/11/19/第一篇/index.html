@@ -364,7 +364,7 @@
 
   
 
-
+  
 
         </div>
         
@@ -632,6 +632,21 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: '513124780@qq.com',
+          admin: ['513124780@qq.com'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
 
   
 
