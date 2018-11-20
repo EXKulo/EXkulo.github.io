@@ -395,8 +395,11 @@
           
 
   
+    <div id="gitalk-container"></div>
 
   
+
+
 
         </div>
         
@@ -664,19 +667,28 @@
 
 
 
+// 
+
 
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
    <script type="text/javascript">
         var gitalk = new Gitalk({
           clientID: '398701464d7260648966',
           clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
           repo: 'EXkulo.github.io',
-          owner: '513124780@qq.com',
-          admin: ['513124780@qq.com'],
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
           id: location.pathname,
-          distractionFreeMode: 'true'
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
         })
+
         gitalk.render('gitalk-container')           
        </script>
 
@@ -715,7 +727,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
@@ -723,5 +735,5 @@
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

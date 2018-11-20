@@ -309,6 +309,15 @@
 <p>然后当你生成一片新的文章的时候，就会在_post文件夹多生成同名的文件夹。然后就可以往里面放图片。<br>插入图片的时候，一般md语法是使用<br><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">图片描述</span>](<span class="link">图片相对地址，不加/</span>)</span><br></pre></td></tr></table></figure></p>
 <p>但是这个方法不能让图片在主页中显示。如果想要图片也在主页显示，需要用hexo插件语法（该语法在3.0以上已被集成）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img 图片路径 This is an image %&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这样子就可以在主页也显示出来图片了。</p>
+<h3 id="接入评论系统"><a href="#接入评论系统" class="headerlink" title="接入评论系统"></a>接入评论系统</h3><p>听说gitalk最好，所以接入gitalk。<br>首先参考以下两篇文章：<br><a href="https://asdfv1929.github.io/2018/01/20/gitalk/" target="_blank" rel="noopener">文章一</a><br><a href="https://iochen.com/2018/01/06/use-gitalk-in-hexo/" target="_blank" rel="noopener">文章二</a></p>
+<p>这两篇文章分别有问题和矛盾的地方，建议先跟着第一篇做，然后根据文章二修改next主题中关于gitalk的<strong>配置</strong>。文章一中的gitalk配置是不全的，会造成gitalk.swig在构建<code>var gitalk = new Gitalk()</code>的过程中产生语法问题，导致无法正确渲染div内容。</p>
+<p>文章二中在index.swig中加入<code>.gt-container a{border-bottom: none;}</code>这个操作不需要，改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include &apos;gitalk.swig&apos; %&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外一个问题是评论上方可能会出现<code>Error: i.concat(...).join is not a function</code>字样的报错，修复方式参考<a href="https://github.com/gitalk/gitalk/issues/114" target="_blank" rel="noopener">这里</a>：修改gitalk.swig<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">labels: &apos;&#123;&#123; theme.gitalk.labels &#125;&#125;&apos;.split(&apos;,&apos;).filter(l =&gt; l),</span><br></pre></td></tr></table></figure></p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>为了方便我们不太懂前端的同学理解，说起来就是：</p>
+<ol>
+<li>在网页的底端插入一个id为gitalk-container的div</li>
+<li>gitalk会根据参数来创建一个Gitalk对象，然后传入div的名称，渲染该div</li>
+</ol>
 
           
         
@@ -619,9 +628,6 @@
 
 
           
-    <div id="gitalk-container"></div>
-
-
 
         </div>
         
@@ -860,7 +866,7 @@
 
 
 
-
+// 
   
 
 
@@ -896,7 +902,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
@@ -904,5 +910,5 @@
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
