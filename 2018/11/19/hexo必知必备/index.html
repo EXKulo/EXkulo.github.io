@@ -87,7 +87,7 @@
 <meta property="og:description" content="主题nextnext是现在算是最火的主题吧。直接clone并在项目配置中改动theme条目来使用。12$ cd your-hexo-site$ git clone https://github.com/iissnan/hexo-theme-next themes/next 改变壁纸参见这里改变 hemes\next\source\css\ _custom\custom.styl增加以下代码：123">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2018/11/19/hexo必知必备/1.png">
-<meta property="og:updated_time" content="2018-11-21T02:47:13.896Z">
+<meta property="og:updated_time" content="2018-11-21T02:53:58.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo必备插件">
 <meta name="twitter:description" content="主题nextnext是现在算是最火的主题吧。直接clone并在项目配置中改动theme条目来使用。12$ cd your-hexo-site$ git clone https://github.com/iissnan/hexo-theme-next themes/next 改变壁纸参见这里改变 hemes\next\source\css\ _custom\custom.styl增加以下代码：123">
@@ -318,6 +318,7 @@
 <p>icon的图片是next直接从<a href="http://www.bootcss.com/p/font-awesome/#" target="_blank" rel="noopener">FontAwesome</a>读取的，直接配置名称就可以了。配置menu_icons项，key同上面即可。</p>
 <h3 id="更改顶端icon颜色"><a href="#更改顶端icon颜色" class="headerlink" title="更改顶端icon颜色"></a>更改顶端icon颜色</h3><p>默认的是灰色的#555，继承于全局a的css样式（a代表超链接），全局搜索之后发现名字叫做black-light，再搜索该名称发现被base.styl的link-color使用。由于这个英文就代表着链接，所以就应该是改这里了。</p>
 <p>改成black-deep颜色之后发现颜色正常，清晰。<br><img src="/2018/11/19/hexo必知必备/1.png" title="更改之后的样子"></p>
+<p>注意deploy之后可能会发现外观没有变化，那是以为css样式文件被缓存了，<strong>清除网页缓存</strong>就可以了。</p>
 <h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><h3 id="LaTex插件"><a href="#LaTex插件" class="headerlink" title="LaTex插件"></a>LaTex插件</h3><p>一个显示公式的插件，公式的语法和插件的安装详见<a href="http://stevenshi.me/2017/06/26/hexo-insert-formula/" target="_blank" rel="noopener">该网站</a>。</p>
 <h1 id="输入技巧"><a href="#输入技巧" class="headerlink" title="输入技巧"></a>输入技巧</h1><h3 id="输入图片"><a href="#输入图片" class="headerlink" title="输入图片"></a>输入图片</h3><p>首先要在项目的config文件里边把post_asset_folder改成true。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure></p>
 <p>然后当你生成一片新的文章的时候，就会在_post文件夹多生成同名的文件夹。然后就可以往里面放图片。<br>插入图片的时候，一般md语法是使用<br><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">图片描述</span>](<span class="link">图片相对地址，不加/</span>)</span><br></pre></td></tr></table></figure></p>
