@@ -252,6 +252,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/AST入门/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/15/AST入门/" itemprop="url">Python ast入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-15T15:24:16+08:00">
+                2019-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/15/AST入门/" class="leancloud_visitors" data-flag-title="Python ast入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          astast全称Abstract Synatx Tree，抽象语法树。常用于对代码的解析与更改，可以用来做ide的python lint功能，或者其他天马行空的功能。
+基础概念示例123456import astif __name__ == '__main__':    with open('E:/Research/python/ast_test/test.py', 'r') as code_file:        tree = ast.parse(code_file.read())        pass
+12345678910# test.pyglobalField1 = 'global'class Clazz:    field1 = 1    def Func1(self, arg1):        local1 = 'a'        list1 = [1, 2]        return local1
+在debug情况下可以看到tree如下：
+12345678910111213141516171819202122232425262728293031323334353
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/15/AST入门/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/VS Code新手必备个性化贴/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1701,176 +1864,6 @@ https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/" itemprop="url">OpenGL超级宝典笔记（零）数学基础与基础变换</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T12:58:14+08:00">
-                2018-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/" class="leancloud_visitors" data-flag-title="OpenGL超级宝典笔记（零）数学基础与基础变换">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          这部分与（一）的不同是这部分只注意使用价值，不搞矩阵怎么运算那些虚的，而且结合OpenGL来讲。
-声明：摘抄，翻译，感悟自http://www.songho.ca/opengl/gl_transform.html#modelview
-主要流程
-
-基础数学知识
-别理太多，反正转换矩阵总是在坐标或者向量的前面，公式一直都是 $$ Coord_{dst} = M_{transform} * Coord_{ori} $$ 如果要连续做两个变换，那么慢做转换那个矩阵反而要在前面。
-
-摄像机以及物体变换第一个要素是物体本身的世界坐标。在第一个步骤会被转化到以摄像头为原点的坐标系中。由于在OpenGL中，摄像头的位置是固定在(0,0,0)，并且朝向被固定在-z方向的，所以如果想要像在游戏引擎里面那种移动摄像头的操作的话，只能反过来转换物体的坐标。
-
-移动和变换的叠加可以通过变换矩阵相乘来实现
-
-$$ \therefore  M_{mv} = M_v * M_m $$$M_v$在前面意味着先做世界坐标上物体的变换，再做相机的变换，这个很合理。如果反过来相机先变换，那么物体的变换就不是在世界坐标上了，会
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1923,7 +1916,7 @@ $$ \therefore  M_{mv} = M_v * M_m $$$M_v$在前面意味着先做世界坐标上
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1934,7 +1927,7 @@ $$ \therefore  M_{mv} = M_v * M_m $$$M_v$在前面意味着先做世界坐标上
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
