@@ -1208,7 +1208,7 @@ pre .javascript .function {
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
-  color: #fff;
+  color: #622;
 }
 .menu .menu-item a:hover {
   border-bottom-color: #222;
@@ -1837,7 +1837,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2916a6;
+  background: #8c65d4;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2685,7 +2685,7 @@ embed {
   display: inline-block;
 }
 body {
-  background: url("/images/background.png");
+  background: url("/images/background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
