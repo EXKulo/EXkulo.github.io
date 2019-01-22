@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="左未的blog">
 <meta property="og:description" content="三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。 简介创建索引： 1db.data.ensureIndex(&amp;#123;&apos;field&apos;: 1&amp;#125;) 为啥要有索引捏 自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-17T07:47:46.662Z">
+<meta property="og:updated_time" content="2019-01-22T11:15:06.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【MongoDB权威指南】三">
 <meta name="twitter:description" content="三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。 简介创建索引： 1db.data.ensureIndex(&amp;#123;&apos;field&apos;: 1&amp;#125;) 为啥要有索引捏 自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个">
@@ -390,7 +390,35 @@
 <h3 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h3><p>索引可以是内嵌文档中的键，比如<code>{&#39;comment.date&#39;: 1}</code>。</p>
 <p>在建立索引的时候可以给它起个可爱又帅气的名称，如果执意不肯给它起名字，数据库就会把键连起来作为它的名称（比如<code>field1_field2_fieldk</code>），<strong>如果这个名字太长超过了限制，就会创建索引失败</strong>。执行创建索引的操作之后最好用getLastError来看是否成功创建了索引。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;, &#123;<span class="string">'name'</span>: <span class="string">'屎蛋'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h2><p>TODO</p>
+<h3 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h3><p><strong>使用哪个索引？</strong></p>
+<p>当有一个索引能精确匹配搜索的时候，查询优化器会有限用它。如果有几个同时匹配，MongoDB会并行这些查询，哪个先返回100个结果就会被保留并缓存下来再接下来的查询中使用，其他的查询计划会被中止。</p>
+<p>被缓存的查询计划在接下来都会被使用，直到集合数据发生了比较大的变化或者查询超过1000次之后，或者建立了新的索引之后，查询优化其会重新评估。</p>
+<p>explain中的allPlans字段显示了本次查询尝试过的所有查询计划。</p>
+<h3 id="不适用索引的场合"><a href="#不适用索引的场合" class="headerlink" title="不适用索引的场合"></a>不适用索引的场合</h3><p>使用索引需要进行两次查找：</p>
+<ol>
+<li>查找索引条目</li>
+<li>根据索引指针查找相应文档</li>
+</ol>
+<p>当结果集合在原集合中占的比例越大，就越不适合用索引。最极端的情况是要求返回整份文档，此时使用索引所需要的操作会比表扫描多一倍。</p>
+<p>索引通常适合在集合比较大、文档比较大或者选择性查询的时候使用。</p>
+<h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><p>建立这个索引的目的是防止插入相同的数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.users.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尝试这么插入文档会报错</span></span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>插入重复键的时候会抛异常，这会影响效率。所以不能用这个功能来过滤，它只能应对偶现的不太能解决的问题。</p>
+<p>_id是一个默认的、不可删除的唯一索引。</p>
+<blockquote>
+<p>注意<br>MongoDB有一个特性：超过1024字节的字段不会被加入到索引库中。这意味着即使某个键被设置为唯一索引，只要值超过了8KB，那么即使插入多次也没问题。</p>
+</blockquote>
+<h4 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h4><p>如果集合里面对某个键已经有重复的文档，那么对这个键创建唯一索引会失败。如果还是想创建的话，可以暴力一点把他们去重了。注意，这个操作<strong>很暴力</strong>，别乱用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.people.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'dropDups'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h3><p>说实话光看这个名词我真的不知道他想表达啥，这tm谁起的名字！</p>
+<p>起因是这样的：当把某个键设置为唯一索引之后，如果插入文档的时候没有这个键，那么对应的值会被设置成null。当下次再次插入这种文档的时候，就会出现<code>null == null</code>的判断，导致无法插入。</p>
+<p>如果想要MongoDB不把空当作null来看带，希望唯一索引支队包含对应键的文档生效，使得当字段存在的时候才需要唯一，那么就使用稀疏索引吧。</p>
+<p>使用sparse选项就可以创建稀疏索引。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.ensureIndex(&#123;<span class="string">'email'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'sparse'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>A sprase index doesn’t have to be unique.</p>
+<p>稀疏索引对查询的结果可能会有影响。影响就是不把不存在当作是null。如果不使用稀疏索引，当使用$ne不等于某个非null值的时候，会包括没这个字段的文档。</p>
+<h3 id="强制不使用索引"><a href="#强制不使用索引" class="headerlink" title="强制不使用索引"></a>强制不使用索引</h3><p>使用<code>hint()</code>来表示不使用任何索引。</p>
+<h2 id="索引管理"><a href="#索引管理" class="headerlink" title="索引管理"></a>索引管理</h2><p>所有的索引存储在MongoDB保留集合system.indexes中，可以执行<code>db.collectionName.getIndexes()</code>来查看集合上的所有索引信息。</p>
 
       
     </div>
@@ -551,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三-索引"><span class="nav-number">1.</span> <span class="nav-text">三 索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为啥要有索引捏"><span class="nav-number">1.1.1.</span> <span class="nav-text">为啥要有索引捏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合索引"><span class="nav-number">1.1.3.</span> <span class="nav-text">复合索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐式索引"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">隐式索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引的数据结构"><span class="nav-number">1.1.4.</span> <span class="nav-text">索引的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何优化索引"><span class="nav-number">1.1.5.</span> <span class="nav-text">如何优化索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作是怎么使用索引的"><span class="nav-number">1.1.6.</span> <span class="nav-text">$操作是怎么使用索引的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他特性"><span class="nav-number">1.1.7.</span> <span class="nav-text">其他特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#唯一索引"><span class="nav-number">1.2.</span> <span class="nav-text">唯一索引</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三-索引"><span class="nav-number">1.</span> <span class="nav-text">三 索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为啥要有索引捏"><span class="nav-number">1.1.1.</span> <span class="nav-text">为啥要有索引捏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合索引"><span class="nav-number">1.1.3.</span> <span class="nav-text">复合索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐式索引"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">隐式索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引的数据结构"><span class="nav-number">1.1.4.</span> <span class="nav-text">索引的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何优化索引"><span class="nav-number">1.1.5.</span> <span class="nav-text">如何优化索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作是怎么使用索引的"><span class="nav-number">1.1.6.</span> <span class="nav-text">$操作是怎么使用索引的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他特性"><span class="nav-number">1.1.7.</span> <span class="nav-text">其他特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询优化器"><span class="nav-number">1.1.8.</span> <span class="nav-text">查询优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不适用索引的场合"><span class="nav-number">1.1.9.</span> <span class="nav-text">不适用索引的场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引类型"><span class="nav-number">1.2.</span> <span class="nav-text">索引类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引"><span class="nav-number">1.2.1.</span> <span class="nav-text">唯一索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#去重"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">去重</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏索引"><span class="nav-number">1.2.2.</span> <span class="nav-text">稀疏索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制不使用索引"><span class="nav-number">1.2.3.</span> <span class="nav-text">强制不使用索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引管理"><span class="nav-number">1.3.</span> <span class="nav-text">索引管理</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -908,10 +936,10 @@
 
   
   <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>

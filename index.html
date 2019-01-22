@@ -356,24 +356,75 @@
       
         
           
-          三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。
-简介创建索引：
-1db.data.ensureIndex(&#123;'field': 1&#125;)
-为啥要有索引捏
-自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个：indexValue, _id。当进行查询的时候数据库可以用各种简单的方法快速定位到索引元素，找到它的_id。
+            <h1 id="三-索引"><a href="#三-索引" class="headerlink" title="三 索引"></a>三 索引</h1><p>前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>创建索引：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="为啥要有索引捏"><a href="#为啥要有索引捏" class="headerlink" title="为啥要有索引捏"></a>为啥要有索引捏</h3><blockquote>
+<p>自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个：indexValue, _id。当进行查询的时候数据库可以用各种简单的方法快速定位到索引元素，找到它的_id。</p>
+</blockquote>
+<p>同一个集合，同样的索引只能创建一次，重复尝试创建也没用。</p>
+<p>对某个键创建了索引，譬如对x键创建了索引，只会对查询条件里只有x的查询有用，若查询条件中包括了其他条件，比如{‘x’: xx, ‘y’: yy}，那么这索引在此次查询便是无用的。</p>
+<p>当做一个没有索引的查询的时候，数据需要做一次扫描全表的操作，在集合非常大的时候这个操作会非常耗时。建立索引带来的速度提升不言而喻，然而索引也不是越多越好。创建索引的缺点就是每次增删改的时候都会产生额外的开销，那是因为可能要更改索引列表中的排序。</p>
+<p>除了有益于快速查询之外，索引对大剂量排序也有好处。设想如果没有索引，那么对数据排序就需要先把数据都提取到内存中，再排序输出到客户端。当数据很多的时候，就有爆内存的风险了。但是如果有索引，数据库就可以按顺序提取数据。</p>
+<blockquote>
+<p>每个集合默认最多能有64个索引。</p>
+</blockquote>
+<p>另外，不一定使用索引查询就一定快过表扫描。当要返回的结果数量超过集合中文档数量的一半的时候，表扫描是要比索引查询快的。所以查询某个键是否存在，或者某个布尔值真假的时候，没有必要使用索引。</p>
+<h3 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h3><p>创建索引有可能需要数分钟，如果调用ensureIndex之后没有立即返回，可以在另一个shell中执行db.currentOp()来看当前进度。</p>
+<h3 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h3><p>可以指定多个索引，比如<code>{&#39;x&#39;: 1, &#39;y&#39;: -1}</code>。有三种情况可以使用这个索引。很好理解，毕竟索引是按照x和y一起来排序的。</p>
+<ul>
+<li><code>db.user.find({&#39;x&#39;: 2}).sort({&#39;y&#39;: -1})</code><br>找出x为2这个操作非常高效，而对于所有同为一个x的文档来说，y也是排好序的，所以不需要另外排序，不需要多余操作，也非常高效。</li>
+<li><code>db.user.find({&#39;x&#39;: {&#39;lte&#39;: 10, &#39;gte&#39;: 5}})</code></li>
+<li><code>db.user.find({&#39;x&#39;: {&#39;lte&#39;: 10, &#39;gte&#39;: 5}}).sort({&#39;y&#39;: 1})</code><br>这个操作分为两步。第一步先筛选出按照x大小排序的符合条件的文档。但是这些文档是按照x来排序的，并没有根据y的大小来排序，所以还需要第二步，先把文档提取到内存，再进行一次排序。<br>cautious： 如果索引是<code>{&#39;y&#39;: 1, &#39;x&#39;: -1}</code>的话，可以想象得出这个操作就只需要做find操作，而不需要后面的sort操作了。</li>
+</ul>
+<p>总的来说就是加入索引是一个复合索引，那么只对第一个键进行单纯的查询操作是很快的，但是如果查询完还要再根据<strong>这个键之外</strong>的键进行排序，那么就还需要花费时间来做排序操作。</p>
+<p>想要提高操作的效率，就要尽量避免sort（我的意思就是尽量把经常要sort的键拿来当索引中的第一个键），而多做find。毕竟find的时间复杂度是$n$，而排序的时间复杂度就不好说了。</p>
+<p>注意，相互反转的索引是等价的。相互反转的定义是每个方向都乘以-1.</p>
+<h4 id="隐式索引"><a href="#隐式索引" class="headerlink" title="隐式索引"></a>隐式索引</h4><p>很容易得出结论创建索引<code>{&#39;a&#39;: 1, &#39;b&#39;: 1, ... , &#39;z&#39;}</code>也就相当于创建了<code>{&#39;a&#39;: 1}</code>、<code>{&#39;a&#39;: 1, &#39;b&#39;: 1}</code>等一系列索引。</p>
+<h3 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h3><p>索引的数据结构大概是树，最小的元素是最左边的叶子，最大的元素是最右边的叶子。</p>
+<h3 id="如何优化索引"><a href="#如何优化索引" class="headerlink" title="如何优化索引"></a>如何优化索引</h3><p>如果索引里面只包含一个键，那么升序降序是无所谓的。但是如果包含多个键，就要考虑每个键的升序降序问题。数据库会有限对先点定义的键进行排序。如</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>数据库会先根据field1进行升序排序，然后对每个field1相同的子集根据field2进行降序排序。</p>
+<p>针对那种包含几个键的索引，尽可能地把经常新增地作为第一个排序依据。</p>
+<p>例如一个记录朋友圈的数据库有<code>user</code>、<code>date</code>二键，前者为用户id，后者为朋友圈发布日期。由于发布朋友圈这个操作非常频繁，所以理应把索引设置成<code>{&#39;date&#39;: -1, &#39;user&#39;: 1}</code>而非<code>{&#39;user&#39;: 1, &#39;date&#39;: -1}</code>。当设置成<code>{&#39;date&#39;: -1, &#39;user&#39;: 1}</code>之后，每次插入新的记录（<strong>时间永远都是往前走</strong>），就无需在索引中间插入数据(which is a waste)，而是在索引的两端插入了。</p>
+<p>假设操作先要find出x，再用y做范围筛选，那么索引应该先设定x，再设定y。</p>
+<h3 id="操作是怎么使用索引的"><a href="#操作是怎么使用索引的" class="headerlink" title="$操作是怎么使用索引的"></a>$操作是怎么使用索引的</h3><p>有几个操作是根本不能使用索引的，比如<code>$where</code>和<code>$exsit</code>。</p>
+<p><code>$ne</code>操作对索引的使用也不是那么高效率。毕竟想要找出<strong>不等于</strong>的，总得遍历全集才能确认不是？</p>
+<p>一般而言，MongoDB一次查询只会使用一个索引。假设建立了两个索引<code>{&#39;x&#39;: 1}</code>和<code>{&#39;y&#39;: 1}</code>，那么执行查询条件<code>{&#39;x&#39;: 123, &#39;y&#39;: 456}</code>的时候，很有可能是先用x索引找出一个子集，再在这个子集上找符合y条件的结果。但是如果用的是or查询，由于or查询实际上是把多个查询条件查出来的结果做一次并集，所以or会执行和查询条件一样多次的查询。比如如果条件为<code>{&#39;$or&#39;: [&#39;x&#39;: 123, &#39;y&#39;: 456]}</code>，那么实际上是以x为索引搜出结果，再以y为索引搜出结果，再合并。</p>
+<h3 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h3><p>索引可以是内嵌文档中的键，比如<code>{&#39;comment.date&#39;: 1}</code>。</p>
+<p>在建立索引的时候可以给它起个可爱又帅气的名称，如果执意不肯给它起名字，数据库就会把键连起来作为它的名称（比如<code>field1_field2_fieldk</code>），<strong>如果这个名字太长超过了限制，就会创建索引失败</strong>。执行创建索引的操作之后最好用getLastError来看是否成功创建了索引。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;, &#123;<span class="string">'name'</span>: <span class="string">'屎蛋'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h3><p><strong>使用哪个索引？</strong></p>
+<p>当有一个索引能精确匹配搜索的时候，查询优化器会有限用它。如果有几个同时匹配，MongoDB会并行这些查询，哪个先返回100个结果就会被保留并缓存下来再接下来的查询中使用，其他的查询计划会被中止。</p>
+<p>被缓存的查询计划在接下来都会被使用，直到集合数据发生了比较大的变化或者查询超过1000次之后，或者建立了新的索引之后，查询优化其会重新评估。</p>
+<p>explain中的allPlans字段显示了本次查询尝试过的所有查询计划。</p>
+<h3 id="不适用索引的场合"><a href="#不适用索引的场合" class="headerlink" title="不适用索引的场合"></a>不适用索引的场合</h3><p>使用索引需要进行两次查找：</p>
+<ol>
+<li>查找索引条目</li>
+<li>根据索引指针查找相应文档</li>
+</ol>
+<p>当结果集合在原集合中占的比例越大，就越不适合用索引。最极端的情况是要求返回整份文档，此时使用索引所需要的操作会比表扫描多一倍。</p>
+<p>索引通常适合在集合比较大、文档比较大或者选择性查询的时候使用。</p>
+<h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><p>建立这个索引的目的是防止插入相同的数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.users.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尝试这么插入文档会报错</span></span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>插入重复键的时候会抛异常，这会影响效率。所以不能用这个功能来过滤，它只能应对偶现的不太能解决的问题。</p>
+<p>_id是一个默认的、不可删除的唯一索引。</p>
+<blockquote>
+<p>注意<br>MongoDB有一个特性：超过1024字节的字段不会被加入到索引库中。这意味着即使某个键被设置为唯一索引，只要值超过了8KB，那么即使插入多次也没问题。</p>
+</blockquote>
+<h4 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h4><p>如果集合里面对某个键已经有重复的文档，那么对这个键创建唯一索引会失败。如果还是想创建的话，可以暴力一点把他们去重了。注意，这个操作<strong>很暴力</strong>，别乱用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.people.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'dropDups'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h3><p>说实话光看这个名词我真的不知道他想表达啥，这tm谁起的名字！</p>
+<p>起因是这样的：当把某个键设置为唯一索引之后，如果插入文档的时候没有这个键，那么对应的值会被设置成null。当下次再次插入这种文档的时候，就会出现<code>null == null</code>的判断，导致无法插入。</p>
+<p>如果想要MongoDB不把空当作null来看带，希望唯一索引支队包含对应键的文档生效，使得当字段存在的时候才需要唯一，那么就使用稀疏索引吧。</p>
+<p>使用sparse选项就可以创建稀疏索引。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.ensureIndex(&#123;<span class="string">'email'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'sparse'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>A sprase index doesn’t have to be unique.</p>
+<p>稀疏索引对查询的结果可能会有影响。影响就是不把不存在当作是null。如果不使用稀疏索引，当使用$ne不等于某个非null值的时候，会包括没这个字段的文档。</p>
+<h3 id="强制不使用索引"><a href="#强制不使用索引" class="headerlink" title="强制不使用索引"></a>强制不使用索引</h3><p>使用<code>hint()</code>来表示不使用任何索引。</p>
+<h2 id="索引管理"><a href="#索引管理" class="headerlink" title="索引管理"></a>索引管理</h2><p>所有的索引存储在MongoDB保留集合system.indexes中，可以执行<code>db.collectionName.getIndexes()</code>来查看集合上的所有索引信息。</p>
 
-同一个集合，同样的索引只能创建一次，重复尝试创建也没用。
-对某个键创建了索引，譬如对x键创建了索引，只会对查询条件里只有x的查询有用，若查询条件中包括了其他条件，比如{‘x’: xx, ‘y’: yy}，那么这索引在此次查询便是无用的。
-当做一个没有索引的查询的时候，数据需要做一次扫描全表的操作，在集合非常大的时候这个操作会非常耗时。建立索引带来的速度提升不言而喻，然而索引也不是越多越好。创建索引的缺点就是每次增删改的时候都会产生额外的开销，那是因为可能要更改索引列表中的排序。
-
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/16/【MongoDB权威指南】三/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -524,35 +575,98 @@
       
         
           
-          二 查询这里是本系列第二篇，对应书中第三章，主要讲各种find的技巧。
-find返回指定的键为了节省流量和客户端解读开销等等，只返回指定的键。把需要的键放在第二位参数就好了。
-把要的键的值设置为1则返回，设置为0则不返回。
-查询条件大小比较包括
+            <h1 id="二-查询"><a href="#二-查询" class="headerlink" title="二 查询"></a>二 查询</h1><p>这里是本系列第二篇，对应书中第三章，主要讲各种find的技巧。</p>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><h3 id="返回指定的键"><a href="#返回指定的键" class="headerlink" title="返回指定的键"></a>返回指定的键</h3><p>为了节省流量和客户端解读开销等等，只返回指定的键。把需要的键放在第二位参数就好了。</p>
+<p>把要的键的值设置为1则返回，设置为0则不返回。</p>
+<h3 id="查询条件"><a href="#查询条件" class="headerlink" title="查询条件"></a>查询条件</h3><p>大小比较包括</p>
+<ul>
+<li>$lt 小于</li>
+<li>$lte 小于等于</li>
+<li>$gt</li>
+<li>$gte</li>
+<li>$ne</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'age'</span>: &#123;<span class="string">'$lt'</span>: <span class="number">24</span>, <span class="string">'$gt'</span>: <span class="number">18</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="or查询"><a href="#or查询" class="headerlink" title="or查询"></a>or查询</h3><p>$in</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'number'</span>: &#123;<span class="string">'$in'</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>$nin代表不在这里头。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'number'</span>: &#123;<span class="string">'$nin'</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>$or</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'$or'</span>: [&#123;<span class="string">'name'</span>: <span class="string">'aa'</span>&#125;, &#123;<span class="string">'age'</span>: <span class="number">18</span>&#125;])</span><br></pre></td></tr></table></figure>
+<p>$not</p>
+<h3 id="null"><a href="#null" class="headerlink" title="null"></a>null</h3><p>会匹配值是null的，以及没有此键的。</p>
+<p>若只要匹配值是null的，需要这么写</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'z'</span>: &#123;<span class="string">'$in'</span>: [<span class="literal">null</span>], <span class="string">'$exsits'</span>: <span class="literal">true</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>即是存在该字段并且为null。</p>
+<h3 id="使用正则表达式搜索"><a href="#使用正则表达式搜索" class="headerlink" title="使用正则表达式搜索"></a>使用正则表达式搜索</h3><p>使用/符号包裹正则表达式，不用加引号了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'name'</span>: <span class="regexp">/abo/</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="查询数组"><a href="#查询数组" class="headerlink" title="查询数组"></a>查询数组</h3><p>如果键是数组名，则只要值是数组中任意一个元素，都可以查询出数组来。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.data.insert(&#123;<span class="string">'array'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;)</span><br><span class="line">db.find(&#123;<span class="string">'array'</span>: <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="all"><a href="#all" class="headerlink" title="$all"></a>$all</h4><p>需要拥有所有元素，顺序无关紧要。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'array'</span>: &#123;<span class="string">'$all'</span>: [<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="size"><a href="#size" class="headerlink" title="$size"></a>$size</h4><p>顾名思义查询数组长度。但是不节省性能。<br>建议自己维护一个size字段，每次插入的时候顺便用<code>{&#39;$inc&#39;: {&#39;size&#39;: 1}}</code>来更新它。</p>
+<h4 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h4><p>获取返回数列的一部分，用法有二：</p>
+<ul>
+<li><code>{&#39;$slice&#39;: [min, max]}</code> 返回查询后数组中的min到max间的结果</li>
+<li><code>{&#39;$slice&#39;: index}</code> 返回索引为index的元素，当index为-1时返回最后一个</li>
+</ul>
+<h3 id="嵌入查询"><a href="#嵌入查询" class="headerlink" title="嵌入查询"></a>嵌入查询</h3><p>假设数据如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">'name'</span>:&#123;</span><br><span class="line">        <span class="string">'first'</span>: <span class="string">'ABo'</span>,</span><br><span class="line">        <span class="string">'last'</span>: <span class="string">'Lin'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'age'</span>: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="第一种查询条件"><a href="#第一种查询条件" class="headerlink" title="第一种查询条件"></a>第一种查询条件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'name'</span>: &#123;<span class="string">'firtst'</span>: <span class="string">'ABO'</span>, <span class="string">'last'</span>: <span class="string">'Lin'</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法的缺点是必须精确匹配，如果name中又加入一个middle，那么就搜索不出来了。为了可以模糊搜索，我们用嵌入查询。</p>
+<h4 id="第二种查询条件"><a href="#第二种查询条件" class="headerlink" title="第二种查询条件"></a>第二种查询条件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'name'</span>: &#123;<span class="string">'elemMatch'</span>: &#123;<span class="string">'firtst'</span>: <span class="string">'ABO'</span>, <span class="string">'last'</span>: <span class="string">'Lin'</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>这种查法是部分匹配即可。</p>
+<h3 id="where查询"><a href="#where查询" class="headerlink" title="where查询"></a>where查询</h3><p>直接使用一个js函数来查询。函数的第一个参数this为where过滤前的结果集合。</p>
+<p>假设需要返回集合里有重复值的集合，可以这么写</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'$where'</span>, function()&#123;</span><br><span class="line">    <span class="keyword">for</span>(var current <span class="keyword">in</span> this)&#123;</span><br><span class="line">        <span class="keyword">for</span>(var other <span class="keyword">in</span> this)&#123;</span><br><span class="line">            <span class="keyword">if</span> current != other <span class="keyword">and</span> this[current] == this[other]&#123;</span><br><span class="line">                <span class="keyword">return</span> true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> false</span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>不仅可以传入一个function对象，传入字符串也是可以的。比如</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'$where'</span>: <span class="string">'this.x + this.y == 10'</span>&#125;) <span class="comment">// 直接写判断语句</span></span><br><span class="line">db.data.find(&#123;<span class="string">'where'</span>: <span class="string">'function() &#123;return this.x + this.y == 10&#125;'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h3><p>如果用一个变量来接住find返回的结果，那这个变量就变成了游标cursor。cursor的用法无非就那样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(cursor.hasNext())&#123;</span><br><span class="line">    obj = cursor.next()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，当产生cursor的时候，并没有马上查询数据库。真正执行查询操作的时候在cursor.hasNext()之时。这样就使得我们可以对cursor执行复杂的链式操作了。譬如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cursor = db.data.find().sort(&#123;<span class="string">'x'</span>: <span class="number">1</span>&#125;).limit(<span class="number">1</span>).skip(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>当执行第一次hasNext的时候，立即尝试从服务器获取前100个结果，或者4MB的数据中的较小者。当第一批数据被用完了之后，再次hasNext又会取回新的一批数据，如此往复直至游标耗尽。</p>
+<h3 id="后续操作"><a href="#后续操作" class="headerlink" title="后续操作"></a>后续操作</h3><ul>
+<li><strong>limit</strong> 限制返回的结果个数</li>
+<li><strong>skip</strong> 跳过前几个结果</li>
+<li><strong>sort</strong> 排序，1是正序，-1是倒序</li>
+</ul>
+<h4 id="利用skip做分页"><a href="#利用skip做分页" class="headerlink" title="利用skip做分页"></a>利用skip做分页</h4><p>最简单的方法如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> page1 = db.data.find(condition).limit(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">var</span> page2 = db.data.find(condition).skip(<span class="number">100</span>).limit(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">var</span> page3 = db.data.find(condition).skip(<span class="number">200</span>).limit(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+<p>但是其实大剂量的skip是非常慢的，所以需要避免。</p>
+<p>可以用一个trick来避免分页。</p>
+<ol>
+<li>对整个文档做一次降序排序</li>
+<li>取前n个作为第一页，然后取其中最小者作为the_last</li>
+<li>再次find，这次条件为要比the_last更小</li>
+<li>再对3产生的cursor做一次降序排序，并limit设置n作为第二页</li>
+</ol>
+<blockquote>
+<p><strong>有个疑问</strong><br>对所有文档做排序就不耗性能了么？<br>不过想了想由于cursor是分批次取数据的，所以这个排序相当于经典的「求最大的k个数」题目了。<br>顺便看<a href="https://blog.csdn.net/xiaoding133/article/details/8037086" target="_blank" rel="noopener">这个网页</a>复习了下。可以利用堆排序找出最大k个数。</p>
+</blockquote>
+<h4 id="随机选取文档"><a href="#随机选取文档" class="headerlink" title="随机选取文档"></a>随机选取文档</h4><p>当然最常见的方法就是弄个随机数来skip(nRandom)然后limit(1)。但是计算总文档数目和skip这两个操作就是比较耗时的。</p>
+<p>比较投机取巧的方法是每次插入文档的时候都带一个随机数。当需要随机的时候只要产生一个随机数，并作为条件去筛选文档即可。（卧槽这都可以？）偶尔会遇到往一个方向（比如大于我random出来的随机数）找不到，那就反个方向。</p>
+<h3 id="链式查询转换"><a href="#链式查询转换" class="headerlink" title="链式查询转换"></a>链式查询转换</h3><p>实际上，执行<code>db.data.find(condition).sort(sortDict)</code>的时候，是把条件转化成了<code>db.data.find({&#39;$query&#39;: condition, &#39;$orderby&#39;: sortDict})</code>。除了常用的<code>$query</code>、<code>$orderby</code>以外，还有一些有用的高级选项比如：</p>
+<ul>
+<li>$maxscan 查询最多扫描的文档数量</li>
+<li>$min 查询开始条件</li>
+<li>$max</li>
+<li>$hint 使用哪个索引进行查询</li>
+<li>$explain 不是真正的做查询，只是为了获得耗时、结果数量等信息</li>
+<li>$snapshot 确保查询的是执行查询那一刻的时候的快照</li>
+</ul>
+<h4 id="保证结果一致性"><a href="#保证结果一致性" class="headerlink" title="保证结果一致性"></a>保证结果一致性</h4><p>假设我们需要对每个文档进行修改，并且是新增加内容。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cursor = db.data.find(condition)</span><br><span class="line"><span class="keyword">while</span>(cursor.hasNext())&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="built_in">document</span> = cursor.next()</span><br><span class="line">    modify(<span class="built_in">document</span>)</span><br><span class="line">    db.data.save(<span class="built_in">document</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于数据库对每个文档预留的大小有限，当文档变大之后，可能它就无法再塞入到原本那个位置了，数据库会把它放到最后边去。这样造成的结果是，cursor遍历到的有可能是已经前面modify过的文档。</p>
+<p>$snapshot就解决了这个问题。它在开始查询那一瞬间就保留了文档快照，这使得后面文档的位置不管怎么挪，都不再会影响查询结果。</p>
+<h3 id="游标的存在时间"><a href="#游标的存在时间" class="headerlink" title="游标的存在时间"></a>游标的存在时间</h3><p>游标在几种情况下会销毁并释放资源</p>
+<ul>
+<li>遍历完成之后</li>
+<li>游标超出客户端作用域，驱动向服务器发送专门的消息（估计这得要求语言有像c++一样超出作用域之后执行析构函数的特性）</li>
+<li>10分钟不使用之后，当然这一机制也可以通过配置来关闭</li>
+</ul>
 
-$lt 小于
-$lte 小于等于
-$gt
-$gte
-$ne
-
-1db.data.find(&#123;'age': &#123;'$lt': 24, '$gt': 18&#125;&#125;)
-or查询$in
-1db.data.find(&#123;'number': &#123;'$in': [10, 20, 30]&#125;&#125;)
-$nin代表不在这里头。
-1db.data.find(&#123;'number': &#123;'$nin': [10, 20, 30]&#125;&#125;)
-$or
-1db.data.find(&#123;'$or': [&#123;'name': 'aa'&#125;, &#123;'age': 18&#125;])
-$not
-null会匹配值是null的，以及没有此键的。
-若只要匹配值是
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/【MongoDB权威指南】二/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -703,34 +817,70 @@ null会匹配值是null的，以及没有此键的。
       
         
           
-          一 基本这里是阅读《MongoDB权威指南》一书所做的读书笔记。这将是一个系列，划分标准大概是章节。放到博客上面来，自我监督把书啃完，消化完转化成自己的文字出来。
-此为本系列第一篇，主要讲最普通的增删改查以及如何获取命令帮助。
-MongoDB是一个nosql，意味着它不用定义一个表的列有哪些，而是可以把它当作一个序列化json的工具来使用。MongoDB对脚本语言特别友好，python的dict或者lua的table都可以直接作为一个object放进去。
-基本概念在MongoDB这里：
+            <h1 id="一-基本"><a href="#一-基本" class="headerlink" title="一 基本"></a>一 基本</h1><p>这里是阅读《MongoDB权威指南》一书所做的读书笔记。这将是一个系列，划分标准大概是章节。放到博客上面来，自我监督把书啃完，消化完转化成自己的文字出来。</p>
+<p>此为本系列第一篇，主要讲最普通的增删改查以及如何获取命令帮助。</p>
+<p>MongoDB是一个nosql，意味着它不用定义一个表的列有哪些，而是可以把它当作一个序列化json的工具来使用。MongoDB对脚本语言特别友好，python的dict或者lua的table都可以直接作为一个object放进去。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>在MongoDB这里：</p>
+<ul>
+<li><strong>集合</strong>等同于表</li>
+<li><strong>文档</strong>等同于行</li>
+</ul>
+<p>mongo命令执行完之后，其实是进入一个javascript shell，里面可以运行任何js指令，而且加入了mongodb自定义的语法糖（如show）。</p>
+<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><p>以下假设集合名称(collection name)为cn，数据为data。</p>
+<ul>
+<li><strong>使用数据库</strong> use dbname</li>
+<li><strong>插入操作</strong> db.cn.insert(data)</li>
+<li><strong>寻找</strong><ul>
+<li>db.cn.find()</li>
+<li>db.cn.findOne()</li>
+<li>db.cn.find(condition) condition为条件</li>
+</ul>
+</li>
+<li><strong>更新</strong> db.update(condition, newData)<br>newdata指把整个文档换掉。如果只是想更新部分文档，应该这么写<code>&#39;$set&#39;: deltaData</code>。</li>
+<li><strong>删除</strong> db.remove(condition)</li>
+</ul>
+<p>此外，<code>help</code>指令可以显示出所有的帮助，其中有几个值得萌新关注：</p>
+<ul>
+<li><strong>show dbs</strong> 显示所有的数据库</li>
+<li><strong>db.help()</strong> 显示所有数据库相关的函数</li>
+<li><strong>db.mycoll.help()</strong> 显示所有集合相关的函数</li>
+</ul>
+<p>如果不调用函数，只输入函数名，会在控制台打印该函数的源码。譬如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.cn.update</span><br></pre></td></tr></table></figure>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>除了一整个儿更新以外，还可以使用部分更新，这个时候使用特殊的键来做调整。</p>
+<blockquote>
+<p>php程序员就蛋疼了，他们的变量用$开头的。。</p>
+</blockquote>
+<ul>
+<li><p>$inc 自增某个参数，譬如</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(condition, &#123;<span class="string">'$inc'</span>: &#123;<span class="string">'key'</span>: nIncrement&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果inc的变量并不存在，会先初始化为0。</p>
+</li>
+<li>$set 增量更新</li>
+<li>$unset 增量删除，删除某个字段</li>
+<li>$ne 不等于</li>
+<li><p>$push 推入数组</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(condition, &#123;<span class="string">'$push'</span>: &#123;<span class="string">'array_name'</span>: newRowData&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>$addToSet 把数组作为集合看待，不会插入一样的数据</p>
+</li>
+<li><p>$pop 数组当作堆栈或者队列看来删除元素</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.date.update(condition, &#123;<span class="string">'$pop'</span>: &#123;<span class="string">'array_name'</span>, <span class="number">-1</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>$pull 删掉数组中所有匹配的部分</p>
+</li>
+<li>$ 查询数组并更新  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(&#123;<span class="string">'array.field1'</span>: condition&#125;, &#123;<span class="string">'$set'</span>: &#123;array.$.field1: deltaData&#125;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="upsert"><a href="#upsert" class="headerlink" title="upsert"></a>upsert</h3><p>如果找得到就更新，如果找不到就插入。避免在代码层进行判空。原子性操作，避免<strong>竞态问题</strong>。</p>
+<h3 id="save"><a href="#save" class="headerlink" title="save"></a>save</h3><p>对文档进行操作，要求参数里面含有_id域，如果不存在则会创建新的文档。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span> = db.data.find(condition)</span><br><span class="line"><span class="built_in">document</span>.x = <span class="string">'x'</span></span><br><span class="line">db.data.save(<span class="built_in">document</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="更新多个文档"><a href="#更新多个文档" class="headerlink" title="更新多个文档"></a>更新多个文档</h3><p>一般而言更新只针对符合condition的第一个文档，如果想要更新所有符合条件的文档，那么把第四个参数设置为True。</p>
+<h3 id="修改器的速度"><a href="#修改器的速度" class="headerlink" title="修改器的速度"></a>修改器的速度</h3><p>\$inc当然最快，不用新增啥。\$set在不增加键的情况下也是极快的，但是对数组的操作有可能会比较耗性能。</p>
+<p>以上操作都是瞬间完成的，不会卡住客户端，客户端发出命令后可以继续工作。当然也有同步版本，会执行完之后返回结果码。</p>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>对一个连接里面的命令使用队列来决定执行先后。但是python等语言有连接池的概念，可能会把命令派发到各个连接去，导致执行顺序错乱。</p>
 
-集合等同于表
-文档等同于行
-
-mongo命令执行完之后，其实是进入一个javascript shell，里面可以运行任何js指令，而且加入了mongodb自定义的语法糖（如show）。
-基础操作以下假设集合名称(collection name)为cn，数据为data。
-
-使用数据库 use dbname
-插入操作 db.cn.insert(data)
-寻找
-db.cn.find()
-db.cn.findOne()
-db.cn.find(condition) condition为条件
-
-
-更新 db.u
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/【MongoDB权威指南】一/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -881,19 +1031,44 @@ db.cn.find(condition) condition为条件
       
         
           
-          astast全称Abstract Synatx Tree，抽象语法树。常用于对代码的解析与更改，可以用来做ide的python lint功能，或者其他天马行空的功能。
-基础概念示例123456import astif __name__ == '__main__':    with open('E:/Research/python/ast_test/test.py', 'r') as code_file:        tree = ast.parse(code_file.read())        pass
-12345678910# test.pyglobalField1 = 'global'class Clazz:    field1 = 1    def Func1(self, arg1):        local1 = 'a'        list1 = [1, 2]        return local1
-在debug情况下可以看到tree如下：
-12345678910111213141516171819202122232425262728293031323334353
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/15/AST入门/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h1 id="ast"><a href="#ast" class="headerlink" title="ast"></a>ast</h1><p>ast全称Abstract Synatx Tree，抽象语法树。常用于对代码的解析与更改，可以用来做ide的python lint功能，或者其他天马行空的功能。</p>
+<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ast</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'E:/Research/python/ast_test/test.py'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> code_file:</span><br><span class="line">        tree = ast.parse(code_file.read())</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line">globalField1 = <span class="string">'global'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clazz</span>:</span></span><br><span class="line">    field1 = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Func1</span><span class="params">(self, arg1)</span>:</span></span><br><span class="line">        local1 = <span class="string">'a'</span></span><br><span class="line">        list1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">        <span class="keyword">return</span> local1</span><br></pre></td></tr></table></figure>
+<p>在debug情况下可以看到tree如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    tree: &#123;</span><br><span class="line">        _attributes: <span class="number">0</span>,</span><br><span class="line">        _fields: &#123;</span><br><span class="line">            <span class="number">0</span>: <span class="string">'body'</span>,</span><br><span class="line">            __len__: <span class="number">1</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        body: [</span><br><span class="line">            &#123; <span class="comment">// _ast.Assign object 赋值对象</span></span><br><span class="line">                _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                _fields: (<span class="string">'targets'</span>, <span class="string">'value'</span>), <span class="comment">// 定义一个属性，有两个部分，左值和右值</span></span><br><span class="line">                col_offset: <span class="number">0</span>,</span><br><span class="line">                lineno: <span class="number">0</span>,</span><br><span class="line">                targets: [ <span class="comment">// 这部分代表左侧的globalFields变量</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                        _fields: (<span class="string">'targets'</span>, <span class="string">'value'</span>),</span><br><span class="line">                        col_offset: <span class="number">0</span>,</span><br><span class="line">                        id: <span class="string">'globalField1'</span></span><br><span class="line">                        lineno: <span class="number">1</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    __len__: <span class="number">1</span></span><br><span class="line">                ],</span><br><span class="line">                value: &#123; <span class="comment">// _ast.Str object</span></span><br><span class="line">                    _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                    _fields: (<span class="string">'s'</span>,),</span><br><span class="line">                    col_offset: <span class="number">15</span>,</span><br><span class="line">                    lineno: <span class="number">1</span>,</span><br><span class="line">                    s: <span class="string">'global'</span>,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123; <span class="comment">// _ast.ClassDef object</span></span><br><span class="line">                _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                _fields: (<span class="string">'name'</span>, <span class="string">'bases'</span>, <span class="string">'body'</span>, <span class="string">'decorator_list'</span>),</span><br><span class="line">                bases: [], <span class="comment">// 没有基类</span></span><br><span class="line">                col_offset: <span class="number">0</span>,</span><br><span class="line">                lineno: <span class="number">3</span>,</span><br><span class="line">                decorator_list: [],</span><br><span class="line">                name: <span class="string">'Clazz'</span>,</span><br><span class="line">                body: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// Assign object</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    &#123;</span><br><span class="line">                        _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                        _fields: (<span class="string">'name'</span>, <span class="string">'args'</span>, <span class="string">'body'</span>, <span class="string">'decorator_list'</span>),</span><br><span class="line">                        args:&#123; <span class="comment">// arguments object</span></span><br><span class="line">                            _fields: (<span class="string">'args'</span>, <span class="string">'vararg'</span>, <span class="string">'kwarg'</span>, <span class="string">'defaults'</span>),</span><br><span class="line">                            args:[</span><br><span class="line">                                &#123;&#125;, <span class="comment">// self</span></span><br><span class="line">                                &#123;</span><br><span class="line">                                    <span class="comment">// args变量</span></span><br><span class="line">                                    <span class="comment">// 忽略attribute</span></span><br><span class="line">                                    _fields: (<span class="string">'id'</span>, <span class="string">'ctx'</span>),</span><br><span class="line">                                    id: <span class="string">'args1'</span>,</span><br><span class="line">                                    ctx: &#123; <span class="comment">//Param object</span></span><br><span class="line">                                        _attributes: (),</span><br><span class="line">                                        _fields: ()</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;,</span><br><span class="line">                            ]，</span><br><span class="line">                            defaults: [</span><br><span class="line">                                &#123; <span class="comment">// Str object</span></span><br><span class="line">                                    s: <span class="string">'default'</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            ]</span><br><span class="line">                        &#125;,</span><br><span class="line">                        body: &#123;</span><br><span class="line">                            <span class="comment">// 忽略两个Assign</span></span><br><span class="line">                            &#123;&#125;,</span><br><span class="line">                            &#123;&#125;,</span><br><span class="line">                            &#123; <span class="comment">// Return object</span></span><br><span class="line">                                _fields: (<span class="string">'value'</span>)</span><br><span class="line">                                value: &#123; <span class="comment">// Name object</span></span><br><span class="line">                                    _fields: (<span class="string">'id'</span>, <span class="string">'ctx'</span>)</span><br><span class="line">                                    id: <span class="string">'local1'</span>,</span><br><span class="line">                                    ctx: &#123;&#125; <span class="comment">// Load object</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                ],</span><br><span class="line">            &#125;</span><br><span class="line">            __len__ = <span class="number">2</span></span><br><span class="line">        ],</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到每个object都有的几个属性：</p>
+<ul>
+<li><strong>_attributes</strong> 属性 一般就两个，一个lineno代表在哪一行，一个col_offset表示在第几列</li>
+<li><strong>_field</strong> 域 类型tuple，这个根据不同类型有不同的field。比如对于一个字符串来说，他有特殊的域s，代表着字符串内容。对于一个类来说，有name名字、bases基类、body正文、decorator_list装饰器几个域。</li>
+</ul>
+<h3 id="Str"><a href="#Str" class="headerlink" title="Str"></a>Str</h3><p>字符串对象只有一个域s，代表字符串内容</p>
+<h3 id="Num"><a href="#Num" class="headerlink" title="Num"></a>Num</h3><p>一个域n，代表数字。</p>
+<h3 id="赋值对象"><a href="#赋值对象" class="headerlink" title="赋值对象"></a>赋值对象</h3><p>赋值对象有两个域值得关注，一个是左值targets（为什么是复数呢，因为左值可以是多个），右值value。</p>
+<p>target其实是一个Name对象，有一个id代表名字，一个ctx不知为何。</p>
+<p>value的类型不定，为右值的类型。譬如当为数字的时候，为_ast.Num类型；为字符串的时候，为_ast.Str类型。</p>
+<h3 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Func1</span><span class="params">(self, arg1=<span class="string">'default'</span>)</span>:</span></span><br><span class="line">    local1 = <span class="string">'a'</span></span><br><span class="line">    list1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">    <span class="keyword">return</span> local1</span><br></pre></td></tr></table></figure>
+<p>几个值得注意的域：</p>
+<ul>
+<li>name 函数名</li>
+<li>args 参数 类型为arguments。arguments对象有有几个域，一个为args，一个代表参数的列表；另一个为defaults，代表默认值</li>
+<li>body 具体的函数内容</li>
+<li>drcorator_list 装饰器</li>
+</ul>
+<p>函数体body是一个列表，里面每个元素都代表一个可执行语句。上文中有两个赋值语句，以及最后的一个返回语句。返回语句为Return对象，<strong>Return</strong>只有一个域value，此value的类型可能为常量，也可能为变量。为常量时类型为常量具体的类型如Num、Str等等，为变量时为Name类型，id为欲返回的变量之名。</p>
+<h3 id="列表对象"><a href="#列表对象" class="headerlink" title="列表对象"></a>列表对象</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<p>重要的域有一个为elts，类型是一个list，里面是数组的内容。</p>
+<h3 id="字典对象"><a href="#字典对象" class="headerlink" title="字典对象"></a>字典对象</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list1 = &#123;<span class="string">'target'</span>: <span class="string">'value'</span>, <span class="string">'target1'</span>: <span class="string">'value1'</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>域中，keys列表代表键，values列表代表值 <del>废话</del></p>
+<h3 id="类对象"><a href="#类对象" class="headerlink" title="类对象"></a>类对象</h3><p>类对象域：</p>
+<ul>
+<li>bases 表示基类，元素的类型仍然是Name</li>
+<li>body 类体</li>
+<li>decorator_list 装饰器</li>
+<li>name 类名</li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>待填坑。</p>
+
+          
         
       
     </div>
@@ -1044,23 +1219,32 @@ db.cn.find(condition) condition为条件
       
         
           
-          VS Code新手必备个性化贴配置篇字体配置VSC的字体配置方式同网页中的html样式，优先度高的字体先配置，若该字体无该字符，那么在下一个字体里找。我这里英文字母使用Source Code Pro，中文使用苹方。在设置中搜索font，填入设置如下
-1Source Code Variable,Consolas, 'Courier New', monospace,苹方
-平滑动画最新版本的VSC支持光标平滑移动（效果犹如Office三件套中你按上下左右移动光标）。在设置中搜索cursor，选中Cursor Smooth Caret Animation选项。
-小地图搜索minimap可以开启或者关闭小地图。
-插件篇gitlen这款插件功能很多，比如默认开启的blame功能，可以查看光标所在行最新的更改记录。还有很多其他的功能，使用git作为仓库的小伙伴千万别错过。
+            <h1 id="VS-Code新手必备个性化贴"><a href="#VS-Code新手必备个性化贴" class="headerlink" title="VS Code新手必备个性化贴"></a>VS Code新手必备个性化贴</h1><h2 id="配置篇"><a href="#配置篇" class="headerlink" title="配置篇"></a>配置篇</h2><h3 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h3><p>VSC的字体配置方式同网页中的html样式，优先度高的字体先配置，若该字体无该字符，那么在下一个字体里找。我这里英文字母使用Source Code Pro，中文使用苹方。在设置中搜索<code>font</code>，填入设置如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Source Code Variable,Consolas, 'Courier New', monospace,苹方</span><br></pre></td></tr></table></figure>
+<h3 id="平滑动画"><a href="#平滑动画" class="headerlink" title="平滑动画"></a>平滑动画</h3><p>最新版本的VSC支持光标平滑移动（效果犹如Office三件套中你按上下左右移动光标）。<br>在设置中搜索<code>cursor</code>，选中Cursor Smooth Caret Animation选项。</p>
+<h3 id="小地图"><a href="#小地图" class="headerlink" title="小地图"></a>小地图</h3><p>搜索<code>minimap</code>可以开启或者关闭小地图。</p>
+<h2 id="插件篇"><a href="#插件篇" class="headerlink" title="插件篇"></a>插件篇</h2><h3 id="gitlen"><a href="#gitlen" class="headerlink" title="gitlen"></a>gitlen</h3><p>这款插件功能很多，比如默认开启的blame功能，可以查看光标所在行最新的更改记录。还有很多其他的功能，使用git作为仓库的小伙伴千万别错过。</p>
+<img src="/2019/01/10/VS%20Code新手必备个性化贴/1.png" title="gitlen功能展示">
+<h3 id="键盘映射"><a href="#键盘映射" class="headerlink" title="键盘映射"></a>键盘映射</h3><p>VSC支持通过安装插件来更改快捷键。如果你是从别的编辑器搬过来的，直接在插件库里面搜索上一个编辑器的名字，安装即可。</p>
+<p>另外，也支持自定义快捷键，可以通过<code>文件</code>-&gt;<code>首选项</code>-&gt;<code>键盘快捷方式</code>来设置自己的快捷键。</p>
+<p>这里推荐新增两个方便用的快捷键，键位参考visual studio。</p>
+<ul>
+<li>关闭所有选项卡 搜索Close All Editors，先按下ctrl+k，松开，w</li>
+<li>关闭其他选项卡 搜索Close All Editors，先按下ctrl+k，松开，k</li>
+</ul>
+<h3 id="glasslt"><a href="#glasslt" class="headerlink" title="glasslt"></a>glasslt</h3><p>可以透明化编辑器的插件。安装后可以在设置中搜索<code>glass</code>，更改透明度。</p>
+<h3 id="markdownlint"><a href="#markdownlint" class="headerlink" title="markdownlint"></a>markdownlint</h3><p>一个检查markdown规范的插件。<br>跟着插件的提示写就能写出好看的markdown啦！</p>
+<h3 id="markdown-all-in-one"><a href="#markdown-all-in-one" class="headerlink" title="markdown all in one"></a>markdown all in one</h3><p>支持写markdown的时候的快捷特性。比如ctrl+b粗体，ctrl+i斜体，比如输入列表的时候按回车，会生成下一个列表符号。</p>
+<h2 id="主题篇"><a href="#主题篇" class="headerlink" title="主题篇"></a>主题篇</h2><p>推荐几个比较养眼的主题：</p>
+<ul>
+<li>panda</li>
+<li>one monokai theme</li>
+<li>blackboard</li>
+<li>papercolor-vscode</li>
+<li>winter is coming theme</li>
+</ul>
 
-键盘映射VSC支持通过安装插件来更改快捷键。如果你是从别的编辑器搬过来的，直接在插件库里面搜索上一个编辑器的名字，安装即可。
-另外，也支持自定义快捷键，可以通过文件-&gt;首选项-&gt;键盘快捷方式来设置自己的快捷键。
-这里
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/10/VS Code新手必备个性化贴/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
         
       
     </div>
@@ -1189,19 +1373,12 @@ db.cn.find(condition) condition为条件
       
         
           
-          损人词
-目眥毛（目刺毛）睫毛的意思。眥表示眼眶。
-下颏（下
-
-常用词
+            <h1 id="损人词"><a href="#损人词" class="headerlink" title="损人词"></a>损人词</h1><ul>
+<li>目眥毛（目刺毛）<br>睫毛的意思。眥表示眼眶。</li>
+<li>下颏（下</li>
+</ul>
+<h1 id="常用词"><a href="#常用词" class="headerlink" title="常用词"></a>常用词</h1>
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/20/潮汕正字/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1352,22 +1529,16 @@ db.cn.find(condition) condition为条件
       
         
           
-          第一题
-题目描述
-在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
-
-题目来源于此。
-分析对于上面一个二维数组来说，左上角最小，右下角最大，可以使用变形的二分法沿着对角线来查找。
-分析草稿假设一个函数，对比左上角及右下角和目标的大小，若大于右下角或小于左上角，则不在该集合之内。
-伪代码12345678910111213141516171819202122class Solution:    NOT_EXSIT = -2    EXSIT = 2    def cmp(self, target, array, startRow=-1, startCol=-1 row=-1, col=-1):        if row == -1 or col == -1:            col = len[array]            row = len[array[0]]        if startRow == -1 or startCol
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/19/剑指offer解题系列01/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <h1 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h1><blockquote>
+<p><strong>题目描述</strong></p>
+<p>在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+</blockquote>
+<p>题目来源<a href="https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?tpId=13&amp;tqId=11154&amp;tPage=1&amp;rp=1&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">于此</a>。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对于上面一个二维数组来说，左上角最小，右下角最大，可以使用变形的二分法沿着对角线来查找。</p>
+<h4 id="分析草稿"><a href="#分析草稿" class="headerlink" title="分析草稿"></a>分析草稿</h4><p>假设一个函数，对比左上角及右下角和目标的大小，若大于右下角或小于左上角，则不在该集合之内。</p>
+<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    NOT_EXSIT = <span class="number">-2</span></span><br><span class="line">    EXSIT = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cmp</span><span class="params">(self, target, array, startRow=<span class="number">-1</span>, startCol=<span class="number">-1</span> row=<span class="number">-1</span>, col=<span class="number">-1</span>)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> row == <span class="number">-1</span> <span class="keyword">or</span> col == <span class="number">-1</span>:</span><br><span class="line">            col = len[array]</span><br><span class="line">            row = len[array[<span class="number">0</span>]]</span><br><span class="line">        <span class="keyword">if</span> startRow == <span class="number">-1</span> <span class="keyword">or</span> startCol == <span class="number">-1</span>:</span><br><span class="line">            startRow = <span class="number">0</span></span><br><span class="line">            startCol = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (array[col - <span class="number">1</span>][row - <span class="number">1</span>] &lt; target) <span class="keyword">or</span> (array[col - <span class="number">1</span>][row - <span class="number">1</span>] &gt; target):</span><br><span class="line">            <span class="keyword">return</span> NOT_EXSIT</span><br><span class="line">        <span class="keyword">elif</span> startRow == row <span class="keyword">and</span> startCol == col:</span><br><span class="line">            <span class="comment"># 说明只能存在于本行本列之中了，搜索本行本列，得出最后答案</span></span><br><span class="line">            <span class="comment"># 对于array[col][row]这两个一维数组再次进行二分法</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 表示存在于该范围内，准备下一轮轮询</span></span><br><span class="line">            nextStartRow = (row - startRow) / <span class="number">2</span></span><br><span class="line">            nextStartCol = (col - startCol) / <span class="number">2</span></span><br><span class="line">            <span class="keyword">return</span> self.cmp(target, array, nextStartRow, nextStartEnd)</span><br></pre></td></tr></table></figure>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># array 二维列表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Find</span><span class="params">(self, target, array)</span>:</span></span><br><span class="line">        <span class="comment"># write code here</span></span><br></pre></td></tr></table></figure>
+          
         
       
     </div>
@@ -1518,19 +1689,12 @@ db.cn.find(condition) condition为条件
       
         
           
-          参见知乎
-去这里下载一个插件然后安装。
-https://gist.github.com/CrazyCoder/0d9e54f450000d3fb6edcbda6d9788be
-https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij-idea-when-using-high-dpi
+            <p>参见<a href="https://www.zhihu.com/question/42975638" target="_blank" rel="noopener">知乎</a></p>
+<p>去<a href="https://aur.archlinux.org/packages/intellij-jdk/" target="_blank" rel="noopener">这里</a>下载一个插件然后安装。</p>
+<p><a href="https://gist.github.com/CrazyCoder/0d9e54f450000d3fb6edcbda6d9788be" target="_blank" rel="noopener">https://gist.github.com/CrazyCoder/0d9e54f450000d3fb6edcbda6d9788be</a></p>
+<p><a href="https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij-idea-when-using-high-dpi" target="_blank" rel="noopener">https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij-idea-when-using-high-dpi</a></p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/10/解决JetBrain系渲染问题/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1681,28 +1845,21 @@ https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij
       
         
           
-          头JDRead Venus入手一年多，前半段时间一直用着送的京东畅读卡读着里面畅读的书。后面用着用着发现突然没办法正常连上商城了，基本这台机子就失去了生态了。在置灰一个多月之后，又重新发现了除了京东阅读以外自己中意的读书app。想起之前在网上看过这台机子似乎是能够刷机的，于是动了刷成Android的念头。
-不知道是不是被封杀了相应的信息，总之刷机教程贴非常难找，找了好久才找到，点击这里可以看到原帖。
-具体步骤不外乎就是下载(密码 ay9w)线刷包和线刷工具。下载完之后解压，双击MfgTool2.exe。
-随后把阅读器关机，然后找个小针头戳usb口附近的刷机孔，然后接上电脑。
-识别成功之后电脑会开始自动装驱动，然后可以看到这个界面的最左边变成绿色的了。
-然后点击Start按钮开始刷机。
-等进度条走完之后阅读器会重启，这个时候就可以拔线了。
-刷机软件可以点Stop然后关掉。
-如何使用把apk随便放在某个地方，然后点文件管理器安装。
-效果图
-
-
-
+            <h3 id="头"><a href="#头" class="headerlink" title="头"></a>头</h3><p>JDRead Venus入手一年多，前半段时间一直用着送的京东畅读卡读着里面畅读的书。后面用着用着发现突然没办法正常连上商城了，基本这台机子就失去了生态了。<br>在置灰一个多月之后，又重新发现了除了京东阅读以外自己中意的读书app。想起之前在网上看过这台机子似乎是能够刷机的，于是动了刷成Android的念头。</p>
+<p>不知道是不是被封杀了相应的信息，总之刷机教程贴非常难找，找了好久才找到，点击<a href="http://www.yunyaokz.com/forum.php?mod=viewthread&amp;tid=63" target="_blank" rel="noopener">这里</a>可以看到原帖。</p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p>不外乎就是<a href="https://pan.baidu.com/s/1vIHH1227zUewInwMGSS-mg" target="_blank" rel="noopener">下载</a>(密码 ay9w)线刷包和线刷工具。下载完之后解压，双击MfgTool2.exe。</p>
+<p>随后把阅读器关机，然后找个小针头戳usb口附近的刷机孔，然后接上电脑。</p>
+<p>识别成功之后电脑会开始自动装驱动，然后可以看到这个界面的最左边变成绿色的了。</p>
+<p>然后点击<strong>Start</strong>按钮开始刷机。</p>
+<p>等进度条走完之后阅读器会重启，这个时候就可以拔线了。</p>
+<p>刷机软件可以点<strong>Stop</strong>然后关掉。</p>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>把apk随便放在某个地方，然后点文件管理器安装。</p>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><img src="/2018/12/07/JDRead-Venus刷机/1.png" title="效果图">
+<img src="/2018/12/07/JDRead-Venus刷机/2.png" title="效果图">
+<img src="/2018/12/07/JDRead-Venus刷机/3.png" title="效果图">
+<img src="/2018/12/07/JDRead-Venus刷机/4.png" title="效果图">
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/07/JDRead-Venus刷机/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1853,20 +2010,13 @@ https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij
       
         
           
-          前言刚到手的二手房或者低价出租屋，若是上了一些年纪的，装修大都无法再满足我们当代人的审美。最近来说装修是不可能装修的了，但是一直啥都不休整，住在这样的房子里心里也不是个味儿。于是心里就开始盘算起来怎么用最经济的方法来改造这个屋子。
-颜色老化的木制家具、厨房和洗手间花样过时的大理石、有痕迹甚至不平整的墙面，占据了我们日常生活中视觉的大部分。而且他们的功能性都还没有被破坏，单单只是
-行动起来处理墙面待填坑。
-处理大理石待填坑。
-处理木家具待填坑。
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>刚到手的二手房或者低价出租屋，若是上了一些年纪的，装修大都无法再满足我们当代人的审美。最近来说装修是不可能装修的了，但是一直啥都不休整，住在这样的房子里心里也不是个味儿。于是心里就开始盘算起来怎么用最经济的方法来改造这个屋子。</p>
+<p>颜色老化的木制家具、厨房和洗手间花样过时的大理石、有痕迹甚至不平整的墙面，占据了我们日常生活中视觉的大部分。而且他们的功能性都还没有被破坏，单单只是</p>
+<h1 id="行动起来"><a href="#行动起来" class="headerlink" title="行动起来"></a>行动起来</h1><h3 id="处理墙面"><a href="#处理墙面" class="headerlink" title="处理墙面"></a>处理墙面</h3><p>待填坑。</p>
+<h3 id="处理大理石"><a href="#处理大理石" class="headerlink" title="处理大理石"></a>处理大理石</h3><p>待填坑。</p>
+<h3 id="处理木家具"><a href="#处理木家具" class="headerlink" title="处理木家具"></a>处理木家具</h3><p>待填坑。</p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/29/出租屋实用贴纸技术/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -2310,10 +2460,10 @@ https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij
 
   
   <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
 </html>
