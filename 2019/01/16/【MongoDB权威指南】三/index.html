@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="左未的blog">
 <meta property="og:description" content="三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。 简介创建索引： 1db.data.ensureIndex(&amp;#123;&apos;field&apos;: 1&amp;#125;) 为啥要有索引捏 自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-22T11:15:06.287Z">
+<meta property="og:updated_time" content="2019-01-23T07:46:00.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【MongoDB权威指南】三">
 <meta name="twitter:description" content="三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。 简介创建索引： 1db.data.ensureIndex(&amp;#123;&apos;field&apos;: 1&amp;#125;) 为啥要有索引捏 自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个">
@@ -390,7 +390,7 @@
 <h3 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h3><p>索引可以是内嵌文档中的键，比如<code>{&#39;comment.date&#39;: 1}</code>。</p>
 <p>在建立索引的时候可以给它起个可爱又帅气的名称，如果执意不肯给它起名字，数据库就会把键连起来作为它的名称（比如<code>field1_field2_fieldk</code>），<strong>如果这个名字太长超过了限制，就会创建索引失败</strong>。执行创建索引的操作之后最好用getLastError来看是否成功创建了索引。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;, &#123;<span class="string">'name'</span>: <span class="string">'屎蛋'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h3><p><strong>使用哪个索引？</strong></p>
+<h3 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h3><p>使用哪个索引？</p>
 <p>当有一个索引能精确匹配搜索的时候，查询优化器会有限用它。如果有几个同时匹配，MongoDB会并行这些查询，哪个先返回100个结果就会被保留并缓存下来再接下来的查询中使用，其他的查询计划会被中止。</p>
 <p>被缓存的查询计划在接下来都会被使用，直到集合数据发生了比较大的变化或者查询超过1000次之后，或者建立了新的索引之后，查询优化其会重新评估。</p>
 <p>explain中的allPlans字段显示了本次查询尝试过的所有查询计划。</p>
@@ -419,6 +419,11 @@
 <p>稀疏索引对查询的结果可能会有影响。影响就是不把不存在当作是null。如果不使用稀疏索引，当使用$ne不等于某个非null值的时候，会包括没这个字段的文档。</p>
 <h3 id="强制不使用索引"><a href="#强制不使用索引" class="headerlink" title="强制不使用索引"></a>强制不使用索引</h3><p>使用<code>hint()</code>来表示不使用任何索引。</p>
 <h2 id="索引管理"><a href="#索引管理" class="headerlink" title="索引管理"></a>索引管理</h2><p>所有的索引存储在MongoDB保留集合system.indexes中，可以执行<code>db.collectionName.getIndexes()</code>来查看集合上的所有索引信息。</p>
+<h3 id="舍弃索引"><a href="#舍弃索引" class="headerlink" title="舍弃索引"></a>舍弃索引</h3><p>dropIndex接受两种参数：</p>
+<ul>
+<li>db.test.drop(‘index_name’) 名字字符串</li>
+<li>db.test.drop({‘key’: value}) 索引本身</li>
+</ul>
 
       
     </div>
@@ -452,6 +457,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/23/【MongoDB权威指南】四/" rel="prev" title="【MongoDB权威指南】四">
+                【MongoDB权威指南】四 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -533,7 +542,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -579,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三-索引"><span class="nav-number">1.</span> <span class="nav-text">三 索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为啥要有索引捏"><span class="nav-number">1.1.1.</span> <span class="nav-text">为啥要有索引捏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合索引"><span class="nav-number">1.1.3.</span> <span class="nav-text">复合索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐式索引"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">隐式索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引的数据结构"><span class="nav-number">1.1.4.</span> <span class="nav-text">索引的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何优化索引"><span class="nav-number">1.1.5.</span> <span class="nav-text">如何优化索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作是怎么使用索引的"><span class="nav-number">1.1.6.</span> <span class="nav-text">$操作是怎么使用索引的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他特性"><span class="nav-number">1.1.7.</span> <span class="nav-text">其他特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询优化器"><span class="nav-number">1.1.8.</span> <span class="nav-text">查询优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不适用索引的场合"><span class="nav-number">1.1.9.</span> <span class="nav-text">不适用索引的场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引类型"><span class="nav-number">1.2.</span> <span class="nav-text">索引类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引"><span class="nav-number">1.2.1.</span> <span class="nav-text">唯一索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#去重"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">去重</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏索引"><span class="nav-number">1.2.2.</span> <span class="nav-text">稀疏索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制不使用索引"><span class="nav-number">1.2.3.</span> <span class="nav-text">强制不使用索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引管理"><span class="nav-number">1.3.</span> <span class="nav-text">索引管理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三-索引"><span class="nav-number">1.</span> <span class="nav-text">三 索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为啥要有索引捏"><span class="nav-number">1.1.1.</span> <span class="nav-text">为啥要有索引捏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合索引"><span class="nav-number">1.1.3.</span> <span class="nav-text">复合索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐式索引"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">隐式索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引的数据结构"><span class="nav-number">1.1.4.</span> <span class="nav-text">索引的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何优化索引"><span class="nav-number">1.1.5.</span> <span class="nav-text">如何优化索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作是怎么使用索引的"><span class="nav-number">1.1.6.</span> <span class="nav-text">$操作是怎么使用索引的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他特性"><span class="nav-number">1.1.7.</span> <span class="nav-text">其他特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询优化器"><span class="nav-number">1.1.8.</span> <span class="nav-text">查询优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不适用索引的场合"><span class="nav-number">1.1.9.</span> <span class="nav-text">不适用索引的场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引类型"><span class="nav-number">1.2.</span> <span class="nav-text">索引类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引"><span class="nav-number">1.2.1.</span> <span class="nav-text">唯一索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#去重"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">去重</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏索引"><span class="nav-number">1.2.2.</span> <span class="nav-text">稀疏索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制不使用索引"><span class="nav-number">1.2.3.</span> <span class="nav-text">强制不使用索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引管理"><span class="nav-number">1.3.</span> <span class="nav-text">索引管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#舍弃索引"><span class="nav-number">1.3.1.</span> <span class="nav-text">舍弃索引</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
