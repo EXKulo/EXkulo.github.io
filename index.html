@@ -385,6 +385,69 @@
 <p>也可以映射数组中的第n个元素，只要<code>{&#39;$project&#39;: {&#39;userId&#39;: &#39;$fieldname.n&#39;}}</code>。</p>
 <p>有个问题，在映射为别的名字之后，就无法使用原来能使用的索引了，所以要用sort，就别乱映射成别的名字。</p>
 <p>映射的基础功能是筛选一些自己要的字段，但是之外还能使用各种表达式来做更高阶的操作。</p>
+<h4 id="数学表达式"><a href="#数学表达式" class="headerlink" title="数学表达式"></a>数学表达式</h4><p>举例用法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'project'</span>: &#123;</span><br><span class="line">            <span class="string">'totalPay'</span>: &#123;</span><br><span class="line">                <span class="string">'$add'</span> [<span class="string">'$salary'</span>, <span class="string">'$bonus'</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>有加减乘除余5种算法：</p>
+<ul>
+<li><strong>$add</strong></li>
+<li><strong>$subtract</strong></li>
+<li><strong>$multiply</strong></li>
+<li><strong>$divide</strong></li>
+<li><strong>$mod</strong></li>
+</ul>
+<h4 id="日期表达式"><a href="#日期表达式" class="headerlink" title="日期表达式"></a>日期表达式</h4><p>我们当然知道数据库中有一种数据类型叫做date。运用日期表达式，你可以从某个日期中提取出年日月等你所需要的信息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$project'</span>: &#123;</span><br><span class="line">            <span class="string">'theMonth'</span>: &#123;<span class="string">'$month'</span>: <span class="string">'$theDate'</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>除了单纯的投影操作之外，还能结合算术表达式计算时间跨度。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$project'</span>: &#123;</span><br><span class="line">            <span class="string">'duration'</span>: &#123;</span><br><span class="line">                <span class="string">'substract'</span>: [</span><br><span class="line">                    &#123;<span class="string">'$year'</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;,</span><br><span class="line">                    &#123;<span class="string">'$year'</span>: <span class="string">'$theDate'</span>&#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="字符表达式"><a href="#字符表达式" class="headerlink" title="字符表达式"></a>字符表达式</h4><ul>
+<li><strong>$substr</strong> 对象是数组，数组里是参数，第一个参数是字符串来源，第二个是开始index，第三个是结束index</li>
+<li><strong>$concat</strong></li>
+<li><strong>$toLower</strong></li>
+<li><strong>$toUpper</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$project'</span>: &#123;</span><br><span class="line">            <span class="string">'email'</span>: &#123;</span><br><span class="line">                <span class="string">'$concat'</span>: [</span><br><span class="line">                    &#123;<span class="string">'$substr'</span>: [<span class="string">'$firstName'</span>, <span class="number">0</span>, <span class="number">1</span>]&#125;,</span><br><span class="line">                    <span class="string">'.'</span>,</span><br><span class="line">                    <span class="string">'$lastName'</span>,</span><br><span class="line">                    <span class="string">'@example.com'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="逻辑表达式"><a href="#逻辑表达式" class="headerlink" title="逻辑表达式"></a>逻辑表达式</h4><ul>
+<li><strong>$cmp</strong></li>
+<li><strong>$strcasecmp</strong></li>
+<li><strong>$and</strong></li>
+<li><strong>$or</strong></li>
+<li><strong>$not</strong></li>
+</ul>
+<p>都没啥说的，简单易懂，不懂是傻Ⅹ。注意参数都是用数组形式包起来的就好。</p>
+<ul>
+<li><strong>$cond</strong>[booleanExpr, trueExpr, falseExpr] 如果booleanExpr结果是真，就返回trueExpr，否则返回falseExpr</li>
+</ul>
+<h3 id="group"><a href="#group" class="headerlink" title="$group"></a>$group</h3><p>分组。所谓分组，我尽量用人话描述一遍：</p>
+<p>假设你要对属性x进行分组，在你的集合中x总共存在a、b、c三种情况。那么分组后返回给你的就是三个文档。文档的内容是什么呢？如果没有定义，那就是没有。但是如果比如定义了一个sum操作符，就可以累计所有同个x中的y字段的总和。</p>
+<h4 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h4><ul>
+<li><strong>$sum</strong></li>
+<li><strong>$avg</strong></li>
+</ul>
+<p>group操作的参数是一个dict，其中必定有一个字段叫做<code>_id</code>，字段值就是你的分组依据，若是上文那种情况，那就是x。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$group'</span>: &#123;</span><br><span class="line">            <span class="string">'_id'</span>: <span class="string">'$x'</span>,</span><br><span class="line">            <span class="string">'count'</span>: &#123;<span class="string">'$sum'</span>: <span class="string">'$y'</span>&#125;, <span class="comment">// 所有y字段的总和</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="极限操作符"><a href="#极限操作符" class="headerlink" title="极限操作符"></a>极限操作符</h4><p><del>在爆发的边缘试探。</del></p>
+<ul>
+<li><strong>$max</strong></li>
+<li><strong>$min</strong></li>
+<li><strong>$first</strong></li>
+<li><strong>$last</strong></li>
+</ul>
+<p>假设求每个班里面分数最高的人。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$group'</span>: &#123;</span><br><span class="line">            <span class="string">'_id'</span>: <span class="string">'$classNo'</span>,</span><br><span class="line">            <span class="string">'bestStudent'</span>: &#123;</span><br><span class="line">                <span class="string">'$max'</span>: <span class="string">'$score'</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>如果上面的group已经根据score排过序了，那么用first或者last的性能会更高一些（这不是废话）。</p>
+<h3 id="unwind"><a href="#unwind" class="headerlink" title="$unwind"></a>$unwind</h3><p>那么这里的最大的问题就是，这个英语是啥意思？！说到wind就想起风，风是它的名词意思，它的动词意思是缠绕，可以想象一下一股龙卷风在缠绕。unwind就是接触缠绕的意思，在MongoDB中可以把数组中的每一个值拆分成为单独的文档。</p>
+<p>暂时想不出有什么卵用，反正记得有这么一个拆分数组为多个独立文档的功能就好了。</p>
+<h3 id="sort"><a href="#sort" class="headerlink" title="$sort"></a>$sort</h3><p>这都不用说啦。</p>
+<h3 id="limit"><a href="#limit" class="headerlink" title="$limit"></a>$limit</h3><p>见前文。</p>
+<h3 id="skip"><a href="#skip" class="headerlink" title="$skip"></a>$skip</h3><p>见前文。</p>
+<h3 id="管道使用优化"><a href="#管道使用优化" class="headerlink" title="管道使用优化"></a>管道使用优化</h3><p>如果需要排序，那就尽量在第一阶段排序，利用好索引，索引只能在原有的集合中使用。如果单一的聚合操作内存占用超过20%，直接报错。</p>
+<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>非常灵活的聚合工具，缺点是慢，不应该在项目运行过程中跑。</p>
+<p>没啥了解的欲望，<code>$skip: 1</code>。</p>
+<h2 id="聚合命令"><a href="#聚合命令" class="headerlink" title="聚合命令"></a>聚合命令</h2><h3 id="count"><a href="#count" class="headerlink" title="count"></a>count</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.count()</span><br></pre></td></tr></table></figure>
+<h3 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h3><p>返回一个数组，内容是某个字段的所有不同结果（排除了相同的结果）。</p>
+<p>假设集合名称test，要找出所有不同的age。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123;<span class="string">'distinct'</span>: <span class="string">'test'</span>, <span class="string">'key'</span>: <span class="string">'age'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="group-1"><a href="#group-1" class="headerlink" title="group"></a>group</h3><p>不想看。</p>
 
           
         
