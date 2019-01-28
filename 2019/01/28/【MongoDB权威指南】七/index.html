@@ -79,22 +79,17 @@
 
 
 
-<meta name="description" content="头JDRead Venus入手一年多，前半段时间一直用着送的京东畅读卡读着里面畅读的书。后面用着用着发现突然没办法正常连上商城了，基本这台机子就失去了生态了。在置灰一个多月之后，又重新发现了除了京东阅读以外自己中意的读书app。想起之前在网上看过这台机子似乎是能够刷机的，于是动了刷成Android的念头。 不知道是不是被封杀了相应的信息，总之刷机教程贴非常难找，找了好久才找到，点击这里可以看到原帖">
+<meta name="description" content="六 创建副本副本使用复制把数据副本保存到多台服务器上。 副本集是一组服务器，其中有一个主服务器，用于处理客户端请求；还有多个备份服务器用于保存数据副本。如果主服务器崩溃，备份服务器回自动其中一台位新的主服务器。 创建副本集启动shell但是不连接到任何mongod。 1mongo --nodb 笔者这里使用的是windows10的cmd可以正常执行成功。如果在windows下使用cmder，不知道">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JDRead Venus刷开放系统">
-<meta property="og:url" content="http://yoursite.com/2018/12/07/JDRead-Venus刷机/index.html">
+<meta property="og:title" content="【MongoDB权威指南】七">
+<meta property="og:url" content="http://yoursite.com/2019/01/28/【MongoDB权威指南】七/index.html">
 <meta property="og:site_name" content="左未的blog">
-<meta property="og:description" content="头JDRead Venus入手一年多，前半段时间一直用着送的京东畅读卡读着里面畅读的书。后面用着用着发现突然没办法正常连上商城了，基本这台机子就失去了生态了。在置灰一个多月之后，又重新发现了除了京东阅读以外自己中意的读书app。想起之前在网上看过这台机子似乎是能够刷机的，于是动了刷成Android的念头。 不知道是不是被封杀了相应的信息，总之刷机教程贴非常难找，找了好久才找到，点击这里可以看到原帖">
+<meta property="og:description" content="六 创建副本副本使用复制把数据副本保存到多台服务器上。 副本集是一组服务器，其中有一个主服务器，用于处理客户端请求；还有多个备份服务器用于保存数据副本。如果主服务器崩溃，备份服务器回自动其中一台位新的主服务器。 创建副本集启动shell但是不连接到任何mongod。 1mongo --nodb 笔者这里使用的是windows10的cmd可以正常执行成功。如果在windows下使用cmder，不知道">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2018/12/07/JDRead-Venus刷机/1.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/07/JDRead-Venus刷机/2.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/07/JDRead-Venus刷机/3.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/07/JDRead-Venus刷机/4.png">
-<meta property="og:updated_time" content="2018-12-07T11:11:46.935Z">
+<meta property="og:updated_time" content="2019-01-28T11:30:25.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JDRead Venus刷开放系统">
-<meta name="twitter:description" content="头JDRead Venus入手一年多，前半段时间一直用着送的京东畅读卡读着里面畅读的书。后面用着用着发现突然没办法正常连上商城了，基本这台机子就失去了生态了。在置灰一个多月之后，又重新发现了除了京东阅读以外自己中意的读书app。想起之前在网上看过这台机子似乎是能够刷机的，于是动了刷成Android的念头。 不知道是不是被封杀了相应的信息，总之刷机教程贴非常难找，找了好久才找到，点击这里可以看到原帖">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/07/JDRead-Venus刷机/1.png">
+<meta name="twitter:title" content="【MongoDB权威指南】七">
+<meta name="twitter:description" content="六 创建副本副本使用复制把数据副本保存到多台服务器上。 副本集是一组服务器，其中有一个主服务器，用于处理客户端请求；还有多个备份服务器用于保存数据副本。如果主服务器崩溃，备份服务器回自动其中一台位新的主服务器。 创建副本集启动shell但是不连接到任何mongod。 1mongo --nodb 笔者这里使用的是windows10的cmd可以正常执行成功。如果在windows下使用cmder，不知道">
 
 
 
@@ -124,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/07/JDRead-Venus刷机/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/28/【MongoDB权威指南】七/">
 
 
 
 
 
-  <title>JDRead Venus刷开放系统 | 左未的blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>【MongoDB权威指南】七 | 左未的blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -257,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/JDRead-Venus刷机/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/28/【MongoDB权威指南】七/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -274,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JDRead Venus刷开放系统</h1>
+          <h1 class="post-title" itemprop="name headline">【MongoDB权威指南】七</h1>
         
 
         <div class="post-meta">
@@ -286,8 +281,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-07T18:57:00+08:00">
-                2018-12-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-28T16:03:20+08:00">
+                2019-01-28
               </time>
             
 
@@ -309,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活技术/" itemprop="url" rel="index">
-                    <span itemprop="name">生活技术</span>
+                  <a href="/categories/后端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">后端技术</span>
                   </a>
                 </span>
 
@@ -326,7 +321,7 @@
 
           
           
-             <span id="/2018/12/07/JDRead-Venus刷机/" class="leancloud_visitors" data-flag-title="JDRead Venus刷开放系统">
+             <span id="/2019/01/28/【MongoDB权威指南】七/" class="leancloud_visitors" data-flag-title="【MongoDB权威指南】七">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -357,19 +352,24 @@
       
 
       
-        <h3 id="头"><a href="#头" class="headerlink" title="头"></a>头</h3><p>JDRead Venus入手一年多，前半段时间一直用着送的京东畅读卡读着里面畅读的书。后面用着用着发现突然没办法正常连上商城了，基本这台机子就失去了生态了。<br>在置灰一个多月之后，又重新发现了除了京东阅读以外自己中意的读书app。想起之前在网上看过这台机子似乎是能够刷机的，于是动了刷成Android的念头。</p>
-<p>不知道是不是被封杀了相应的信息，总之刷机教程贴非常难找，找了好久才找到，点击<a href="http://www.yunyaokz.com/forum.php?mod=viewthread&amp;tid=63" target="_blank" rel="noopener">这里</a>可以看到原帖。</p>
-<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p>不外乎就是<a href="https://pan.baidu.com/s/1vIHH1227zUewInwMGSS-mg" target="_blank" rel="noopener">下载</a>(密码 ay9w)线刷包和线刷工具。下载完之后解压，双击MfgTool2.exe。</p>
-<p>随后把阅读器关机，然后找个小针头戳usb口附近的刷机孔，然后接上电脑。</p>
-<p>识别成功之后电脑会开始自动装驱动，然后可以看到这个界面的最左边变成绿色的了。</p>
-<p>然后点击<strong>Start</strong>按钮开始刷机。</p>
-<p>等进度条走完之后阅读器会重启，这个时候就可以拔线了。</p>
-<p>刷机软件可以点<strong>Stop</strong>然后关掉。</p>
-<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>把apk随便放在某个地方，然后点文件管理器安装。</p>
-<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><img src="/2018/12/07/JDRead-Venus刷机/1.png" title="效果图">
-<img src="/2018/12/07/JDRead-Venus刷机/2.png" title="效果图">
-<img src="/2018/12/07/JDRead-Venus刷机/3.png" title="效果图">
-<img src="/2018/12/07/JDRead-Venus刷机/4.png" title="效果图">
+        <h1 id="六-创建副本"><a href="#六-创建副本" class="headerlink" title="六 创建副本"></a>六 创建副本</h1><h2 id="副本"><a href="#副本" class="headerlink" title="副本"></a>副本</h2><p>使用复制把数据副本保存到多台服务器上。</p>
+<p><strong>副本集</strong>是一组服务器，其中有一个主服务器，用于处理客户端请求；还有多个备份服务器用于保存数据副本。如果主服务器崩溃，备份服务器回自动其中一台位新的主服务器。</p>
+<h2 id="创建副本集"><a href="#创建副本集" class="headerlink" title="创建副本集"></a>创建副本集</h2><p>启动shell但是不连接到任何mongod。</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --nodb</span><br></pre></td></tr></table></figure>
+<p>笔者这里使用的是windows10的cmd可以正常执行成功。如果在windows下使用cmder，不知道为啥会报错。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建副本集，这里原书中没有指定name字段，会导致后面两句话执行不成功，所以这里根据报错猜测原因，加入了name字段</span></span><br><span class="line">replicaSet = <span class="keyword">new</span> ReplSetTest(&#123;<span class="string">'nodes'</span>: <span class="number">3</span>, <span class="string">'name'</span>: <span class="string">'test'</span>&#125;)</span><br><span class="line"><span class="comment">// 启动3个mongod进程</span></span><br><span class="line">replicaSet.startSet()</span><br><span class="line"><span class="comment">// 配置复制功能</span></span><br><span class="line">replicaSet.initiate()</span><br></pre></td></tr></table></figure>
+<p>现在分别有了三个进程，运行在被分配的三个端口中。这三个端口怎么找呢？就在执行完第一行代码之后，控制台会返回一堆信息，其中接近是最底下的地方那里有个字段叫ports，就是那个。</p>
+<p>把这个shell搁置在一旁，然后新启一个shell：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conn1 = <span class="keyword">new</span> Mongo(<span class="string">'localhost:20000'</span>)</span><br><span class="line">primaryDB = conn1.getDB(<span class="string">'test'</span>)</span><br><span class="line"><span class="comment">// 查看副本集状态</span></span><br><span class="line">primaryDB.isMaster()</span><br></pre></td></tr></table></figure>
+<p>返回一个dict（js里是这么叫吗。。），其中hosts列表表示该副本集的所有端口，ismaster表示是不是主节点，primary字段表示主节点端口。</p>
+<p>由于备份节点的数据可能会落后于主节点，所以备份节点一般是拒绝读取请求的，如果在备份节点上做查询，会得到一个错误提示。</p>
+<p>如果真想访问备份服务器，敲</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn1.setSlaveOk()</span><br></pre></td></tr></table></figure>
+<p>最后，关闭副本集</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">replicaSet.stopSet()</span><br></pre></td></tr></table></figure>
+<h3 id="自动故障转移"><a href="#自动故障转移" class="headerlink" title="自动故障转移"></a>自动故障转移</h3><p>现在尝试关闭主节点，应该会看到其中一个备份节点会升级为主节点。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">primaryDB.adminCommand(&#123;<span class="string">'shutdown'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>之后对第二个链接调用idMaster函数可以看到它已经变为主节点。</p>
 
       
     </div>
@@ -394,8 +394,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/29/出租屋实用贴纸技术/" rel="next" title="【经济修屋】【一】出租屋实用贴纸技术">
-                <i class="fa fa-chevron-left"></i> 【经济修屋】【一】出租屋实用贴纸技术
+              <a href="/2019/01/25/【MongoDB权威指南】六/" rel="next" title="【MongoDB权威指南】六">
+                <i class="fa fa-chevron-left"></i> 【MongoDB权威指南】六
               </a>
             
           </div>
@@ -403,10 +403,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/10/解决JetBrain系渲染问题/" rel="prev" title="解决JetBrain系渲染问题">
-                解决JetBrain系渲染问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -534,7 +530,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#头"><span class="nav-number">1.</span> <span class="nav-text">头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体步骤"><span class="nav-number">2.</span> <span class="nav-text">具体步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用"><span class="nav-number">3.</span> <span class="nav-text">如何使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果图"><span class="nav-number">4.</span> <span class="nav-text">效果图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#六-创建副本"><span class="nav-number">1.</span> <span class="nav-text">六 创建副本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#副本"><span class="nav-number">1.1.</span> <span class="nav-text">副本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建副本集"><span class="nav-number">1.2.</span> <span class="nav-text">创建副本集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动故障转移"><span class="nav-number">1.2.1.</span> <span class="nav-text">自动故障转移</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
