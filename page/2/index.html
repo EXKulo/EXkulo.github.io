@@ -428,6 +428,197 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/Hexo博客增加live2d看板娘/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/Hexo博客增加live2d看板娘/" itemprop="url">Hexo博客增加live2d看板娘</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-05T15:30:20+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo技术/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/05/Hexo博客增加live2d看板娘/" class="leancloud_visitors" data-flag-title="Hexo博客增加live2d看板娘">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Hexo博客增加live2d看板娘"><a href="#Hexo博客增加live2d看板娘" class="headerlink" title="Hexo博客增加live2d看板娘"></a>Hexo博客增加live2d看板娘</h1><h2 id="啥是live2d"><a href="#啥是live2d" class="headerlink" title="啥是live2d"></a>啥是live2d</h2><p>live2d是假3d，根据对应的输入，让模型播放原来设定好的不同的动画。</p>
+<p>一个live2d项目至少包括几个元素：</p>
+<ul>
+<li><strong>纹理贴图</strong> 一般是生成几张1024*1024的合图以及一个合图配置</li>
+<li><strong>动作配置</strong> 后缀名为’.mtn’，配置着动画关键帧</li>
+<li><strong>model配置</strong> 关联纹理贴图和动作配置</li>
+</ul>
+<h2 id="安装live2d"><a href="#安装live2d" class="headerlink" title="安装live2d"></a>安装live2d</h2><p>最简单的，还是shell里用npm安装。跑到博客根目录下，右键进入控制台，键入: </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install live2d-widget</span><br></pre></td></tr></table></figure>
+<p>等安装完之后即可在博客的node_modules里找到新下载来的包。</p>
+<h2 id="安装npm库中的live2d模型"><a href="#安装npm库中的live2d模型" class="headerlink" title="安装npm库中的live2d模型"></a>安装npm库中的live2d模型</h2><p>这里假设要安装模型中的看板娘haru。同样是npm安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install live2d-widget-model-haru</span><br></pre></td></tr></table></figure>
+<p>之后同样在node_modules里找到live2d-widget-model-haru这个文件夹。</p>
+<p>下载下来之后发现有01和02两个子文件夹，里边的package.json都是空的，于是把外头的package.json复制进两个子文件夹覆盖。</p>
+<p>接下来讲怎么配置。</p>
+<h2 id="配置live2d"><a href="#配置live2d" class="headerlink" title="配置live2d"></a>配置live2d</h2><p>找到项目配置文件<code>_config.yml</code>，在其中插入</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">live2d:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  scriptFrom:</span> <span class="string">local</span></span><br><span class="line"><span class="attr">  pluginRootPath:</span> <span class="string">live2dw/</span></span><br><span class="line"><span class="attr">  pluginJsPath:</span> <span class="string">lib/</span></span><br><span class="line"><span class="attr">  pluginModelPath:</span> <span class="string">assets/</span></span><br><span class="line"><span class="attr">  tagMode:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  log:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  model:</span></span><br><span class="line"><span class="attr">    use:</span> <span class="string">live2d-widget-model-haru/01</span></span><br><span class="line"><span class="attr">  display:</span></span><br><span class="line"><span class="attr">    position:</span> <span class="string">left</span></span><br><span class="line"><span class="attr">    width:</span> <span class="number">150</span></span><br><span class="line"><span class="attr">    height:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">  mobile:</span></span><br><span class="line"><span class="attr">    show:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>注意其中的model字段，路径得是你资源中assets文件夹所在的目录。在haru例子中，文件夹大概为</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- live2d-widget-model-haru/</span></span><br><span class="line">    <span class="comment">-- 01/</span></span><br><span class="line">        <span class="comment">-- assets/</span></span><br><span class="line">            <span class="comment">-- moc/</span></span><br><span class="line">            <span class="comment">-- mtn/</span></span><br></pre></td></tr></table></figure>
+<p>所以，路径就应该为live2d-widget-model-haru/01。</p>
+<p>另，<code>mobile.show</code>字段可以控制看板娘是否在手机端显示。</p>
+<h2 id="寻另外的live2d模型"><a href="#寻另外的live2d模型" class="headerlink" title="寻另外的live2d模型"></a>寻另外的live2d模型</h2><p>live2d模型可以在<a href="https://github.com/summerscar/live2dDemo" target="_blank" rel="noopener">这个地方</a>找到。</p>
+<p>这里以bilibili的看板娘22酱为例，解释怎么把它变成我们的live2d插件能读的样式。</p>
+<p>首先观察到最简单的<code>live2d-widget-model-wanko</code>模型（自己npm可以下载到）中的文件夹内容大概是这样：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- live2d-widget-model-wanko/</span></span><br><span class="line">    <span class="comment">-- assets/</span></span><br><span class="line">        <span class="comment">-- moc/</span></span><br><span class="line">            <span class="comment">-- wanko.1024/</span></span><br><span class="line">            <span class="comment">-- wanko.moc</span></span><br><span class="line">        <span class="comment">-- mtn/   whic means motion</span></span><br><span class="line">            <span class="comment">-- *.mtn</span></span><br><span class="line">        <span class="comment">-- wanko.model.json</span></span><br></pre></td></tr></table></figure>
+<p>现在来动手改动它：</p>
+<ol>
+<li>解压完bilibli娘之后，先创建一个文件夹<code>live2d-widget-model-bilibili</code>，并创建一个assets目录，然后从wanko那边<strong>复制过来一个package.json</strong>。</li>
+<li>进入原资源的assets/22目录</li>
+<li>把其中的<code>22.1024</code>文件夹和<code>22.v2.moc</code>文件复制到<code>live2d-widget-model-bilibili/assets/moc</code>中</li>
+<li>把原资源中<code>motions</code>文件夹里的文件复制到<code>live2d-widget-model-bilibili/assets/mtn</code>中</li>
+<li>选择22文件夹中任意一个json文件（代表着22娘的不同装扮）复制到<code>live2d-widget-model-bilibili/assets/</code>中，并更名<code>live2d-widget-model-bilibili.model.json</code>（与本工程同名）</li>
+<li><p>更改<code>live2d-widget-model-bilibili.model.json</code>，可以看到里面的路径都是不对的，需要更改路径，譬如</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">"textures": [</span><br><span class="line">    - "model": "22.v2.moc",</span><br><span class="line">    + "model": "moc/22.v2.moc",</span><br><span class="line">    // 加上moc/路径前缀</span><br><span class="line">    - "22.1024/closet.default.v2/texture_00.png",</span><br><span class="line">    + "moc/22.1024/closet.default.v2/texture_00.png",</span><br><span class="line">    "idle": [</span><br><span class="line">        &#123;</span><br><span class="line">            - "file": "22.v2.idle-01.mtn",</span><br><span class="line">            + "file": "mtn/22.v2.idle-01.mtn",</span><br><span class="line">            "fade_in": 2000,</span><br><span class="line">            "fade_out": 2000</span><br><span class="line">        &#125;,</span><br><span class="line">    ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>主要改动三个地方：model路径、纹理路径、motion文件路径。</p>
+</li>
+</ol>
+<p>把这一切做完之后，把<code>live2d-widget-model-bilibili</code>文件夹丢到我们博客的node_modules里边去。</p>
+<p>最后，在项目配置文档中把model字段改成<code>live2d-widget-model-bilibili</code>，完事儿。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/潮汕正字/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1709,183 +1900,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/" itemprop="url">OpenGL超级宝典笔记（零）数学基础与基础变换</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T12:58:14+08:00">
-                2018-11-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/" class="leancloud_visitors" data-flag-title="OpenGL超级宝典笔记（零）数学基础与基础变换">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这部分与（一）的不同是这部分只注意使用价值，不搞矩阵怎么运算那些虚的，而且结合OpenGL来讲。</p>
-<p><strong>声明</strong>：摘抄，翻译，感悟自<a href="http://www.songho.ca/opengl/gl_transform.html#modelview" target="_blank" rel="noopener">http://www.songho.ca/opengl/gl_transform.html#modelview</a></p>
-<h1 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h1><!-- ![](1.png) -->
-<img src="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/1.png" title="This is an image">
-<h3 id="基础数学知识"><a href="#基础数学知识" class="headerlink" title="基础数学知识"></a>基础数学知识</h3><ol>
-<li>别理太多，反正转换矩阵总是在坐标或者向量的前面，公式一直都是<br> $$ Coord_{dst} = M_{transform} * Coord_{ori} $$<br> 如果要连续做两个变换，那么慢做转换那个矩阵反而要在前面。</li>
-</ol>
-<h3 id="摄像机以及物体变换"><a href="#摄像机以及物体变换" class="headerlink" title="摄像机以及物体变换"></a>摄像机以及物体变换</h3><p>第一个要素是物体本身的世界坐标。<br>在第一个步骤会被转化到以摄像头为原点的坐标系中。由于在OpenGL中，摄像头的位置是固定在(0,0,0)，并且朝向被固定在-z方向的，所以如果想要像在游戏引擎里面那种移动摄像头的操作的话，只能<strong>反过来</strong>转换物体的坐标。</p>
-<blockquote>
-<p>移动和变换的叠加可以通过<strong>变换矩阵相乘</strong>来实现</p>
-</blockquote>
-<p>$$ \therefore  M_{mv} = M_v * M_m $$<br>$M_v$在前面意味着先做世界坐标上物体的变换，再做相机的变换，这个很合理。如果反过来相机先变换，那么物体的变换就不是在世界坐标上了，会有奇妙的效果。</p>
-<p>所以<br>$$ Coord_{eye} = M_{mv} * Coord_{world} $$</p>
-<blockquote>
-<p>法向量的变换就不一样了，<del>不知道为啥</del>但是<strong>就是这样</strong>：<br>$$ n_{eye} = (M_{mv}^{-1})^T  * n_{world}$$<br>取mv矩阵的逆矩阵的转置，乘以原法向量。所以vertex shader里面老是要的那个$M_{normal}$(normalMatrix)其实就是这个又逆又转置的mv矩阵。</p>
-</blockquote>
-<h3 id="投影"><a href="#投影" class="headerlink" title="投影"></a>投影</h3><p>$$ Coord_{clip} = M_{projection} * Coord_{eye} $$</p>
-<h3 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h3><p><strong>NDC</strong>，其实就是除以$w$。<br>$$ Coord_{ndc} = Coord_{projected} / w $$</p>
-<h3 id="屏幕剪裁"><a href="#屏幕剪裁" class="headerlink" title="屏幕剪裁"></a>屏幕剪裁</h3><p>这里不管，OpenGL的插件做的。</p>
-<h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><h3 id="mv矩阵"><a href="#mv矩阵" class="headerlink" title="mv矩阵"></a>mv矩阵</h3><img src="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/2.jpg" title="This is an image">
-<p>其中，$m_{15}$是齐次因子。<br>$(m_{0}, m_{1}, m_{2})$, $(m_{4}, m_{5}, m_{6})$, $(m_{8}, m_{9}, m_{10})$分别代表xyz轴的变换。默认是(1,0,0), (0,1,0), (0,0,1)。旋转和缩放一般影响到这九个位。而位移是由$(m_{12}, m_{13}, m_{14})$控制的。如果不知道怎么得到最终的变换矩阵，那就旋转，缩放，位移一个一个乘起来。</p>
-<h3 id="投影-1"><a href="#投影-1" class="headerlink" title="投影"></a>投影</h3><p>视锥体($frustum$)投影(perspective)是常识了，相对应的ortho就是平行变换，一般用于2d的UI界面上。二者分别对应<code>glPerpective()</code>和<code>glOrtho2D()</code>。这部分变换把对应的东西投影到相机，并且做剪裁（far和near面）。<br><img src="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/3.png" title="This is an image"></p>
-<p>创建一个视锥体一般需要六个参数：left, right, bottom, top, near, far（上面图里的字母皆是这几个参数的头个字母）。<br>其中，near是近面和相机的距离，far是远面和相机的距离。<br><code>glPerpective()</code>方法则只需要四个参数：一个Y方向FOV(field of view)，也就是纵向的角度；一个aspect，长宽比；一个near；一个far。很容易猜到为啥少了两个参数，因为默认视锥体的高线穿过相机，整个视锥体是对称的。</p>
-<p>平行投影。<br><img src="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/4.jpg" title="This is an image"></p>
-<p>为了视角剪裁，当然也需要near和far了（以前老以为不用），比far还远，比near且近者，当被屏蔽。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1938,7 +1952,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
