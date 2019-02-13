@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Unity优化回忆录合批优化游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧游戏客户端向图像引擎发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。 先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。 （待填坑）">
+<meta name="description" content="Unity优化回忆录合批优化游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧游戏客户端向图像引擎发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。 先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。 何为dcdc，又称draw calls，有些人">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity优化回忆录">
 <meta property="og:url" content="http://yoursite.com/2019/01/30/Unity优化回忆录/index.html">
 <meta property="og:site_name" content="左未的blog">
-<meta property="og:description" content="Unity优化回忆录合批优化游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧游戏客户端向图像引擎发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。 先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。 （待填坑）">
+<meta property="og:description" content="Unity优化回忆录合批优化游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧游戏客户端向图像引擎发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。 先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。 何为dcdc，又称draw calls，有些人">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-30T11:08:03.271Z">
+<meta property="og:updated_time" content="2019-02-13T06:29:47.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unity优化回忆录">
-<meta name="twitter:description" content="Unity优化回忆录合批优化游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧游戏客户端向图像引擎发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。 先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。 （待填坑）">
+<meta name="twitter:description" content="Unity优化回忆录合批优化游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧游戏客户端向图像引擎发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。 先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。 何为dcdc，又称draw calls，有些人">
 
 
 
@@ -354,7 +354,9 @@
       
         <h1 id="Unity优化回忆录"><a href="#Unity优化回忆录" class="headerlink" title="Unity优化回忆录"></a>Unity优化回忆录</h1><h2 id="合批优化"><a href="#合批优化" class="headerlink" title="合批优化"></a>合批优化</h2><p>游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧<strong>游戏客户端</strong>向<strong>图像引擎</strong>发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。</p>
 <p>先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。</p>
-<p>（待填坑）</p>
+<h3 id="何为dc"><a href="#何为dc" class="headerlink" title="何为dc"></a>何为dc</h3><p>dc，又称draw calls，有些人也叫他dp（原因不明）</p>
+<p>所谓的Draw Call其实是CPU发送给GPU的一条渲染mesh的命令。Draw Call的内容就是一个指向欲渲染的mesh的指针（或者id？称呼whatever），一个Draw Call<strong>不包括</strong>任何材质信息(texture, shader, etc)。</p>
+<p>上面提到的材质信息在这里又称渲染状态(render state)。在提交完同一材质信息的所有dc之后，GPU根据当前的材质信息和所有的顶点数据，开始渲染管线的工作。</p>
 
       
     </div>
@@ -473,7 +475,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -519,7 +521,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity优化回忆录"><span class="nav-number">1.</span> <span class="nav-text">Unity优化回忆录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#合批优化"><span class="nav-number">1.1.</span> <span class="nav-text">合批优化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity优化回忆录"><span class="nav-number">1.</span> <span class="nav-text">Unity优化回忆录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#合批优化"><span class="nav-number">1.1.</span> <span class="nav-text">合批优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#何为dc"><span class="nav-number">1.1.1.</span> <span class="nav-text">何为dc</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
