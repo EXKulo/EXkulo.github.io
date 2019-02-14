@@ -252,6 +252,230 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/【MongoDB权威指南】三/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/【MongoDB权威指南】三/" itemprop="url">【MongoDB权威指南】三</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-16T16:03:20+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">后端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/16/【MongoDB权威指南】三/" class="leancloud_visitors" data-flag-title="【MongoDB权威指南】三">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="三-索引"><a href="#三-索引" class="headerlink" title="三 索引"></a>三 索引</h1><p>前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>创建索引：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="为啥要有索引捏"><a href="#为啥要有索引捏" class="headerlink" title="为啥要有索引捏"></a>为啥要有索引捏</h3><blockquote>
+<p>自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个：indexValue, _id。当进行查询的时候数据库可以用各种简单的方法快速定位到索引元素，找到它的_id。</p>
+</blockquote>
+<p>同一个集合，同样的索引只能创建一次，重复尝试创建也没用。</p>
+<p>对某个键创建了索引，譬如对x键创建了索引，只会对查询条件里只有x的查询有用，若查询条件中包括了其他条件，比如{‘x’: xx, ‘y’: yy}，那么这索引在此次查询便是无用的。</p>
+<p>当做一个没有索引的查询的时候，数据需要做一次扫描全表的操作，在集合非常大的时候这个操作会非常耗时。建立索引带来的速度提升不言而喻，然而索引也不是越多越好。创建索引的缺点就是每次增删改的时候都会产生额外的开销，那是因为可能要更改索引列表中的排序。</p>
+<p>除了有益于快速查询之外，索引对大剂量排序也有好处。设想如果没有索引，那么对数据排序就需要先把数据都提取到内存中，再排序输出到客户端。当数据很多的时候，就有爆内存的风险了。但是如果有索引，数据库就可以按顺序提取数据。</p>
+<blockquote>
+<p>每个集合默认最多能有64个索引。</p>
+</blockquote>
+<p>另外，不一定使用索引查询就一定快过表扫描。当要返回的结果数量超过集合中文档数量的一半的时候，表扫描是要比索引查询快的。所以查询某个键是否存在，或者某个布尔值真假的时候，没有必要使用索引。</p>
+<h3 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h3><p>创建索引有可能需要数分钟，如果调用ensureIndex之后没有立即返回，可以在另一个shell中执行db.currentOp()来看当前进度。</p>
+<h3 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h3><p>可以指定多个索引，比如<code>{&#39;x&#39;: 1, &#39;y&#39;: -1}</code>。有三种情况可以使用这个索引。很好理解，毕竟索引是按照x和y一起来排序的。</p>
+<ul>
+<li><code>db.user.find({&#39;x&#39;: 2}).sort({&#39;y&#39;: -1})</code><br>找出x为2这个操作非常高效，而对于所有同为一个x的文档来说，y也是排好序的，所以不需要另外排序，不需要多余操作，也非常高效。</li>
+<li><code>db.user.find({&#39;x&#39;: {&#39;lte&#39;: 10, &#39;gte&#39;: 5}})</code></li>
+<li><code>db.user.find({&#39;x&#39;: {&#39;lte&#39;: 10, &#39;gte&#39;: 5}}).sort({&#39;y&#39;: 1})</code><br>这个操作分为两步。第一步先筛选出按照x大小排序的符合条件的文档。但是这些文档是按照x来排序的，并没有根据y的大小来排序，所以还需要第二步，先把文档提取到内存，再进行一次排序。<br>cautious： 如果索引是<code>{&#39;y&#39;: 1, &#39;x&#39;: -1}</code>的话，可以想象得出这个操作就只需要做find操作，而不需要后面的sort操作了。</li>
+</ul>
+<p>总的来说就是加入索引是一个复合索引，那么只对第一个键进行单纯的查询操作是很快的，但是如果查询完还要再根据<strong>这个键之外</strong>的键进行排序，那么就还需要花费时间来做排序操作。</p>
+<p>想要提高操作的效率，就要尽量避免sort（我的意思就是尽量把经常要sort的键拿来当索引中的第一个键），而多做find。毕竟find的时间复杂度是$n$，而排序的时间复杂度就不好说了。</p>
+<p>注意，相互反转的索引是等价的。相互反转的定义是每个方向都乘以-1.</p>
+<h4 id="隐式索引"><a href="#隐式索引" class="headerlink" title="隐式索引"></a>隐式索引</h4><p>很容易得出结论创建索引<code>{&#39;a&#39;: 1, &#39;b&#39;: 1, ... , &#39;z&#39;}</code>也就相当于创建了<code>{&#39;a&#39;: 1}</code>、<code>{&#39;a&#39;: 1, &#39;b&#39;: 1}</code>等一系列索引。</p>
+<h3 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h3><p>索引的数据结构大概是树，最小的元素是最左边的叶子，最大的元素是最右边的叶子。</p>
+<h3 id="如何优化索引"><a href="#如何优化索引" class="headerlink" title="如何优化索引"></a>如何优化索引</h3><p>如果索引里面只包含一个键，那么升序降序是无所谓的。但是如果包含多个键，就要考虑每个键的升序降序问题。数据库会有限对先点定义的键进行排序。如</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>数据库会先根据field1进行升序排序，然后对每个field1相同的子集根据field2进行降序排序。</p>
+<p>针对那种包含几个键的索引，尽可能地把经常新增地作为第一个排序依据。</p>
+<p>例如一个记录朋友圈的数据库有<code>user</code>、<code>date</code>二键，前者为用户id，后者为朋友圈发布日期。由于发布朋友圈这个操作非常频繁，所以理应把索引设置成<code>{&#39;date&#39;: -1, &#39;user&#39;: 1}</code>而非<code>{&#39;user&#39;: 1, &#39;date&#39;: -1}</code>。当设置成<code>{&#39;date&#39;: -1, &#39;user&#39;: 1}</code>之后，每次插入新的记录（<strong>时间永远都是往前走</strong>），就无需在索引中间插入数据(which is a waste)，而是在索引的两端插入了。</p>
+<p>假设操作先要find出x，再用y做范围筛选，那么索引应该先设定x，再设定y。</p>
+<h3 id="操作是怎么使用索引的"><a href="#操作是怎么使用索引的" class="headerlink" title="$操作是怎么使用索引的"></a>$操作是怎么使用索引的</h3><p>有几个操作是根本不能使用索引的，比如<code>$where</code>和<code>$exsit</code>。</p>
+<p><code>$ne</code>操作对索引的使用也不是那么高效率。毕竟想要找出<strong>不等于</strong>的，总得遍历全集才能确认不是？</p>
+<p>一般而言，MongoDB一次查询只会使用一个索引。假设建立了两个索引<code>{&#39;x&#39;: 1}</code>和<code>{&#39;y&#39;: 1}</code>，那么执行查询条件<code>{&#39;x&#39;: 123, &#39;y&#39;: 456}</code>的时候，很有可能是先用x索引找出一个子集，再在这个子集上找符合y条件的结果。但是如果用的是or查询，由于or查询实际上是把多个查询条件查出来的结果做一次并集，所以or会执行和查询条件一样多次的查询。比如如果条件为<code>{&#39;$or&#39;: [&#39;x&#39;: 123, &#39;y&#39;: 456]}</code>，那么实际上是以x为索引搜出结果，再以y为索引搜出结果，再合并。</p>
+<h3 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h3><p>索引可以是内嵌文档中的键，比如<code>{&#39;comment.date&#39;: 1}</code>。</p>
+<p>在建立索引的时候可以给它起个可爱又帅气的名称，如果执意不肯给它起名字，数据库就会把键连起来作为它的名称（比如<code>field1_field2_fieldk</code>），<strong>如果这个名字太长超过了限制，就会创建索引失败</strong>。执行创建索引的操作之后最好用getLastError来看是否成功创建了索引。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;, &#123;<span class="string">'name'</span>: <span class="string">'屎蛋'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h3><p>使用哪个索引？</p>
+<p>当有一个索引能精确匹配搜索的时候，查询优化器会有限用它。如果有几个同时匹配，MongoDB会并行这些查询，哪个先返回100个结果就会被保留并缓存下来再接下来的查询中使用，其他的查询计划会被中止。</p>
+<p>被缓存的查询计划在接下来都会被使用，直到集合数据发生了比较大的变化或者查询超过1000次之后，或者建立了新的索引之后，查询优化其会重新评估。</p>
+<p>explain中的allPlans字段显示了本次查询尝试过的所有查询计划。</p>
+<h3 id="不适用索引的场合"><a href="#不适用索引的场合" class="headerlink" title="不适用索引的场合"></a>不适用索引的场合</h3><p>使用索引需要进行两次查找：</p>
+<ol>
+<li>查找索引条目</li>
+<li>根据索引指针查找相应文档</li>
+</ol>
+<p>当结果集合在原集合中占的比例越大，就越不适合用索引。最极端的情况是要求返回整份文档，此时使用索引所需要的操作会比表扫描多一倍。</p>
+<p>索引通常适合在集合比较大、文档比较大或者选择性查询的时候使用。</p>
+<h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><p>建立这个索引的目的是防止插入相同的数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.users.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尝试这么插入文档会报错</span></span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>插入重复键的时候会抛异常，这会影响效率。所以不能用这个功能来过滤，它只能应对偶现的不太能解决的问题。</p>
+<p>_id是一个默认的、不可删除的唯一索引。</p>
+<blockquote>
+<p>注意<br>MongoDB有一个特性：超过1024字节的字段不会被加入到索引库中。这意味着即使某个键被设置为唯一索引，只要值超过了8KB，那么即使插入多次也没问题。</p>
+</blockquote>
+<h4 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h4><p>如果集合里面对某个键已经有重复的文档，那么对这个键创建唯一索引会失败。如果还是想创建的话，可以暴力一点把他们去重了。注意，这个操作<strong>很暴力</strong>，别乱用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.people.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'dropDups'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h3><p>说实话光看这个名词我真的不知道他想表达啥，这tm谁起的名字！</p>
+<p>起因是这样的：当把某个键设置为唯一索引之后，如果插入文档的时候没有这个键，那么对应的值会被设置成null。当下次再次插入这种文档的时候，就会出现<code>null == null</code>的判断，导致无法插入。</p>
+<p>如果想要MongoDB不把空当作null来看带，希望唯一索引支队包含对应键的文档生效，使得当字段存在的时候才需要唯一，那么就使用稀疏索引吧。</p>
+<p>使用sparse选项就可以创建稀疏索引。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.ensureIndex(&#123;<span class="string">'email'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'sparse'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>A sprase index doesn’t have to be unique.</p>
+<p>稀疏索引对查询的结果可能会有影响。影响就是不把不存在当作是null。如果不使用稀疏索引，当使用$ne不等于某个非null值的时候，会包括没这个字段的文档。</p>
+<h3 id="强制不使用索引"><a href="#强制不使用索引" class="headerlink" title="强制不使用索引"></a>强制不使用索引</h3><p>使用<code>hint()</code>来表示不使用任何索引。</p>
+<h2 id="索引管理"><a href="#索引管理" class="headerlink" title="索引管理"></a>索引管理</h2><p>所有的索引存储在MongoDB保留集合system.indexes中，可以执行<code>db.collectionName.getIndexes()</code>来查看集合上的所有索引信息。</p>
+<h3 id="舍弃索引"><a href="#舍弃索引" class="headerlink" title="舍弃索引"></a>舍弃索引</h3><p>dropIndex接受两种参数：</p>
+<ul>
+<li>db.test.drop(‘index_name’) 名字字符串</li>
+<li>db.test.drop({‘key’: value}) 索引本身</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/【MongoDB权威指南】二/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1831,195 +2055,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/How I Overcame Social-Anxiety/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/26/How I Overcame Social-Anxiety/" itemprop="url">How I Overcame Social-Anxiety</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-26T19:19:51+08:00">
-                2018-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书/" itemprop="url" rel="index">
-                    <span itemprop="name">读书</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/26/How I Overcame Social-Anxiety/" class="leancloud_visitors" data-flag-title="How I Overcame Social-Anxiety">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <img src="/2018/11/26/How%20I%20Overcame%20Social-Anxiety/folder.jpg" title="封面">
-<p>开坑。一边读书一边填坑。</p>
-<h3 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h3><p>不知道这本书为啥翻译成这么个名字，封面也一股浓郁的鸡汤书味道。其实原本的书名叫做「How I Overcame Social-Anxiety」（我是如何克服社交焦虑症的），讲的是作者如何一步步得上社交焦虑证，又如何一步步用各种心理暗示，以及通过改变一些观念，最后让自己成功走出来的。</p>
-<h3 id="社交焦虑症的症状"><a href="#社交焦虑症的症状" class="headerlink" title="社交焦虑症的症状"></a>社交焦虑症的症状</h3><p>说实话看这本书的动机就是我怀疑自己患有轻度的社交焦虑症，但是开始看这本书之后才发现自己如果真的患有此症，那应该也是轻微得不行，甚至一跟书中所描述的表现相比，我可以算是一个非常开朗健谈的人了。<br>包括但不限于：</p>
-<ul>
-<li>不习惯和别人沟通</li>
-<li>害怕可能会被批判的情形</li>
-<li>老是担心会尴尬</li>
-<li>过于在意别人的眼光</li>
-</ul>
-<h3 id="社交焦虑症的病因"><a href="#社交焦虑症的病因" class="headerlink" title="社交焦虑症的病因"></a>社交焦虑症的病因</h3><p>社交焦虑症当然不是duang的一下说患上就患上的，而必是体验了一些长久的、负面的经历。例如作者说他在小时候，父母就一直跟他说要听长辈的上级的话，导致他养成了看别人脸色的习惯，按自己的感受来做事情，更多地是根据别人的看法来做事。另外，成长的过程中可能每个人或多或少地会受到别的小朋友言语上的攻击，诸如「你真蠢」<br>「你真丑」之类的，由于作者在家庭中缺乏鼓励教育，本身就缺乏自信，在碰到此类言语攻击的时候就很容易相信攻击者的话，从而真的认为自己如别人随口一句话所说的一样。</p>
-<p>患上该症的另一可能病因是完美主义。在完美主义者眼中，自己做的事情一定要完美无缺，一切要按照自己的计划来。自然，社交生活这种充满不定性的活动，是最不能给完美主义者安全感的。一旦他们想到等下可能会犯的错，于别人来说，会在众人面前出丑；于自己来说，没完成自己的期望，让自己心里不舒坦。于是他们便会去避免不必要的社交，甚至完全杜绝社交。</p>
-<h3 id="可行的方案"><a href="#可行的方案" class="headerlink" title="可行的方案"></a>可行的方案</h3><p>确实人的性格和行为有非常大的成分是基因导致的，但是这并不意味着后天的改变全然无用。</p>
-<p>书中谈了一些个解决方案，在这里总结一下，并且结合我本人的经历来谈一谈吧。</p>
-<h5 id="解决过于关注他人看法"><a href="#解决过于关注他人看法" class="headerlink" title="解决过于关注他人看法"></a>解决过于关注他人看法</h5><p>大一大二的时候我发现自己就有这个毛病，特别害羞特别害怕做出什么出格的事情，会引人注目丢人现眼的。后来意识到这个问题，然后上知乎搜怎么做。知乎给了好些主意，建议多多尝试在众人之前做一些本来不敢做的事情，比如边走路边大声唱歌啊，在街上找路人搭讪啊啥的。</p>
-<p>回过头来看，我也不知道这些方法究竟有没有用，有兴趣的读者可以试试。</p>
-<p>后来我只是意识到我三观中很重要的一项要领：<strong>路人，或者不太熟悉的人根本不关心你是怎么样的，你在别人的世界里就是空气。</strong>过于关注别人的看法说难听点就是自我意识过剩，老以为自己的一举一动会有人跑过来指指点点评头论足。事实上世界这么多人，你真的没有那么特别，你做的事情也许你自己会觉得很尴尬，但是对别人来说早已经是可以无视的寻常事。你真的没有必要觉得自己会被别人多关注。</p>
-<p>另一个问题就是，就算你做了啥事情真的引发了别人不好的评论，那又如何？玻璃心者总容易被各种事情伤害，其实伤害他的并不是别人的话，而是自己的想象力。想象自己骂的有多难堪，想象自己做的有多尴尬。</p>
-<p>这就引出下一个议题，事情就是事情，客观地去看，不要夹带太多个人情感。</p>
-<h5 id="佛家的看法"><a href="#佛家的看法" class="headerlink" title="佛家的看法"></a>佛家的看法</h5><p>在佛家看来，任何事物本身并没有好坏。所有的好坏全都是人为的定义的。你认为这件事对你不利，它便是坏，反之就是好。</p>
-<p>当发生某件你本感觉非常尴尬的事情的时候，不妨强行冷静一下，清空自己对这件事的主观看法，把它还原到一个非好非坏的混沌状态。毕竟，塞翁失马，焉知非福。时间总是在跨步向前走，没必要把自己stick在对一件事的感受上。</p>
-<p>书中同时建议读者可以进行冥想。冥想的核心思想就是把注意力集中在呼吸上。而对于一呼一吸间产生的念想，观察之，看它如何发展，如何影响自己的心理，生理状况；分清楚哪些是事物的客观特性，哪些是自己主观加上去的特性。</p>
-<p>个人强烈建议试一下冥想。</p>
-<h5 id="避免预演未来"><a href="#避免预演未来" class="headerlink" title="避免预演未来"></a>避免预演未来</h5><p>人对不可掌握的未来总爱进行预演，在脑海中一遍又一遍地预演未来可能会发生的各种情况。首先要肯定一下适量预演的好处，在没有把握的时候可以尽量多搜集情报，<strong>理性地</strong>分析有可能发生的状况。个人觉得这是一种可以有的严谨态度。</p>
-<p>但是要警惕进行过度的未来预演。过度预演的人常是拥有某种程度的被迫害妄想症（如我），对不可控的未来抱有焦虑感，所以总是尝试能通过预演大多数情况，使得当真发生某种情况的时候好掌控。然而要意识到，被迫害妄想症脑海中的大多数事情在<strong>数学概率上</strong>的发生可能性是很低的。被迫害妄想症者应当用理性武装自己，认识到自己不必要为低可能性的事情浪费能量。</p>
-<p>未来谁也说不准，在做好适当的前期准备之后，你也只能盲目地去相信未来的自己能够handle了（笑）。</p>
-<h5 id="解决自卑"><a href="#解决自卑" class="headerlink" title="解决自卑"></a>解决自卑</h5><p>本书作者的焦虑有部分是来自于对自己的焦虑。我个人倒不会建议大家说去尝试无视自己的自卑之处，这完全是于事无补的。</p>
-<p>知道自己自卑的地方在哪里，那就去改进。</p>
-<p>觉得自己身材不好，就去健身；觉得外观不好看，就去了解穿衣知识；觉得不会说话，就去了解应该怎么说话。</p>
-<p>老土但是这是真理：没有什么能够拯救你于自卑之中，除了你自己。</p>
-<h5 id="不畏惧做一个有个性的人"><a href="#不畏惧做一个有个性的人" class="headerlink" title="不畏惧做一个有个性的人"></a>不畏惧做一个有个性的人</h5><p>就算尽力去改变了，也还是有一些方面你觉得自己比别人要差的。这个时候就不要相信鸡汤书里说的什么只是你还不够努力了。此时可以尝试一下传说中的<strong>认命法</strong>。</p>
-<p>这里我说的认命可不是什么自怨自艾，而是说把自己做不到的地方也看作自己的一个特点，可以区分出地球上其他70亿人的特点，从而为它自豪。</p>
-<p>正是让你自己不满意的这个所谓的缺点，才让你成为一个有个性的人。</p>
-<p>没有必要为自己的个性而感到任何缺憾，而是要顺着它去生活，甚至利用它去生活。</p>
-<h5 id="了解自己"><a href="#了解自己" class="headerlink" title="了解自己"></a>了解自己</h5><p>使用DISC之类的心理测试方法知道自己是个什么样性格的人，心理安全区在哪里，从而知道怎么做才能让自己舒服。</p>
-<p>比如我自己测试出是C形人格：较真，客观，偏理性。这类人的安全感来源于严谨的schedule。所以为了照顾自己的安全感，可以多多地为自己制定适宜的时间表，适宜的计划，然后按照计划去实行。</p>
-<p>测出人格也可以让你意识到自己的缺点在哪里。你可以在生活中选择规避它，或者直面它。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2072,7 +2107,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2083,7 +2118,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
