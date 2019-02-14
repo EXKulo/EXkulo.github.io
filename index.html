@@ -252,6 +252,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/【计算机图形学基础】二 射线追踪/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/14/【计算机图形学基础】二 射线追踪/" itemprop="url">【计算机图形学基础】二 射线追踪</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-14T15:53:28+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机图形学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/14/【计算机图形学基础】二 射线追踪/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】二 射线追踪">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="【计算机图形学基础】二-射线追踪"><a href="#【计算机图形学基础】二-射线追踪" class="headerlink" title="【计算机图形学基础】二 射线追踪"></a>【计算机图形学基础】二 射线追踪</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第四章<strong>Ray Tracing</strong>。</p>
+<p>由两种渲染方式：一种是逐个画物体；一种是逐个画像素。前者是遍历所有物体；后者是遍历所有的像素，以及影响该像素的物体。射线追踪属于后者。</p>
+<p>关于二者的区别，在<a href="http://vr.cs.uiuc.edu/node191.html" target="_blank" rel="noopener">这个网站</a>可以看到有这么一段解释：</p>
+<blockquote>
+<p>For rendering, we need to consider all combinations of objects and pixels. This suggests a nested loop. One way to resolve the visibility is to iterate over the list of all triangles and attempt to render each one to the screen. This is called object-order rendering, and is the main topic of Section 7.2. For each triangle that falls into the field of view of the screen, the pixels are updated only if the corresponding part of the triangle is closer to the eye than any triangles that have been rendered so far. In this case, the outer loop iterates over triangles whereas the inner loop iterates over pixels. The other family of methods is called image-order rendering, and it reverses the order of the loops: Iterate over the image pixels and for each one, determine which triangle should influence its RGB values. To accomplish this, the path of light waves that would enter each pixel is traced out through the virtual environment. This method will be covered first, and many of its components apply to object-order rendering as well.</p>
+</blockquote>
+<p>就是说imgage-order rendering逐像素渲染，外面一层的loop的对象是所有像素，里面一层的loop对象是三角形，里面一层会判断在该像素点的哪个三角形离观察者最近，并渲染它。（深度测试的原理）</p>
+<h2 id="基础的射线追踪算法"><a href="#基础的射线追踪算法" class="headerlink" title="基础的射线追踪算法"></a>基础的射线追踪算法</h2><p>从观察者发送一束射线到目标像素点，命中的第一个三角形，将会被绘制。</p>
+<p>因此一个基础的射线追踪器分为三个部分：</p>
+<ol>
+<li>产生射线，决定射线的原点以及方向</li>
+<li>射线交点，找到与射线交点最近原点的物体</li>
+<li>绘制(shading)，绘制该交点的颜色</li>
+</ol>
+<p>伪代码可以表现为</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 每个像素 <span class="keyword">do</span></span><br><span class="line">  计算视觉射线</span><br><span class="line">  找到第一个被射线击中的物体表面以及它的法向量$n$</span><br><span class="line">  根据交点的法向量和光照等信息，计算出该像素点的颜色</span><br></pre></td></tr></table></figure>
+<h2 id="透视"><a href="#透视" class="headerlink" title="透视"></a>透视</h2><p>透视有很多种，比如立体透视和鱼眼透视，但是我们最常用的还是线性透视。在线性透视中，3d物体被<strong>投影</strong>到一块平面上，原来是直线的，投影完还是直线（反例是鱼眼透视，会变形）。</p>
+<p>最简单的投影类型是平行投影，其实就是让3d物体沿着视觉平面的法向量方向运动，直到3d物体击中视觉平面。<br>平行投影的两种：如果图像平面正交于视觉方向，这种投影就叫正交投影，否则叫斜投影(oblique)</p>
+<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/1.png" title="可以看到眼睛在左边，右边的平面并不垂直于眼睛">
+<p>透视和平行投影不同，万物在远处会变小直至消失，平行线在远处会交汇。</p>
+<h2 id="计算视觉射线"><a href="#计算视觉射线" class="headerlink" title="计算视觉射线"></a>计算视觉射线</h2><p>一条射线的数学表达为：</p>
+<p>$$p(t)=e+t(s-e)$$</p>
+<p>其中，e为射线原点，s为平面上的一点。当t为0，则在e点上，当t为1，则在s点上。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/【精通Linux】一/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -413,7 +589,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/【计算机图形学基础】一 光栅图片/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/【计算机图形学基础】一 光栅图像/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -432,7 +608,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/13/【计算机图形学基础】一 光栅图片/" itemprop="url">【计算机图形学基础】一 光栅图像</a></h1>
+                <a class="post-title-link" href="/2019/02/13/【计算机图形学基础】一 光栅图像/" itemprop="url">【计算机图形学基础】一 光栅图像</a></h1>
         
 
         <div class="post-meta">
@@ -484,7 +660,7 @@
 
           
           
-             <span id="/2019/02/13/【计算机图形学基础】一 光栅图片/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】一 光栅图像">
+             <span id="/2019/02/13/【计算机图形学基础】一 光栅图像/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】一 光栅图像">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -579,7 +755,7 @@
 <p>Second, encoding images with limited precision leads to quantization artifacts, or banding, when the need to round pixel values to the nearest representable value introduces visible jumps in intensity or color.</p>
 <p>这是一个英语长句。when the need是一个词组，表示当需要干啥的时候。这里表示当需要把像素取整至最接近的整数的时候。这时会introduces，也就是引入，引入可见的亮度或者颜色跳跃。整句可翻译为：当<strong>需要对有限精度编码的图像中的像素，取整至最接近的整数的时候，会引发亮度或者颜色的跳跃。</strong>（也就是传说中的失真）</p>
 </blockquote>
-<h3 id="显示器亮度与伽马"><a href="#显示器亮度与伽马" class="headerlink" title="显示器亮度与伽马"></a>显示器亮度与伽马</h3><p>我们可以这么定义：关闭屏幕的时候屏幕为<strong>黑色</strong>，开启屏幕的时候为<strong>白色</strong>。假设输入数据中亮度范围为0~1，那么亮度的一半就是屏幕物理亮度的一半。（然而其实人对亮度的敏感度不是线性的，这里先按下不谈）</p>
+<h3 id="显示器亮度与伽马"><a href="#显示器亮度与伽马" class="headerlink" title="显示器亮度与伽马"></a>显示器亮度与伽马</h3><p>我们可以这么定义：关闭屏幕的时候屏幕为<strong>黑色</strong>，开启屏幕的时候为<strong>白色</strong>。假设输入数据中亮度范围为0~1，那么亮度的一半就是屏幕物理亮度的一半。然而其实人对亮度的敏感度不是线性的，在高亮度的时候，人眼分辨亮度差别的敏感度不高，而在亮度低的时候则相反。所以人眼觉得的中等亮度，其实不是0.5那个亮度。为了不浪费仅有的八位储存空间，我们尽可能地把人眼觉得的中等亮度（据说是0.18）储存为0.5，于是这就需要一个公式来校正。</p>
 <p>要在显示器上正确显示亮度，有两点要注意：</p>
 <p>显示器显示的亮度与输入的值其实是非线性关系的。什么意思呢？就是当你输入亮度0、0.5、1的时候，显示器亮度可能分别是0，0.25、1。假设输入亮度为$a$，可以得到这样一个公式来表达他们的关系：</p>
 <p>display intensity = (maximum intensity)$a^\gamma$</p>
@@ -591,8 +767,13 @@
 <blockquote>
 <p>顺便这里提一下怎么把log计算转为ln计算<br>$$log_ab = \frac{log_cb}{log_ca} = \frac{ln_b}{lin_a}$$<br>这里第一步叫换底公式。</p>
 <p>换底公式的证明：<br>若有对数$log_ab$，现假设$a=n^x$，$b=n^y$，可得：</p>
-<p>$x = log_na$, $y = log_nb$<br>所以：<br>$$log_ab = log_{n^x}{n^y}\,\,① $$<br>已知对数基本公式：<br>$$log{xa}b = \frac{1}{x}log_ab$$<br>和<br>$$log_axb = xlog_ab$$<br>对$①$进行处理可得<br>$$log_ab = log_{n^x}{n^y} = \frac{1}{x}log_n{n^y} = \frac{y}{x}log_nn = \frac{y}{x} = \frac{log_nb}{log_na}$$</p>
+<p>$x = log_na$, $y = log_nb$<br>所以：<br>$$log_ab = log_{n^x}{n^y}\,\,① $$<br>已知对数基本公式：<br>$$log_{xa}b = \frac{1}{x}log_ab$$<br>和<br>$$log_axb = xlog_ab$$<br>对$①$进行处理可得<br>$$log_ab = log_{n^x}{n^y} = \frac{1}{x}log_n{n^y} = \frac{y}{x}log_nn = \frac{y}{x} = \frac{log_nb}{log_na}$$</p>
 </blockquote>
+<p>电视上，或者游戏中我们常常可以看到伽马校正的功能，就是在调整$\gamma$的值。</p>
+<p>关于gamma校正，可以参考<a href="https://blog.csdn.net/candycat1992/article/details/46228771" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>关于真实的显示还有一点，这里就不讲了。</p>
+<h2 id="RGB颜色"><a href="#RGB颜色" class="headerlink" title="RGB颜色"></a>RGB颜色</h2><p>讲光的三原色的混合，莫得谈。</p>
+<h2 id="alpha混合"><a href="#alpha混合" class="headerlink" title="alpha混合"></a>alpha混合</h2><p>这部分讲的是blend的内容，也先不提。</p>
 
           
         
@@ -1941,183 +2122,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/【MongoDB权威指南】四/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/23/【MongoDB权威指南】四/" itemprop="url">【MongoDB权威指南】四</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T16:03:20+08:00">
-                2019-01-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/后端技术/" itemprop="url" rel="index">
-                    <span itemprop="name">后端技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/01/23/【MongoDB权威指南】四/" class="leancloud_visitors" data-flag-title="【MongoDB权威指南】四">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="四-特殊索引和特殊集合"><a href="#四-特殊索引和特殊集合" class="headerlink" title="四 特殊索引和特殊集合"></a>四 特殊索引和特殊集合</h1><h2 id="固定集合"><a href="#固定集合" class="headerlink" title="固定集合"></a>固定集合</h2><p>MongoDB中的非特殊集合是动态创建的，可以自动增长容量。而另一种集合——固定集合则需要事先创建，大小是固定的。往一个已经满了的固定集合里面插入数据，会覆盖最老的数据。</p>
-<p>固定集合中的数据是被顺序写入的，非随机访问比较快。</p>
-<p>一般用来存放日志。</p>
-<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createColletion(<span class="string">'collction_name'</span>, &#123;<span class="string">'capped'</span>: <span class="literal">true</span>, <span class="string">'size'</span>: <span class="number">100000</span>, <span class="string">'max'</span>: <span class="number">100</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>上面的例子中，size指集合所占空间大小，max指文档最大个数。</p>
-<p>一旦创建之后就不能改变大小了，除非删掉重建。</p>
-<p>出了凭空创建出固定集合以外，还可以通过转换非固定集合来创建固定集合。</p>
-<p>下面这段代码把名为test的数据库转为固定集合：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123;<span class="string">'convertToCapped'</span>: <span class="string">'test'</span>, <span class="string">'size'</span>: <span class="number">10000</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="自然排序"><a href="#自然排序" class="headerlink" title="自然排序"></a>自然排序</h3><p>磁盘中的存放顺序为自然顺序。若为普通集合，自然排序没有任何意义，因为它的新数据插入未必在最后面，有可能会插在中间每个空位。而对于固定集合来说，新数据永远插在最后（循环列表），所以按照自然排序可以拿到一个按照插入时间排序的数据。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.find().sort(&#123;<span class="string">'$natural'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="循环游标"><a href="#循环游标" class="headerlink" title="循环游标"></a>循环游标</h3><p>只能用于固定集合。</p>
-<h3 id="没有-id的集合"><a href="#没有-id的集合" class="headerlink" title="没有_id的集合"></a>没有_id的集合</h3><p>固定集合是没有_id索引的，如果普通集合也不想要_id，创建集合的时候可以指定<code>{&#39;autoIndexId&#39;: false}</code>。当然创建固定集合的时候也可以用这个选项。</p>
-<p>_id必须是唯一索引。它一旦被建立就无法删除，所以要想要再建立。如果建立的_id有问题，就只能删除集合再重建了。</p>
-<h2 id="TTL索引"><a href="#TTL索引" class="headerlink" title="TTL索引"></a>TTL索引</h2><p><strong>time-to-live index</strong>，具有生命周期的索引。允许为每个文档设置一个超时时间，使得当一个文档达到预设值的老化条件之后就会被删除。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.ensureIndex(&#123;<span class="string">'lastUpdated'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'expireAfterSecs'</span>: <span class="number">60</span>*<span class="number">60</span>*<span class="number">24</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>如果文档存在lastUpdated字段并且是日期类型，那么当服务器时间比文档时间晚expireAfterSecs秒时，文档会被删除。</p>
-<p><strong>MongoDB每分钟才检测一次TTL，</strong>注意检测单位不是秒。</p>
-<p>TTL索引可以被当作普通索引来用，能提高sort性能。</p>
-<h2 id="全文本索引"><a href="#全文本索引" class="headerlink" title="全文本索引"></a>全文本索引</h2><p>创建文本索引的<strong>开销非常大</strong>，所以最好在数据库空闲的时候创建，而且内存可能会不够用。</p>
-<p>使用上可能会有严重的性能问题，因为所有字符串都需要被分解、分词，并保存到一个地方。</p>
-<h2 id="地理空间索引"><a href="#地理空间索引" class="headerlink" title="地理空间索引"></a>地理空间索引</h2><p>对位置坐标进行索引。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.world.ensureIndex(&#123;<span class="string">'loc'</span>: <span class="string">'2dsphere'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>作用是啥呢，比如说找到所有在某个区域内的点，或者找到所有距离符合条件的点。这里不细说。</p>
-<h2 id="存储大型二进制文件"><a href="#存储大型二进制文件" class="headerlink" title="存储大型二进制文件"></a>存储大型二进制文件</h2><p>这个技术叫GridFS。目前来说没啥了解的欲望，有需要的时候再看。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2170,7 +2174,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

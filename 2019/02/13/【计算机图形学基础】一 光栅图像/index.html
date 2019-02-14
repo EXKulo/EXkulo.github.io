@@ -82,11 +82,11 @@
 <meta name="description" content="【计算机图形学基础】一 光栅图像该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第三章Raster Images。Raster其词翻译为光栅，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。 在Google中可以看到如下：  1930s: from German Raster, literally ‘sc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【计算机图形学基础】一 光栅图像">
-<meta property="og:url" content="http://yoursite.com/2019/02/13/【计算机图形学基础】一 光栅图片/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/13/【计算机图形学基础】一 光栅图像/index.html">
 <meta property="og:site_name" content="左未的blog">
 <meta property="og:description" content="【计算机图形学基础】一 光栅图像该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第三章Raster Images。Raster其词翻译为光栅，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。 在Google中可以看到如下：  1930s: from German Raster, literally ‘sc">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-14T04:05:17.322Z">
+<meta property="og:updated_time" content="2019-02-14T07:51:06.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【计算机图形学基础】一 光栅图像">
 <meta name="twitter:description" content="【计算机图形学基础】一 光栅图像该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第三章Raster Images。Raster其词翻译为光栅，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。 在Google中可以看到如下：  1930s: from German Raster, literally ‘sc">
@@ -119,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/13/【计算机图形学基础】一 光栅图片/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/13/【计算机图形学基础】一 光栅图像/">
 
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/【计算机图形学基础】一 光栅图片/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/【计算机图形学基础】一 光栅图像/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -321,7 +321,7 @@
 
           
           
-             <span id="/2019/02/13/【计算机图形学基础】一 光栅图片/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】一 光栅图像">
+             <span id="/2019/02/13/【计算机图形学基础】一 光栅图像/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】一 光栅图像">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,7 +414,7 @@
 <p>Second, encoding images with limited precision leads to quantization artifacts, or banding, when the need to round pixel values to the nearest representable value introduces visible jumps in intensity or color.</p>
 <p>这是一个英语长句。when the need是一个词组，表示当需要干啥的时候。这里表示当需要把像素取整至最接近的整数的时候。这时会introduces，也就是引入，引入可见的亮度或者颜色跳跃。整句可翻译为：当<strong>需要对有限精度编码的图像中的像素，取整至最接近的整数的时候，会引发亮度或者颜色的跳跃。</strong>（也就是传说中的失真）</p>
 </blockquote>
-<h3 id="显示器亮度与伽马"><a href="#显示器亮度与伽马" class="headerlink" title="显示器亮度与伽马"></a>显示器亮度与伽马</h3><p>我们可以这么定义：关闭屏幕的时候屏幕为<strong>黑色</strong>，开启屏幕的时候为<strong>白色</strong>。假设输入数据中亮度范围为0~1，那么亮度的一半就是屏幕物理亮度的一半。（然而其实人对亮度的敏感度不是线性的，这里先按下不谈）</p>
+<h3 id="显示器亮度与伽马"><a href="#显示器亮度与伽马" class="headerlink" title="显示器亮度与伽马"></a>显示器亮度与伽马</h3><p>我们可以这么定义：关闭屏幕的时候屏幕为<strong>黑色</strong>，开启屏幕的时候为<strong>白色</strong>。假设输入数据中亮度范围为0~1，那么亮度的一半就是屏幕物理亮度的一半。然而其实人对亮度的敏感度不是线性的，在高亮度的时候，人眼分辨亮度差别的敏感度不高，而在亮度低的时候则相反。所以人眼觉得的中等亮度，其实不是0.5那个亮度。为了不浪费仅有的八位储存空间，我们尽可能地把人眼觉得的中等亮度（据说是0.18）储存为0.5，于是这就需要一个公式来校正。</p>
 <p>要在显示器上正确显示亮度，有两点要注意：</p>
 <p>显示器显示的亮度与输入的值其实是非线性关系的。什么意思呢？就是当你输入亮度0、0.5、1的时候，显示器亮度可能分别是0，0.25、1。假设输入亮度为$a$，可以得到这样一个公式来表达他们的关系：</p>
 <p>display intensity = (maximum intensity)$a^\gamma$</p>
@@ -426,8 +426,13 @@
 <blockquote>
 <p>顺便这里提一下怎么把log计算转为ln计算<br>$$log_ab = \frac{log_cb}{log_ca} = \frac{ln_b}{lin_a}$$<br>这里第一步叫换底公式。</p>
 <p>换底公式的证明：<br>若有对数$log_ab$，现假设$a=n^x$，$b=n^y$，可得：</p>
-<p>$x = log_na$, $y = log_nb$<br>所以：<br>$$log_ab = log_{n^x}{n^y}\,\,① $$<br>已知对数基本公式：<br>$$log{xa}b = \frac{1}{x}log_ab$$<br>和<br>$$log_axb = xlog_ab$$<br>对$①$进行处理可得<br>$$log_ab = log_{n^x}{n^y} = \frac{1}{x}log_n{n^y} = \frac{y}{x}log_nn = \frac{y}{x} = \frac{log_nb}{log_na}$$</p>
+<p>$x = log_na$, $y = log_nb$<br>所以：<br>$$log_ab = log_{n^x}{n^y}\,\,① $$<br>已知对数基本公式：<br>$$log_{xa}b = \frac{1}{x}log_ab$$<br>和<br>$$log_axb = xlog_ab$$<br>对$①$进行处理可得<br>$$log_ab = log_{n^x}{n^y} = \frac{1}{x}log_n{n^y} = \frac{y}{x}log_nn = \frac{y}{x} = \frac{log_nb}{log_na}$$</p>
 </blockquote>
+<p>电视上，或者游戏中我们常常可以看到伽马校正的功能，就是在调整$\gamma$的值。</p>
+<p>关于gamma校正，可以参考<a href="https://blog.csdn.net/candycat1992/article/details/46228771" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>关于真实的显示还有一点，这里就不讲了。</p>
+<h2 id="RGB颜色"><a href="#RGB颜色" class="headerlink" title="RGB颜色"></a>RGB颜色</h2><p>讲光的三原色的混合，莫得谈。</p>
+<h2 id="alpha混合"><a href="#alpha混合" class="headerlink" title="alpha混合"></a>alpha混合</h2><p>这部分讲的是blend的内容，也先不提。</p>
 
       
     </div>
@@ -546,7 +551,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -592,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】一-光栅图像"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】一 光栅图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅设备"><span class="nav-number">1.1.</span> <span class="nav-text">光栅设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示"><span class="nav-number">1.1.1.</span> <span class="nav-text">显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影印设备-amp-输入设备"><span class="nav-number">1.1.2.</span> <span class="nav-text">影印设备&amp;输入设备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像、像素、几何体"><span class="nav-number">1.2.</span> <span class="nav-text">图像、像素、几何体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示器亮度与伽马"><span class="nav-number">1.2.1.</span> <span class="nav-text">显示器亮度与伽马</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】一-光栅图像"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】一 光栅图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅设备"><span class="nav-number">1.1.</span> <span class="nav-text">光栅设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示"><span class="nav-number">1.1.1.</span> <span class="nav-text">显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影印设备-amp-输入设备"><span class="nav-number">1.1.2.</span> <span class="nav-text">影印设备&amp;输入设备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像、像素、几何体"><span class="nav-number">1.2.</span> <span class="nav-text">图像、像素、几何体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示器亮度与伽马"><span class="nav-number">1.2.1.</span> <span class="nav-text">显示器亮度与伽马</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RGB颜色"><span class="nav-number">1.3.</span> <span class="nav-text">RGB颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#alpha混合"><span class="nav-number">1.4.</span> <span class="nav-text">alpha混合</span></a></li></ol></li></ol></div>
             
 
           </div>

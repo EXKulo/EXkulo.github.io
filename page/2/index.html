@@ -252,6 +252,183 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/【MongoDB权威指南】四/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/23/【MongoDB权威指南】四/" itemprop="url">【MongoDB权威指南】四</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T16:03:20+08:00">
+                2019-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">后端技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/23/【MongoDB权威指南】四/" class="leancloud_visitors" data-flag-title="【MongoDB权威指南】四">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="四-特殊索引和特殊集合"><a href="#四-特殊索引和特殊集合" class="headerlink" title="四 特殊索引和特殊集合"></a>四 特殊索引和特殊集合</h1><h2 id="固定集合"><a href="#固定集合" class="headerlink" title="固定集合"></a>固定集合</h2><p>MongoDB中的非特殊集合是动态创建的，可以自动增长容量。而另一种集合——固定集合则需要事先创建，大小是固定的。往一个已经满了的固定集合里面插入数据，会覆盖最老的数据。</p>
+<p>固定集合中的数据是被顺序写入的，非随机访问比较快。</p>
+<p>一般用来存放日志。</p>
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createColletion(<span class="string">'collction_name'</span>, &#123;<span class="string">'capped'</span>: <span class="literal">true</span>, <span class="string">'size'</span>: <span class="number">100000</span>, <span class="string">'max'</span>: <span class="number">100</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，size指集合所占空间大小，max指文档最大个数。</p>
+<p>一旦创建之后就不能改变大小了，除非删掉重建。</p>
+<p>出了凭空创建出固定集合以外，还可以通过转换非固定集合来创建固定集合。</p>
+<p>下面这段代码把名为test的数据库转为固定集合：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123;<span class="string">'convertToCapped'</span>: <span class="string">'test'</span>, <span class="string">'size'</span>: <span class="number">10000</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="自然排序"><a href="#自然排序" class="headerlink" title="自然排序"></a>自然排序</h3><p>磁盘中的存放顺序为自然顺序。若为普通集合，自然排序没有任何意义，因为它的新数据插入未必在最后面，有可能会插在中间每个空位。而对于固定集合来说，新数据永远插在最后（循环列表），所以按照自然排序可以拿到一个按照插入时间排序的数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.find().sort(&#123;<span class="string">'$natural'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="循环游标"><a href="#循环游标" class="headerlink" title="循环游标"></a>循环游标</h3><p>只能用于固定集合。</p>
+<h3 id="没有-id的集合"><a href="#没有-id的集合" class="headerlink" title="没有_id的集合"></a>没有_id的集合</h3><p>固定集合是没有_id索引的，如果普通集合也不想要_id，创建集合的时候可以指定<code>{&#39;autoIndexId&#39;: false}</code>。当然创建固定集合的时候也可以用这个选项。</p>
+<p>_id必须是唯一索引。它一旦被建立就无法删除，所以要想要再建立。如果建立的_id有问题，就只能删除集合再重建了。</p>
+<h2 id="TTL索引"><a href="#TTL索引" class="headerlink" title="TTL索引"></a>TTL索引</h2><p><strong>time-to-live index</strong>，具有生命周期的索引。允许为每个文档设置一个超时时间，使得当一个文档达到预设值的老化条件之后就会被删除。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.ensureIndex(&#123;<span class="string">'lastUpdated'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'expireAfterSecs'</span>: <span class="number">60</span>*<span class="number">60</span>*<span class="number">24</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果文档存在lastUpdated字段并且是日期类型，那么当服务器时间比文档时间晚expireAfterSecs秒时，文档会被删除。</p>
+<p><strong>MongoDB每分钟才检测一次TTL，</strong>注意检测单位不是秒。</p>
+<p>TTL索引可以被当作普通索引来用，能提高sort性能。</p>
+<h2 id="全文本索引"><a href="#全文本索引" class="headerlink" title="全文本索引"></a>全文本索引</h2><p>创建文本索引的<strong>开销非常大</strong>，所以最好在数据库空闲的时候创建，而且内存可能会不够用。</p>
+<p>使用上可能会有严重的性能问题，因为所有字符串都需要被分解、分词，并保存到一个地方。</p>
+<h2 id="地理空间索引"><a href="#地理空间索引" class="headerlink" title="地理空间索引"></a>地理空间索引</h2><p>对位置坐标进行索引。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.world.ensureIndex(&#123;<span class="string">'loc'</span>: <span class="string">'2dsphere'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>作用是啥呢，比如说找到所有在某个区域内的点，或者找到所有距离符合条件的点。这里不细说。</p>
+<h2 id="存储大型二进制文件"><a href="#存储大型二进制文件" class="headerlink" title="存储大型二进制文件"></a>存储大型二进制文件</h2><p>这个技术叫GridFS。目前来说没啥了解的欲望，有需要的时候再看。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/【MongoDB权威指南】三/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1898,163 +2075,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/出租屋实用贴纸技术/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/29/出租屋实用贴纸技术/" itemprop="url">【经济修屋】【一】出租屋实用贴纸技术</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-29T13:21:19+08:00">
-                2018-11-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活技术/" itemprop="url" rel="index">
-                    <span itemprop="name">生活技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/29/出租屋实用贴纸技术/" class="leancloud_visitors" data-flag-title="【经济修屋】【一】出租屋实用贴纸技术">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>刚到手的二手房或者低价出租屋，若是上了一些年纪的，装修大都无法再满足我们当代人的审美。最近来说装修是不可能装修的了，但是一直啥都不休整，住在这样的房子里心里也不是个味儿。于是心里就开始盘算起来怎么用最经济的方法来改造这个屋子。</p>
-<p>颜色老化的木制家具、厨房和洗手间花样过时的大理石、有痕迹甚至不平整的墙面，占据了我们日常生活中视觉的大部分。而且他们的功能性都还没有被破坏，单单只是</p>
-<h1 id="行动起来"><a href="#行动起来" class="headerlink" title="行动起来"></a>行动起来</h1><h3 id="处理墙面"><a href="#处理墙面" class="headerlink" title="处理墙面"></a>处理墙面</h3><p>待填坑。</p>
-<h3 id="处理大理石"><a href="#处理大理石" class="headerlink" title="处理大理石"></a>处理大理石</h3><p>待填坑。</p>
-<h3 id="处理木家具"><a href="#处理木家具" class="headerlink" title="处理木家具"></a>处理木家具</h3><p>待填坑。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2107,7 +2127,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
