@@ -380,6 +380,47 @@
 <h2 id="计算视觉射线"><a href="#计算视觉射线" class="headerlink" title="计算视觉射线"></a>计算视觉射线</h2><p>一条射线的数学表达为：</p>
 <p>$$p(t)=e+t(s-e)$$</p>
 <p>其中，e为射线原点，s为平面上的一点。当t为0，则在e点上，当t为1，则在s点上。</p>
+<h3 id="正交视角"><a href="#正交视角" class="headerlink" title="正交视角"></a>正交视角</h3><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/2.png" title="看w的方向">
+<blockquote>
+<p>Camera Frame<br>在OpenGl编程里常可以看到这个词，代表相机方向和位置。<br><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/3.png" title="相机帧"></p>
+</blockquote>
+<p>-w垂直于锥形体的上底。我们得知了点e和上底的距离d（在正交视角中，d为0，<strong>e</strong>在屏幕上），以及像素点的坐标，就可以算出射线的向量。</p>
+<p>这里假设锥形体上底这个面中，l为屏幕左边缘的位置，右r，上t，下b。那么屏幕的大小就为(r - l) x (t - b)。</p>
+<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/4.png" title="计算射线向量">
+<p>假设屏幕上一行有$n_x$个像素，一列有$n_y$行像素，那么第(i, j)个像素的坐标在u方向和v方向上的位置分别为：</p>
+<p>$$u = l + (i + 0.5)(r - l) / n_x$$<br>$$v = l + (j + 0.5)(t - b) / n_y$$</p>
+<p>那么射线就可以表达为：</p>
+<p>射线方向 -w 平行视角，全部都是这样的</p>
+<p>射线起点 <strong>e</strong> + $u$<strong>u</strong> + $v$<strong>v</strong></p>
+<h3 id="透视视角"><a href="#透视视角" class="headerlink" title="透视视角"></a>透视视角</h3><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/5.png" title="计算射线向量">
+<p>和正交视角不同，透视视角的射线为：</p>
+<p>射线方向 -d<strong>w</strong> + $u$<strong>u</strong> + $v$<strong>v</strong></p>
+<p>射线起点 <strong>e</strong></p>
+<h2 id="射线与物体的交汇"><a href="#射线与物体的交汇" class="headerlink" title="射线与物体的交汇"></a>射线与物体的交汇</h2><p>假设射线可以用一个一元一次方程表达（类似于y = b + kx)，表示为 <strong>p</strong>(t) = <strong>e</strong> + t<strong>d</strong>，求它跟面f(<strong>p</strong>) = 0的交点。</p>
+<h3 id="射线与球的交点"><a href="#射线与球的交点" class="headerlink" title="射线与球的交点"></a>射线与球的交点</h3><p>设球的重点为c，球可以表示为</p>
+<p>$$(x - x_c)^2 + (y - y_c)^2 + (z - z_c)^2 - R^2 = 0$$</p>
+<p>把它写成向量的形式就是</p>
+<p>$$\textbf{(p - c)(p - c)} - R^2 = 0$$</p>
+<p>其中，<strong>p</strong>为球面上的一点。如果我们把射线方程中的<strong>p</strong>带入到球的向量表达式中，可以得到</p>
+<p>$$(\textbf{e} + t\textbf{d} - \textbf{c})^2 - R^2 = 0$$</p>
+<p>拆出来得到一个关于$t$的二元一次方程：</p>
+<p>$$(\textbf{d}\cdot\textbf{d})t^2 + 2\textbf{d}\cdot(\textbf{e} - \textbf{c})^t + (\textbf{e} - \textbf{c})^2 - R^2 = 0$$</p>
+<p>最后根据二元一次方程的解法算出$t$。</p>
+<h3 id="射线与三角形的交点"><a href="#射线与三角形的交点" class="headerlink" title="射线与三角形的交点"></a>射线与三角形的交点</h3><blockquote>
+<p>先复习一波重心法<br><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/7.png" title="重心法"><br>三角形中的任意两个顶点，可以由第三个顶点的位移来表示。<br>如果一个点$\textbf{P}$在三角形内，那么它可以表示为<br>$$\textbf{P} = \textbf{A} + \gamma(\textbf{C} - \textbf{A}) + \lambda(\textbf{B} - \textbf{A})$$<br>并且要求：<br>$$\left\{<br>\begin{aligned}<br>\lambda \gt 0 \\<br>\gamma \gt 0 \\<br>\lambda + \gamma \lt 1<br>\end{aligned}<br>\right.$$</p>
+<p>可以看到，当$\lambda$为1，$\gamma$为0时，点在$\textbf{B}$上，当$\lambda$为0，$\gamma$为1时，点在$\textbf{C}$上。所以必须符合$\beta + \gamma \lt 1$</p>
+</blockquote>
+<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/6.png" title="三角形示意">
+<p>检测射线与三角形交点的方法有很多，这里使用重心法。</p>
+<p>要求解出</p>
+<p>$$\textbf{e} + t\textbf{d} = \textbf{f}(u, v)$$</p>
+<p>其中，等式右边表示在三角形上的点。</p>
+<p>这条等式又可以表达为<strong>式子一</strong>：</p>
+<p>$$\left\{<br>\begin{aligned}<br>x_e+tx_d=f(u,v) \\<br>y_e+ty_d=g(u,v) \\<br>z_e+tz_d=h(u,v)<br>\end{aligned}<br>\right.<br>$$</p>
+<p>在上式中，我们有3条等式和3个未知数$t, u, v$。现在已知三角形的三个点$\textbf{a}$、$\textbf{b}$和$\textbf{c}$。</p>
+<p>这就得到：</p>
+<p>$\textbf{e} + t\textbf{d} = \textbf{a} + \beta(\textbf{b} - \textbf{c})) + \gamma(\textbf{c} - \textbf{a})$ 式子一</p>
+<p>为了解出$t,\,\beta,\,\gamma$，我们把<strong>式子一</strong>拆开得到：</p>
 
           
         
