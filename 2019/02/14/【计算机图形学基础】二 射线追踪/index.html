@@ -93,7 +93,8 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/5.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/7.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/6.png">
-<meta property="og:updated_time" content="2019-02-15T09:33:07.932Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/8.png">
+<meta property="og:updated_time" content="2019-02-15T10:13:25.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【计算机图形学基础】二 射线追踪">
 <meta name="twitter:description" content="【计算机图形学基础】二 射线追踪该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第四章Ray Tracing。 由两种渲染方式：一种是逐个画物体；一种是逐个画像素。前者是遍历所有物体；后者是遍历所有的像素，以及影响该像素的物体。射线追踪属于后者。 关于二者的区别，在这个网站可以看到有这么一段解释：  For rendering, we n">
@@ -419,12 +420,24 @@
 <p>要求解出</p>
 <p>$$\textbf{e} + t\textbf{d} = \textbf{f}(u, v)$$</p>
 <p>其中，等式右边表示在三角形上的点。</p>
-<p>这条等式又可以表达为<strong>式子一</strong>：</p>
-<p>$$\left\{<br>\begin{aligned}<br>x_e+tx_d=f(u,v) \\<br>y_e+ty_d=g(u,v) \\<br>z_e+tz_d=h(u,v)<br>\end{aligned}<br>\right.<br>$$</p>
+<p>这条等式又可以表达为：</p>
+<p>$$\left\{<br>\begin{aligned}<br>x_e+tx_d=f(u,v) \\<br>y_e+ty_d=g(u,v) \\<br>z_e+tz_d=h(u,v)<br>\end{aligned}<br>\right.\tag{1}<br>$$</p>
 <p>在上式中，我们有3条等式和3个未知数$t, u, v$。现在已知三角形的三个点$\textbf{a}$、$\textbf{b}$和$\textbf{c}$。</p>
 <p>这就得到：</p>
 <p>$\textbf{e} + t\textbf{d} = \textbf{a} + \beta(\textbf{b} - \textbf{c})) + \gamma(\textbf{c} - \textbf{a})$ 式子一</p>
-<p>为了解出$t,\,\beta,\,\gamma$，我们把<strong>式子一</strong>拆开得到：</p>
+<p>为了解出$t,\,\beta,\,\gamma$，我们把(1)拆开得到：</p>
+<p>$$x_e + tx_d = x_a + \beta(x_b - x_a) + \gamma(x_c - x_a)$$<br>$$y_e + ty_d = x_a + \beta(y_b - y_a) + \gamma(y_c - y_a)$$<br>$$z_e + tz_d = x_a + \beta(z_b - z_a) + \gamma(z_c - z_a)$$</p>
+<p>写成向量的形式：</p>
+<p>$$<br> \left[<br> \begin{matrix}<br>   x_a - x_b &amp; x_a - x_c &amp; x_d \\<br>   y_a - y_b &amp; y_a - y_c &amp; y_d \\<br>   z_a - z_b &amp; z_a - z_c &amp; z_d<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   \beta \ \gamma \ t<br>  \end{matrix}<br>  \right]<br>  =<br>  \left[<br> \begin{matrix}<br>   x_a - x_e \\<br>   y_a - y_e \\<br>   z_a - z_e \\<br>  \end{matrix}<br>  \right]<br>$$</p>
+<p>接下来使用<strong>克莱姆法则</strong>(Cramer’s Rule)来解决这个问题。</p>
+<blockquote>
+<p>？？？ 克莱姆法则又是啥玩意儿？</p>
+<p>摔！！！</p>
+</blockquote>
+<p>好的总之最后就得到了$t,\,\beta,\,\gamma$关于几个已知点的表达式。</p>
+<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/8.png" title="结果">
+<p>现在只需要判断他们是否符合几个条件，就可以直到交点在不在三角形内了。伪代码为</p>
+<p>$<br>compute\,t \\<br>\textbf{if} \, (t \lt t_0) \, or \, (t \gt t_1) \, \textbf{then} \\<br>\quad \textbf{return} \, false \\<br>compute\,\gamma \\<br>\textbf{if} \, (\gamma \lt 0) \, or \, (\gamma \gt 1) \, \textbf{then} \\<br>\quad \textbf{return} \, false \\<br>compute\,\beta \\<br>\textbf{if} \, (\beta \lt 0) \, or \, (\beta \gt 1 - \lambda) \, \textbf{then} \\<br>\quad\textbf{return} false \\<br>\textbf{return}\,true<br>$</p>
 
       
     </div>
