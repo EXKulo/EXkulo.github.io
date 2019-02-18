@@ -94,7 +94,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/7.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/6.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/8.png">
-<meta property="og:updated_time" content="2019-02-15T10:13:25.058Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/9.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/14/【计算机图形学基础】二%20射线追踪/10.png">
+<meta property="og:updated_time" content="2019-02-18T09:42:00.943Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【计算机图形学基础】二 射线追踪">
 <meta name="twitter:description" content="【计算机图形学基础】二 射线追踪该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第四章Ray Tracing。 由两种渲染方式：一种是逐个画物体；一种是逐个画像素。前者是遍历所有物体；后者是遍历所有的像素，以及影响该像素的物体。射线追踪属于后者。 关于二者的区别，在这个网站可以看到有这么一段解释：  For rendering, we n">
@@ -438,6 +440,37 @@
 <img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/8.png" title="结果">
 <p>现在只需要判断他们是否符合几个条件，就可以直到交点在不在三角形内了。伪代码为</p>
 <p>$<br>compute\,t \\<br>\textbf{if} \, (t \lt t_0) \, or \, (t \gt t_1) \, \textbf{then} \\<br>\quad \textbf{return} \, false \\<br>compute\,\gamma \\<br>\textbf{if} \, (\gamma \lt 0) \, or \, (\gamma \gt 1) \, \textbf{then} \\<br>\quad \textbf{return} \, false \\<br>compute\,\beta \\<br>\textbf{if} \, (\beta \lt 0) \, or \, (\beta \gt 1 - \lambda) \, \textbf{then} \\<br>\quad\textbf{return} false \\<br>\textbf{return}\,true<br>$</p>
+<h3 id="与一组物体相♂交"><a href="#与一组物体相♂交" class="headerlink" title="与一组物体相♂交"></a>与一组物体相♂交</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hit = <span class="literal">false</span></span><br><span class="line"><span class="keyword">for</span> o <span class="keyword">in</span> group <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> (o is hitAtParamT <span class="keyword">and</span> (t &gt;= t0 <span class="keyword">and</span> t&lt;= t1)) <span class="keyword">then</span></span><br><span class="line">    hit = <span class="literal">true</span></span><br><span class="line">    hitobject = o</span><br><span class="line">    t1 = t <span class="comment">-- 不断缩小范围</span></span><br><span class="line"><span class="keyword">return</span> hit</span><br></pre></td></tr></table></figure>
+<h2 id="着色"><a href="#着色" class="headerlink" title="着色"></a>着色</h2><p>一旦知道一个像素点上要绘制的物体，就开始着色啦。</p>
+<p>大多数模型是来模拟光照效果的。对于一个光照模型中，决定性因素有如下：</p>
+<ul>
+<li>光线方向 <strong>l</strong> 这是一个指向光源的单位向量</li>
+<li>视觉方向 <strong>v</strong> 指向相机的单位向量</li>
+<li>法向量 <strong>n</strong></li>
+<li>颜色等等的表面信息</li>
+</ul>
+<h3 id="Lambertian着色"><a href="#Lambertian着色" class="headerlink" title="Lambertian着色"></a>Lambertian着色</h3><p>在18世纪提出来的最简单的光照模型。</p>
+<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/9.png" title="Lambertian">
+<p>这里假设表面<strong>法向量</strong>与<strong>光向量</strong>的夹角为$\theta$，$k_d$为一个系数。那么，光强L等于</p>
+<p>$$L = k_dI\text{max}(0, \textbf{n}\cdot\textbf{l})$$</p>
+<p>其中，$L$是像素的颜色；$k_d$是漫反射系数，或者说表面颜色；$I$是光源的光强。由于<strong>n</strong>和<strong>l</strong>都是单位向量，所以我们可以把$\textbf{n}\cdot\textbf{l}$速记成$\cos\theta$。<strong>l</strong>很容易计算，我们从上一节中知道了如何计算出视线与表面的交点，算出交点之后用光源坐标减去交点坐标，再正规化即可。</p>
+<p>可以表达为：</p>
+<p>光强 = 因子 x 光照强度 x <strong>(法向量 与 光线 的夹角程度)</strong></p>
+<p>最重要的是后面粗体部分。</p>
+<p>我们可以分别对RGB三个颜色通道，使用这条公式得出结果。</p>
+<h3 id="Blinn-Phong着色"><a href="#Blinn-Phong着色" class="headerlink" title="Blinn-Phong着色"></a>Blinn-Phong着色</h3><p>Lambertian着色是视角无关的，不管相机在哪个相对位置，看到的颜色都是一样的，这种着色法没办法产生<strong>高光</strong>。现在有很多着色模型把Lambertian着色作为漫反射部分，再添加一个镜面反射部分。</p>
+<p>Blinn-Phong光照模型中，当<strong>v</strong>和<strong>l</strong>关于法向量对称的时候，将看到最大亮度，也就是能看到镜面反射。随着<strong>v</strong>离该方向越远，光强会慢慢下降。</p>
+<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/10.png" title="镜面反射">
+<p>现在沿着假定<strong>v</strong>和<strong>l</strong>夹角的等分线方向，有个单位向量<strong>h</strong>。当<strong>n</strong>与<strong>h</strong>重叠的时候，<strong>l</strong>与<strong>v</strong>将关于<strong>n</strong>对称。当$\cos \gamma$的值（这里假设$\gamma$为<strong>n</strong>与<strong>h</strong>的夹角）越小，光强越大。这里再给他们定一个幂数p，让镜面反射的衰变能够来得更猛烈一点（也就是p越大，光斑的面积会越小）。</p>
+<p>我们可以计算出<strong>h</strong></p>
+<p>$$\textbf{h}=\frac{\textbf{v} + \textbf{l}}{| \textbf{v} + \textbf{l} |}$$</p>
+<p>最后得到光照强度：</p>
+<p>$$L = k_dI\text{max}(0, \textbf{n}\cdot\textbf{l}) + k_sI\max(0, \textbf{n} \cdot \textbf{h})^p$$</p>
+<h3 id="环境光着色"><a href="#环境光着色" class="headerlink" title="环境光着色"></a>环境光着色</h3><p><strong>Ambient Shading</strong>.</p>
+<p>现在再多考虑一个环境光，也就是本光源以外的所有光源总和。考虑环境光是为了避免在本光源照不到的地方，乌漆嘛黑一片的巨丑。</p>
+<p>$$L = k_aI_a + k_dI\text{max}(0, \textbf{n}\cdot\textbf{l}) + k_sI\max(0, \textbf{n} \cdot \textbf{n})^p$$</p>
+<h3 id="多光源光照"><a href="#多光源光照" class="headerlink" title="多光源光照"></a>多光源光照</h3><p>把结果都加起来即可</p>
+<p>$$L = k_aI_a + \sum_{i=1}^{N}k_dI\text{max}(0, \textbf{n}\cdot\textbf{l}_i) + k_sI\max(0, \textbf{n} \cdot \textbf{h}_i)^p$$</p>
 
       
     </div>
@@ -598,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】二-射线追踪"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】二 射线追踪</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础的射线追踪算法"><span class="nav-number">1.1.</span> <span class="nav-text">基础的射线追踪算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#透视"><span class="nav-number">1.2.</span> <span class="nav-text">透视</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算视觉射线"><span class="nav-number">1.3.</span> <span class="nav-text">计算视觉射线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正交视角"><span class="nav-number">1.3.1.</span> <span class="nav-text">正交视角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透视视角"><span class="nav-number">1.3.2.</span> <span class="nav-text">透视视角</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#射线与物体的交汇"><span class="nav-number">1.4.</span> <span class="nav-text">射线与物体的交汇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#射线与球的交点"><span class="nav-number">1.4.1.</span> <span class="nav-text">射线与球的交点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#射线与三角形的交点"><span class="nav-number">1.4.2.</span> <span class="nav-text">射线与三角形的交点</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】二-射线追踪"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】二 射线追踪</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础的射线追踪算法"><span class="nav-number">1.1.</span> <span class="nav-text">基础的射线追踪算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#透视"><span class="nav-number">1.2.</span> <span class="nav-text">透视</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算视觉射线"><span class="nav-number">1.3.</span> <span class="nav-text">计算视觉射线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正交视角"><span class="nav-number">1.3.1.</span> <span class="nav-text">正交视角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透视视角"><span class="nav-number">1.3.2.</span> <span class="nav-text">透视视角</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#射线与物体的交汇"><span class="nav-number">1.4.</span> <span class="nav-text">射线与物体的交汇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#射线与球的交点"><span class="nav-number">1.4.1.</span> <span class="nav-text">射线与球的交点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#射线与三角形的交点"><span class="nav-number">1.4.2.</span> <span class="nav-text">射线与三角形的交点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与一组物体相♂交"><span class="nav-number">1.4.3.</span> <span class="nav-text">与一组物体相♂交</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#着色"><span class="nav-number">1.5.</span> <span class="nav-text">着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambertian着色"><span class="nav-number">1.5.1.</span> <span class="nav-text">Lambertian着色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blinn-Phong着色"><span class="nav-number">1.5.2.</span> <span class="nav-text">Blinn-Phong着色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境光着色"><span class="nav-number">1.5.3.</span> <span class="nav-text">环境光着色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多光源光照"><span class="nav-number">1.5.4.</span> <span class="nav-text">多光源光照</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
