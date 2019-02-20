@@ -79,16 +79,19 @@
 
 
 
-<meta name="description" content="左未的blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="左未的blog">
-<meta property="og:url" content="http://yoursite.com/archives/2018/11/index.html">
+<meta name="description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【计算机图形学基础】5 Pipeline">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/index.html">
 <meta property="og:site_name" content="左未的blog">
-<meta property="og:description" content="左未的blog">
+<meta property="og:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/1.png">
+<meta property="og:updated_time" content="2019-02-20T07:04:57.127Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="左未的blog">
-<meta name="twitter:description" content="左未的blog">
+<meta name="twitter:title" content="【计算机图形学基础】5 Pipeline">
+<meta name="twitter:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/1.png">
 
 
 
@@ -118,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2018/11/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/">
 
 
 
 
 
-  <title>Archive | 左未的blog</title>
+  <title>【计算机图形学基础】5 Pipeline | 左未的blog</title>
   
 
 
@@ -143,7 +146,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -237,247 +240,199 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】5 Pipeline</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 29 posts in total. Keep on posting.
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机图形学</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2019/02/19/【计算机图形学基础】5 管线/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】5 Pipeline">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/29/出租屋实用贴纸技术/" itemprop="url">
-              
-                <span itemprop="name">【经济修屋】【一】出租屋实用贴纸技术</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-29T13:21:19+08:00" content="2018-11-29">
-          11-29
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/26/How I Overcame Social-Anxiety/" itemprop="url">
-              
-                <span itemprop="name">How I Overcame Social-Anxiety</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-26T19:19:51+08:00" content="2018-11-26">
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/26/读书/" itemprop="url">
-              
-                <span itemprop="name">读书</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-26T19:15:58+08:00" content="2018-11-26">
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/19/hexo必知必备/" itemprop="url">
-              
-                <span itemprop="name">hexo必备插件</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-19T13:07:28+08:00" content="2018-11-19">
-          11-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="【计算机图形学基础】5-Pipeline"><a href="#【计算机图形学基础】5-Pipeline" class="headerlink" title="【计算机图形学基础】5 Pipeline"></a>【计算机图形学基础】5 Pipeline</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第八章 <strong>The Graphics Pipeline</strong>。</p>
+<p>看过好几次的渲染管线。</p>
+<p>object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMan。但是两者用的渲染管线结构都差不多。</p>
+<p>渲染管线的起点是object，终点是更新图像中的像素点。</p>
+<p>先贴图</p>
+<img src="/2019/02/19/【计算机图形学基础】5%20管线/1.png" title="Pipeline">
+<h2 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h2><p>由于前面几章已经讲过Vertex Processing阶段的矩阵变换了，这篇就从第二阶段的光栅化讲起。</p>
+<p>写过shader的同学都知道，顶点着色器的输入和输出都是顶点，而像素着色器的输入却是fragment。怎么从顶点着色器输出的几个顶点，变成几何面上拥有的所有像素呢？这个转化的过程就叫做光栅化。</p>
+<p>光栅器接收顶点和其他顶点着色器输出信息作为参数，输出fragments。fragment包含一个像素里所有的信息，这些信息是顶点着色器输出信息的插值版本。</p>
+<p>光栅器的工作有二：</p>
+<ul>
+<li>枚举出几何体所包含的所有像素</li>
+<li>对顶点着色器的输出做插值</li>
+</ul>
+<h3 id="理解梯度"><a href="#理解梯度" class="headerlink" title="理解梯度"></a>理解梯度</h3><p>首先要复习一下$\nabla$(nabla)算子，也叫向量微分算子。定义为$\nabla = \frac{d}{dr}$。在n维空间中有不同的表现。<br>在三位情况下，$\nabla = \frac{\partial}{\partial x}i + \frac{\partial}{\partial y}j + \frac{\partial}{\partial z}k$ 或 $\nabla = (\frac{\partial}{\partial x},\frac{\partial}{\partial y}, \frac{\partial}{\partial z})$</p>
+<p>梯度是啥呢？<br>假设三维空间中有个映射$f(x,y,z)$，则在某个点$(x, y, z)$上，<strong>梯度</strong>表示该点的一个方向，往这个方向移动，$f()$的变化最大。如果假设$f(x, y, z)$是某个山坡的表面，那么梯度就是该点上最抖的方向，梯度的大小代表有多抖。</p>
+<p>一个标量函数的梯度记为$\nabla \varphi$，再三维直角坐标中<br>$$\nabla \varphi = (\frac{\partial \varphi}{\partial x},\frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z})$$</p>
+<p>剩下的就是对每个维度求导数了。</p>
+<p>譬如对于$\varphi = 2x + 3y^2 - \sin(z)$，梯度为</p>
+<p>$$\nabla \varphi = (\frac{\partial \varphi}{\partial x},\frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z}) = (1, 6y, -\cos(z))$$</p>
+<h3 id="画线"><a href="#画线" class="headerlink" title="画线"></a>画线</h3><p>根据线的两点式，可以推断出线的表达式</p>
+<p>$$f(x,y) \equiv (y_0 - y_1)x + (x_1 - x_0)y + x_0y_1 - x_1y_0 = 0$$</p>
+<p>假设$x_0 \leq x_1$，那么斜率m为</p>
+<p>$$m = \frac{y_1 - y_0}{x_1 - x_0}$$</p>
+<p>现在让我们来考虑$m \in (0, 1]$下的情况，x的增长要比y快。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/19/OpenGL超级宝典笔记（零）数学基础与基础变换/" itemprop="url">
-              
-                <span itemprop="name">OpenGL超级宝典笔记（零）数学基础与基础变换</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-19T12:58:14+08:00" content="2018-11-19">
-          11-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/19/第一篇/" itemprop="url">
-              
-                <span itemprop="name">第一篇</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-19T09:56:49+08:00" content="2018-11-19">
-          11-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/19/【计算机图形学基础】4 视觉/" rel="next" title="【计算机图形学基础】四 Viewing">
+                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】四 Viewing
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -485,6 +440,13 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
 
         </div>
         
@@ -505,8 +467,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -559,6 +530,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】5-Pipeline"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】5 Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅化"><span class="nav-number">1.1.</span> <span class="nav-text">光栅化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解梯度"><span class="nav-number">1.1.1.</span> <span class="nav-text">理解梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画线"><span class="nav-number">1.1.2.</span> <span class="nav-text">画线</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -692,6 +679,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -733,6 +724,31 @@
 
 
 // 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
   
 
 
