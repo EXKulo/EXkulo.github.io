@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/22/图形学数学补充/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】4 视觉/" itemprop="url">【计算机图形学基础】四 Viewing</a></h1>
+                <a class="post-title-link" href="/2019/02/22/图形学数学补充/" itemprop="url">图形学数学补充</a></h1>
         
 
         <div class="post-meta">
@@ -283,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
-                2019-02-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-22T17:09:56+08:00">
+                2019-02-22
               </time>
             
 
@@ -323,7 +323,7 @@
 
           
           
-             <span id="/2019/02/19/【计算机图形学基础】4 视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
+             <span id="/2019/02/22/图形学数学补充/" class="leancloud_visitors" data-flag-title="图形学数学补充">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -356,30 +356,11 @@
       
         
           
-            <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第七章四 Viewing。</p>
-<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
-<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
-<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
-<p>一般来说要投影到屏幕上，一系列的变换：</p>
-<ul>
-<li>一个相机变换</li>
-<li>一个投影变换</li>
-<li>一个窗口变换</li>
-</ul>
-<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
-<img src="/2019/02/19/【计算机图形学基础】4%20视觉/1.png" title="一系列变换">
-<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
-<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
-<ul>
-<li>缩放 矩阵$\hat{S}$代表</li>
-<li>位移 矩阵$\hat{T}$代表</li>
-</ul>
-<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
-<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<p>相乘得</p>
-<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
+            <h1 id="图形学数学补充"><a href="#图形学数学补充" class="headerlink" title="图形学数学补充"></a>图形学数学补充</h1><h2 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h2><h3 id="三角形面积"><a href="#三角形面积" class="headerlink" title="三角形面积"></a>三角形面积</h3><p>已知三角形的顶点ABC的坐标，求三角形的面积。参见<a href="https://zhuanlan.zhihu.com/p/25793392" target="_blank" rel="noopener">知乎专栏</a>。</p>
+<p>已知$A(x_1, y_1)$、$B(x_2, y_2)$、$C(x_3, y_3)$，求面积。可以使用矩形面积S减去三个三角形得到。</p>
+<p>$$\text{S}_\triangle = \text{S} - \text{S}_1 - \text{S}_2 - \text{S}_3$$</p>
+<p>$$</p>
+
           
         
       
@@ -574,8 +555,191 @@
 <blockquote>
 <p><strong>重心坐标</strong><br><img src="/2019/02/19/【计算机图形学基础】5%20管线/4.png" title="重心坐标"><br>也叫面积坐标。我们用黑体小写字母表示对应点的向量。假设三角形被点$\textbf{p}$分割为三个小三角形，它们的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$</p>
 <p>首先BD:DC = $\lambda_3 : \lambda_2$。这个结论怎么出来的呢：<br>$$\frac{\triangle ADC}{\triangle ADB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$<br>得到<br>存在一个$\lambda$使得：<br>$$\triangle ADC = \lambda \triangle PDC$$<br>$$\triangle ADB = \lambda \triangle PDB$$<br>得到：<br>$$\frac{\lambda_2}{\lambda_3} = \frac{\triangle APC}{\triangle APB} = \frac{\triangle ADC - \triangle PDC}{\triangle ADB - \triangle PDB} =\frac{\lambda \triangle PDC - \triangle PDC}{\lambda \triangle PDB - \triangle PDB} = \frac{(\lambda - 1) \triangle PDC}{(\lambda - 1)\triangle PDB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$</p>
+<p>根据<br>$$\frac{\textbf{d} - \textbf{b}}{\textbf{c} - \textbf{d}} = \frac{\lambda_3}{\lambda_2}$$<br>可以求得$\textbf{d}$关于$\textbf{b}$和$\textbf{c}$的等式：<br>$$\textbf{d} = \frac{\lambda_2 \textbf{b} + \lambda_3 \textbf{c}}{\lambda_2 + \lambda_3}$$<br>现在已知点A和点D了，准备从A和D身上计算出点P的向量。</p>
 </blockquote>
+<p>没耐心看完上面论证的胖友，知道一点就好：点p在跟三个点的连线把三角形分为三个小的三角形，三个三角形的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$，那么，这个三角形关于三个顶点的表达式为$\textbf{p} = \lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}$，这就是它的重心坐标。</p>
+<p>根据这点，假设有<strong>线性函数</strong>F，输入为顶点，输出为颜色。已知ABC三点的颜色为xyz，那么：<br>$$F(A) = x$$<br>$$F(B) = y$$<br>$$F(C) = z$$<br>对于点p来说<br>$$F(P) = F(\lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}) = \lambda_1 x + \lambda_2 y + \lambda_3 z$$</p>
+<p>另一个问题。</p>
+<p>有时候画相邻的两个三角形，会修改共用边的颜色多次。为了避免这样，重心法只用在三角形内部的点。</p>
+<p>计算出点的重心坐标很简单，只要符合下面三条式子即可求出三个未知数</p>
+<p>$$\alpha x_A + \beta x_B + \gamma x_c = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_c = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
+<p>画出一个三角形的伪代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> all x <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> all y <span class="keyword">do</span></span><br><span class="line">        compute (alpha, beta, gamma) <span class="keyword">for</span> (x, y)</span><br><span class="line">        <span class="keyword">if</span>(alpha <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> beta <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> gamma <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">            c = alpha * cA + beta * cB + gamma * cC</span><br><span class="line">            drawpixel(x, y) with color c</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】4 视觉/" itemprop="url">【计算机图形学基础】四 Viewing</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机图形学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/19/【计算机图形学基础】4 视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第七章四 Viewing。</p>
+<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
+<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
+<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
+<p>一般来说要投影到屏幕上，一系列的变换：</p>
+<ul>
+<li>一个相机变换</li>
+<li>一个投影变换</li>
+<li>一个窗口变换</li>
+</ul>
+<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
+<img src="/2019/02/19/【计算机图形学基础】4%20视觉/1.png" title="一系列变换">
+<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
+<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
+<ul>
+<li>缩放 矩阵$\hat{S}$代表</li>
+<li>位移 矩阵$\hat{T}$代表</li>
+</ul>
+<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
+<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
+<p>相乘得</p>
+<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
+<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
           
         
       
@@ -1940,174 +2104,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/【MongoDB权威指南】八/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/29/【MongoDB权威指南】八/" itemprop="url">【MongoDB权威指南】八</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T16:03:20+08:00">
-                2019-01-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/后端技术/" itemprop="url" rel="index">
-                    <span itemprop="name">后端技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/01/29/【MongoDB权威指南】八/" class="leancloud_visitors" data-flag-title="【MongoDB权威指南】八">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="八-分片"><a href="#八-分片" class="headerlink" title="八 分片"></a>八 分片</h1><p>分片$sharding$或者叫分区$partitioning$，表示将数据拆分存放到不同的机器上。</p>
-<p>MongoDB支持自动分片。</p>
-<p>分片对应用程序来说是透明的。</p>
-<h2 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --nodb</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cluster = <span class="keyword">new</span> ShardingTest(&#123;<span class="string">'shards'</span>: <span class="number">3</span>, <span class="string">'chunksize'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>创建之后控制台会不断滚新的信息，快速按ctrl+c退出，然后滚到最上看port为何。</p>
-<p>再新启一个shell来连接集群</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db = (<span class="keyword">new</span> Mongo(<span class="string">'localhost:20006'</span>)).getDB(<span class="string">'test'</span>)</span><br></pre></td></tr></table></figure>
-<p>在当前版本，mongos运行在20006端口。</p>
-<p>接下来看集群状态</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.status()</span><br></pre></td></tr></table></figure>
-<h3 id="分片依据"><a href="#分片依据" class="headerlink" title="分片依据"></a>分片依据</h3><p>要对一个集合分片，首先要启用分片，然后对<strong>片键</strong>建立索引，最后设置片键。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh.enableSharding(<span class="string">'test'</span>) <span class="comment">// 参数是数据库名称</span></span><br><span class="line">db.users.ensureIndex(&#123;<span class="string">'no'</span>: <span class="number">1</span>&#125;)</span><br><span class="line">sh.shardCollection(<span class="string">'test.users'</span>, &#123;<span class="string">'no'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<hr>
-<p>好了，这个系列到此打住。毕竟是给自己这种后端一窍不通的人看的，暂时也不会转岗去做后端，所以这里把基础概念都了解了就行了。</p>
-<p>谢谢各位看官~~</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2160,7 +2156,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

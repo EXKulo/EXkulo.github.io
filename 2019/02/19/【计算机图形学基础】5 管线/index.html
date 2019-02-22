@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/2.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/3.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/4.png">
-<meta property="og:updated_time" content="2019-02-22T06:45:07.986Z">
+<meta property="og:updated_time" content="2019-02-22T10:05:26.730Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【计算机图形学基础】5 Pipeline">
 <meta name="twitter:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
@@ -400,8 +400,16 @@
 <blockquote>
 <p><strong>重心坐标</strong><br><img src="/2019/02/19/【计算机图形学基础】5%20管线/4.png" title="重心坐标"><br>也叫面积坐标。我们用黑体小写字母表示对应点的向量。假设三角形被点$\textbf{p}$分割为三个小三角形，它们的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$</p>
 <p>首先BD:DC = $\lambda_3 : \lambda_2$。这个结论怎么出来的呢：<br>$$\frac{\triangle ADC}{\triangle ADB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$<br>得到<br>存在一个$\lambda$使得：<br>$$\triangle ADC = \lambda \triangle PDC$$<br>$$\triangle ADB = \lambda \triangle PDB$$<br>得到：<br>$$\frac{\lambda_2}{\lambda_3} = \frac{\triangle APC}{\triangle APB} = \frac{\triangle ADC - \triangle PDC}{\triangle ADB - \triangle PDB} =\frac{\lambda \triangle PDC - \triangle PDC}{\lambda \triangle PDB - \triangle PDB} = \frac{(\lambda - 1) \triangle PDC}{(\lambda - 1)\triangle PDB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$</p>
+<p>根据<br>$$\frac{\textbf{d} - \textbf{b}}{\textbf{c} - \textbf{d}} = \frac{\lambda_3}{\lambda_2}$$<br>可以求得$\textbf{d}$关于$\textbf{b}$和$\textbf{c}$的等式：<br>$$\textbf{d} = \frac{\lambda_2 \textbf{b} + \lambda_3 \textbf{c}}{\lambda_2 + \lambda_3}$$<br>现在已知点A和点D了，准备从A和D身上计算出点P的向量。</p>
 </blockquote>
-
+<p>没耐心看完上面论证的胖友，知道一点就好：点p在跟三个点的连线把三角形分为三个小的三角形，三个三角形的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$，那么，这个三角形关于三个顶点的表达式为$\textbf{p} = \lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}$，这就是它的重心坐标。</p>
+<p>根据这点，假设有<strong>线性函数</strong>F，输入为顶点，输出为颜色。已知ABC三点的颜色为xyz，那么：<br>$$F(A) = x$$<br>$$F(B) = y$$<br>$$F(C) = z$$<br>对于点p来说<br>$$F(P) = F(\lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}) = \lambda_1 x + \lambda_2 y + \lambda_3 z$$</p>
+<p>另一个问题。</p>
+<p>有时候画相邻的两个三角形，会修改共用边的颜色多次。为了避免这样，重心法只用在三角形内部的点。</p>
+<p>计算出点的重心坐标很简单，只要符合下面三条式子即可求出三个未知数</p>
+<p>$$\alpha x_A + \beta x_B + \gamma x_c = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_c = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
+<p>画出一个三角形的伪代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> all x <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> all y <span class="keyword">do</span></span><br><span class="line">        compute (alpha, beta, gamma) <span class="keyword">for</span> (x, y)</span><br><span class="line">        <span class="keyword">if</span>(alpha <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> beta <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> gamma <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">            c = alpha * cA + beta * cB + gamma * cC</span><br><span class="line">            drawpixel(x, y) with color c</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -425,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/19/【计算机图形学基础】3 线性代数.1/" rel="next" title="【计算机图形学基础】三 线性代数与矩阵变换">
-                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】三 线性代数与矩阵变换
+              <a href="/2019/02/19/【计算机图形学基础】4 视觉/" rel="next" title="【计算机图形学基础】四 Viewing">
+                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】四 Viewing
               </a>
             
           </div>
@@ -435,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/19/【计算机图形学基础】4 视觉/" rel="prev" title="【计算机图形学基础】四 Viewing">
-                【计算机图形学基础】四 Viewing <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/22/图形学数学补充/" rel="prev" title="图形学数学补充">
+                图形学数学补充 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -519,7 +527,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
