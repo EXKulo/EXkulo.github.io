@@ -381,7 +381,18 @@
 <p>$$f(x,y) \equiv (y_0 - y_1)x + (x_1 - x_0)y + x_0y_1 - x_1y_0 = 0$$</p>
 <p>假设$x_0 \leq x_1$，那么斜率m为</p>
 <p>$$m = \frac{y_1 - y_0}{x_1 - x_0}$$</p>
-<p>现在让我们来考虑$m \in (0, 1]$下的情况，x的增长要比y快。</p>
+<img src="/2019/02/19/【计算机图形学基础】5%20管线/2.png" title="光栅化">
+<p>下面仅考虑$m \in [0, 1)$的情况。</p>
+<p>为了光栅化，现在先确定线的开头和结尾在哪个像素点，设线的左边在$(x_0, y_0)$，线的右边末端在$(x_1, y_1)$，那么光栅化算法大概是这样</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> (some condition) <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>其中的x和y都是整数。<br>简而言之，从最左边开始遍历，往右水平地选择（保持y相同）像素，当遇到<strong>某种情况</strong>的时候把y提高一。关键就是要找到这个<strong>某种情况</strong>是什么。</p>
+<img src="/2019/02/19/【计算机图形学基础】5%20管线/3.png" title="中点算法">
+<p>决定要不要y+1很简单。首先取两个可选择的潜在像素的中点，然后判断线在这个中点之上还是之下。如果在这个中点之上，则y+1，否则保持y。接下来就是根据高中的数学知识，只要$f(x) \lt 0$，那么点就在线的下面，要上移一个y；反之点在线的上面，保持y不变。</p>
+<p>如果需要<strong>更高性能</strong>的表现，就要使用更高效的方法。</p>
+<p>以下结论基于我们两个推导（很简单，自己相减就能得到$\delta$）。</p>
+<p>$$f(x + 1, y) = f(x, y) + (y_0 - y_1)$$<br>$$f(x + 1, y + 1) = f(x, y) + (y_0 - y_1) + (x_1 - x_0)$$</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line">d = f(x0 + <span class="number">1</span>, y0 + <span class="number">0.5</span>)</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> d &lt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br><span class="line">        d = d + (x1 - x0) + (y0 - y1) <span class="comment">-- d = f(x + 1, y + 1) = f(x, y) + (y0 - y1) + (x1 - x0)</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        d = d + (y0 - y1) <span class="comment">-- d = f(x + 1, y) + (y0 - y1)</span></span><br></pre></td></tr></table></figure>
+<p>$f(x + 1, y)$和$f(x + 1, y + 1)$的推导可以自己验证。由于后面那一串都是常数，对常数做加法是很快的。<br>为啥这么算更快呢？其实判断也是基于上面的基础结论，就是判断中点于$f(x, y)$的结果与0做比较。由于我们的线是一条直线，是线性的，所以可以在一开始算出$x+1$的中点值，后面x步进1，y看情况要不要步进1，就可以算出$x+1$时$f(x, y)$的值。这样就避免了每次去计算$f(x, y)$的值，每次要计算的结果都可以在上一个结果加一个常数来计算，大大提高了速度。</p>
 
           
         
