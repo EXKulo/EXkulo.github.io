@@ -82,14 +82,19 @@
 <meta name="description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【计算机图形学基础】5 Pipeline">
-<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】6 表面渲染/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/index.html">
 <meta property="og:site_name" content="左未的blog">
 <meta property="og:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-25T08:59:17.493Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/4.png">
+<meta property="og:updated_time" content="2019-02-25T09:51:07.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【计算机图形学基础】5 Pipeline">
 <meta name="twitter:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/1.png">
 
 
 
@@ -119,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】6 表面渲染/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/">
 
 
 
@@ -252,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】6 表面渲染/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -321,7 +326,7 @@
 
           
           
-             <span id="/2019/02/19/【计算机图形学基础】6 表面渲染/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】5 Pipeline">
+             <span id="/2019/02/19/【计算机图形学基础】5 管线/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】5 Pipeline">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -358,7 +363,7 @@
 <p>object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMan。但是两者用的渲染管线结构都差不多。</p>
 <p>渲染管线的起点是object，终点是更新图像中的像素点。</p>
 <p>先贴图</p>
-
+<img src="/2019/02/19/【计算机图形学基础】5%20管线/1.png" title="Pipeline">
 <h2 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h2><p>由于前面几章已经讲过Vertex Processing阶段的矩阵变换了，这篇就从第二阶段的光栅化讲起。</p>
 <p>写过shader的同学都知道，顶点着色器的输入和输出都是顶点，而像素着色器的输入却是fragment。怎么从顶点着色器输出的几个顶点，变成几何面上拥有的所有像素呢？这个转化的过程就叫做光栅化。</p>
 <p>光栅器接收顶点和其他顶点着色器输出信息作为参数，输出fragments。fragment包含一个像素里所有的信息，这些信息是顶点着色器输出信息的插值版本。</p>
@@ -377,12 +382,12 @@
 <p>$$f(x,y) \equiv (y_0 - y_1)x + (x_1 - x_0)y + x_0y_1 - x_1y_0 = 0$$</p>
 <p>假设$x_0 \leq x_1$，那么斜率m为</p>
 <p>$$m = \frac{y_1 - y_0}{x_1 - x_0}$$</p>
-
+<img src="/2019/02/19/【计算机图形学基础】5%20管线/2.png" title="光栅化">
 <p>下面仅考虑$m \in [0, 1)$的情况。</p>
 <p>为了光栅化，现在先确定线的开头和结尾在哪个像素点，设线的左边在$(x_0, y_0)$，线的右边末端在$(x_1, y_1)$，那么光栅化算法大概是这样</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> (some condition) <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>其中的x和y都是整数。<br>简而言之，从最左边开始遍历，往右水平地选择（保持y相同）像素，当遇到<strong>某种情况</strong>的时候把y提高一。关键就是要找到这个<strong>某种情况</strong>是什么。</p>
-
+<img src="/2019/02/19/【计算机图形学基础】5%20管线/3.png" title="中点算法">
 <p>决定要不要y+1很简单。首先取两个可选择的潜在像素的中点，然后判断线在这个中点之上还是之下。如果在这个中点之上，则y+1，否则保持y。接下来就是根据高中的数学知识，只要$f(x) \lt 0$，那么点就在线的下面，要上移一个y；反之点在线的上面，保持y不变。</p>
 <p>如果需要<strong>更高性能</strong>的表现，就要使用更高效的方法。</p>
 <p>以下结论基于我们两个推导（很简单，自己相减就能得到$\delta$）。</p>
@@ -393,7 +398,7 @@
 <p>$$\textbf{c} = \alpha \textbf{c}_0 + \beta \textbf{c}_1 + \gamma \textbf{c}_2$$</p>
 <p>其中的$(\alpha, \beta, \gamma)$是重心坐标。</p>
 <blockquote>
-<p><strong>重心坐标</strong><br><br>也叫面积坐标。我们用黑体小写字母表示对应点的向量。假设三角形被点$\textbf{p}$分割为三个小三角形，它们的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$</p>
+<p><strong>重心坐标</strong><br><img src="/2019/02/19/【计算机图形学基础】5%20管线/4.png" title="重心坐标"><br>也叫面积坐标。我们用黑体小写字母表示对应点的向量。假设三角形被点$\textbf{p}$分割为三个小三角形，它们的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$</p>
 <p>首先BD:DC = $\lambda_3 : \lambda_2$。这个结论怎么出来的呢：<br>$$\frac{\triangle ADC}{\triangle ADB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$<br>得到<br>存在一个$\lambda$使得：<br>$$\triangle ADC = \lambda \triangle PDC$$<br>$$\triangle ADB = \lambda \triangle PDB$$<br>得到：<br>$$\frac{\lambda_2}{\lambda_3} = \frac{\triangle APC}{\triangle APB} = \frac{\triangle ADC - \triangle PDC}{\triangle ADB - \triangle PDB} =\frac{\lambda \triangle PDC - \triangle PDC}{\lambda \triangle PDB - \triangle PDB} = \frac{(\lambda - 1) \triangle PDC}{(\lambda - 1)\triangle PDB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$</p>
 <p>根据<br>$$\frac{\textbf{d} - \textbf{b}}{\textbf{c} - \textbf{d}} = \frac{\lambda_3}{\lambda_2}$$<br>可以求得$\textbf{d}$关于$\textbf{b}$和$\textbf{c}$的等式：<br>$$\textbf{d} = \frac{\lambda_2 \textbf{b} + \lambda_3 \textbf{c}}{\lambda_2 + \lambda_3}$$<br>现在已知点A和点D了，准备从A和D身上计算出点P的向量。</p>
 </blockquote>
@@ -402,44 +407,9 @@
 <p>另一个问题。</p>
 <p>有时候画相邻的两个三角形，会修改共用边的颜色多次。为了避免这样，重心法只用在三角形内部的点。</p>
 <p>计算出点的重心坐标很简单，只要符合下面三条式子即可求出三个未知数</p>
-<p>$$\alpha x_A + \beta x_B + \gamma x_C = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_C = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
-<p>或者根据定义，直接用三角形面积来算。其中，三角形的面积可以由两个向量的模相乘，再乘以$\sin\theta$除以2来算。</p>
-<p>$$\alpha = \frac{|B - A| <em> |P - A|\sin\theta}{2} \div \frac{|B - A| </em> |C - A|\sin\lambda}{2}$$</p>
+<p>$$\alpha x_A + \beta x_B + \gamma x_c = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_c = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
 <p>画出一个三角形的伪代码：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> all x <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> all y <span class="keyword">do</span></span><br><span class="line">        compute (alpha, beta, gamma) <span class="keyword">for</span> (x, y)</span><br><span class="line">        <span class="keyword">if</span>(alpha <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> beta <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> gamma <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">            c = alpha * cA + beta * cB + gamma * cC</span><br><span class="line">            drawpixel(x, y) with color c</span><br></pre></td></tr></table></figure>
-<h3 id="处理在三角形边上的像素"><a href="#处理在三角形边上的像素" class="headerlink" title="处理在三角形边上的像素"></a>处理在三角形边上的像素</h3><p>最理想的是，相邻两个三角形中，只有其中一个画了这条边。</p>
-<h3 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h3><p>比如当三角形的一部分在屏幕的外面（在眼睛后面），这种就应该剪掉，从而形成新的三角形。</p>
-<p>裁剪的伪代码：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 六边形的每个面 <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> 三角形完全在面外 <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">break</span> <span class="comment">-- 三角形不可见</span></span><br><span class="line">    <span class="keyword">elseif</span> 三角形跨过面 <span class="keyword">then</span></span><br><span class="line">        裁剪三角形</span><br><span class="line">        <span class="keyword">if</span> 裁剪后留下了个四边形 <span class="keyword">then</span></span><br><span class="line">            分割成两个三角形</span><br></pre></td></tr></table></figure>
-<p>2.5.5节中讲过一条式子，说明穿过点<strong>q</strong>的，法向量为<strong>n</strong>的平面可以表达为：</p>
-<p>$$f(\textbf{p}) = n \cdot (\textbf{p} - \textbf{q}) = 0$$</p>
-<p>也可以表达为</p>
-<p>$$f(\textbf{p}) = n \cdot \textbf{p} + D = 0$$</p>
-<p>也就是平面上所有的点q，它与p点组成的线段，垂直于向量<strong>p</strong>。</p>
-<p>假使有个点a和有个点b，以及有个平面$f(\textbf{p}) = 0$。当$f(\textbf{a})$和$f(\textbf{b})$的符号不同时，说明它们的线段被平面分割了。一般来说，$f(\textbf{p}) \lt 0$时，点在平面内测，反之在外侧。</p>
-<p>接下来求线段ab和平面的交点<strong>p</strong>。</p>
-<p>射线表达式 $\textbf{p} = \textbf{a} + t(\textbf{b} - \textbf{a})$</p>
-<p>把平面表达式代入得 $\textbf{n} \cdot (\textbf{a} + t(\textbf{b} - \textbf{a})) + D = 0$</p>
-<p>求得t：<br>$$t = \frac{\textbf{n} \cdot \textbf{a} + D}{\textbf{n} \cdot (\textbf{a - b})}$$<br>其中$D = - \textbf{n} \cdot \textbf{q}$</p>
-<h2 id="光栅化前后都做了些啥"><a href="#光栅化前后都做了些啥" class="headerlink" title="光栅化前后都做了些啥"></a>光栅化前后都做了些啥</h2><p>在光栅化之前，定义几何图形的顶点必须先被转化到屏幕坐标上，而且颜色之类的需要被插值的属性必须要在这个阶段先准备好。</p>
-<p>光栅化之后就是片段着色器，然后是混合（老生常谈了）。</p>
-
-<p>画家算法（从远及近地渲染）无法决定相交的三角形应该画哪个，也无法不相交但是嵌套的三角形的绘制顺序。</p>
-<p>所以<strong>我们需要z-buffer</strong>。</p>
-<p>在实际应用中，其实是很少用到画家算法的，比较高效的隐藏表面的算法被称为z-buffer算法。原理很简单，为每个已经写入frame buffer的像素记录它对应的z坐标，当同像素的下一个平面想要覆盖frame buffer中的该像素的时候，对比两者的z坐标，从而直到谁更<strong>近</strong>，使用更近者来覆盖整个像素。</p>
-<p>为了保证第一个像素能够把值写上去，深度缓冲的初始值是无限远。</p>
-<h3 id="精确性问题"><a href="#精确性问题" class="headerlink" title="精确性问题"></a>精确性问题</h3><p>为了节省内存（显存），要控制一下深度缓冲的位数，或者把远面和近面拉近一些。</p>
-<h3 id="着色频率"><a href="#着色频率" class="headerlink" title="着色频率"></a>着色频率</h3><p>看情况，如果着色频率很高，最好把耗时操作放在顶点着色器里头。</p>
-<h2 id="简单的抗锯齿"><a href="#简单的抗锯齿" class="headerlink" title="简单的抗锯齿"></a>简单的抗锯齿</h2><p>最简单的方案就是取目标像素周围的颜色的平均值，这种方式叫box filtering（这个技术也常用来做模糊）。</p>
-<p>最简单的box-filter antialiasing也叫做supersampling（二次取样）。以比较高分辨率来绘制一幅图像，然后降低采样率。比如你想画个256x256的画面，就先画个1024x1024的，然后再downsample。</p>
-<p>二次取样可以说是非常昂贵的一种操作了。</p>
-<h3 id="愉快高效地挑选几何图元"><a href="#愉快高效地挑选几何图元" class="headerlink" title="愉快高效地挑选几何图元"></a>愉快高效地挑选几何图元</h3><p>culling，挑选。为了避免做无谓的渲染，先根据多个策略挑选一下：</p>
-<ul>
-<li>view volume culling（视野抑扬顿挫扑杀2333） 就是根据视野来挑选，视野之外的不要，也叫view frustum culling。一般来说能够剔除掉大部分不需要渲染的图元。</li>
-<li>遮挡剔除</li>
-<li>背面剔除</li>
-</ul>
-
       
     </div>
     
@@ -603,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】5-Pipeline"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】5 Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅化"><span class="nav-number">1.1.</span> <span class="nav-text">光栅化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解梯度"><span class="nav-number">1.1.1.</span> <span class="nav-text">理解梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画线"><span class="nav-number">1.1.2.</span> <span class="nav-text">画线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三角形光栅化"><span class="nav-number">1.1.3.</span> <span class="nav-text">三角形光栅化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理在三角形边上的像素"><span class="nav-number">1.1.4.</span> <span class="nav-text">处理在三角形边上的像素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#裁剪"><span class="nav-number">1.1.5.</span> <span class="nav-text">裁剪</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅化前后都做了些啥"><span class="nav-number">1.2.</span> <span class="nav-text">光栅化前后都做了些啥</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#精确性问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">精确性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#着色频率"><span class="nav-number">1.2.2.</span> <span class="nav-text">着色频率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的抗锯齿"><span class="nav-number">1.3.</span> <span class="nav-text">简单的抗锯齿</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#愉快高效地挑选几何图元"><span class="nav-number">1.3.1.</span> <span class="nav-text">愉快高效地挑选几何图元</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】5-Pipeline"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】5 Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅化"><span class="nav-number">1.1.</span> <span class="nav-text">光栅化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解梯度"><span class="nav-number">1.1.1.</span> <span class="nav-text">理解梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画线"><span class="nav-number">1.1.2.</span> <span class="nav-text">画线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三角形光栅化"><span class="nav-number">1.1.3.</span> <span class="nav-text">三角形光栅化</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

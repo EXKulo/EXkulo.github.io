@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="【计算机图形学基础】6 表面渲染该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading">
+<meta name="description" content="【计算机图形学基础】6 表面渲染该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光泽的表面。 Lambertian着色模型一个Lam">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【计算机图形学基础】6 表面渲染">
-<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线.1/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6 表面渲染/index.html">
 <meta property="og:site_name" content="左未的blog">
-<meta property="og:description" content="【计算机图形学基础】6 表面渲染该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading">
+<meta property="og:description" content="【计算机图形学基础】6 表面渲染该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光泽的表面。 Lambertian着色模型一个Lam">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-25T09:17:43.650Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6%20表面渲染/1.png">
+<meta property="og:updated_time" content="2019-02-25T09:55:27.444Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【计算机图形学基础】6 表面渲染">
-<meta name="twitter:description" content="【计算机图形学基础】6 表面渲染该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading">
+<meta name="twitter:description" content="【计算机图形学基础】6 表面渲染该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光泽的表面。 Lambertian着色模型一个Lam">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6%20表面渲染/1.png">
 
 
 
@@ -119,7 +121,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线.1/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/25/【计算机图形学基础】6 表面渲染/">
 
 
 
@@ -252,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线.1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/【计算机图形学基础】6 表面渲染/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -281,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
-                2019-02-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T17:53:28+08:00">
+                2019-02-25
               </time>
             
 
@@ -321,7 +323,7 @@
 
           
           
-             <span id="/2019/02/19/【计算机图形学基础】5 管线.1/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】6 表面渲染">
+             <span id="/2019/02/25/【计算机图形学基础】6 表面渲染/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】6 表面渲染">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -356,7 +358,13 @@
 <p>本篇对应书中第十章 <strong>Surface Shading</strong>。</p>
 <p>第九章是离散数学<del>，实在是懒得啃了</del>，傅里叶变换那一套。</p>
 <p>本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。</p>
-<h2 id="Diffuse-Shading"><a href="#Diffuse-Shading" class="headerlink" title="Diffuse Shading"></a>Diffuse Shading</h2>
+<h2 id="Diffuse-Shading"><a href="#Diffuse-Shading" class="headerlink" title="Diffuse Shading"></a>Diffuse Shading</h2><p>用来着色无光泽的表面。</p>
+<h3 id="Lambertian着色模型"><a href="#Lambertian着色模型" class="headerlink" title="Lambertian着色模型"></a>Lambertian着色模型</h3><p>一个Lambertian物体遵守Lambert的cos法则。</p>
+<img src="/2019/02/25/【计算机图形学基础】6%20表面渲染/1.png" title="原理图">
+<p>$$c \propto \theta$$</p>
+<p>也就是</p>
+<p>$$c \propto \textbf{n} \cdot \textbf{l}$$</p>
+
       
     </div>
     
@@ -380,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/19/【计算机图形学基础】3 线性代数.1/" rel="next" title="【计算机图形学基础】三 线性代数与矩阵变换">
-                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】三 线性代数与矩阵变换
+              <a href="/2019/02/25/表面着色/" rel="next" title="表面着色">
+                <i class="fa fa-chevron-left"></i> 表面着色
               </a>
             
           </div>
@@ -389,10 +397,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/19/【计算机图形学基础】4 视觉/" rel="prev" title="【计算机图形学基础】四 Viewing">
-                【计算机图形学基础】四 Viewing <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -520,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】6-表面渲染"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】6 表面渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Diffuse-Shading"><span class="nav-number">1.1.</span> <span class="nav-text">Diffuse Shading</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】6-表面渲染"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】6 表面渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Diffuse-Shading"><span class="nav-number">1.1.</span> <span class="nav-text">Diffuse Shading</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambertian着色模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">Lambertian着色模型</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
