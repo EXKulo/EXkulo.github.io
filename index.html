@@ -252,6 +252,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/【计算机图形学基础】7 纹理映射/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/【计算机图形学基础】7 纹理映射/" itemprop="url">【计算机图形学基础】7 纹理映射</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T17:53:28+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机图形学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/26/【计算机图形学基础】7 纹理映射/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】7 纹理映射">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="【计算机图形学基础】7-纹理映射"><a href="#【计算机图形学基础】7-纹理映射" class="headerlink" title="【计算机图形学基础】7 纹理映射"></a>【计算机图形学基础】7 纹理映射</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第十一章 <strong>Texture Mapping</strong>。</p>
+<p>对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。</p>
+<p>这里会先讲3D纹理，也叫solid textures或volumn textures。再讲2d纹理，也叫image textures。不过如果我们纹理一词没有加上个2d或者3d的前缀，那一般指的就是2d的纹理。</p>
+<h2 id="3D纹理映射"><a href="#3D纹理映射" class="headerlink" title="3D纹理映射"></a>3D纹理映射</h2><p>上集节目中我们提到我们用$c_r$来代表表面的颜色。而拥有复杂图案的表面，其上的颜色肯定不止一种。为了表示表面的颜色，我们使用关于p点的函数$c_r(\textbf{p})$。</p>
+<h3 id="3d条纹纹理"><a href="#3d条纹纹理" class="headerlink" title="3d条纹纹理"></a>3d条纹纹理</h3><p>有很多种方法可以弄出一个条纹纹理。假设我们有两种颜色$c_0$和$c_1$要来组成条纹纹理。我们可以使用sin的方法来生成纹理：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">sin</span>(p.positionX) <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> c0</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c1</span><br></pre></td></tr></table></figure>
+<p>为了调节条纹的宽度，我们可以控制一下sin的频率，加入因子$\omega$：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p, omega)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">sin</span>(<span class="built_in">pi</span> * p.positionX / omega) &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> c0</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c1</span><br></pre></td></tr></table></figure>
+<p>如果我们想对条纹做模糊化，就要做插值，插值的算法如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p, omega)</span></span></span><br><span class="line">    t = (<span class="number">1</span> + <span class="built_in">sin</span>(<span class="built_in">pi</span> * p.positionX / omega)) / <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="number">1</span> - t) * c0 + t * c1</span><br></pre></td></tr></table></figure>
+<p>我不知道这节有什么用。。真有人会去生成条纹嘛，做斑马？</p>
+<img src="/2019/02/26/【计算机图形学基础】7%20纹理映射/1.png" title="分别对应上面讲的三种算法">
+<h3 id="纹理数组"><a href="#纹理数组" class="headerlink" title="纹理数组"></a>纹理数组</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/【计算机图形学基础】6 表面渲染/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -735,181 +900,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】4 视觉/" itemprop="url">【计算机图形学基础】四 Viewing</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
-                2019-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/02/19/【计算机图形学基础】4 视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第七章四 Viewing。</p>
-<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
-<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
-<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
-<p>一般来说要投影到屏幕上，一系列的变换：</p>
-<ul>
-<li>一个相机变换</li>
-<li>一个投影变换</li>
-<li>一个窗口变换</li>
-</ul>
-<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
-<img src="/2019/02/19/【计算机图形学基础】4%20视觉/1.png" title="一系列变换">
-<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
-<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
-<ul>
-<li>缩放 矩阵$\hat{S}$代表</li>
-<li>位移 矩阵$\hat{T}$代表</li>
-</ul>
-<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
-<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<p>相乘得</p>
-<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1067,6 +1057,181 @@
 <p>$$\alpha x_A + \beta x_B + \gamma x_c = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_c = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
 <p>画出一个三角形的伪代码：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> all x <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> all y <span class="keyword">do</span></span><br><span class="line">        compute (alpha, beta, gamma) <span class="keyword">for</span> (x, y)</span><br><span class="line">        <span class="keyword">if</span>(alpha <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> beta <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> gamma <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">            c = alpha * cA + beta * cB + gamma * cC</span><br><span class="line">            drawpixel(x, y) with color c</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】4 视觉/" itemprop="url">【计算机图形学基础】四 Viewing</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机图形学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/19/【计算机图形学基础】4 视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第七章四 Viewing。</p>
+<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
+<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
+<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
+<p>一般来说要投影到屏幕上，一系列的变换：</p>
+<ul>
+<li>一个相机变换</li>
+<li>一个投影变换</li>
+<li>一个窗口变换</li>
+</ul>
+<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
+<img src="/2019/02/19/【计算机图形学基础】4%20视觉/1.png" title="一系列变换">
+<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
+<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
+<ul>
+<li>缩放 矩阵$\hat{S}$代表</li>
+<li>位移 矩阵$\hat{T}$代表</li>
+</ul>
+<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
+<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
+<p>相乘得</p>
+<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
+<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
           
         
       
@@ -1919,169 +2084,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/CPU内核、用户模式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/13/CPU内核、用户模式/" itemprop="url">CPU内核、用户模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T09:54:19+08:00">
-                2019-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/02/13/CPU内核、用户模式/" class="leancloud_visitors" data-flag-title="CPU内核、用户模式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="CPU内核、用户模式"><a href="#CPU内核、用户模式" class="headerlink" title="CPU内核、用户模式"></a>CPU内核、用户模式</h1><p>本文由是阅读<a href="https://blog.codinghorror.com/understanding-user-and-kernel-mode/" target="_blank" rel="noopener">该文章</a>做下的笔记。</p>
-<p>CPU分内核与用户模式。</p>
-<h2 id="三言蔽之"><a href="#三言蔽之" class="headerlink" title="三言蔽之"></a>三言蔽之</h2><p>内核模式下，应用可以直接存取内存，能够执行任何CPU指令。一般来说驱动运行在该模式下。<br>内核模式的应用一旦崩溃，整个操作系统都会崩溃。（所以驱动必须要非常稳定，否则蓝屏常在你身边）</p>
-<p>用户模式就是我们一般应用所在的模式。用户模式下，应用想要存取硬件或者内存，必须通过系统API。由于与底层被隔离开来，所以用户模式下的应用崩溃通常不会影响到系统正常运行。</p>
-<h2 id="硬件决定"><a href="#硬件决定" class="headerlink" title="硬件决定"></a>硬件决定</h2><p>内核模式和用户模式不是我们定义出来的在软件层面的一个概念，而是由CPU架构所决定的。</p>
-<p>通常CPU分为0~3总共四个层。其中我们一般用的是0层内核模式以及3层用户模式。1和2一般少用。</p>
-<p>其中，又有人提出-1层，这就是我们平常说的x86硬件下的CPU虚拟化（手机模拟器一般都要开这个）。</p>
-<h2 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h2><p>驱动一般会运行在内核模式<strong>以及</strong>用户模式下。</p>
-<p>以下为猜测：</p>
-<p>在OpenGL渲染过程中，会在用户模式下维护一个命令队列，切换到内核模式后再一次性发送到驱动，由驱动发送给显卡。</p>
-<h2 id="切换代价"><a href="#切换代价" class="headerlink" title="切换代价"></a>切换代价</h2><p>在用户模式和内核模式之间切换，是有代价的，而且代价十分大。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2134,7 +2136,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

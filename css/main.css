@@ -1113,7 +1113,7 @@ pre .javascript .function {
   display: inline-block;
   padding: 0 40px;
   color: #fff;
-  background: #4b7bec;
+  background: #004;
   border-bottom: none;
 }
 .brand:hover {
@@ -1208,7 +1208,7 @@ pre .javascript .function {
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
-  color: #3867d6;
+  color: #006;
 }
 .menu .menu-item a:hover {
   border-bottom-color: #222;
@@ -1268,9 +1268,9 @@ pre .javascript .function {
   opacity: 0;
 }
 .post-body p a {
-  color: #2d98da;
+  color: #df4576;
   border-bottom: none;
-  border-bottom: 1px solid #0593d3;
+  border-bottom: 1px solid #df4576;
 }
 .post-body p a:hover {
   color: #fc6423;
@@ -1471,7 +1471,7 @@ pre .javascript .function {
 .posts-expand .post-title-link {
   display: inline-block;
   position: relative;
-  color: #4b7bec;
+  color: #004;
   border-bottom: none;
   line-height: 1.2;
   vertical-align: top;
@@ -1837,7 +1837,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c601a3;
+  background: #adff82;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2691,9 +2691,12 @@ body {
   background-position: 50% 50%;
 }
 .main-inner {
-  margin-top: 60px;
-  padding: 60px 60px 60px 60px;
+  margin-top: 0;
+  padding: 0 60px 60px 60px;
   background: #fefefe;
   opacity: 0.99;
   min-height: 500px;
+}
+.header-inner {
+  padding: 50px 0 20px;
 }

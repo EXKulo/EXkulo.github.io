@@ -252,6 +252,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/CPU内核、用户模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/13/CPU内核、用户模式/" itemprop="url">CPU内核、用户模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T09:54:19+08:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机图形学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/13/CPU内核、用户模式/" class="leancloud_visitors" data-flag-title="CPU内核、用户模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CPU内核、用户模式"><a href="#CPU内核、用户模式" class="headerlink" title="CPU内核、用户模式"></a>CPU内核、用户模式</h1><p>本文由是阅读<a href="https://blog.codinghorror.com/understanding-user-and-kernel-mode/" target="_blank" rel="noopener">该文章</a>做下的笔记。</p>
+<p>CPU分内核与用户模式。</p>
+<h2 id="三言蔽之"><a href="#三言蔽之" class="headerlink" title="三言蔽之"></a>三言蔽之</h2><p>内核模式下，应用可以直接存取内存，能够执行任何CPU指令。一般来说驱动运行在该模式下。<br>内核模式的应用一旦崩溃，整个操作系统都会崩溃。（所以驱动必须要非常稳定，否则蓝屏常在你身边）</p>
+<p>用户模式就是我们一般应用所在的模式。用户模式下，应用想要存取硬件或者内存，必须通过系统API。由于与底层被隔离开来，所以用户模式下的应用崩溃通常不会影响到系统正常运行。</p>
+<h2 id="硬件决定"><a href="#硬件决定" class="headerlink" title="硬件决定"></a>硬件决定</h2><p>内核模式和用户模式不是我们定义出来的在软件层面的一个概念，而是由CPU架构所决定的。</p>
+<p>通常CPU分为0~3总共四个层。其中我们一般用的是0层内核模式以及3层用户模式。1和2一般少用。</p>
+<p>其中，又有人提出-1层，这就是我们平常说的x86硬件下的CPU虚拟化（手机模拟器一般都要开这个）。</p>
+<h2 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h2><p>驱动一般会运行在内核模式<strong>以及</strong>用户模式下。</p>
+<p>以下为猜测：</p>
+<p>在OpenGL渲染过程中，会在用户模式下维护一个命令队列，切换到内核模式后再一次性发送到驱动，由驱动发送给显卡。</p>
+<h2 id="切换代价"><a href="#切换代价" class="headerlink" title="切换代价"></a>切换代价</h2><p>在用户模式和内核模式之间切换，是有代价的，而且代价十分大。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/31/Hexo博客增加live2d看板娘/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2032,220 +2195,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/【MongoDB权威指南】一/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/15/【MongoDB权威指南】一/" itemprop="url">【MongoDB权威指南】一</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-15T19:18:01+08:00">
-                2019-01-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/后端技术/" itemprop="url" rel="index">
-                    <span itemprop="name">后端技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/01/15/【MongoDB权威指南】一/" class="leancloud_visitors" data-flag-title="【MongoDB权威指南】一">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一-基本"><a href="#一-基本" class="headerlink" title="一 基本"></a>一 基本</h1><p>这里是阅读《MongoDB权威指南》一书所做的读书笔记。这将是一个系列，划分标准大概是章节。放到博客上面来，自我监督把书啃完，消化完转化成自己的文字出来。</p>
-<p>此为本系列第一篇，主要讲最普通的增删改查以及如何获取命令帮助。</p>
-<p>MongoDB是一个nosql，意味着它不用定义一个表的列有哪些，而是可以把它当作一个序列化json的工具来使用。MongoDB对脚本语言特别友好，python的dict或者lua的table都可以直接作为一个object放进去。</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>在MongoDB这里：</p>
-<ul>
-<li><strong>集合</strong>等同于表</li>
-<li><strong>文档</strong>等同于行</li>
-</ul>
-<p>mongo命令执行完之后，其实是进入一个javascript shell，里面可以运行任何js指令，而且加入了mongodb自定义的语法糖（如show）。</p>
-<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><p>以下假设集合名称(collection name)为cn，数据为data。</p>
-<ul>
-<li><strong>使用数据库</strong> use dbname</li>
-<li><strong>插入操作</strong> db.cn.insert(data)</li>
-<li><strong>寻找</strong><ul>
-<li>db.cn.find()</li>
-<li>db.cn.findOne()</li>
-<li>db.cn.find(condition) condition为条件</li>
-</ul>
-</li>
-<li><strong>更新</strong> db.update(condition, newData)<br>newdata指把整个文档换掉。如果只是想更新部分文档，应该这么写<code>&#39;$set&#39;: deltaData</code>。</li>
-<li><strong>删除</strong> db.remove(condition)</li>
-</ul>
-<p>此外，<code>help</code>指令可以显示出所有的帮助，其中有几个值得萌新关注：</p>
-<ul>
-<li><strong>show dbs</strong> 显示所有的数据库</li>
-<li><strong>db.help()</strong> 显示所有数据库相关的函数</li>
-<li><strong>db.mycoll.help()</strong> 显示所有集合相关的函数</li>
-</ul>
-<p>如果不调用函数，只输入函数名，会在控制台打印该函数的源码。譬如：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.cn.update</span><br></pre></td></tr></table></figure>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>除了一整个儿更新以外，还可以使用部分更新，这个时候使用特殊的键来做调整。</p>
-<blockquote>
-<p>php程序员就蛋疼了，他们的变量用$开头的。。</p>
-</blockquote>
-<ul>
-<li><p>$inc 自增某个参数，譬如</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(condition, &#123;<span class="string">'$inc'</span>: &#123;<span class="string">'key'</span>: nIncrement&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<p>如果inc的变量并不存在，会先初始化为0。</p>
-</li>
-<li>$set 增量更新</li>
-<li>$unset 增量删除，删除某个字段</li>
-<li>$ne 不等于</li>
-<li><p>$push 推入数组</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(condition, &#123;<span class="string">'$push'</span>: &#123;<span class="string">'array_name'</span>: newRowData&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>$addToSet 把数组作为集合看待，不会插入一样的数据</p>
-</li>
-<li><p>$pop 数组当作堆栈或者队列看来删除元素</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.date.update(condition, &#123;<span class="string">'$pop'</span>: &#123;<span class="string">'array_name'</span>, <span class="number">-1</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>$pull 删掉数组中所有匹配的部分</p>
-</li>
-<li>$ 查询数组并更新  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(&#123;<span class="string">'array.field1'</span>: condition&#125;, &#123;<span class="string">'$set'</span>: &#123;array.$.field1: deltaData&#125;&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="upsert"><a href="#upsert" class="headerlink" title="upsert"></a>upsert</h3><p>如果找得到就更新，如果找不到就插入。避免在代码层进行判空。原子性操作，避免<strong>竞态问题</strong>。</p>
-<h3 id="save"><a href="#save" class="headerlink" title="save"></a>save</h3><p>对文档进行操作，要求参数里面含有_id域，如果不存在则会创建新的文档。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span> = db.data.find(condition)</span><br><span class="line"><span class="built_in">document</span>.x = <span class="string">'x'</span></span><br><span class="line">db.data.save(<span class="built_in">document</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="更新多个文档"><a href="#更新多个文档" class="headerlink" title="更新多个文档"></a>更新多个文档</h3><p>一般而言更新只针对符合condition的第一个文档，如果想要更新所有符合条件的文档，那么把第四个参数设置为True。</p>
-<h3 id="修改器的速度"><a href="#修改器的速度" class="headerlink" title="修改器的速度"></a>修改器的速度</h3><p>\$inc当然最快，不用新增啥。\$set在不增加键的情况下也是极快的，但是对数组的操作有可能会比较耗性能。</p>
-<p>以上操作都是瞬间完成的，不会卡住客户端，客户端发出命令后可以继续工作。当然也有同步版本，会执行完之后返回结果码。</p>
-<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>对一个连接里面的命令使用队列来决定执行先后。但是python等语言有连接池的概念，可能会把命令派发到各个连接去，导致执行顺序错乱。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2298,7 +2247,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
