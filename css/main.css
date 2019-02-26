@@ -1113,7 +1113,6 @@ pre .javascript .function {
   display: inline-block;
   padding: 0 40px;
   color: #fff;
-  background: #004;
   border-bottom: none;
 }
 .brand:hover {
@@ -1208,7 +1207,7 @@ pre .javascript .function {
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   transition-delay: 0s;
-  color: #006;
+  color: #fff;
 }
 .menu .menu-item a:hover {
   border-bottom-color: #222;
@@ -1837,7 +1836,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #adff82;
+  background: #6cffab;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2699,4 +2698,11 @@ body {
 }
 .header-inner {
   padding: 50px 0 20px;
+}
+.header-inner {
+  background: url("/images/background.jpg");
+  padding: 80px 60px 80px 60px;
+}
+.btn {
+  background: #148;
 }

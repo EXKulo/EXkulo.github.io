@@ -356,21 +356,18 @@
       
         
           
-            <h1 id="【计算机图形学基础】7-纹理映射"><a href="#【计算机图形学基础】7-纹理映射" class="headerlink" title="【计算机图形学基础】7 纹理映射"></a>【计算机图形学基础】7 纹理映射</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第十一章 <strong>Texture Mapping</strong>。</p>
-<p>对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。</p>
-<p>这里会先讲3D纹理，也叫solid textures或volumn textures。再讲2d纹理，也叫image textures。不过如果我们纹理一词没有加上个2d或者3d的前缀，那一般指的就是2d的纹理。</p>
-<h2 id="3D纹理映射"><a href="#3D纹理映射" class="headerlink" title="3D纹理映射"></a>3D纹理映射</h2><p>上集节目中我们提到我们用$c_r$来代表表面的颜色。而拥有复杂图案的表面，其上的颜色肯定不止一种。为了表示表面的颜色，我们使用关于p点的函数$c_r(\textbf{p})$。</p>
-<h3 id="3d条纹纹理"><a href="#3d条纹纹理" class="headerlink" title="3d条纹纹理"></a>3d条纹纹理</h3><p>有很多种方法可以弄出一个条纹纹理。假设我们有两种颜色$c_0$和$c_1$要来组成条纹纹理。我们可以使用sin的方法来生成纹理：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">sin</span>(p.positionX) <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> c0</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c1</span><br></pre></td></tr></table></figure>
-<p>为了调节条纹的宽度，我们可以控制一下sin的频率，加入因子$\omega$：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p, omega)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">sin</span>(<span class="built_in">pi</span> * p.positionX / omega) &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> c0</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c1</span><br></pre></td></tr></table></figure>
-<p>如果我们想对条纹做模糊化，就要做插值，插值的算法如下：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p, omega)</span></span></span><br><span class="line">    t = (<span class="number">1</span> + <span class="built_in">sin</span>(<span class="built_in">pi</span> * p.positionX / omega)) / <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="number">1</span> - t) * c0 + t * c1</span><br></pre></td></tr></table></figure>
-<p>我不知道这节有什么用。。真有人会去生成条纹嘛，做斑马？</p>
-<img src="/2019/02/26/【计算机图形学基础】7%20纹理映射/1.png" title="分别对应上面讲的三种算法">
-<h3 id="纹理数组"><a href="#纹理数组" class="headerlink" title="纹理数组"></a>纹理数组</h3>
-          
+          【计算机图形学基础】7 纹理映射该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
+本篇对应书中第十一章 Texture Mapping。
+对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。
+这里会先讲3D纹理，也叫solid textures或volumn textures。再讲2d纹理，也叫image textures。不过如果我们纹理一词没有加上个2d或者3d的前缀，那一般指的就是2d的
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/26/【计算机图形学基础】7 纹理映射/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -521,53 +518,25 @@
       
         
           
-            <h1 id="【计算机图形学基础】6-表面渲染"><a href="#【计算机图形学基础】6-表面渲染" class="headerlink" title="【计算机图形学基础】6 表面渲染"></a>【计算机图形学基础】6 表面渲染</h1><p>本篇也可改名<strong>给大家看的图形学趣味基础</strong>23333.</p>
-<p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第十章 <strong>Surface Shading</strong>。</p>
-<p>第九章是离散数学<del>，实在是懒得啃了</del>，傅里叶变换那一套。</p>
-<p>本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。</p>
-<h2 id="Diffuse-Shading"><a href="#Diffuse-Shading" class="headerlink" title="Diffuse Shading"></a>Diffuse Shading</h2><p>用来着色无光泽的表面。</p>
-<h3 id="Lambertian着色模型"><a href="#Lambertian着色模型" class="headerlink" title="Lambertian着色模型"></a>Lambertian着色模型</h3><p>一个Lambertian物体遵守Lambert的cos法则。</p>
-<img src="/2019/02/25/【计算机图形学基础】6%20表面渲染/1.png" title="原理图">
-<p>$$c \propto \theta$$</p>
-<p>也就是</p>
-<p>$$c \propto \textbf{n} \cdot \textbf{l}$$</p>
-<p>有两个因素可以决定表面的明亮：光照强度和表面的反射率。反射率也是由RGB组成的。假设物体的漫反射颜色比较接近红色，那么反射率中R的那部分就要大一些。于是可以把式子改写成这样：</p>
-<p>$$c \propto c_r \textbf{n} \cdot \textbf{l}$$</p>
-<p>为了保证输出的表面颜色值的RGB均属于[0, 1]的范围，需要让光照强度也属于[0, 1]。式子加上光强之后就变成：</p>
-<p>$$c = c_r c_l \textbf{n} \cdot \textbf{l}$$</p>
-<p>这是一个形式很简单的式子，但是有可能输出不在[0, 1]范围内的RGB值，只因<strong>点乘</strong>的结果可能是负数。为了避免结果出现西安负数，还需要加一个取max值的操作。</p>
-<p>$$c = c_r c_l \max(0, \textbf{n} \cdot \textbf{l})$$</p>
-<h3 id="环境光着色"><a href="#环境光着色" class="headerlink" title="环境光着色"></a>环境光着色</h3><p>在真实世界中，往往除了我们所给的光源，还有环境光存在。我们不用考虑方向，把它整个叠加上去就行了。得到：</p>
-<p>$$c = c_r (c_a + c_l \max(0, \textbf{n} \cdot \textbf{l})), c_a + c_l \leq (1, 1, 1)$$</p>
-<h3 id="基于顶点的漫反射着色"><a href="#基于顶点的漫反射着色" class="headerlink" title="基于顶点的漫反射着色"></a>基于顶点的漫反射着色</h3><p>想象一个三角形，如果只对中间某个点计算颜色并应用到整个三角形，就会让一个由多个三角形组成的平面看起来很粗糙（区分得出各个三角形，边界may be非常明显）。</p>
-<p>为了避免上述情况，我们把三角形的法向量应用到它三个点上，求得三个点的颜色之后再来做插值。</p>
-<p>当然，更好更细腻的着色是把光照直接放到fragment shader里头去，针对每个像素做着色处理，不过这非常非常消耗性能。</p>
-<h2 id="Phong着色"><a href="#Phong着色" class="headerlink" title="Phong着色"></a>Phong着色</h2><p>现在考虑一些有高光反射的表面。我们可以观察到高光的位置会随着我们眼睛的位置移动，并且高光的颜色一半就是光源的颜色，和物体本身的颜色无关。另外，高光一般来说会有某种程度的blur（模糊），这就需要一个模糊半径。所以在式子里我们要多加入一个向量<strong>e</strong>表示眼睛。</p>
-<h3 id="Phong光照模型"><a href="#Phong光照模型" class="headerlink" title="Phong光照模型"></a>Phong光照模型</h3><img src="/2019/02/25/【计算机图形学基础】6%20表面渲染/2.png" title="Phong">
-<p>图中，<strong>r</strong>为<strong>l</strong>关于法向量<strong>n</strong>对称的向量。当人眼<strong>e</strong>越接近<strong>r</strong>，看到的镜面反射光强就越大。</p>
-<p>给出向量<strong>r</strong>，为了能让<strong>e</strong> = <strong>r</strong>的时候最亮，且<strong>e</strong>远离<strong>r</strong>的时候可以逐步变暗。可以简单地产出这么个式子：</p>
-<p>$$c = c_l (\textbf{e} \cdot \textbf{r})$$</p>
-<p>但是这个式子有两个问题。一个是点乘的结果有可能是个负数，这个还好，可以通过绝对值或者取max之类的解决。另一个问题是，这个式子产出的光斑面积要比现实中的大太多，显得不自然。</p>
-<p>为了解决光斑太大的问题，我们给点乘的结果加上一个幂数。结合max得到以下式子：</p>
-<p>$$c = c_l \max(0, \textbf{e} \cdot \textbf{r})^p$$</p>
-<img src="/2019/02/25/【计算机图形学基础】6%20表面渲染/3.png" title="Phong Exponent">
-<p>上式中的p被称为Phong指数，它是一个正实数。</p>
-<img src="/2019/02/25/【计算机图形学基础】6%20表面渲染/4.png" title="如何计算一个r">
-<p>为了完成上式，我们必须要先知道<strong>r</strong>，根据上图，它可以被这么算出：</p>
-<p>$$\textbf{r} = -\textbf{l} + 2(\textbf{l} \cdot \textbf{n})\textbf{n}$$</p>
-<p>其中的$\textbf{l} \cdot \textbf{n} = \cos \theta$。</p>
-<p>有一种近似的算法，可以避免算出r。我们现在要计算<strong>l</strong>与<strong>e</strong>的中间单位向量<strong>h</strong>(half)。</p>
-<p>$$\textbf{h} = \frac{\textbf{e} + \textbf{l}}{|\textbf{e} + \textbf{l}|}$$</p>
-<p>当<strong>h</strong>与<strong>n</strong>重合的时候，光斑达到最大亮度。于是：</p>
-<p>$$c = c_l(\textbf{h} \cdot \textbf{n})^p$$</p>
-<p>这个式子还能少了一个max操作，hin完美。如果想把镜面反射变得再暗一点，还可以添加一个因子$c_p$。</p>
-<p>最后，结合漫反射，得到式子为：</p>
-<p>$$c = c_r(c_a + c_l\max(0, \textbf{n} \cdot  \textbf{l})) + c_l c_p(\textbf{h} \cdot \textbf{n})^p$$</p>
-<h2 id="艺术着色"><a href="#艺术着色" class="headerlink" title="艺术着色"></a>艺术着色</h2><h3 id="轮廓着色"><a href="#轮廓着色" class="headerlink" title="轮廓着色"></a>轮廓着色</h3><p>当两个三角形共用一条边，且一个三角形看得到，一个三角形看不到的时候，就应该把这条轮廓画下来。这一条件可以表达为：</p>
-<p>$$(\textbf{e} \cdot \textbf{n}_0)(\textbf{e} \cdot \textbf{n}_1) \leq 0$$</p>
+          【计算机图形学基础】6 表面渲染本篇也可改名给大家看的图形学趣味基础23333.
+该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
+本篇对应书中第十章 Surface Shading。
+第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。
+本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。
+Diffuse Shading用来着色无光泽的表面。
+Lambertian着色模型一个Lambertian物体遵守Lambert的cos法则。
 
-          
+$$c \propto \theta$$
+也就是
+$$c \propto \textbf{n} 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/25/【计算机图形学基础】6 表面渲染/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -696,8 +665,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/25/表面着色/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -848,12 +824,19 @@
       
         
           
-            <h1 id="图形学数学补充"><a href="#图形学数学补充" class="headerlink" title="图形学数学补充"></a>图形学数学补充</h1><h2 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h2><h3 id="三角形面积"><a href="#三角形面积" class="headerlink" title="三角形面积"></a>三角形面积</h3><p>已知三角形的顶点ABC的坐标，求三角形的面积。参见<a href="https://zhuanlan.zhihu.com/p/25793392" target="_blank" rel="noopener">知乎专栏</a>。</p>
-<p>已知$A(x_1, y_1)$、$B(x_2, y_2)$、$C(x_3, y_3)$，求面积。可以使用矩形面积S减去三个三角形得到。</p>
-<p>$$\text{S}_\triangle = \text{S} - \text{S}_1 - \text{S}_2 - \text{S}_3$$</p>
-<p>$$</p>
+          图形学数学补充三角形三角形面积已知三角形的顶点ABC的坐标，求三角形的面积。参见知乎专栏。
+已知$A(x_1, y_1)$、$B(x_2, y_2)$、$C(x_3, y_3)$，求面积。可以使用矩形面积S减去三个三角形得到。
+$$\text{S}_\triangle = \text{S} - \text{S}_1 - \text{S}_2 - \text{S}_3$$
+$$
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/22/图形学数学补充/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1004,60 +987,22 @@
       
         
           
-            <h1 id="【计算机图形学基础】5-Pipeline"><a href="#【计算机图形学基础】5-Pipeline" class="headerlink" title="【计算机图形学基础】5 Pipeline"></a>【计算机图形学基础】5 Pipeline</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第八章 <strong>The Graphics Pipeline</strong>。</p>
-<p>看过好几次的渲染管线。</p>
-<p>object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMan。但是两者用的渲染管线结构都差不多。</p>
-<p>渲染管线的起点是object，终点是更新图像中的像素点。</p>
-<p>先贴图</p>
-<img src="/2019/02/19/【计算机图形学基础】5%20管线/1.png" title="Pipeline">
-<h2 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h2><p>由于前面几章已经讲过Vertex Processing阶段的矩阵变换了，这篇就从第二阶段的光栅化讲起。</p>
-<p>写过shader的同学都知道，顶点着色器的输入和输出都是顶点，而像素着色器的输入却是fragment。怎么从顶点着色器输出的几个顶点，变成几何面上拥有的所有像素呢？这个转化的过程就叫做光栅化。</p>
-<p>光栅器接收顶点和其他顶点着色器输出信息作为参数，输出fragments。fragment包含一个像素里所有的信息，这些信息是顶点着色器输出信息的插值版本。</p>
-<p>光栅器的工作有二：</p>
-<ul>
-<li>枚举出几何体所包含的所有像素</li>
-<li>对顶点着色器的输出做插值</li>
-</ul>
-<h3 id="理解梯度"><a href="#理解梯度" class="headerlink" title="理解梯度"></a>理解梯度</h3><p>首先要复习一下$\nabla$(nabla)算子，也叫向量微分算子。定义为$\nabla = \frac{d}{dr}$。在n维空间中有不同的表现。<br>在三位情况下，$\nabla = \frac{\partial}{\partial x}i + \frac{\partial}{\partial y}j + \frac{\partial}{\partial z}k$ 或 $\nabla = (\frac{\partial}{\partial x},\frac{\partial}{\partial y}, \frac{\partial}{\partial z})$</p>
-<p>梯度是啥呢？<br>假设三维空间中有个映射$f(x,y,z)$，则在某个点$(x, y, z)$上，<strong>梯度</strong>表示该点的一个方向，往这个方向移动，$f()$的变化最大。如果假设$f(x, y, z)$是某个山坡的表面，那么梯度就是该点上最抖的方向，梯度的大小代表有多抖。</p>
-<p>一个标量函数的梯度记为$\nabla \varphi$，再三维直角坐标中<br>$$\nabla \varphi = (\frac{\partial \varphi}{\partial x},\frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z})$$</p>
-<p>剩下的就是对每个维度求导数了。</p>
-<p>譬如对于$\varphi = 2x + 3y^2 - \sin(z)$，梯度为</p>
-<p>$$\nabla \varphi = (\frac{\partial \varphi}{\partial x},\frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z}) = (1, 6y, -\cos(z))$$</p>
-<h3 id="画线"><a href="#画线" class="headerlink" title="画线"></a>画线</h3><p>根据线的两点式，可以推断出线的表达式</p>
-<p>$$f(x,y) \equiv (y_0 - y_1)x + (x_1 - x_0)y + x_0y_1 - x_1y_0 = 0$$</p>
-<p>假设$x_0 \leq x_1$，那么斜率m为</p>
-<p>$$m = \frac{y_1 - y_0}{x_1 - x_0}$$</p>
-<img src="/2019/02/19/【计算机图形学基础】5%20管线/2.png" title="光栅化">
-<p>下面仅考虑$m \in [0, 1)$的情况。</p>
-<p>为了光栅化，现在先确定线的开头和结尾在哪个像素点，设线的左边在$(x_0, y_0)$，线的右边末端在$(x_1, y_1)$，那么光栅化算法大概是这样</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> (some condition) <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>其中的x和y都是整数。<br>简而言之，从最左边开始遍历，往右水平地选择（保持y相同）像素，当遇到<strong>某种情况</strong>的时候把y提高一。关键就是要找到这个<strong>某种情况</strong>是什么。</p>
-<img src="/2019/02/19/【计算机图形学基础】5%20管线/3.png" title="中点算法">
-<p>决定要不要y+1很简单。首先取两个可选择的潜在像素的中点，然后判断线在这个中点之上还是之下。如果在这个中点之上，则y+1，否则保持y。接下来就是根据高中的数学知识，只要$f(x) \lt 0$，那么点就在线的下面，要上移一个y；反之点在线的上面，保持y不变。</p>
-<p>如果需要<strong>更高性能</strong>的表现，就要使用更高效的方法。</p>
-<p>以下结论基于我们两个推导（很简单，自己相减就能得到$\delta$）。</p>
-<p>$$f(x + 1, y) = f(x, y) + (y_0 - y_1)$$<br>$$f(x + 1, y + 1) = f(x, y) + (y_0 - y_1) + (x_1 - x_0)$$</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line">d = f(x0 + <span class="number">1</span>, y0 + <span class="number">0.5</span>)</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> d &lt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br><span class="line">        d = d + (x1 - x0) + (y0 - y1) <span class="comment">-- d = f(x + 1, y + 1) = f(x, y) + (y0 - y1) + (x1 - x0)</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        d = d + (y0 - y1) <span class="comment">-- d = f(x + 1, y) + (y0 - y1)</span></span><br></pre></td></tr></table></figure>
-<p>$f(x + 1, y)$和$f(x + 1, y + 1)$的推导可以自己验证。由于后面那一串都是常数，对常数做加法是很快的。<br>为啥这么算更快呢？其实判断也是基于上面的基础结论，就是判断中点于$f(x, y)$的结果与0做比较。由于我们的线是一条直线，是线性的，所以可以在一开始算出$x+1$的中点值，后面x步进1，y看情况要不要步进1，就可以算出$x+1$时$f(x, y)$的值。这样就避免了每次去计算$f(x, y)$的值，每次要计算的结果都可以在上一个结果加一个常数来计算，大大提高了速度。</p>
-<h3 id="三角形光栅化"><a href="#三角形光栅化" class="headerlink" title="三角形光栅化"></a>三角形光栅化</h3><p>主要是要考虑插值问题。假设三角形三个点的颜色分别是$\textbf{c}_0$、$\textbf{c}_1$、$\textbf{c}_2$，那么三角形内某个点的颜色应该是</p>
-<p>$$\textbf{c} = \alpha \textbf{c}_0 + \beta \textbf{c}_1 + \gamma \textbf{c}_2$$</p>
-<p>其中的$(\alpha, \beta, \gamma)$是重心坐标。</p>
-<blockquote>
-<p><strong>重心坐标</strong><br><img src="/2019/02/19/【计算机图形学基础】5%20管线/4.png" title="重心坐标"><br>也叫面积坐标。我们用黑体小写字母表示对应点的向量。假设三角形被点$\textbf{p}$分割为三个小三角形，它们的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$</p>
-<p>首先BD:DC = $\lambda_3 : \lambda_2$。这个结论怎么出来的呢：<br>$$\frac{\triangle ADC}{\triangle ADB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$<br>得到<br>存在一个$\lambda$使得：<br>$$\triangle ADC = \lambda \triangle PDC$$<br>$$\triangle ADB = \lambda \triangle PDB$$<br>得到：<br>$$\frac{\lambda_2}{\lambda_3} = \frac{\triangle APC}{\triangle APB} = \frac{\triangle ADC - \triangle PDC}{\triangle ADB - \triangle PDB} =\frac{\lambda \triangle PDC - \triangle PDC}{\lambda \triangle PDB - \triangle PDB} = \frac{(\lambda - 1) \triangle PDC}{(\lambda - 1)\triangle PDB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$</p>
-<p>根据<br>$$\frac{\textbf{d} - \textbf{b}}{\textbf{c} - \textbf{d}} = \frac{\lambda_3}{\lambda_2}$$<br>可以求得$\textbf{d}$关于$\textbf{b}$和$\textbf{c}$的等式：<br>$$\textbf{d} = \frac{\lambda_2 \textbf{b} + \lambda_3 \textbf{c}}{\lambda_2 + \lambda_3}$$<br>现在已知点A和点D了，准备从A和D身上计算出点P的向量。</p>
-</blockquote>
-<p>没耐心看完上面论证的胖友，知道一点就好：点p在跟三个点的连线把三角形分为三个小的三角形，三个三角形的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$，那么，这个三角形关于三个顶点的表达式为$\textbf{p} = \lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}$，这就是它的重心坐标。</p>
-<p>根据这点，假设有<strong>线性函数</strong>F，输入为顶点，输出为颜色。已知ABC三点的颜色为xyz，那么：<br>$$F(A) = x$$<br>$$F(B) = y$$<br>$$F(C) = z$$<br>对于点p来说<br>$$F(P) = F(\lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}) = \lambda_1 x + \lambda_2 y + \lambda_3 z$$</p>
-<p>另一个问题。</p>
-<p>有时候画相邻的两个三角形，会修改共用边的颜色多次。为了避免这样，重心法只用在三角形内部的点。</p>
-<p>计算出点的重心坐标很简单，只要符合下面三条式子即可求出三个未知数</p>
-<p>$$\alpha x_A + \beta x_B + \gamma x_c = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_c = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
-<p>画出一个三角形的伪代码：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> all x <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> all y <span class="keyword">do</span></span><br><span class="line">        compute (alpha, beta, gamma) <span class="keyword">for</span> (x, y)</span><br><span class="line">        <span class="keyword">if</span>(alpha <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> beta <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> gamma <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">            c = alpha * cA + beta * cB + gamma * cC</span><br><span class="line">            drawpixel(x, y) with color c</span><br></pre></td></tr></table></figure>
-          
+          【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
+本篇对应书中第八章 The Graphics Pipeline。
+看过好几次的渲染管线。
+object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMan。但是两者用的渲染管线结构都差不多。
+渲染管线的起点是object，终点是更新图像中的像素点。
+先贴图
+
+光栅化由于前面几章已经讲过Vertex Processing阶段的矩阵变换了，这篇就从第二阶
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/19/【计算机图形学基础】5 管线/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1208,31 +1153,26 @@
       
         
           
-            <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第七章四 Viewing。</p>
-<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
-<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
-<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
-<p>一般来说要投影到屏幕上，一系列的变换：</p>
-<ul>
-<li>一个相机变换</li>
-<li>一个投影变换</li>
-<li>一个窗口变换</li>
-</ul>
-<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
-<img src="/2019/02/19/【计算机图形学基础】4%20视觉/1.png" title="一系列变换">
-<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
-<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
-<ul>
-<li>缩放 矩阵$\hat{S}$代表</li>
-<li>位移 矩阵$\hat{T}$代表</li>
-</ul>
-<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
-<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<p>相乘得</p>
-<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
-          
+          【计算机图形学基础】四 Viewing该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
+本篇对应书中第七章四 Viewing。
+这篇讲的是如何把3d物体映射成2d的，也就是投影。
+第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。
+Viewing Transformations对应矩阵名称MVP，是最后阶段的变换。
+一般来说要投影到屏幕上，一系列的变换：
+
+一个相机变换
+一个投影变换
+一个窗口变换
+
+一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/19/【计算机图形学基础】4 视觉/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1383,12 +1323,19 @@
       
         
           
-            <h1 id="【计算机图形学基础】三-线性代数与矩阵变换"><a href="#【计算机图形学基础】三-线性代数与矩阵变换" class="headerlink" title="【计算机图形学基础】三 线性代数与矩阵变换"></a>【计算机图形学基础】三 线性代数与矩阵变换</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第五章<strong>Linear Algebra</strong>和第六章<strong>Transformation Matrices</strong>。</p>
-<p>虽然之前零零散散看过三四次线性代数，不过老是记不住也没想着用心整理一版。本来看到这一章和下一章讲matrix变换，是准备跳过的。后来想了想也好，趁此机会好好地整理，过一遍这些问题。<del>（心里几百个不愿意）</del></p>
-<p>现在先留着坑，以后有空再来看。</p>
+          【计算机图形学基础】三 线性代数与矩阵变换该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
+本篇对应书中第五章Linear Algebra和第六章Transformation Matrices。
+虽然之前零零散散看过三四次线性代数，不过老是记不住也没想着用心整理一版。本来看到这一章和下一章讲matrix变换，是准备跳过的。后来想了想也好，趁此机会好好地整理，过一遍这些问题。（心里几百个不愿意）
+现在先留着坑，以后有空再来看。
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/19/【计算机图形学基础】3 线性代数.1/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1539,124 +1486,20 @@
       
         
           
-            <h1 id="【计算机图形学基础】二-射线追踪"><a href="#【计算机图形学基础】二-射线追踪" class="headerlink" title="【计算机图形学基础】二 射线追踪"></a>【计算机图形学基础】二 射线追踪</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第四章<strong>Ray Tracing</strong>。</p>
-<p>由两种渲染方式：一种是逐个画物体；一种是逐个画像素。前者是遍历所有物体；后者是遍历所有的像素，以及影响该像素的物体。射线追踪属于后者。</p>
-<p>关于二者的区别，在<a href="http://vr.cs.uiuc.edu/node191.html" target="_blank" rel="noopener">这个网站</a>可以看到有这么一段解释：</p>
-<blockquote>
-<p>For rendering, we need to consider all combinations of objects and pixels. This suggests a nested loop. One way to resolve the visibility is to iterate over the list of all triangles and attempt to render each one to the screen. This is called object-order rendering, and is the main topic of Section 7.2. For each triangle that falls into the field of view of the screen, the pixels are updated only if the corresponding part of the triangle is closer to the eye than any triangles that have been rendered so far. In this case, the outer loop iterates over triangles whereas the inner loop iterates over pixels. The other family of methods is called image-order rendering, and it reverses the order of the loops: Iterate over the image pixels and for each one, determine which triangle should influence its RGB values. To accomplish this, the path of light waves that would enter each pixel is traced out through the virtual environment. This method will be covered first, and many of its components apply to object-order rendering as well.</p>
-</blockquote>
-<p>就是说imgage-order rendering逐像素渲染，外面一层的loop的对象是所有像素，里面一层的loop对象是三角形，里面一层会判断在该像素点的哪个三角形离观察者最近，并渲染它。（深度测试的原理）</p>
-<h2 id="基础的射线追踪算法"><a href="#基础的射线追踪算法" class="headerlink" title="基础的射线追踪算法"></a>基础的射线追踪算法</h2><p>从观察者发送一束射线到目标像素点，命中的第一个三角形，将会被绘制。</p>
-<p>因此一个基础的射线追踪器分为三个部分：</p>
-<ol>
-<li>产生射线，决定射线的原点以及方向</li>
-<li>射线交点，找到与射线交点最近原点的物体</li>
-<li>绘制(shading)，绘制该交点的颜色</li>
-</ol>
-<p>伪代码可以表现为</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 每个像素 <span class="keyword">do</span></span><br><span class="line">  计算视觉射线</span><br><span class="line">  找到第一个被射线击中的物体表面以及它的法向量$n$</span><br><span class="line">  根据交点的法向量和光照等信息，计算出该像素点的颜色</span><br></pre></td></tr></table></figure>
-<h2 id="透视"><a href="#透视" class="headerlink" title="透视"></a>透视</h2><p>透视有很多种，比如立体透视和鱼眼透视，但是我们最常用的还是线性透视。在线性透视中，3d物体被<strong>投影</strong>到一块平面上，原来是直线的，投影完还是直线（反例是鱼眼透视，会变形）。</p>
-<p>最简单的投影类型是平行投影，其实就是让3d物体沿着视觉平面的法向量方向运动，直到3d物体击中视觉平面。<br>平行投影的两种：如果图像平面正交于视觉方向，这种投影就叫正交投影，否则叫斜投影(oblique)</p>
-<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/1.png" title="可以看到眼睛在左边，右边的平面并不垂直于眼睛">
-<p>透视和平行投影不同，万物在远处会变小直至消失，平行线在远处会交汇。</p>
-<h2 id="计算视觉射线"><a href="#计算视觉射线" class="headerlink" title="计算视觉射线"></a>计算视觉射线</h2><p>一条射线的数学表达为：</p>
-<p>$$p(t)=e+t(s-e)$$</p>
-<p>其中，e为射线原点，s为平面上的一点。当t为0，则在e点上，当t为1，则在s点上。</p>
-<h3 id="正交视角"><a href="#正交视角" class="headerlink" title="正交视角"></a>正交视角</h3><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/2.png" title="看w的方向">
-<blockquote>
-<p>Camera Frame<br>在OpenGl编程里常可以看到这个词，代表相机方向和位置。<br><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/3.png" title="相机帧"></p>
-</blockquote>
-<p>-w垂直于锥形体的上底。我们得知了点e和上底的距离d（在正交视角中，d为0，<strong>e</strong>在屏幕上），以及像素点的坐标，就可以算出射线的向量。</p>
-<p>这里假设锥形体上底这个面中，l为屏幕左边缘的位置，右r，上t，下b。那么屏幕的大小就为(r - l) x (t - b)。</p>
-<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/4.png" title="计算射线向量">
-<p>假设屏幕上一行有$n_x$个像素，一列有$n_y$行像素，那么第(i, j)个像素的坐标在u方向和v方向上的位置分别为：</p>
-<p>$$u = l + (i + 0.5)(r - l) / n_x$$<br>$$v = l + (j + 0.5)(t - b) / n_y$$</p>
-<p>那么射线就可以表达为：</p>
-<p>射线方向 -w 平行视角，全部都是这样的</p>
-<p>射线起点 <strong>e</strong> + $u$<strong>u</strong> + $v$<strong>v</strong></p>
-<h3 id="透视视角"><a href="#透视视角" class="headerlink" title="透视视角"></a>透视视角</h3><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/5.png" title="计算射线向量">
-<p>和正交视角不同，透视视角的射线为：</p>
-<p>射线方向 -d<strong>w</strong> + $u$<strong>u</strong> + $v$<strong>v</strong></p>
-<p>射线起点 <strong>e</strong></p>
-<h2 id="射线与物体的交汇"><a href="#射线与物体的交汇" class="headerlink" title="射线与物体的交汇"></a>射线与物体的交汇</h2><p>假设射线可以用一个一元一次方程表达（类似于y = b + kx)，表示为 <strong>p</strong>(t) = <strong>e</strong> + t<strong>d</strong>，求它跟面f(<strong>p</strong>) = 0的交点。</p>
-<h3 id="射线与球的交点"><a href="#射线与球的交点" class="headerlink" title="射线与球的交点"></a>射线与球的交点</h3><p>设球的重点为c，球可以表示为</p>
-<p>$$(x - x_c)^2 + (y - y_c)^2 + (z - z_c)^2 - R^2 = 0$$</p>
-<p>把它写成向量的形式就是</p>
-<p>$$\textbf{(p - c)(p - c)} - R^2 = 0$$</p>
-<p>其中，<strong>p</strong>为球面上的一点。如果我们把射线方程中的<strong>p</strong>带入到球的向量表达式中，可以得到</p>
-<p>$$(\textbf{e} + t\textbf{d} - \textbf{c})^2 - R^2 = 0$$</p>
-<p>拆出来得到一个关于$t$的二元一次方程：</p>
-<p>$$(\textbf{d}\cdot\textbf{d})t^2 + 2\textbf{d}\cdot(\textbf{e} - \textbf{c})^t + (\textbf{e} - \textbf{c})^2 - R^2 = 0$$</p>
-<p>最后根据二元一次方程的解法算出$t$。</p>
-<h3 id="射线与三角形的交点"><a href="#射线与三角形的交点" class="headerlink" title="射线与三角形的交点"></a>射线与三角形的交点</h3><blockquote>
-<p>先复习一波重心法<br><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/7.png" title="重心法"><br>三角形中的任意两个顶点，可以由第三个顶点的位移来表示。<br>如果一个点$\textbf{P}$在三角形内，那么它可以表示为<br>$$\textbf{P} = \textbf{A} + \gamma(\textbf{C} - \textbf{A}) + \lambda(\textbf{B} - \textbf{A})$$<br>并且要求：<br>$$\left\{<br>\begin{aligned}<br>\lambda \gt 0 \\<br>\gamma \gt 0 \\<br>\lambda + \gamma \lt 1<br>\end{aligned}<br>\right.$$</p>
-<p>可以看到，当$\lambda$为1，$\gamma$为0时，点在$\textbf{B}$上，当$\lambda$为0，$\gamma$为1时，点在$\textbf{C}$上。所以必须符合$\beta + \gamma \lt 1$</p>
-</blockquote>
-<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/6.png" title="三角形示意">
-<p>检测射线与三角形交点的方法有很多，这里使用重心法。</p>
-<p>要求解出</p>
-<p>$$\textbf{e} + t\textbf{d} = \textbf{f}(u, v)$$</p>
-<p>其中，等式右边表示在三角形上的点。</p>
-<p>这条等式又可以表达为：</p>
-<p>$$\left\{<br>\begin{aligned}<br>x_e+tx_d=f(u,v) \\<br>y_e+ty_d=g(u,v) \\<br>z_e+tz_d=h(u,v)<br>\end{aligned}<br>\right.\tag{1}<br>$$</p>
-<p>在上式中，我们有3条等式和3个未知数$t, u, v$。现在已知三角形的三个点$\textbf{a}$、$\textbf{b}$和$\textbf{c}$。</p>
-<p>这就得到：</p>
-<p>$\textbf{e} + t\textbf{d} = \textbf{a} + \beta(\textbf{b} - \textbf{c})) + \gamma(\textbf{c} - \textbf{a})$ 式子一</p>
-<p>为了解出$t,\,\beta,\,\gamma$，我们把(1)拆开得到：</p>
-<p>$$x_e + tx_d = x_a + \beta(x_b - x_a) + \gamma(x_c - x_a)$$<br>$$y_e + ty_d = x_a + \beta(y_b - y_a) + \gamma(y_c - y_a)$$<br>$$z_e + tz_d = x_a + \beta(z_b - z_a) + \gamma(z_c - z_a)$$</p>
-<p>写成向量的形式：</p>
-<p>$$<br> \left[<br> \begin{matrix}<br>   x_a - x_b &amp; x_a - x_c &amp; x_d \\<br>   y_a - y_b &amp; y_a - y_c &amp; y_d \\<br>   z_a - z_b &amp; z_a - z_c &amp; z_d<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   \beta \ \gamma \ t<br>  \end{matrix}<br>  \right]<br>  =<br>  \left[<br> \begin{matrix}<br>   x_a - x_e \\<br>   y_a - y_e \\<br>   z_a - z_e \\<br>  \end{matrix}<br>  \right]<br>$$</p>
-<p>接下来使用<strong>克莱姆法则</strong>(Cramer’s Rule)来解决这个问题。</p>
-<blockquote>
-<p>？？？ 克莱姆法则又是啥玩意儿？</p>
-<p>摔！！！</p>
-</blockquote>
-<p>好的总之最后就得到了$t,\,\beta,\,\gamma$关于几个已知点的表达式。</p>
-<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/8.png" title="结果">
-<p>现在只需要判断他们是否符合几个条件，就可以直到交点在不在三角形内了。伪代码为</p>
-<p>$<br>compute\,t \\<br>\textbf{if} \, (t \lt t_0) \, or \, (t \gt t_1) \, \textbf{then} \\<br>\quad \textbf{return} \, false \\<br>compute\,\gamma \\<br>\textbf{if} \, (\gamma \lt 0) \, or \, (\gamma \gt 1) \, \textbf{then} \\<br>\quad \textbf{return} \, false \\<br>compute\,\beta \\<br>\textbf{if} \, (\beta \lt 0) \, or \, (\beta \gt 1 - \lambda) \, \textbf{then} \\<br>\quad\textbf{return} false \\<br>\textbf{return}\,true<br>$</p>
-<h3 id="与一组物体相♂交"><a href="#与一组物体相♂交" class="headerlink" title="与一组物体相♂交"></a>与一组物体相♂交</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hit = <span class="literal">false</span></span><br><span class="line"><span class="keyword">for</span> o <span class="keyword">in</span> group <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> (o is hitAtParamT <span class="keyword">and</span> (t &gt;= t0 <span class="keyword">and</span> t&lt;= t1)) <span class="keyword">then</span></span><br><span class="line">    hit = <span class="literal">true</span></span><br><span class="line">    hitobject = o</span><br><span class="line">    t1 = t <span class="comment">-- 不断缩小范围</span></span><br><span class="line"><span class="keyword">return</span> hit</span><br></pre></td></tr></table></figure>
-<h2 id="着色"><a href="#着色" class="headerlink" title="着色"></a>着色</h2><p>一旦知道一个像素点上要绘制的物体，就开始着色啦。</p>
-<p>大多数模型是来模拟光照效果的。对于一个光照模型中，决定性因素有如下：</p>
-<ul>
-<li>光线方向 <strong>l</strong> 这是一个指向光源的单位向量</li>
-<li>视觉方向 <strong>v</strong> 指向相机的单位向量</li>
-<li>法向量 <strong>n</strong></li>
-<li>颜色等等的表面信息</li>
-</ul>
-<h3 id="Lambertian着色"><a href="#Lambertian着色" class="headerlink" title="Lambertian着色"></a>Lambertian着色</h3><p>在18世纪提出来的最简单的光照模型。</p>
-<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/9.png" title="Lambertian">
-<p>这里假设表面<strong>法向量</strong>与<strong>光向量</strong>的夹角为$\theta$，$k_d$为一个系数。那么，光强L等于</p>
-<p>$$L = k_dI\text{max}(0, \textbf{n}\cdot\textbf{l})$$</p>
-<p>其中，$L$是像素的颜色；$k_d$是漫反射系数，或者说表面颜色；$I$是光源的光强。由于<strong>n</strong>和<strong>l</strong>都是单位向量，所以我们可以把$\textbf{n}\cdot\textbf{l}$速记成$\cos\theta$。<strong>l</strong>很容易计算，我们从上一节中知道了如何计算出视线与表面的交点，算出交点之后用光源坐标减去交点坐标，再正规化即可。</p>
-<p>可以表达为：</p>
-<p>光强 = 因子 x 光照强度 x <strong>(法向量 与 光线 的夹角程度)</strong></p>
-<p>最重要的是后面粗体部分。</p>
-<p>我们可以分别对RGB三个颜色通道，使用这条公式得出结果。</p>
-<h3 id="Blinn-Phong着色"><a href="#Blinn-Phong着色" class="headerlink" title="Blinn-Phong着色"></a>Blinn-Phong着色</h3><p>Lambertian着色是视角无关的，不管相机在哪个相对位置，看到的颜色都是一样的，这种着色法没办法产生<strong>高光</strong>。现在有很多着色模型把Lambertian着色作为漫反射部分，再添加一个镜面反射部分。</p>
-<p>Blinn-Phong光照模型中，当<strong>v</strong>和<strong>l</strong>关于法向量对称的时候，将看到最大亮度，也就是能看到镜面反射。随着<strong>v</strong>离该方向越远，光强会慢慢下降。</p>
-<img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/10.png" title="镜面反射">
-<p>现在沿着假定<strong>v</strong>和<strong>l</strong>夹角的等分线方向，有个单位向量<strong>h</strong>。当<strong>n</strong>与<strong>h</strong>重叠的时候，<strong>l</strong>与<strong>v</strong>将关于<strong>n</strong>对称。当$\cos \gamma$的值（这里假设$\gamma$为<strong>n</strong>与<strong>h</strong>的夹角）越小，光强越大。这里再给他们定一个幂数p，让镜面反射的衰变能够来得更猛烈一点（也就是p越大，光斑的面积会越小）。</p>
-<p>我们可以计算出<strong>h</strong></p>
-<p>$$\textbf{h}=\frac{\textbf{v} + \textbf{l}}{| \textbf{v} + \textbf{l} |}$$</p>
-<p>最后得到光照强度：</p>
-<p>$$L = k_dI\text{max}(0, \textbf{n}\cdot\textbf{l}) + k_sI\max(0, \textbf{n} \cdot \textbf{h})^p$$</p>
-<h3 id="环境光着色"><a href="#环境光着色" class="headerlink" title="环境光着色"></a>环境光着色</h3><p><strong>Ambient Shading</strong>.</p>
-<p>现在再多考虑一个环境光，也就是本光源以外的所有光源总和。考虑环境光是为了避免在本光源照不到的地方，乌漆嘛黑一片的巨丑。</p>
-<p>$$L = k_aI_a + k_dI\text{max}(0, \textbf{n}\cdot\textbf{l}) + k_sI\max(0, \textbf{n} \cdot \textbf{n})^p$$</p>
-<h3 id="多光源光照"><a href="#多光源光照" class="headerlink" title="多光源光照"></a>多光源光照</h3><p>把结果都加起来即可</p>
-<p>$$L = k_aI_a + \sum_{i=1}^{N}k_dI\text{max}(0, \textbf{n}\cdot\textbf{l}_i) + k_sI\max(0, \textbf{n} \cdot \textbf{h}_i)^p$$</p>
-<h2 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h2><p>考虑进阴影之后，逻辑就变成：</p>
-<p>如果被光源直射，没有遮挡，那么用Blinn-Phong模型，如果被遮挡了，那么只有环境光。</p>
-<h2 id="理想的镜面反射"><a href="#理想的镜面反射" class="headerlink" title="理想的镜面反射"></a>理想的镜面反射</h2><img src="/2019/02/14/【计算机图形学基础】二%20射线追踪/11.png" title="原理">
-<p>得到：</p>
-<p>$$\textbf{r} = \textbf{d} - 2( \textbf{d} \cdot \textbf{n}) \textbf{n}$$</p>
-<p>真实世界中，发生反射的时候会丢失部分能量，而且不同颜色丢失的能量不同。所以：</p>
-<p>$\text{color}\,c = c + k_m \text{raycolor}(\textbf{p} + s\textbf{r}, \epsilon, \infty)$</p>
-<p>其中，$k_m$是一个镜面RGB颜色。</p>
+          【计算机图形学基础】二 射线追踪该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
+本篇对应书中第四章Ray Tracing。
+由两种渲染方式：一种是逐个画物体；一种是逐个画像素。前者是遍历所有物体；后者是遍历所有的像素，以及影响该像素的物体。射线追踪属于后者。
+关于二者的区别，在这个网站可以看到有这么一段解释：
 
-          
+For rendering, we need to consider all combinations of objects and pixels. This suggests a nested loop. One way to reso
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/14/【计算机图形学基础】二 射线追踪/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1807,17 +1650,23 @@
       
         
           
-            <h1 id="【精通Linux】一-概述"><a href="#【精通Linux】一-概述" class="headerlink" title="【精通Linux】一 概述"></a>【精通Linux】一 概述</h1><p>本系列是阅读<a href="https://book.douban.com/subject/26546893/" target="_blank" rel="noopener">精通Linux</a>所作之笔记。这本书的原名叫<strong>How Linux Works</strong>，半点没有精通的意思，算是本入门书。</p>
-<h2 id="系统抽象层级"><a href="#系统抽象层级" class="headerlink" title="系统抽象层级"></a>系统抽象层级</h2><ul>
-<li>用户进程，运行于CPU的用户模式</li>
-<li>Linux内核，运行于CPU的内核模式</li>
-<li>硬件</li>
-</ul>
-<h2 id="kernel-内核"><a href="#kernel-内核" class="headerlink" title="kernel 内核"></a>kernel 内核</h2><p>内核将内存划分为多块。每个进程都有自己的内存区块，内核会保证它只能只用自己的内存区块，无法存取其他进程的内存。</p>
-<p>每次CPU切换用户进程的时候，需要先把CPU控制权交给内核，由内核来完成上下文切换。</p>
-<p>为了避免一个进程访问到另一个进程的内存，现代CPU都使用了MMU（Memory Management Unit）。MMU使用了虚拟内存的内存访问机制，使得进程不是访问内存实际的物理地址，而是通过内核来访问一个虚拟地址，内核再通过映射表使得进程可以访问到内存。</p>
+          【精通Linux】一 概述本系列是阅读精通Linux所作之笔记。这本书的原名叫How Linux Works，半点没有精通的意思，算是本入门书。
+系统抽象层级
+用户进程，运行于CPU的用户模式
+Linux内核，运行于CPU的内核模式
+硬件
 
-          
+kernel 内核内核将内存划分为多块。每个进程都有自己的内存区块，内核会保证它只能只用自己的内存区块，无法存取其他进程的内存。
+每次CPU切换用户进程的时候，需要先把CPU控制权交给内核，由内核来完成上下文切换。
+为了避免一个进程访问到另一个进程的内存，现代CPU都使用了MMU（Memory Management Unit）。MMU使用了虚拟内存的内存访
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/13/【精通Linux】一/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1968,89 +1817,21 @@
       
         
           
-            <h1 id="【计算机图形学基础】一-光栅图像"><a href="#【计算机图形学基础】一-光栅图像" class="headerlink" title="【计算机图形学基础】一 光栅图像"></a>【计算机图形学基础】一 光栅图像</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第三章<em>Raster Images</em>。Raster其词翻译为<em>光栅</em>，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。</p>
-<p>在Google中可以看到如下：</p>
-<blockquote>
-<p>1930s: from German Raster, literally ‘screen’, from Latin rastrum ‘rake’, from ras- ‘scraped’, from the verb radere .</p>
-</blockquote>
-<p>Raster字面上的意思是<strong>屏幕</strong>。这个词来源于rake的意思<strong>掠过</strong>，和scraped的意思<strong>刮过</strong>。说到屏幕我们都会想到逐行扫描中，新的图像信息确实是一行一行掠（扫描）过去的，所以这个词的发明其实非常形象。</p>
-<p>光栅可以理解成把一个图像分解成逐像素的。像素英文pixel，全称picture element，中文全称应该是图像元素，简称像素。<br>光栅显示装备包括显示器、电视和打印机，光栅输入设备有现代数码相机、扫描仪等。</p>
-<p>除了光栅图像以外还有别的形式的图像，只是光栅这种形式已经非常流行了，所以现在基本图像都是光栅形式的。光栅图之外还有一种图叫做<strong>矢量图</strong>，光栅图可以转换成各种分辨率的光栅图，这是题外话了。</p>
-<h2 id="光栅设备"><a href="#光栅设备" class="headerlink" title="光栅设备"></a>光栅设备</h2><blockquote>
-<p><strong>生词</strong></p>
-<ul>
-<li>emissive 发射的</li>
-<li>transmissive 递送的</li>
-<li>illumiate $v.$ 照亮</li>
-</ul>
-</blockquote>
-<ul>
-<li>输出设备<ul>
-<li>显示设备<ul>
-<li>液晶显示屏 LCD (liquid crystal display) 原理是晶体的不同面有不同颜色，通过转动晶体可以出现不同的颜色，缺点是可视角度小</li>
-<li>发光二极管屏幕 LED (light emitting diode display) 色域大，亮度高，可视角度大</li>
-</ul>
-</li>
-<li>影印设备<ul>
-<li>染料升华打印机</li>
-<li>喷墨打印机</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>输入设备<ul>
-<li>2d感应器：数字相机</li>
-<li>1d感应器：平板扫描仪</li>
-</ul>
-</li>
-</ul>
-<h3 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h3><p>分为emissive设备和transmissive设备两种，前者常见为LED显示器，可以自发光；后者为液晶显示器，需要一个背景光源。</p>
-<h3 id="影印设备-amp-输入设备"><a href="#影印设备-amp-输入设备" class="headerlink" title="影印设备&amp;输入设备"></a>影印设备&amp;输入设备</h3><p>略过不看。</p>
-<h2 id="图像、像素、几何体"><a href="#图像、像素、几何体" class="headerlink" title="图像、像素、几何体"></a>图像、像素、几何体</h2><blockquote>
-<p><strong>生词</strong></p>
-<ul>
-<li>reproduce 重现</li>
-<li>idealize 理想化</li>
-<li>notion 概念</li>
-</ul>
-</blockquote>
-<p>这里先贴上一篇文章<a href="https://www.quora.com/Whats-the-difference-between-a-picture-image-and-photo" target="_blank" rel="noopener">单词image、picture和photo有什么区别</a>。</p>
-<p>可以简单地说，picture这词来源较老，表示被画出来的，可以被触摸的绘画作品，可被翻译为图片或者图画；photo的定义是picture made by camera；而image表示一个影像，你看镜子的时候，看到的画面就可以成为image，常为无形，翻译为图像较为妥当。</p>
-<p>为了避免图片过大，每个像素中的一个颜色通道只有8个位，256种亮度。LDR图一般储存亮度用的都是整数，而HDR图可以用浮点数来表示亮度，所以精度更高。</p>
-<p>以下是一些常见的像素格式：</p>
-<ul>
-<li>1-bit 灰度，常用于文字</li>
-<li>8-bit 固定范围RGB(24 bits total per pixel) 每个颜色通道八个位，也就是256的精度</li>
-<li>16-bit 固定范围RGB 常用于专业摄影和打印</li>
-<li>16-bit 固定范围灰度 x光或者其他医学影像</li>
-<li>32-bit 浮点RGB HDR图像</li>
-</ul>
-<blockquote>
-<p>Second, encoding images with limited precision leads to quantization artifacts, or banding, when the need to round pixel values to the nearest representable value introduces visible jumps in intensity or color.</p>
-<p>这是一个英语长句。when the need是一个词组，表示当需要干啥的时候。这里表示当需要把像素取整至最接近的整数的时候。这时会introduces，也就是引入，引入可见的亮度或者颜色跳跃。整句可翻译为：当<strong>需要对有限精度编码的图像中的像素，取整至最接近的整数的时候，会引发亮度或者颜色的跳跃。</strong>（也就是传说中的失真）</p>
-</blockquote>
-<h3 id="显示器亮度与伽马"><a href="#显示器亮度与伽马" class="headerlink" title="显示器亮度与伽马"></a>显示器亮度与伽马</h3><p>我们可以这么定义：关闭屏幕的时候屏幕为<strong>黑色</strong>，开启屏幕的时候为<strong>白色</strong>。假设输入数据中亮度范围为0~1，那么亮度的一半就是屏幕物理亮度的一半。然而其实人对亮度的敏感度不是线性的，在高亮度的时候，人眼分辨亮度差别的敏感度不高，而在亮度低的时候则相反。所以人眼觉得的中等亮度，其实不是0.5那个亮度。为了不浪费仅有的八位储存空间，我们尽可能地把人眼觉得的中等亮度（据说是0.18）储存为0.5，于是这就需要一个公式来校正。</p>
-<p>要在显示器上正确显示亮度，有两点要注意：</p>
-<p>显示器显示的亮度与输入的值其实是非线性关系的。什么意思呢？就是当你输入亮度0、0.5、1的时候，显示器亮度可能分别是0，0.25、1。假设输入亮度为$a$，可以得到这样一个公式来表达他们的关系：</p>
-<p>display intensity = (maximum intensity)$a^\gamma$</p>
-<p>在上面的举例中，$\gamma$就应该为2。</p>
-<p>这个公式只能够近似地描述显示器的非线性显示。假设我们知道输入亮度$a$以及输出亮度，这里假设输入亮度为0.5，那么可以得到：</p>
-<p>$$0.5 = a^\gamma$$</p>
-<p>从而推导出：</p>
-<p>$$\gamma = \frac{ln\,0.5}{ln\,a}$$</p>
-<blockquote>
-<p>顺便这里提一下怎么把log计算转为ln计算<br>$$log_ab = \frac{log_cb}{log_ca} = \frac{ln_b}{lin_a}$$<br>这里第一步叫换底公式。</p>
-<p>换底公式的证明：<br>若有对数$log_ab$，现假设$a=n^x$，$b=n^y$，可得：</p>
-<p>$x = log_na$, $y = log_nb$<br>所以：<br>$$log_ab = log_{n^x}{n^y}\,\,① $$<br>已知对数基本公式：<br>$$log_{xa}b = \frac{1}{x}log_ab$$<br>和<br>$$log_axb = xlog_ab$$<br>对$①$进行处理可得<br>$$log_ab = log_{n^x}{n^y} = \frac{1}{x}log_n{n^y} = \frac{y}{x}log_nn = \frac{y}{x} = \frac{log_nb}{log_na}$$</p>
-</blockquote>
-<p>电视上，或者游戏中我们常常可以看到伽马校正的功能，就是在调整$\gamma$的值。</p>
-<p>关于gamma校正，可以参考<a href="https://blog.csdn.net/candycat1992/article/details/46228771" target="_blank" rel="noopener">这篇文章</a>。</p>
-<p>关于真实的显示还有一点，这里就不讲了。</p>
-<h2 id="RGB颜色"><a href="#RGB颜色" class="headerlink" title="RGB颜色"></a>RGB颜色</h2><p>讲光的三原色的混合，莫得谈。</p>
-<h2 id="alpha混合"><a href="#alpha混合" class="headerlink" title="alpha混合"></a>alpha混合</h2><p>这部分讲的是blend的内容，也先不提。</p>
+          【计算机图形学基础】一 光栅图像该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
+本篇对应书中第三章Raster Images。Raster其词翻译为光栅，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。
+在Google中可以看到如下：
 
-          
+1930s: from German Raster, literally ‘screen’, from Latin rastrum ‘rake’, from ras- ‘scraped’, from the verb radere .
+
+Raster字面上的意思是屏幕。这个词来源
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/13/【计算机图形学基础】一 光栅图像/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

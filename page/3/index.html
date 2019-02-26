@@ -356,70 +356,23 @@
       
         
           
-            <h1 id="一-基本"><a href="#一-基本" class="headerlink" title="一 基本"></a>一 基本</h1><p>这里是阅读《MongoDB权威指南》一书所做的读书笔记。这将是一个系列，划分标准大概是章节。放到博客上面来，自我监督把书啃完，消化完转化成自己的文字出来。</p>
-<p>此为本系列第一篇，主要讲最普通的增删改查以及如何获取命令帮助。</p>
-<p>MongoDB是一个nosql，意味着它不用定义一个表的列有哪些，而是可以把它当作一个序列化json的工具来使用。MongoDB对脚本语言特别友好，python的dict或者lua的table都可以直接作为一个object放进去。</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>在MongoDB这里：</p>
-<ul>
-<li><strong>集合</strong>等同于表</li>
-<li><strong>文档</strong>等同于行</li>
-</ul>
-<p>mongo命令执行完之后，其实是进入一个javascript shell，里面可以运行任何js指令，而且加入了mongodb自定义的语法糖（如show）。</p>
-<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><p>以下假设集合名称(collection name)为cn，数据为data。</p>
-<ul>
-<li><strong>使用数据库</strong> use dbname</li>
-<li><strong>插入操作</strong> db.cn.insert(data)</li>
-<li><strong>寻找</strong><ul>
-<li>db.cn.find()</li>
-<li>db.cn.findOne()</li>
-<li>db.cn.find(condition) condition为条件</li>
-</ul>
-</li>
-<li><strong>更新</strong> db.update(condition, newData)<br>newdata指把整个文档换掉。如果只是想更新部分文档，应该这么写<code>&#39;$set&#39;: deltaData</code>。</li>
-<li><strong>删除</strong> db.remove(condition)</li>
-</ul>
-<p>此外，<code>help</code>指令可以显示出所有的帮助，其中有几个值得萌新关注：</p>
-<ul>
-<li><strong>show dbs</strong> 显示所有的数据库</li>
-<li><strong>db.help()</strong> 显示所有数据库相关的函数</li>
-<li><strong>db.mycoll.help()</strong> 显示所有集合相关的函数</li>
-</ul>
-<p>如果不调用函数，只输入函数名，会在控制台打印该函数的源码。譬如：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.cn.update</span><br></pre></td></tr></table></figure>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>除了一整个儿更新以外，还可以使用部分更新，这个时候使用特殊的键来做调整。</p>
-<blockquote>
-<p>php程序员就蛋疼了，他们的变量用$开头的。。</p>
-</blockquote>
-<ul>
-<li><p>$inc 自增某个参数，譬如</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(condition, &#123;<span class="string">'$inc'</span>: &#123;<span class="string">'key'</span>: nIncrement&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<p>如果inc的变量并不存在，会先初始化为0。</p>
-</li>
-<li>$set 增量更新</li>
-<li>$unset 增量删除，删除某个字段</li>
-<li>$ne 不等于</li>
-<li><p>$push 推入数组</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(condition, &#123;<span class="string">'$push'</span>: &#123;<span class="string">'array_name'</span>: newRowData&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>$addToSet 把数组作为集合看待，不会插入一样的数据</p>
-</li>
-<li><p>$pop 数组当作堆栈或者队列看来删除元素</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.date.update(condition, &#123;<span class="string">'$pop'</span>: &#123;<span class="string">'array_name'</span>, <span class="number">-1</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>$pull 删掉数组中所有匹配的部分</p>
-</li>
-<li>$ 查询数组并更新  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.update(&#123;<span class="string">'array.field1'</span>: condition&#125;, &#123;<span class="string">'$set'</span>: &#123;array.$.field1: deltaData&#125;&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="upsert"><a href="#upsert" class="headerlink" title="upsert"></a>upsert</h3><p>如果找得到就更新，如果找不到就插入。避免在代码层进行判空。原子性操作，避免<strong>竞态问题</strong>。</p>
-<h3 id="save"><a href="#save" class="headerlink" title="save"></a>save</h3><p>对文档进行操作，要求参数里面含有_id域，如果不存在则会创建新的文档。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span> = db.data.find(condition)</span><br><span class="line"><span class="built_in">document</span>.x = <span class="string">'x'</span></span><br><span class="line">db.data.save(<span class="built_in">document</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="更新多个文档"><a href="#更新多个文档" class="headerlink" title="更新多个文档"></a>更新多个文档</h3><p>一般而言更新只针对符合condition的第一个文档，如果想要更新所有符合条件的文档，那么把第四个参数设置为True。</p>
-<h3 id="修改器的速度"><a href="#修改器的速度" class="headerlink" title="修改器的速度"></a>修改器的速度</h3><p>\$inc当然最快，不用新增啥。\$set在不增加键的情况下也是极快的，但是对数组的操作有可能会比较耗性能。</p>
-<p>以上操作都是瞬间完成的，不会卡住客户端，客户端发出命令后可以继续工作。当然也有同步版本，会执行完之后返回结果码。</p>
-<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>对一个连接里面的命令使用队列来决定执行先后。但是python等语言有连接池的概念，可能会把命令派发到各个连接去，导致执行顺序错乱。</p>
+          一 基本这里是阅读《MongoDB权威指南》一书所做的读书笔记。这将是一个系列，划分标准大概是章节。放到博客上面来，自我监督把书啃完，消化完转化成自己的文字出来。
+此为本系列第一篇，主要讲最普通的增删改查以及如何获取命令帮助。
+MongoDB是一个nosql，意味着它不用定义一个表的列有哪些，而是可以把它当作一个序列化json的工具来使用。MongoDB对脚本语言特别友好，python的dict或者lua的table都可以直接作为一个object放进去。
+基本概念在MongoDB这里：
 
-          
+集合等同于表
+文档等同于行
+
+mongo命令执行完之后，其实是进入一个javascript shell，里
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/15/【MongoDB权威指南】一/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -570,44 +523,17 @@
       
         
           
-            <h1 id="ast"><a href="#ast" class="headerlink" title="ast"></a>ast</h1><p>ast全称Abstract Synatx Tree，抽象语法树。常用于对代码的解析与更改，可以用来做ide的python lint功能，或者其他天马行空的功能。</p>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ast</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'E:/Research/python/ast_test/test.py'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> code_file:</span><br><span class="line">        tree = ast.parse(code_file.read())</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line">globalField1 = <span class="string">'global'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clazz</span>:</span></span><br><span class="line">    field1 = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Func1</span><span class="params">(self, arg1)</span>:</span></span><br><span class="line">        local1 = <span class="string">'a'</span></span><br><span class="line">        list1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">        <span class="keyword">return</span> local1</span><br></pre></td></tr></table></figure>
-<p>在debug情况下可以看到tree如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    tree: &#123;</span><br><span class="line">        _attributes: <span class="number">0</span>,</span><br><span class="line">        _fields: &#123;</span><br><span class="line">            <span class="number">0</span>: <span class="string">'body'</span>,</span><br><span class="line">            __len__: <span class="number">1</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        body: [</span><br><span class="line">            &#123; <span class="comment">// _ast.Assign object 赋值对象</span></span><br><span class="line">                _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                _fields: (<span class="string">'targets'</span>, <span class="string">'value'</span>), <span class="comment">// 定义一个属性，有两个部分，左值和右值</span></span><br><span class="line">                col_offset: <span class="number">0</span>,</span><br><span class="line">                lineno: <span class="number">0</span>,</span><br><span class="line">                targets: [ <span class="comment">// 这部分代表左侧的globalFields变量</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                        _fields: (<span class="string">'targets'</span>, <span class="string">'value'</span>),</span><br><span class="line">                        col_offset: <span class="number">0</span>,</span><br><span class="line">                        id: <span class="string">'globalField1'</span></span><br><span class="line">                        lineno: <span class="number">1</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    __len__: <span class="number">1</span></span><br><span class="line">                ],</span><br><span class="line">                value: &#123; <span class="comment">// _ast.Str object</span></span><br><span class="line">                    _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                    _fields: (<span class="string">'s'</span>,),</span><br><span class="line">                    col_offset: <span class="number">15</span>,</span><br><span class="line">                    lineno: <span class="number">1</span>,</span><br><span class="line">                    s: <span class="string">'global'</span>,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123; <span class="comment">// _ast.ClassDef object</span></span><br><span class="line">                _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                _fields: (<span class="string">'name'</span>, <span class="string">'bases'</span>, <span class="string">'body'</span>, <span class="string">'decorator_list'</span>),</span><br><span class="line">                bases: [], <span class="comment">// 没有基类</span></span><br><span class="line">                col_offset: <span class="number">0</span>,</span><br><span class="line">                lineno: <span class="number">3</span>,</span><br><span class="line">                decorator_list: [],</span><br><span class="line">                name: <span class="string">'Clazz'</span>,</span><br><span class="line">                body: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// Assign object</span></span><br><span class="line">                    &#125;,</span><br><span class="line">                    &#123;</span><br><span class="line">                        _attributes: (<span class="string">'lineno'</span>, <span class="string">'col_offset'</span>),</span><br><span class="line">                        _fields: (<span class="string">'name'</span>, <span class="string">'args'</span>, <span class="string">'body'</span>, <span class="string">'decorator_list'</span>),</span><br><span class="line">                        args:&#123; <span class="comment">// arguments object</span></span><br><span class="line">                            _fields: (<span class="string">'args'</span>, <span class="string">'vararg'</span>, <span class="string">'kwarg'</span>, <span class="string">'defaults'</span>),</span><br><span class="line">                            args:[</span><br><span class="line">                                &#123;&#125;, <span class="comment">// self</span></span><br><span class="line">                                &#123;</span><br><span class="line">                                    <span class="comment">// args变量</span></span><br><span class="line">                                    <span class="comment">// 忽略attribute</span></span><br><span class="line">                                    _fields: (<span class="string">'id'</span>, <span class="string">'ctx'</span>),</span><br><span class="line">                                    id: <span class="string">'args1'</span>,</span><br><span class="line">                                    ctx: &#123; <span class="comment">//Param object</span></span><br><span class="line">                                        _attributes: (),</span><br><span class="line">                                        _fields: ()</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;,</span><br><span class="line">                            ]，</span><br><span class="line">                            defaults: [</span><br><span class="line">                                &#123; <span class="comment">// Str object</span></span><br><span class="line">                                    s: <span class="string">'default'</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            ]</span><br><span class="line">                        &#125;,</span><br><span class="line">                        body: &#123;</span><br><span class="line">                            <span class="comment">// 忽略两个Assign</span></span><br><span class="line">                            &#123;&#125;,</span><br><span class="line">                            &#123;&#125;,</span><br><span class="line">                            &#123; <span class="comment">// Return object</span></span><br><span class="line">                                _fields: (<span class="string">'value'</span>)</span><br><span class="line">                                value: &#123; <span class="comment">// Name object</span></span><br><span class="line">                                    _fields: (<span class="string">'id'</span>, <span class="string">'ctx'</span>)</span><br><span class="line">                                    id: <span class="string">'local1'</span>,</span><br><span class="line">                                    ctx: &#123;&#125; <span class="comment">// Load object</span></span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                ],</span><br><span class="line">            &#125;</span><br><span class="line">            __len__ = <span class="number">2</span></span><br><span class="line">        ],</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到每个object都有的几个属性：</p>
-<ul>
-<li><strong>_attributes</strong> 属性 一般就两个，一个lineno代表在哪一行，一个col_offset表示在第几列</li>
-<li><strong>_field</strong> 域 类型tuple，这个根据不同类型有不同的field。比如对于一个字符串来说，他有特殊的域s，代表着字符串内容。对于一个类来说，有name名字、bases基类、body正文、decorator_list装饰器几个域。</li>
-</ul>
-<h3 id="Str"><a href="#Str" class="headerlink" title="Str"></a>Str</h3><p>字符串对象只有一个域s，代表字符串内容</p>
-<h3 id="Num"><a href="#Num" class="headerlink" title="Num"></a>Num</h3><p>一个域n，代表数字。</p>
-<h3 id="赋值对象"><a href="#赋值对象" class="headerlink" title="赋值对象"></a>赋值对象</h3><p>赋值对象有两个域值得关注，一个是左值targets（为什么是复数呢，因为左值可以是多个），右值value。</p>
-<p>target其实是一个Name对象，有一个id代表名字，一个ctx不知为何。</p>
-<p>value的类型不定，为右值的类型。譬如当为数字的时候，为_ast.Num类型；为字符串的时候，为_ast.Str类型。</p>
-<h3 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Func1</span><span class="params">(self, arg1=<span class="string">'default'</span>)</span>:</span></span><br><span class="line">    local1 = <span class="string">'a'</span></span><br><span class="line">    list1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">    <span class="keyword">return</span> local1</span><br></pre></td></tr></table></figure>
-<p>几个值得注意的域：</p>
-<ul>
-<li>name 函数名</li>
-<li>args 参数 类型为arguments。arguments对象有有几个域，一个为args，一个代表参数的列表；另一个为defaults，代表默认值</li>
-<li>body 具体的函数内容</li>
-<li>drcorator_list 装饰器</li>
-</ul>
-<p>函数体body是一个列表，里面每个元素都代表一个可执行语句。上文中有两个赋值语句，以及最后的一个返回语句。返回语句为Return对象，<strong>Return</strong>只有一个域value，此value的类型可能为常量，也可能为变量。为常量时类型为常量具体的类型如Num、Str等等，为变量时为Name类型，id为欲返回的变量之名。</p>
-<h3 id="列表对象"><a href="#列表对象" class="headerlink" title="列表对象"></a>列表对象</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="number">1</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
-<p>重要的域有一个为elts，类型是一个list，里面是数组的内容。</p>
-<h3 id="字典对象"><a href="#字典对象" class="headerlink" title="字典对象"></a>字典对象</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list1 = &#123;<span class="string">'target'</span>: <span class="string">'value'</span>, <span class="string">'target1'</span>: <span class="string">'value1'</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>域中，keys列表代表键，values列表代表值 <del>废话</del></p>
-<h3 id="类对象"><a href="#类对象" class="headerlink" title="类对象"></a>类对象</h3><p>类对象域：</p>
-<ul>
-<li>bases 表示基类，元素的类型仍然是Name</li>
-<li>body 类体</li>
-<li>decorator_list 装饰器</li>
-<li>name 类名</li>
-</ul>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>待填坑。</p>
-
-          
+          astast全称Abstract Synatx Tree，抽象语法树。常用于对代码的解析与更改，可以用来做ide的python lint功能，或者其他天马行空的功能。
+基础概念示例123456import astif __name__ == '__main__':    with open('E:/Research/python/ast_test/test.py', 'r') as code_file:        tree = ast.parse(code_file.read())        pass
+12345678910# test.pyglobalField1 = 'global
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/15/AST入门/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -758,32 +684,18 @@
       
         
           
-            <h1 id="VS-Code新手必备个性化贴"><a href="#VS-Code新手必备个性化贴" class="headerlink" title="VS Code新手必备个性化贴"></a>VS Code新手必备个性化贴</h1><h2 id="配置篇"><a href="#配置篇" class="headerlink" title="配置篇"></a>配置篇</h2><h3 id="字体配置"><a href="#字体配置" class="headerlink" title="字体配置"></a>字体配置</h3><p>VSC的字体配置方式同网页中的html样式，优先度高的字体先配置，若该字体无该字符，那么在下一个字体里找。我这里英文字母使用Source Code Pro，中文使用苹方。在设置中搜索<code>font</code>，填入设置如下</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Source Code Variable,Consolas, 'Courier New', monospace,苹方</span><br></pre></td></tr></table></figure>
-<h3 id="平滑动画"><a href="#平滑动画" class="headerlink" title="平滑动画"></a>平滑动画</h3><p>最新版本的VSC支持光标平滑移动（效果犹如Office三件套中你按上下左右移动光标）。<br>在设置中搜索<code>cursor</code>，选中Cursor Smooth Caret Animation选项。</p>
-<h3 id="小地图"><a href="#小地图" class="headerlink" title="小地图"></a>小地图</h3><p>搜索<code>minimap</code>可以开启或者关闭小地图。</p>
-<h2 id="插件篇"><a href="#插件篇" class="headerlink" title="插件篇"></a>插件篇</h2><h3 id="gitlen"><a href="#gitlen" class="headerlink" title="gitlen"></a>gitlen</h3><p>这款插件功能很多，比如默认开启的blame功能，可以查看光标所在行最新的更改记录。还有很多其他的功能，使用git作为仓库的小伙伴千万别错过。</p>
-<img src="/2019/01/10/VS%20Code新手必备个性化贴/1.png" title="gitlen功能展示">
-<h3 id="键盘映射"><a href="#键盘映射" class="headerlink" title="键盘映射"></a>键盘映射</h3><p>VSC支持通过安装插件来更改快捷键。如果你是从别的编辑器搬过来的，直接在插件库里面搜索上一个编辑器的名字，安装即可。</p>
-<p>另外，也支持自定义快捷键，可以通过<code>文件</code>-&gt;<code>首选项</code>-&gt;<code>键盘快捷方式</code>来设置自己的快捷键。</p>
-<p>这里推荐新增两个方便用的快捷键，键位参考visual studio。</p>
-<ul>
-<li>关闭所有选项卡 搜索Close All Editors，先按下ctrl+k，松开，w</li>
-<li>关闭其他选项卡 搜索Close All Editors，先按下ctrl+k，松开，k</li>
-</ul>
-<h3 id="glasslt"><a href="#glasslt" class="headerlink" title="glasslt"></a>glasslt</h3><p>可以透明化编辑器的插件。安装后可以在设置中搜索<code>glass</code>，更改透明度。</p>
-<h3 id="markdownlint"><a href="#markdownlint" class="headerlink" title="markdownlint"></a>markdownlint</h3><p>一个检查markdown规范的插件。<br>跟着插件的提示写就能写出好看的markdown啦！</p>
-<h3 id="markdown-all-in-one"><a href="#markdown-all-in-one" class="headerlink" title="markdown all in one"></a>markdown all in one</h3><p>支持写markdown的时候的快捷特性。比如ctrl+b粗体，ctrl+i斜体，比如输入列表的时候按回车，会生成下一个列表符号。</p>
-<h2 id="主题篇"><a href="#主题篇" class="headerlink" title="主题篇"></a>主题篇</h2><p>推荐几个比较养眼的主题：</p>
-<ul>
-<li>panda</li>
-<li>one monokai theme</li>
-<li>blackboard</li>
-<li>papercolor-vscode</li>
-<li>winter is coming theme</li>
-</ul>
-
-          
+          VS Code新手必备个性化贴配置篇字体配置VSC的字体配置方式同网页中的html样式，优先度高的字体先配置，若该字体无该字符，那么在下一个字体里找。我这里英文字母使用Source Code Pro，中文使用苹方。在设置中搜索font，填入设置如下
+1Source Code Variable,Consolas, 'Courier New', monospace,苹方
+平滑动画最新版本的VSC支持光标平滑移动（效果犹如Office三件套中你按上下左右移动光标）。在设置中搜索cursor，选中Cursor Smooth Caret Animation选项。
+小地图搜索minimap可以开启或者关闭
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/10/VS Code新手必备个性化贴/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -912,12 +824,19 @@
       
         
           
-            <h1 id="损人词"><a href="#损人词" class="headerlink" title="损人词"></a>损人词</h1><ul>
-<li>目眥毛（目刺毛）<br>睫毛的意思。眥表示眼眶。</li>
-<li>下颏（下</li>
-</ul>
-<h1 id="常用词"><a href="#常用词" class="headerlink" title="常用词"></a>常用词</h1>
+          损人词
+目眥毛（目刺毛）睫毛的意思。眥表示眼眶。
+下颏（下
+
+常用词
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/20/潮汕正字/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1068,16 +987,22 @@
       
         
           
-            <h1 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h1><blockquote>
-<p><strong>题目描述</strong></p>
-<p>在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
-</blockquote>
-<p>题目来源<a href="https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?tpId=13&amp;tqId=11154&amp;tPage=1&amp;rp=1&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">于此</a>。</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对于上面一个二维数组来说，左上角最小，右下角最大，可以使用变形的二分法沿着对角线来查找。</p>
-<h4 id="分析草稿"><a href="#分析草稿" class="headerlink" title="分析草稿"></a>分析草稿</h4><p>假设一个函数，对比左上角及右下角和目标的大小，若大于右下角或小于左上角，则不在该集合之内。</p>
-<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    NOT_EXSIT = <span class="number">-2</span></span><br><span class="line">    EXSIT = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cmp</span><span class="params">(self, target, array, startRow=<span class="number">-1</span>, startCol=<span class="number">-1</span> row=<span class="number">-1</span>, col=<span class="number">-1</span>)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> row == <span class="number">-1</span> <span class="keyword">or</span> col == <span class="number">-1</span>:</span><br><span class="line">            col = len[array]</span><br><span class="line">            row = len[array[<span class="number">0</span>]]</span><br><span class="line">        <span class="keyword">if</span> startRow == <span class="number">-1</span> <span class="keyword">or</span> startCol == <span class="number">-1</span>:</span><br><span class="line">            startRow = <span class="number">0</span></span><br><span class="line">            startCol = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (array[col - <span class="number">1</span>][row - <span class="number">1</span>] &lt; target) <span class="keyword">or</span> (array[col - <span class="number">1</span>][row - <span class="number">1</span>] &gt; target):</span><br><span class="line">            <span class="keyword">return</span> NOT_EXSIT</span><br><span class="line">        <span class="keyword">elif</span> startRow == row <span class="keyword">and</span> startCol == col:</span><br><span class="line">            <span class="comment"># 说明只能存在于本行本列之中了，搜索本行本列，得出最后答案</span></span><br><span class="line">            <span class="comment"># 对于array[col][row]这两个一维数组再次进行二分法</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 表示存在于该范围内，准备下一轮轮询</span></span><br><span class="line">            nextStartRow = (row - startRow) / <span class="number">2</span></span><br><span class="line">            nextStartCol = (col - startCol) / <span class="number">2</span></span><br><span class="line">            <span class="keyword">return</span> self.cmp(target, array, nextStartRow, nextStartEnd)</span><br></pre></td></tr></table></figure>
-<h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># array 二维列表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Find</span><span class="params">(self, target, array)</span>:</span></span><br><span class="line">        <span class="comment"># write code here</span></span><br></pre></td></tr></table></figure>
-          
+          第一题
+题目描述
+在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+
+题目来源于此。
+分析对于上面一个二维数组来说，左上角最小，右下角最大，可以使用变形的二分法沿着对角线来查找。
+分析草稿假设一个函数，对比左上角及右下角和目标的大小，若大于右下角或小于左上角，则不在该集合之内。
+伪代码12345678910111213141516171819202122class Solution:    NOT_EXSIT = -2    EXSIT = 2    
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/19/剑指offer解题系列01/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1228,12 +1153,19 @@
       
         
           
-            <p>参见<a href="https://www.zhihu.com/question/42975638" target="_blank" rel="noopener">知乎</a></p>
-<p>去<a href="https://aur.archlinux.org/packages/intellij-jdk/" target="_blank" rel="noopener">这里</a>下载一个插件然后安装。</p>
-<p><a href="https://gist.github.com/CrazyCoder/0d9e54f450000d3fb6edcbda6d9788be" target="_blank" rel="noopener">https://gist.github.com/CrazyCoder/0d9e54f450000d3fb6edcbda6d9788be</a></p>
-<p><a href="https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij-idea-when-using-high-dpi" target="_blank" rel="noopener">https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij-idea-when-using-high-dpi</a></p>
+          参见知乎
+去这里下载一个插件然后安装。
+https://gist.github.com/CrazyCoder/0d9e54f450000d3fb6edcbda6d9788be
+https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij-idea-when-using-high-dpi
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/10/解决JetBrain系渲染问题/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1384,21 +1316,19 @@
       
         
           
-            <h3 id="头"><a href="#头" class="headerlink" title="头"></a>头</h3><p>JDRead Venus入手一年多，前半段时间一直用着送的京东畅读卡读着里面畅读的书。后面用着用着发现突然没办法正常连上商城了，基本这台机子就失去了生态了。<br>在置灰一个多月之后，又重新发现了除了京东阅读以外自己中意的读书app。想起之前在网上看过这台机子似乎是能够刷机的，于是动了刷成Android的念头。</p>
-<p>不知道是不是被封杀了相应的信息，总之刷机教程贴非常难找，找了好久才找到，点击<a href="http://www.yunyaokz.com/forum.php?mod=viewthread&amp;tid=63" target="_blank" rel="noopener">这里</a>可以看到原帖。</p>
-<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><p>不外乎就是<a href="https://pan.baidu.com/s/1vIHH1227zUewInwMGSS-mg" target="_blank" rel="noopener">下载</a>(密码 ay9w)线刷包和线刷工具。下载完之后解压，双击MfgTool2.exe。</p>
-<p>随后把阅读器关机，然后找个小针头戳usb口附近的刷机孔，然后接上电脑。</p>
-<p>识别成功之后电脑会开始自动装驱动，然后可以看到这个界面的最左边变成绿色的了。</p>
-<p>然后点击<strong>Start</strong>按钮开始刷机。</p>
-<p>等进度条走完之后阅读器会重启，这个时候就可以拔线了。</p>
-<p>刷机软件可以点<strong>Stop</strong>然后关掉。</p>
-<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>把apk随便放在某个地方，然后点文件管理器安装。</p>
-<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><img src="/2018/12/07/JDRead-Venus刷机/1.png" title="效果图">
-<img src="/2018/12/07/JDRead-Venus刷机/2.png" title="效果图">
-<img src="/2018/12/07/JDRead-Venus刷机/3.png" title="效果图">
-<img src="/2018/12/07/JDRead-Venus刷机/4.png" title="效果图">
-
-          
+          头JDRead Venus入手一年多，前半段时间一直用着送的京东畅读卡读着里面畅读的书。后面用着用着发现突然没办法正常连上商城了，基本这台机子就失去了生态了。在置灰一个多月之后，又重新发现了除了京东阅读以外自己中意的读书app。想起之前在网上看过这台机子似乎是能够刷机的，于是动了刷成Android的念头。
+不知道是不是被封杀了相应的信息，总之刷机教程贴非常难找，找了好久才找到，点击这里可以看到原帖。
+具体步骤不外乎就是下载(密码 ay9w)线刷包和线刷工具。下载完之后解压，双击MfgTool2.exe。
+随后把阅读器关机，然后找个小针头戳usb口附近的刷机孔，然后接上电脑。
+识别成功之后电脑会
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/07/JDRead-Venus刷机/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1549,13 +1479,20 @@
       
         
           
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>刚到手的二手房或者低价出租屋，若是上了一些年纪的，装修大都无法再满足我们当代人的审美。最近来说装修是不可能装修的了，但是一直啥都不休整，住在这样的房子里心里也不是个味儿。于是心里就开始盘算起来怎么用最经济的方法来改造这个屋子。</p>
-<p>颜色老化的木制家具、厨房和洗手间花样过时的大理石、有痕迹甚至不平整的墙面，占据了我们日常生活中视觉的大部分。而且他们的功能性都还没有被破坏，单单只是</p>
-<h1 id="行动起来"><a href="#行动起来" class="headerlink" title="行动起来"></a>行动起来</h1><h3 id="处理墙面"><a href="#处理墙面" class="headerlink" title="处理墙面"></a>处理墙面</h3><p>待填坑。</p>
-<h3 id="处理大理石"><a href="#处理大理石" class="headerlink" title="处理大理石"></a>处理大理石</h3><p>待填坑。</p>
-<h3 id="处理木家具"><a href="#处理木家具" class="headerlink" title="处理木家具"></a>处理木家具</h3><p>待填坑。</p>
+          前言刚到手的二手房或者低价出租屋，若是上了一些年纪的，装修大都无法再满足我们当代人的审美。最近来说装修是不可能装修的了，但是一直啥都不休整，住在这样的房子里心里也不是个味儿。于是心里就开始盘算起来怎么用最经济的方法来改造这个屋子。
+颜色老化的木制家具、厨房和洗手间花样过时的大理石、有痕迹甚至不平整的墙面，占据了我们日常生活中视觉的大部分。而且他们的功能性都还没有被破坏，单单只是
+行动起来处理墙面待填坑。
+处理大理石待填坑。
+处理木家具待填坑。
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/29/出租屋实用贴纸技术/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1706,45 +1643,23 @@
       
         
           
-            <img src="/2018/11/26/How%20I%20Overcame%20Social-Anxiety/folder.jpg" title="封面">
-<p>开坑。一边读书一边填坑。</p>
-<h3 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h3><p>不知道这本书为啥翻译成这么个名字，封面也一股浓郁的鸡汤书味道。其实原本的书名叫做「How I Overcame Social-Anxiety」（我是如何克服社交焦虑症的），讲的是作者如何一步步得上社交焦虑证，又如何一步步用各种心理暗示，以及通过改变一些观念，最后让自己成功走出来的。</p>
-<h3 id="社交焦虑症的症状"><a href="#社交焦虑症的症状" class="headerlink" title="社交焦虑症的症状"></a>社交焦虑症的症状</h3><p>说实话看这本书的动机就是我怀疑自己患有轻度的社交焦虑症，但是开始看这本书之后才发现自己如果真的患有此症，那应该也是轻微得不行，甚至一跟书中所描述的表现相比，我可以算是一个非常开朗健谈的人了。<br>包括但不限于：</p>
-<ul>
-<li>不习惯和别人沟通</li>
-<li>害怕可能会被批判的情形</li>
-<li>老是担心会尴尬</li>
-<li>过于在意别人的眼光</li>
-</ul>
-<h3 id="社交焦虑症的病因"><a href="#社交焦虑症的病因" class="headerlink" title="社交焦虑症的病因"></a>社交焦虑症的病因</h3><p>社交焦虑症当然不是duang的一下说患上就患上的，而必是体验了一些长久的、负面的经历。例如作者说他在小时候，父母就一直跟他说要听长辈的上级的话，导致他养成了看别人脸色的习惯，按自己的感受来做事情，更多地是根据别人的看法来做事。另外，成长的过程中可能每个人或多或少地会受到别的小朋友言语上的攻击，诸如「你真蠢」<br>「你真丑」之类的，由于作者在家庭中缺乏鼓励教育，本身就缺乏自信，在碰到此类言语攻击的时候就很容易相信攻击者的话，从而真的认为自己如别人随口一句话所说的一样。</p>
-<p>患上该症的另一可能病因是完美主义。在完美主义者眼中，自己做的事情一定要完美无缺，一切要按照自己的计划来。自然，社交生活这种充满不定性的活动，是最不能给完美主义者安全感的。一旦他们想到等下可能会犯的错，于别人来说，会在众人面前出丑；于自己来说，没完成自己的期望，让自己心里不舒坦。于是他们便会去避免不必要的社交，甚至完全杜绝社交。</p>
-<h3 id="可行的方案"><a href="#可行的方案" class="headerlink" title="可行的方案"></a>可行的方案</h3><p>确实人的性格和行为有非常大的成分是基因导致的，但是这并不意味着后天的改变全然无用。</p>
-<p>书中谈了一些个解决方案，在这里总结一下，并且结合我本人的经历来谈一谈吧。</p>
-<h5 id="解决过于关注他人看法"><a href="#解决过于关注他人看法" class="headerlink" title="解决过于关注他人看法"></a>解决过于关注他人看法</h5><p>大一大二的时候我发现自己就有这个毛病，特别害羞特别害怕做出什么出格的事情，会引人注目丢人现眼的。后来意识到这个问题，然后上知乎搜怎么做。知乎给了好些主意，建议多多尝试在众人之前做一些本来不敢做的事情，比如边走路边大声唱歌啊，在街上找路人搭讪啊啥的。</p>
-<p>回过头来看，我也不知道这些方法究竟有没有用，有兴趣的读者可以试试。</p>
-<p>后来我只是意识到我三观中很重要的一项要领：<strong>路人，或者不太熟悉的人根本不关心你是怎么样的，你在别人的世界里就是空气。</strong>过于关注别人的看法说难听点就是自我意识过剩，老以为自己的一举一动会有人跑过来指指点点评头论足。事实上世界这么多人，你真的没有那么特别，你做的事情也许你自己会觉得很尴尬，但是对别人来说早已经是可以无视的寻常事。你真的没有必要觉得自己会被别人多关注。</p>
-<p>另一个问题就是，就算你做了啥事情真的引发了别人不好的评论，那又如何？玻璃心者总容易被各种事情伤害，其实伤害他的并不是别人的话，而是自己的想象力。想象自己骂的有多难堪，想象自己做的有多尴尬。</p>
-<p>这就引出下一个议题，事情就是事情，客观地去看，不要夹带太多个人情感。</p>
-<h5 id="佛家的看法"><a href="#佛家的看法" class="headerlink" title="佛家的看法"></a>佛家的看法</h5><p>在佛家看来，任何事物本身并没有好坏。所有的好坏全都是人为的定义的。你认为这件事对你不利，它便是坏，反之就是好。</p>
-<p>当发生某件你本感觉非常尴尬的事情的时候，不妨强行冷静一下，清空自己对这件事的主观看法，把它还原到一个非好非坏的混沌状态。毕竟，塞翁失马，焉知非福。时间总是在跨步向前走，没必要把自己stick在对一件事的感受上。</p>
-<p>书中同时建议读者可以进行冥想。冥想的核心思想就是把注意力集中在呼吸上。而对于一呼一吸间产生的念想，观察之，看它如何发展，如何影响自己的心理，生理状况；分清楚哪些是事物的客观特性，哪些是自己主观加上去的特性。</p>
-<p>个人强烈建议试一下冥想。</p>
-<h5 id="避免预演未来"><a href="#避免预演未来" class="headerlink" title="避免预演未来"></a>避免预演未来</h5><p>人对不可掌握的未来总爱进行预演，在脑海中一遍又一遍地预演未来可能会发生的各种情况。首先要肯定一下适量预演的好处，在没有把握的时候可以尽量多搜集情报，<strong>理性地</strong>分析有可能发生的状况。个人觉得这是一种可以有的严谨态度。</p>
-<p>但是要警惕进行过度的未来预演。过度预演的人常是拥有某种程度的被迫害妄想症（如我），对不可控的未来抱有焦虑感，所以总是尝试能通过预演大多数情况，使得当真发生某种情况的时候好掌控。然而要意识到，被迫害妄想症脑海中的大多数事情在<strong>数学概率上</strong>的发生可能性是很低的。被迫害妄想症者应当用理性武装自己，认识到自己不必要为低可能性的事情浪费能量。</p>
-<p>未来谁也说不准，在做好适当的前期准备之后，你也只能盲目地去相信未来的自己能够handle了（笑）。</p>
-<h5 id="解决自卑"><a href="#解决自卑" class="headerlink" title="解决自卑"></a>解决自卑</h5><p>本书作者的焦虑有部分是来自于对自己的焦虑。我个人倒不会建议大家说去尝试无视自己的自卑之处，这完全是于事无补的。</p>
-<p>知道自己自卑的地方在哪里，那就去改进。</p>
-<p>觉得自己身材不好，就去健身；觉得外观不好看，就去了解穿衣知识；觉得不会说话，就去了解应该怎么说话。</p>
-<p>老土但是这是真理：没有什么能够拯救你于自卑之中，除了你自己。</p>
-<h5 id="不畏惧做一个有个性的人"><a href="#不畏惧做一个有个性的人" class="headerlink" title="不畏惧做一个有个性的人"></a>不畏惧做一个有个性的人</h5><p>就算尽力去改变了，也还是有一些方面你觉得自己比别人要差的。这个时候就不要相信鸡汤书里说的什么只是你还不够努力了。此时可以尝试一下传说中的<strong>认命法</strong>。</p>
-<p>这里我说的认命可不是什么自怨自艾，而是说把自己做不到的地方也看作自己的一个特点，可以区分出地球上其他70亿人的特点，从而为它自豪。</p>
-<p>正是让你自己不满意的这个所谓的缺点，才让你成为一个有个性的人。</p>
-<p>没有必要为自己的个性而感到任何缺憾，而是要顺着它去生活，甚至利用它去生活。</p>
-<h5 id="了解自己"><a href="#了解自己" class="headerlink" title="了解自己"></a>了解自己</h5><p>使用DISC之类的心理测试方法知道自己是个什么样性格的人，心理安全区在哪里，从而知道怎么做才能让自己舒服。</p>
-<p>比如我自己测试出是C形人格：较真，客观，偏理性。这类人的安全感来源于严谨的schedule。所以为了照顾自己的安全感，可以多多地为自己制定适宜的时间表，适宜的计划，然后按照计划去实行。</p>
-<p>测出人格也可以让你意识到自己的缺点在哪里。你可以在生活中选择规避它，或者直面它。</p>
-
           
+开坑。一边读书一边填坑。
+开头不知道这本书为啥翻译成这么个名字，封面也一股浓郁的鸡汤书味道。其实原本的书名叫做「How I Overcame Social-Anxiety」（我是如何克服社交焦虑症的），讲的是作者如何一步步得上社交焦虑证，又如何一步步用各种心理暗示，以及通过改变一些观念，最后让自己成功走出来的。
+社交焦虑症的症状说实话看这本书的动机就是我怀疑自己患有轻度的社交焦虑症，但是开始看这本书之后才发现自己如果真的患有此症，那应该也是轻微得不行，甚至一跟书中所描述的表现相比，我可以算是一个非常开朗健谈的人了。包括但不限于：
+
+不习惯和别人沟通
+害怕可能会被批判的情形
+老是担心会尴尬
+过
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/26/How I Overcame Social-Anxiety/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1895,9 +1810,16 @@
       
         
           
-            <p>IT技术的研讨之外，偶尔也会看看非此类的书。<br>都说看完一本书只有做做总结才会有用，因故开辟此地，用拙计的文笔记下看书时，看书后之所想。</p>
+          IT技术的研讨之外，偶尔也会看看非此类的书。都说看完一本书只有做做总结才会有用，因故开辟此地，用拙计的文笔记下看书时，看书后之所想。
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/26/读书/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

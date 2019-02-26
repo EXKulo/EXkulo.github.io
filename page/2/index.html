@@ -356,19 +356,20 @@
       
         
           
-            <h1 id="CPU内核、用户模式"><a href="#CPU内核、用户模式" class="headerlink" title="CPU内核、用户模式"></a>CPU内核、用户模式</h1><p>本文由是阅读<a href="https://blog.codinghorror.com/understanding-user-and-kernel-mode/" target="_blank" rel="noopener">该文章</a>做下的笔记。</p>
-<p>CPU分内核与用户模式。</p>
-<h2 id="三言蔽之"><a href="#三言蔽之" class="headerlink" title="三言蔽之"></a>三言蔽之</h2><p>内核模式下，应用可以直接存取内存，能够执行任何CPU指令。一般来说驱动运行在该模式下。<br>内核模式的应用一旦崩溃，整个操作系统都会崩溃。（所以驱动必须要非常稳定，否则蓝屏常在你身边）</p>
-<p>用户模式就是我们一般应用所在的模式。用户模式下，应用想要存取硬件或者内存，必须通过系统API。由于与底层被隔离开来，所以用户模式下的应用崩溃通常不会影响到系统正常运行。</p>
-<h2 id="硬件决定"><a href="#硬件决定" class="headerlink" title="硬件决定"></a>硬件决定</h2><p>内核模式和用户模式不是我们定义出来的在软件层面的一个概念，而是由CPU架构所决定的。</p>
-<p>通常CPU分为0~3总共四个层。其中我们一般用的是0层内核模式以及3层用户模式。1和2一般少用。</p>
-<p>其中，又有人提出-1层，这就是我们平常说的x86硬件下的CPU虚拟化（手机模拟器一般都要开这个）。</p>
-<h2 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h2><p>驱动一般会运行在内核模式<strong>以及</strong>用户模式下。</p>
-<p>以下为猜测：</p>
-<p>在OpenGL渲染过程中，会在用户模式下维护一个命令队列，切换到内核模式后再一次性发送到驱动，由驱动发送给显卡。</p>
-<h2 id="切换代价"><a href="#切换代价" class="headerlink" title="切换代价"></a>切换代价</h2><p>在用户模式和内核模式之间切换，是有代价的，而且代价十分大。</p>
-
-          
+          CPU内核、用户模式本文由是阅读该文章做下的笔记。
+CPU分内核与用户模式。
+三言蔽之内核模式下，应用可以直接存取内存，能够执行任何CPU指令。一般来说驱动运行在该模式下。内核模式的应用一旦崩溃，整个操作系统都会崩溃。（所以驱动必须要非常稳定，否则蓝屏常在你身边）
+用户模式就是我们一般应用所在的模式。用户模式下，应用想要存取硬件或者内存，必须通过系统API。由于与底层被隔离开来，所以用户模式下的应用崩溃通常不会影响到系统正常运行。
+硬件决定内核模式和用户模式不是我们定义出来的在软件层面的一个概念，而是由CPU架构所决定的。
+通常CPU分为0~3总共四个层。其中我们一般用的是0层内核模式以及3层
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/13/CPU内核、用户模式/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -519,48 +520,25 @@
       
         
           
-            <h1 id="Hexo博客增加live2d看板娘"><a href="#Hexo博客增加live2d看板娘" class="headerlink" title="Hexo博客增加live2d看板娘"></a>Hexo博客增加live2d看板娘</h1><h2 id="啥是live2d"><a href="#啥是live2d" class="headerlink" title="啥是live2d"></a>啥是live2d</h2><p>live2d是假3d，根据对应的输入，让模型播放原来设定好的不同的动画。</p>
-<p>一个live2d项目至少包括几个元素：</p>
-<ul>
-<li><strong>纹理贴图</strong> 一般是生成几张1024*1024的合图以及一个合图配置</li>
-<li><strong>动作配置</strong> 后缀名为’.mtn’，配置着动画关键帧</li>
-<li><strong>model配置</strong> 关联纹理贴图和动作配置</li>
-</ul>
-<h2 id="安装live2d"><a href="#安装live2d" class="headerlink" title="安装live2d"></a>安装live2d</h2><p>最简单的，还是shell里用npm安装。跑到博客根目录下，右键进入控制台，键入: </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install live2d-widget</span><br></pre></td></tr></table></figure>
-<p>等安装完之后即可在博客的node_modules里找到新下载来的包。</p>
-<h2 id="安装npm库中的live2d模型"><a href="#安装npm库中的live2d模型" class="headerlink" title="安装npm库中的live2d模型"></a>安装npm库中的live2d模型</h2><p>这里假设要安装模型中的看板娘haru。同样是npm安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install live2d-widget-model-haru</span><br></pre></td></tr></table></figure>
-<p>之后同样在node_modules里找到live2d-widget-model-haru这个文件夹。</p>
-<p>下载下来之后发现有01和02两个子文件夹，里边的package.json都是空的，于是把外头的package.json复制进两个子文件夹覆盖。</p>
-<p>接下来讲怎么配置。</p>
-<h2 id="配置live2d"><a href="#配置live2d" class="headerlink" title="配置live2d"></a>配置live2d</h2><p>找到项目配置文件<code>_config.yml</code>，在其中插入</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">live2d:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  scriptFrom:</span> <span class="string">local</span></span><br><span class="line"><span class="attr">  pluginRootPath:</span> <span class="string">live2dw/</span></span><br><span class="line"><span class="attr">  pluginJsPath:</span> <span class="string">lib/</span></span><br><span class="line"><span class="attr">  pluginModelPath:</span> <span class="string">assets/</span></span><br><span class="line"><span class="attr">  tagMode:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  log:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  model:</span></span><br><span class="line"><span class="attr">    use:</span> <span class="string">live2d-widget-model-haru/01</span></span><br><span class="line"><span class="attr">  display:</span></span><br><span class="line"><span class="attr">    position:</span> <span class="string">left</span></span><br><span class="line"><span class="attr">    width:</span> <span class="number">150</span></span><br><span class="line"><span class="attr">    height:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">  mobile:</span></span><br><span class="line"><span class="attr">    show:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>详细的配置说明书参见：<a href="https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md" target="_blank" rel="noopener">github</a></p>
-<p>注意其中的model字段，路径得是你资源中assets文件夹所在的目录。在haru例子中，文件夹大概为</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- live2d-widget-model-haru/</span></span><br><span class="line">    <span class="comment">-- 01/</span></span><br><span class="line">        <span class="comment">-- assets/</span></span><br><span class="line">            <span class="comment">-- moc/</span></span><br><span class="line">            <span class="comment">-- mtn/</span></span><br></pre></td></tr></table></figure>
-<p>所以，路径就应该为live2d-widget-model-haru/01。</p>
-<p>另，<code>mobile.show</code>字段可以控制看板娘是否在手机端显示。</p>
-<h2 id="寻另外的live2d模型"><a href="#寻另外的live2d模型" class="headerlink" title="寻另外的live2d模型"></a>寻另外的live2d模型</h2><p>live2d模型可以在<a href="https://github.com/summerscar/live2dDemo" target="_blank" rel="noopener">这个地方</a>找到。</p>
-<p>这里以bilibili的看板娘22酱为例，解释怎么把它变成我们的live2d插件能读的样式。</p>
-<p>首先观察到最简单的<code>live2d-widget-model-wanko</code>模型（自己npm可以下载到）中的文件夹内容大概是这样：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- live2d-widget-model-wanko/</span></span><br><span class="line">    <span class="comment">-- assets/</span></span><br><span class="line">        <span class="comment">-- moc/</span></span><br><span class="line">            <span class="comment">-- wanko.1024/</span></span><br><span class="line">            <span class="comment">-- wanko.moc</span></span><br><span class="line">        <span class="comment">-- mtn/   whic means motion</span></span><br><span class="line">            <span class="comment">-- *.mtn</span></span><br><span class="line">        <span class="comment">-- wanko.model.json</span></span><br></pre></td></tr></table></figure>
-<p>现在来动手改动它：</p>
-<ol>
-<li>解压完bilibli娘之后，先创建一个文件夹<code>live2d-widget-model-bilibili</code>，并创建一个assets目录，然后从wanko那边<strong>复制过来一个package.json</strong>。</li>
-<li>进入原资源的assets/22目录</li>
-<li>把其中的<code>22.1024</code>文件夹和<code>22.v2.moc</code>文件复制到<code>live2d-widget-model-bilibili/assets/moc</code>中</li>
-<li>把原资源中<code>motions</code>文件夹里的文件复制到<code>live2d-widget-model-bilibili/assets/mtn</code>中</li>
-<li>选择22文件夹中任意一个json文件（代表着22娘的不同装扮）复制到<code>live2d-widget-model-bilibili/assets/</code>中，并更名<code>live2d-widget-model-bilibili.model.json</code>（与本工程同名）</li>
-<li><p>更改<code>live2d-widget-model-bilibili.model.json</code>，可以看到里面的路径都是不对的，需要更改路径，譬如</p>
- <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">"textures": [</span><br><span class="line">    - "model": "22.v2.moc",</span><br><span class="line">    + "model": "moc/22.v2.moc",</span><br><span class="line">    // 加上moc/路径前缀</span><br><span class="line">    - "22.1024/closet.default.v2/texture_00.png",</span><br><span class="line">    + "moc/22.1024/closet.default.v2/texture_00.png",</span><br><span class="line">    "idle": [</span><br><span class="line">        &#123;</span><br><span class="line">            - "file": "22.v2.idle-01.mtn",</span><br><span class="line">            + "file": "mtn/22.v2.idle-01.mtn",</span><br><span class="line">            "fade_in": 2000,</span><br><span class="line">            "fade_out": 2000</span><br><span class="line">        &#125;,</span><br><span class="line">    ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>主要改动三个地方：model路径、纹理路径、motion文件路径。</p>
-</li>
-</ol>
-<p>把这一切做完之后，把<code>live2d-widget-model-bilibili</code>文件夹丢到我们博客的node_modules里边去。</p>
-<p>最后，在项目配置文档中把model字段改成<code>live2d-widget-model-bilibili</code>，完事儿。</p>
+          Hexo博客增加live2d看板娘啥是live2dlive2d是假3d，根据对应的输入，让模型播放原来设定好的不同的动画。
+一个live2d项目至少包括几个元素：
 
-          
+纹理贴图 一般是生成几张1024*1024的合图以及一个合图配置
+动作配置 后缀名为’.mtn’，配置着动画关键帧
+model配置 关联纹理贴图和动作配置
+
+安装live2d最简单的，还是shell里用npm安装。跑到博客根目录下，右键进入控制台，键入: 
+1npm install live2d-widget
+等安装完之后即可在博客的node_modules里找到新下载来的包。
+安装npm库中的live2d模型这里假设要安装模型中
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/31/Hexo博客增加live2d看板娘/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -711,13 +689,18 @@
       
         
           
-            <h1 id="Unity优化回忆录"><a href="#Unity优化回忆录" class="headerlink" title="Unity优化回忆录"></a>Unity优化回忆录</h1><h2 id="合批优化"><a href="#合批优化" class="headerlink" title="合批优化"></a>合批优化</h2><p>游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧<strong>游戏客户端</strong>向<strong>图像引擎</strong>发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。</p>
-<p>先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。</p>
-<h3 id="何为dc"><a href="#何为dc" class="headerlink" title="何为dc"></a>何为dc</h3><p>dc，又称draw calls，有些人也叫他dp（原因不明）</p>
-<p>所谓的Draw Call其实是CPU发送给GPU的一条渲染mesh的命令。Draw Call的内容就是一个指向欲渲染的mesh的指针（或者id？称呼whatever），一个Draw Call<strong>不包括</strong>任何材质信息(texture, shader, etc)。</p>
-<p>上面提到的材质信息在这里又称渲染状态(render state)。在提交完同一材质信息的所有dc之后，GPU根据当前的材质信息和所有的顶点数据，开始渲染管线的工作。</p>
-
-          
+          Unity优化回忆录合批优化游戏客户端开发必定会讲究一个指标叫做Drawcall，这个词表示的是每一帧游戏客户端向图像引擎发送的渲染命令个数。每条渲染命令实际上是给图像引擎执行一次渲染过程。可以理解为对某某片元执行了一次draw函数。
+先说结论吧：不同的sprite，如果z方向上相邻且图片资源相同（或者合图相同），那么他们的drawcall会被合并。
+何为dcdc，又称draw calls，有些人也叫他dp（原因不明）
+所谓的Draw Call其实是CPU发送给GPU的一条渲染mesh的命令。Draw Call的内容就是一个指向欲渲染的mesh的指针（或者id？称呼whatever），一个Dr
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/30/Unity优化回忆录/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -868,24 +851,23 @@
       
         
           
-            <h1 id="八-分片"><a href="#八-分片" class="headerlink" title="八 分片"></a>八 分片</h1><p>分片$sharding$或者叫分区$partitioning$，表示将数据拆分存放到不同的机器上。</p>
-<p>MongoDB支持自动分片。</p>
-<p>分片对应用程序来说是透明的。</p>
-<h2 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --nodb</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cluster = <span class="keyword">new</span> ShardingTest(&#123;<span class="string">'shards'</span>: <span class="number">3</span>, <span class="string">'chunksize'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>创建之后控制台会不断滚新的信息，快速按ctrl+c退出，然后滚到最上看port为何。</p>
-<p>再新启一个shell来连接集群</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db = (<span class="keyword">new</span> Mongo(<span class="string">'localhost:20006'</span>)).getDB(<span class="string">'test'</span>)</span><br></pre></td></tr></table></figure>
-<p>在当前版本，mongos运行在20006端口。</p>
-<p>接下来看集群状态</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.status()</span><br></pre></td></tr></table></figure>
-<h3 id="分片依据"><a href="#分片依据" class="headerlink" title="分片依据"></a>分片依据</h3><p>要对一个集合分片，首先要启用分片，然后对<strong>片键</strong>建立索引，最后设置片键。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh.enableSharding(<span class="string">'test'</span>) <span class="comment">// 参数是数据库名称</span></span><br><span class="line">db.users.ensureIndex(&#123;<span class="string">'no'</span>: <span class="number">1</span>&#125;)</span><br><span class="line">sh.shardCollection(<span class="string">'test.users'</span>, &#123;<span class="string">'no'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<hr>
-<p>好了，这个系列到此打住。毕竟是给自己这种后端一窍不通的人看的，暂时也不会转岗去做后端，所以这里把基础概念都了解了就行了。</p>
-<p>谢谢各位看官~~</p>
-
-          
+          八 分片分片$sharding$或者叫分区$partitioning$，表示将数据拆分存放到不同的机器上。
+MongoDB支持自动分片。
+分片对应用程序来说是透明的。
+创建集群1mongo --nodb
+1cluster = new ShardingTest(&#123;'shards': 3, 'chunksize': 1&#125;)
+创建之后控制台会不断滚新的信息，快速按ctrl+c退出，然后滚到最上看port为何。
+再新启一个shell来连接集群
+1db = (new Mongo('localhost:20006')).getDB('test')
+在当前版本，mongos运行在2000
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/29/【MongoDB权威指南】八/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1036,84 +1018,20 @@
       
         
           
-            <h1 id="七-创建副本"><a href="#七-创建副本" class="headerlink" title="七 创建副本"></a>七 创建副本</h1><h2 id="副本"><a href="#副本" class="headerlink" title="副本"></a>副本</h2><p>使用复制把数据副本保存到多台服务器上。</p>
-<p><strong>副本集</strong>是一组服务器，其中有一个主服务器，用于处理客户端请求；还有多个备份服务器用于保存数据副本。如果主服务器崩溃，备份服务器回自动其中一台位新的主服务器。</p>
-<h2 id="创建副本集"><a href="#创建副本集" class="headerlink" title="创建副本集"></a>创建副本集</h2><p>启动shell但是不连接到任何mongod。</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --nodb</span><br></pre></td></tr></table></figure>
-<p>笔者这里使用的是windows10的cmd可以正常执行成功。如果在windows下使用cmder，不知道为啥会报错。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建副本集，这里原书中没有指定name字段，会导致后面两句话执行不成功，所以这里根据报错猜测原因，加入了name字段</span></span><br><span class="line">replicaSet = <span class="keyword">new</span> ReplSetTest(&#123;<span class="string">'nodes'</span>: <span class="number">3</span>, <span class="string">'name'</span>: <span class="string">'test'</span>&#125;)</span><br><span class="line"><span class="comment">// 启动3个mongod进程</span></span><br><span class="line">replicaSet.startSet()</span><br><span class="line"><span class="comment">// 配置复制功能</span></span><br><span class="line">replicaSet.initiate()</span><br></pre></td></tr></table></figure>
-<p>现在分别有了三个进程，运行在被分配的三个端口中。这三个端口怎么找呢？就在执行完第一行代码之后，控制台会返回一堆信息，其中接近是最底下的地方那里有个字段叫ports，就是那个。</p>
-<p>把这个shell搁置在一旁，然后新启一个shell：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conn1 = <span class="keyword">new</span> Mongo(<span class="string">'localhost:20000'</span>)</span><br><span class="line">primaryDB = conn1.getDB(<span class="string">'test'</span>)</span><br><span class="line"><span class="comment">// 查看副本集状态</span></span><br><span class="line">primaryDB.isMaster()</span><br></pre></td></tr></table></figure>
-<p>返回一个dict（js里是这么叫吗。。），其中hosts列表表示该副本集的所有端口，ismaster表示是不是主节点，primary字段表示主节点端口。</p>
-<p>由于备份节点的数据可能会落后于主节点，所以备份节点一般是拒绝读取请求的，如果在备份节点上做查询，会得到一个错误提示。</p>
-<p>如果真想访问备份服务器，敲</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn1.setSlaveOk()</span><br></pre></td></tr></table></figure>
-<p>最后，关闭副本集</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">replicaSet.stopSet()</span><br></pre></td></tr></table></figure>
-<h3 id="自动故障转移"><a href="#自动故障转移" class="headerlink" title="自动故障转移"></a>自动故障转移</h3><p>现在尝试关闭主节点，应该会看到其中一个备份节点会升级为主节点。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">primaryDB.adminCommand(&#123;<span class="string">'shutdown'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>之后对第二个链接调用idMaster函数可以看到它已经变为主节点。</p>
-<h2 id="配置副本集"><a href="#配置副本集" class="headerlink" title="配置副本集"></a>配置副本集</h2><p>上一节是在自己的localhost上面尝试建立测试用的一个副本集，现在来看假如有三台linux机器，怎么在其上搭建副本集。</p>
-<p>假设我们所在的机器是server-1，另有两台机器是server-2和server-3。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> on local machine(server-1)</span><br><span class="line">mongod --replSet spock -f mongod.conf --fork</span><br><span class="line"><span class="meta">#</span> link to server-2</span><br><span class="line">ssh server-2</span><br><span class="line">mongod --replSet spock -f mongod.conf --fork</span><br><span class="line">exit</span><br><span class="line"><span class="meta">#</span> link to server-3</span><br><span class="line">ssh server-3</span><br><span class="line">mongod --replSet spock -f mongod.conf --fork</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-<p>为了让三个mongod知道彼此的存在，需要设置。shell中键入：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config = &#123;</span><br><span class="line">    <span class="string">'_id'</span>: <span class="string">'spock'</span>,</span><br><span class="line">    <span class="string">'members'</span>: [</span><br><span class="line">        &#123;<span class="string">'_id'</span>: <span class="number">0</span>, <span class="string">'host'</span>: <span class="string">'server-1:27017'</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'_id'</span>: <span class="number">1</span>, <span class="string">'host'</span>: <span class="string">'server-2:27017'</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'_id'</span>: <span class="number">2</span>, <span class="string">'host'</span>: <span class="string">'server-3:27017'</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意，上面的spock是集合的名字，不要再傻傻去查翻译了。</p>
-</blockquote>
-<p>之后对主节点进行初始化。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db = (<span class="keyword">new</span> Mongo(<span class="string">'server-1:27017'</span>)).getDB(<span class="string">'test'</span>)</span><br><span class="line">rs.initiate(config) <span class="comment">// 等价于 db.adminCommand(&#123;'replSetInitiate': config&#125;)</span></span><br></pre></td></tr></table></figure>
-<p>其中rs这个变量是个全局变量，包含与复制相关的辅助函数。</p>
-<blockquote>
-<p>需要确保每台机器可以连接到其他机器。</p>
-<p>允许所有节点都在同一台机子上。</p>
-</blockquote>
-<h2 id="修改副本集配置"><a href="#修改副本集配置" class="headerlink" title="修改副本集配置"></a>修改副本集配置</h2><h3 id="添加成员和移除成员"><a href="#添加成员和移除成员" class="headerlink" title="添加成员和移除成员"></a>添加成员和移除成员</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 增加</span></span><br><span class="line">rs.add(<span class="string">'server-4:27017'</span>)</span><br><span class="line"><span class="comment">// 删除</span></span><br><span class="line">rs.remove(<span class="string">'server-4:27017'</span>)</span><br><span class="line"><span class="comment">// 查看当前状态</span></span><br><span class="line">rs.config()</span><br></pre></td></tr></table></figure>
-<p>做remove操作的时候会在控制台打印很多错误信息，这很正常。</p>
-<p>每次更新配置之后<code>rs.config()</code>返回的version字段都会加一。</p>
-<p>假设要直接更改config表：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> config = rs.config()</span><br><span class="line">config.members[<span class="number">1</span>].host = <span class="string">'server-2:4444'</span></span><br><span class="line">rs.reconfig(config)</span><br></pre></td></tr></table></figure>
-<p>直接改。</p>
-<h2 id="主节点选举机制"><a href="#主节点选举机制" class="headerlink" title="主节点选举机制"></a>主节点选举机制</h2><p>太长不看。</p>
-<hr>
-<p>下面讲副本集的组成。</p>
-<h2 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h2><p>MongoDB的复制功能是使用操作日志oplog实现的，这份日志包含了主节点的每次写操作。oplog是主节点local数据库中的一个固定结合。</p>
-<p>备份节点同样也拥有一份oplog。在执行完主节点的oplog之后，会更新进自己的oplog。为了避免过程中出问题重新执行oplog会重复生效操作，MongoDB执行oplog中的同一操作，只会执行一次。</p>
-<p>通常来说每个写操作只影响一个文档，只会产生一条oplog日志。但是如果是执行像db.coll.remove()这种操作，就会产生多条数据（条数与coll中文档个数相当）</p>
-<h3 id="初始化同步"><a href="#初始化同步" class="headerlink" title="初始化同步"></a>初始化同步</h3><p>副本集中的成员启动之后，会检查是否能从某个成员那里进行同步（增量），如果不行，那么会从另一个成员那里进行完整的数据复制（全量）。这就是初始化同步的过程。</p>
-<p>具体步骤如下：</p>
-<ol>
-<li>删除自身所有的数据库</li>
-<li>选择一个同步源，克隆数据</li>
-<li>检查是否有文档需要重新克隆，重新克隆克隆过程中发生改动的文档，这是第一个oplog步骤</li>
-<li>记录上一个步骤的oplog</li>
-<li>创建索引</li>
-<li>将创建索引时的oplog同步</li>
-<li>切换到普通同步状态</li>
-</ol>
-<h3 id="处理落后的数据"><a href="#处理落后的数据" class="headerlink" title="处理落后的数据"></a>处理落后的数据</h3><p>如果数据落后于同步源台太多，那么这个备份节点就是陈旧的$stale$。</p>
-<p>一个陈旧节点会尝试查看其他成员，如果有某个成员的oplog足够详尽，能够让它追上步伐，那就用他的oplog来同步数据。如果找不到这么一台机器，那就需要完全同步。</p>
-<p>为了避免完全同步，最好让主节点能够用比较大的oplog，毕竟磁盘不用钱的。</p>
-<h2 id="心跳"><a href="#心跳" class="headerlink" title="心跳"></a>心跳</h2><p>为了知道副本集的状态，需要每隔2秒向其他成员发出一个心跳请求。最重要的功能之一就是让主节点知道自己是否符合条件，如果不符合就会退化成备份节点。</p>
-<h3 id="成员状态"><a href="#成员状态" class="headerlink" title="成员状态"></a>成员状态</h3><ul>
-<li><strong>STARTUP</strong></li>
-<li><strong>STARTUP2</strong></li>
-<li><strong>RECOVERING</strong></li>
-<li><strong>ARBITER</strong></li>
-<li><strong>DOWN</strong></li>
-<li><strong>UNKNOWN</strong></li>
-<li><strong>REMOVED</strong></li>
-<li><strong>ROLLBACK</strong></li>
-<li><strong>FATAL</strong></li>
-</ul>
-<h2 id="选举"><a href="#选举" class="headerlink" title="选举"></a>选举</h2><p>选举发生时机：其中一个成员无法到达（reach）主节点，它会向自己所有能reach的成员发通知，说希望被选举为主节点。其他节点会进行判断，看那个节点符不符合参与选举的条件（其中有一个原因可能是主节点其实在正常运行）。如果符合选举条件，就会开始选举。</p>
-<p>一般而言选举非常快，可能只要几毫秒。运气不好也就几分钟。</p>
-<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><p>在主节点在写入的时候崩溃之后，会选出新的节点。原主节点恢复之后会尝试同步刚才崩溃那次操作，如果这个操作在新的主节点并不存在，那么原主节点就会回滚。</p>
-<p>如果回滚失败（数据量过大），就会进行完全同步。</p>
-<p>关于副本集的更多内容在这里不做记录，等成为运维之后再说吧。</p>
-
-          
+          七 创建副本副本使用复制把数据副本保存到多台服务器上。
+副本集是一组服务器，其中有一个主服务器，用于处理客户端请求；还有多个备份服务器用于保存数据副本。如果主服务器崩溃，备份服务器回自动其中一台位新的主服务器。
+创建副本集启动shell但是不连接到任何mongod。
+1mongo --nodb
+笔者这里使用的是windows10的cmd可以正常执行成功。如果在windows下使用cmder，不知道为啥会报错。
+123456// 创建副本集，这里原书中没有指定name字段，会导致后面两句话执行不成功，所以这里根据报错猜测原因，加入了name字段replicaSet = new ReplSetTe
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/28/【MongoDB权威指南】七/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1264,17 +1182,20 @@
       
         
           
-            <h1 id="六-应用程序设计"><a href="#六-应用程序设计" class="headerlink" title="六 应用程序设计"></a>六 应用程序设计</h1><h2 id="范式化与反范式化"><a href="#范式化与反范式化" class="headerlink" title="范式化与反范式化"></a>范式化与反范式化</h2><p>所谓<strong>范式化</strong>$normalization$：把数据分散到多个不同的集合（表），不同集合（表）之间可以相互引用数据。但是这块被引用的数据只存在于一个集合之中，需要修改时只需要改一个文档就好。适合数据经常变动的情况，如果数据不经常变化，就没必要用范式化。</p>
-<p>MongoDB并不存在join工具。</p>
-<p>反范式化$denormalization$：每个集合都有一个文档副本。</p>
-<h3 id="基数"><a href="#基数" class="headerlink" title="基数"></a>基数</h3><p>一个集合中包含的对其他集合的引用数量叫做基数。</p>
-<h3 id="模式迁移"><a href="#模式迁移" class="headerlink" title="模式迁移"></a>模式迁移</h3><p>有时候需求变动，需要加入新的字段或者删除旧有字段。为了避免兼容性问题，可以在每个文档中加入version字段。</p>
-<p>当字段版本有变动的时候，也可以选择做个<del>马杀鸡</del>数据迁移。但是要注意MongoDB的多文档更新<code>updateMany</code>不是原子性的，一旦执行过程中发生崩溃，就有可能出现一些文档更新成功，一些文档尚未更新的情况。</p>
-<h3 id="不适合MongoDB的场景"><a href="#不适合MongoDB的场景" class="headerlink" title="不适合MongoDB的场景"></a>不适合MongoDB的场景</h3><ul>
-<li>不支持事务</li>
-</ul>
-
-          
+          六 应用程序设计范式化与反范式化所谓范式化$normalization$：把数据分散到多个不同的集合（表），不同集合（表）之间可以相互引用数据。但是这块被引用的数据只存在于一个集合之中，需要修改时只需要改一个文档就好。适合数据经常变动的情况，如果数据不经常变化，就没必要用范式化。
+MongoDB并不存在join工具。
+反范式化$denormalization$：每个集合都有一个文档副本。
+基数一个集合中包含的对其他集合的引用数量叫做基数。
+模式迁移有时候需求变动，需要加入新的字段或者删除旧有字段。为了避免兼容性问题，可以在每个文档中加入version字段。
+当字段版本有变动的时候，也可以选择做
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/25/【MongoDB权威指南】六/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1425,100 +1346,27 @@
       
         
           
-            <h1 id="五-聚合"><a href="#五-聚合" class="headerlink" title="五 聚合"></a>五 聚合</h1><p>谈数据库呢，就一定要谈聚合啦。</p>
-<h2 id="聚合框架"><a href="#聚合框架" class="headerlink" title="聚合框架"></a>聚合框架</h2><p>用于对集合中的文档进行变换和组合。处理文档的东西叫做管道pipeline，管道由多个构件构成。构建包括了：filtering, projection, grouping, sorting, limiting, skipping。</p>
-<p>假设有如此需求：</p>
-<ol>
-<li>投影出所有作者</li>
-<li>按照作者名称排序，统计每个作者名字出现次数</li>
-<li>根据作者名字出现次数降序排列</li>
-<li>返回结果限制为前五个</li>
-</ol>
-<p>步骤为：</p>
-<ol>
-<li><code>{&#39;$project&#39;: {&#39;author&#39;: 1}}</code><br>只投影出author字段。</li>
-<li><code>{&#39;$group: {&#39;_id&#39;: &#39;$author&#39;, &#39;count&#39;: {&#39;sum&#39;: 1}}&#39;}</code><br>大家都知道group是干嘛用的了，就是把所有文档浓缩成一份的意思。合并文档的根据在这里被规定为author，并为每个文档新增字段count，内容是同作者名的文档的出现次数。</li>
-<li><code>{&#39;$sort&#39;: {&#39;count&#39;: -1}}</code><br>根据count进行降序排列。</li>
-<li><code>{&#39;$limit&#39;: 5}</code><br>只要前五个文档。</li>
-</ol>
-<p>要构建一个管道，需要把各种构件条件传入<code>aggregate()</code>函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(&#123;<span class="string">'$project'</span>: &#123;<span class="string">'author'</span>: <span class="number">1</span>&#125;&#125;, &#123;<span class="string">'$group: &#123;'</span>_id<span class="string">': '</span>$author<span class="string">', '</span>count<span class="string">': &#123;'</span>$sum<span class="string">': 1&#125;&#125;,</span></span><br><span class="line"><span class="string">&#123;'</span>$sort<span class="string">': &#123;'</span>count<span class="string">': -1&#125;&#125;, &#123;'</span>$limit<span class="string">': 5&#125;)</span></span><br></pre></td></tr></table></figure>
-<h2 id="管道操作符"><a href="#管道操作符" class="headerlink" title="管道操作符"></a>管道操作符</h2><h3 id="match"><a href="#match" class="headerlink" title="$match"></a>$match</h3><p>相当于条件筛选，可以看作是find。</p>
-<p>应尽可能地把match操作提前，减少后面的聚合工作量。</p>
-<h3 id="project"><a href="#project" class="headerlink" title="$project"></a>$project</h3><p>投影。</p>
-<p>默认的投影操作还会加入_id这个字段，如果不想要就把它设置为0。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(&#123;<span class="string">'$project'</span>: &#123;<span class="string">'age'</span>: <span class="number">1</span>, <span class="string">'_id'</span>: <span class="number">0</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<p>除了将想要返回的字段设置成1，还可以用别的方式进行改名，比如：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(&#123;<span class="string">'$project'</span>: &#123;<span class="string">'userId'</span>: <span class="string">'$_id'</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<p>就是将_id映射为userId。</p>
-<p>也可以映射数组中的第n个元素，只要<code>{&#39;$project&#39;: {&#39;userId&#39;: &#39;$fieldname.n&#39;}}</code>。</p>
-<p>有个问题，在映射为别的名字之后，就无法使用原来能使用的索引了，所以要用sort，就别乱映射成别的名字。</p>
-<p>映射的基础功能是筛选一些自己要的字段，但是之外还能使用各种表达式来做更高阶的操作。</p>
-<h4 id="数学表达式"><a href="#数学表达式" class="headerlink" title="数学表达式"></a>数学表达式</h4><p>举例用法：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'project'</span>: &#123;</span><br><span class="line">            <span class="string">'totalPay'</span>: &#123;</span><br><span class="line">                <span class="string">'$add'</span> [<span class="string">'$salary'</span>, <span class="string">'$bonus'</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>有加减乘除余5种算法：</p>
-<ul>
-<li><strong>$add</strong></li>
-<li><strong>$subtract</strong></li>
-<li><strong>$multiply</strong></li>
-<li><strong>$divide</strong></li>
-<li><strong>$mod</strong></li>
-</ul>
-<h4 id="日期表达式"><a href="#日期表达式" class="headerlink" title="日期表达式"></a>日期表达式</h4><p>我们当然知道数据库中有一种数据类型叫做date。运用日期表达式，你可以从某个日期中提取出年日月等你所需要的信息。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$project'</span>: &#123;</span><br><span class="line">            <span class="string">'theMonth'</span>: &#123;<span class="string">'$month'</span>: <span class="string">'$theDate'</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>除了单纯的投影操作之外，还能结合算术表达式计算时间跨度。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$project'</span>: &#123;</span><br><span class="line">            <span class="string">'duration'</span>: &#123;</span><br><span class="line">                <span class="string">'substract'</span>: [</span><br><span class="line">                    &#123;<span class="string">'$year'</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;,</span><br><span class="line">                    &#123;<span class="string">'$year'</span>: <span class="string">'$theDate'</span>&#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h4 id="字符表达式"><a href="#字符表达式" class="headerlink" title="字符表达式"></a>字符表达式</h4><ul>
-<li><strong>$substr</strong> 对象是数组，数组里是参数，第一个参数是字符串来源，第二个是开始index，第三个是结束index</li>
-<li><strong>$concat</strong></li>
-<li><strong>$toLower</strong></li>
-<li><strong>$toUpper</strong></li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$project'</span>: &#123;</span><br><span class="line">            <span class="string">'email'</span>: &#123;</span><br><span class="line">                <span class="string">'$concat'</span>: [</span><br><span class="line">                    &#123;<span class="string">'$substr'</span>: [<span class="string">'$firstName'</span>, <span class="number">0</span>, <span class="number">1</span>]&#125;,</span><br><span class="line">                    <span class="string">'.'</span>,</span><br><span class="line">                    <span class="string">'$lastName'</span>,</span><br><span class="line">                    <span class="string">'@example.com'</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h4 id="逻辑表达式"><a href="#逻辑表达式" class="headerlink" title="逻辑表达式"></a>逻辑表达式</h4><ul>
-<li><strong>$cmp</strong></li>
-<li><strong>$strcasecmp</strong></li>
-<li><strong>$and</strong></li>
-<li><strong>$or</strong></li>
-<li><strong>$not</strong></li>
-</ul>
-<p>都没啥说的，简单易懂，不懂是傻Ⅹ。注意参数都是用数组形式包起来的就好。</p>
-<ul>
-<li><strong>$cond</strong>[booleanExpr, trueExpr, falseExpr] 如果booleanExpr结果是真，就返回trueExpr，否则返回falseExpr</li>
-</ul>
-<h3 id="group"><a href="#group" class="headerlink" title="$group"></a>$group</h3><p>分组。所谓分组，我尽量用人话描述一遍：</p>
-<p>假设你要对属性x进行分组，在你的集合中x总共存在a、b、c三种情况。那么分组后返回给你的就是三个文档。文档的内容是什么呢？如果没有定义，那就是没有。但是如果比如定义了一个sum操作符，就可以累计所有同个x中的y字段的总和。</p>
-<h4 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h4><ul>
-<li><strong>$sum</strong></li>
-<li><strong>$avg</strong></li>
-</ul>
-<p>group操作的参数是一个dict，其中必定有一个字段叫做<code>_id</code>，字段值就是你的分组依据，若是上文那种情况，那就是x。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$group'</span>: &#123;</span><br><span class="line">            <span class="string">'_id'</span>: <span class="string">'$x'</span>,</span><br><span class="line">            <span class="string">'count'</span>: &#123;<span class="string">'$sum'</span>: <span class="string">'$y'</span>&#125;, <span class="comment">// 所有y字段的总和</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h4 id="极限操作符"><a href="#极限操作符" class="headerlink" title="极限操作符"></a>极限操作符</h4><p><del>在爆发的边缘试探。</del></p>
-<ul>
-<li><strong>$max</strong></li>
-<li><strong>$min</strong></li>
-<li><strong>$first</strong></li>
-<li><strong>$last</strong></li>
-</ul>
-<p>假设求每个班里面分数最高的人。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">db.test.aggregate(</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'$group'</span>: &#123;</span><br><span class="line">            <span class="string">'_id'</span>: <span class="string">'$classNo'</span>,</span><br><span class="line">            <span class="string">'bestStudent'</span>: &#123;</span><br><span class="line">                <span class="string">'$max'</span>: <span class="string">'$score'</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>如果上面的group已经根据score排过序了，那么用first或者last的性能会更高一些（这不是废话）。</p>
-<h3 id="unwind"><a href="#unwind" class="headerlink" title="$unwind"></a>$unwind</h3><p>那么这里的最大的问题就是，这个英语是啥意思？！说到wind就想起风，风是它的名词意思，它的动词意思是缠绕，可以想象一下一股龙卷风在缠绕。unwind就是接触缠绕的意思，在MongoDB中可以把数组中的每一个值拆分成为单独的文档。</p>
-<p>暂时想不出有什么卵用，反正记得有这么一个拆分数组为多个独立文档的功能就好了。</p>
-<h3 id="sort"><a href="#sort" class="headerlink" title="$sort"></a>$sort</h3><p>这都不用说啦。</p>
-<h3 id="limit"><a href="#limit" class="headerlink" title="$limit"></a>$limit</h3><p>见前文。</p>
-<h3 id="skip"><a href="#skip" class="headerlink" title="$skip"></a>$skip</h3><p>见前文。</p>
-<h3 id="管道使用优化"><a href="#管道使用优化" class="headerlink" title="管道使用优化"></a>管道使用优化</h3><p>如果需要排序，那就尽量在第一阶段排序，利用好索引，索引只能在原有的集合中使用。如果单一的聚合操作内存占用超过20%，直接报错。</p>
-<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>非常灵活的聚合工具，缺点是慢，不应该在项目运行过程中跑。</p>
-<p>没啥了解的欲望，<code>$skip: 1</code>。</p>
-<h2 id="聚合命令"><a href="#聚合命令" class="headerlink" title="聚合命令"></a>聚合命令</h2><h3 id="count"><a href="#count" class="headerlink" title="count"></a>count</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.count()</span><br></pre></td></tr></table></figure>
-<h3 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h3><p>返回一个数组，内容是某个字段的所有不同结果（排除了相同的结果）。</p>
-<p>假设集合名称test，要找出所有不同的age。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123;<span class="string">'distinct'</span>: <span class="string">'test'</span>, <span class="string">'key'</span>: <span class="string">'age'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="group-1"><a href="#group-1" class="headerlink" title="group"></a>group</h3><p>不想看。</p>
+          五 聚合谈数据库呢，就一定要谈聚合啦。
+聚合框架用于对集合中的文档进行变换和组合。处理文档的东西叫做管道pipeline，管道由多个构件构成。构建包括了：filtering, projection, grouping, sorting, limiting, skipping。
+假设有如此需求：
 
-          
+投影出所有作者
+按照作者名称排序，统计每个作者名字出现次数
+根据作者名字出现次数降序排列
+返回结果限制为前五个
+
+步骤为：
+
+{&#39;$project&#39;: {&#39;author&#39;: 1}}只投影出author字段。
+{&#39;$group: {&#39;_id&#39;: &
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/24/【MongoDB权威指南】五/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1669,33 +1517,21 @@
       
         
           
-            <h1 id="四-特殊索引和特殊集合"><a href="#四-特殊索引和特殊集合" class="headerlink" title="四 特殊索引和特殊集合"></a>四 特殊索引和特殊集合</h1><h2 id="固定集合"><a href="#固定集合" class="headerlink" title="固定集合"></a>固定集合</h2><p>MongoDB中的非特殊集合是动态创建的，可以自动增长容量。而另一种集合——固定集合则需要事先创建，大小是固定的。往一个已经满了的固定集合里面插入数据，会覆盖最老的数据。</p>
-<p>固定集合中的数据是被顺序写入的，非随机访问比较快。</p>
-<p>一般用来存放日志。</p>
-<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createColletion(<span class="string">'collction_name'</span>, &#123;<span class="string">'capped'</span>: <span class="literal">true</span>, <span class="string">'size'</span>: <span class="number">100000</span>, <span class="string">'max'</span>: <span class="number">100</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>上面的例子中，size指集合所占空间大小，max指文档最大个数。</p>
-<p>一旦创建之后就不能改变大小了，除非删掉重建。</p>
-<p>出了凭空创建出固定集合以外，还可以通过转换非固定集合来创建固定集合。</p>
-<p>下面这段代码把名为test的数据库转为固定集合：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.runCommand(&#123;<span class="string">'convertToCapped'</span>: <span class="string">'test'</span>, <span class="string">'size'</span>: <span class="number">10000</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="自然排序"><a href="#自然排序" class="headerlink" title="自然排序"></a>自然排序</h3><p>磁盘中的存放顺序为自然顺序。若为普通集合，自然排序没有任何意义，因为它的新数据插入未必在最后面，有可能会插在中间每个空位。而对于固定集合来说，新数据永远插在最后（循环列表），所以按照自然排序可以拿到一个按照插入时间排序的数据。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.find().sort(&#123;<span class="string">'$natural'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="循环游标"><a href="#循环游标" class="headerlink" title="循环游标"></a>循环游标</h3><p>只能用于固定集合。</p>
-<h3 id="没有-id的集合"><a href="#没有-id的集合" class="headerlink" title="没有_id的集合"></a>没有_id的集合</h3><p>固定集合是没有_id索引的，如果普通集合也不想要_id，创建集合的时候可以指定<code>{&#39;autoIndexId&#39;: false}</code>。当然创建固定集合的时候也可以用这个选项。</p>
-<p>_id必须是唯一索引。它一旦被建立就无法删除，所以要想要再建立。如果建立的_id有问题，就只能删除集合再重建了。</p>
-<h2 id="TTL索引"><a href="#TTL索引" class="headerlink" title="TTL索引"></a>TTL索引</h2><p><strong>time-to-live index</strong>，具有生命周期的索引。允许为每个文档设置一个超时时间，使得当一个文档达到预设值的老化条件之后就会被删除。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test.ensureIndex(&#123;<span class="string">'lastUpdated'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'expireAfterSecs'</span>: <span class="number">60</span>*<span class="number">60</span>*<span class="number">24</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>如果文档存在lastUpdated字段并且是日期类型，那么当服务器时间比文档时间晚expireAfterSecs秒时，文档会被删除。</p>
-<p><strong>MongoDB每分钟才检测一次TTL，</strong>注意检测单位不是秒。</p>
-<p>TTL索引可以被当作普通索引来用，能提高sort性能。</p>
-<h2 id="全文本索引"><a href="#全文本索引" class="headerlink" title="全文本索引"></a>全文本索引</h2><p>创建文本索引的<strong>开销非常大</strong>，所以最好在数据库空闲的时候创建，而且内存可能会不够用。</p>
-<p>使用上可能会有严重的性能问题，因为所有字符串都需要被分解、分词，并保存到一个地方。</p>
-<h2 id="地理空间索引"><a href="#地理空间索引" class="headerlink" title="地理空间索引"></a>地理空间索引</h2><p>对位置坐标进行索引。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.world.ensureIndex(&#123;<span class="string">'loc'</span>: <span class="string">'2dsphere'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>作用是啥呢，比如说找到所有在某个区域内的点，或者找到所有距离符合条件的点。这里不细说。</p>
-<h2 id="存储大型二进制文件"><a href="#存储大型二进制文件" class="headerlink" title="存储大型二进制文件"></a>存储大型二进制文件</h2><p>这个技术叫GridFS。目前来说没啥了解的欲望，有需要的时候再看。</p>
-
-          
+          四 特殊索引和特殊集合固定集合MongoDB中的非特殊集合是动态创建的，可以自动增长容量。而另一种集合——固定集合则需要事先创建，大小是固定的。往一个已经满了的固定集合里面插入数据，会覆盖最老的数据。
+固定集合中的数据是被顺序写入的，非随机访问比较快。
+一般用来存放日志。
+创建1db.createColletion('collction_name', &#123;'capped': true, 'size': 100000, 'max': 100&#125;)
+上面的例子中，size指集合所占空间大小，max指文档最大个数。
+一旦创建之后就不能改变大小了，除非删掉重建。
+出了凭空创建出固定集合
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/23/【MongoDB权威指南】四/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1846,80 +1682,22 @@
       
         
           
-            <h1 id="三-索引"><a href="#三-索引" class="headerlink" title="三 索引"></a>三 索引</h1><p>前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>创建索引：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="为啥要有索引捏"><a href="#为啥要有索引捏" class="headerlink" title="为啥要有索引捏"></a>为啥要有索引捏</h3><blockquote>
-<p>自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个：indexValue, _id。当进行查询的时候数据库可以用各种简单的方法快速定位到索引元素，找到它的_id。</p>
-</blockquote>
-<p>同一个集合，同样的索引只能创建一次，重复尝试创建也没用。</p>
-<p>对某个键创建了索引，譬如对x键创建了索引，只会对查询条件里只有x的查询有用，若查询条件中包括了其他条件，比如{‘x’: xx, ‘y’: yy}，那么这索引在此次查询便是无用的。</p>
-<p>当做一个没有索引的查询的时候，数据需要做一次扫描全表的操作，在集合非常大的时候这个操作会非常耗时。建立索引带来的速度提升不言而喻，然而索引也不是越多越好。创建索引的缺点就是每次增删改的时候都会产生额外的开销，那是因为可能要更改索引列表中的排序。</p>
-<p>除了有益于快速查询之外，索引对大剂量排序也有好处。设想如果没有索引，那么对数据排序就需要先把数据都提取到内存中，再排序输出到客户端。当数据很多的时候，就有爆内存的风险了。但是如果有索引，数据库就可以按顺序提取数据。</p>
-<blockquote>
-<p>每个集合默认最多能有64个索引。</p>
-</blockquote>
-<p>另外，不一定使用索引查询就一定快过表扫描。当要返回的结果数量超过集合中文档数量的一半的时候，表扫描是要比索引查询快的。所以查询某个键是否存在，或者某个布尔值真假的时候，没有必要使用索引。</p>
-<h3 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h3><p>创建索引有可能需要数分钟，如果调用ensureIndex之后没有立即返回，可以在另一个shell中执行db.currentOp()来看当前进度。</p>
-<h3 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h3><p>可以指定多个索引，比如<code>{&#39;x&#39;: 1, &#39;y&#39;: -1}</code>。有三种情况可以使用这个索引。很好理解，毕竟索引是按照x和y一起来排序的。</p>
-<ul>
-<li><code>db.user.find({&#39;x&#39;: 2}).sort({&#39;y&#39;: -1})</code><br>找出x为2这个操作非常高效，而对于所有同为一个x的文档来说，y也是排好序的，所以不需要另外排序，不需要多余操作，也非常高效。</li>
-<li><code>db.user.find({&#39;x&#39;: {&#39;lte&#39;: 10, &#39;gte&#39;: 5}})</code></li>
-<li><code>db.user.find({&#39;x&#39;: {&#39;lte&#39;: 10, &#39;gte&#39;: 5}}).sort({&#39;y&#39;: 1})</code><br>这个操作分为两步。第一步先筛选出按照x大小排序的符合条件的文档。但是这些文档是按照x来排序的，并没有根据y的大小来排序，所以还需要第二步，先把文档提取到内存，再进行一次排序。<br>cautious： 如果索引是<code>{&#39;y&#39;: 1, &#39;x&#39;: -1}</code>的话，可以想象得出这个操作就只需要做find操作，而不需要后面的sort操作了。</li>
-</ul>
-<p>总的来说就是加入索引是一个复合索引，那么只对第一个键进行单纯的查询操作是很快的，但是如果查询完还要再根据<strong>这个键之外</strong>的键进行排序，那么就还需要花费时间来做排序操作。</p>
-<p>想要提高操作的效率，就要尽量避免sort（我的意思就是尽量把经常要sort的键拿来当索引中的第一个键），而多做find。毕竟find的时间复杂度是$n$，而排序的时间复杂度就不好说了。</p>
-<p>注意，相互反转的索引是等价的。相互反转的定义是每个方向都乘以-1.</p>
-<h4 id="隐式索引"><a href="#隐式索引" class="headerlink" title="隐式索引"></a>隐式索引</h4><p>很容易得出结论创建索引<code>{&#39;a&#39;: 1, &#39;b&#39;: 1, ... , &#39;z&#39;}</code>也就相当于创建了<code>{&#39;a&#39;: 1}</code>、<code>{&#39;a&#39;: 1, &#39;b&#39;: 1}</code>等一系列索引。</p>
-<h3 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h3><p>索引的数据结构大概是树，最小的元素是最左边的叶子，最大的元素是最右边的叶子。</p>
-<h3 id="如何优化索引"><a href="#如何优化索引" class="headerlink" title="如何优化索引"></a>如何优化索引</h3><p>如果索引里面只包含一个键，那么升序降序是无所谓的。但是如果包含多个键，就要考虑每个键的升序降序问题。数据库会有限对先点定义的键进行排序。如</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>数据库会先根据field1进行升序排序，然后对每个field1相同的子集根据field2进行降序排序。</p>
-<p>针对那种包含几个键的索引，尽可能地把经常新增地作为第一个排序依据。</p>
-<p>例如一个记录朋友圈的数据库有<code>user</code>、<code>date</code>二键，前者为用户id，后者为朋友圈发布日期。由于发布朋友圈这个操作非常频繁，所以理应把索引设置成<code>{&#39;date&#39;: -1, &#39;user&#39;: 1}</code>而非<code>{&#39;user&#39;: 1, &#39;date&#39;: -1}</code>。当设置成<code>{&#39;date&#39;: -1, &#39;user&#39;: 1}</code>之后，每次插入新的记录（<strong>时间永远都是往前走</strong>），就无需在索引中间插入数据(which is a waste)，而是在索引的两端插入了。</p>
-<p>假设操作先要find出x，再用y做范围筛选，那么索引应该先设定x，再设定y。</p>
-<h3 id="操作是怎么使用索引的"><a href="#操作是怎么使用索引的" class="headerlink" title="$操作是怎么使用索引的"></a>$操作是怎么使用索引的</h3><p>有几个操作是根本不能使用索引的，比如<code>$where</code>和<code>$exsit</code>。</p>
-<p><code>$ne</code>操作对索引的使用也不是那么高效率。毕竟想要找出<strong>不等于</strong>的，总得遍历全集才能确认不是？</p>
-<p>一般而言，MongoDB一次查询只会使用一个索引。假设建立了两个索引<code>{&#39;x&#39;: 1}</code>和<code>{&#39;y&#39;: 1}</code>，那么执行查询条件<code>{&#39;x&#39;: 123, &#39;y&#39;: 456}</code>的时候，很有可能是先用x索引找出一个子集，再在这个子集上找符合y条件的结果。但是如果用的是or查询，由于or查询实际上是把多个查询条件查出来的结果做一次并集，所以or会执行和查询条件一样多次的查询。比如如果条件为<code>{&#39;$or&#39;: [&#39;x&#39;: 123, &#39;y&#39;: 456]}</code>，那么实际上是以x为索引搜出结果，再以y为索引搜出结果，再合并。</p>
-<h3 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h3><p>索引可以是内嵌文档中的键，比如<code>{&#39;comment.date&#39;: 1}</code>。</p>
-<p>在建立索引的时候可以给它起个可爱又帅气的名称，如果执意不肯给它起名字，数据库就会把键连起来作为它的名称（比如<code>field1_field2_fieldk</code>），<strong>如果这个名字太长超过了限制，就会创建索引失败</strong>。执行创建索引的操作之后最好用getLastError来看是否成功创建了索引。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;, &#123;<span class="string">'name'</span>: <span class="string">'屎蛋'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h3><p>使用哪个索引？</p>
-<p>当有一个索引能精确匹配搜索的时候，查询优化器会有限用它。如果有几个同时匹配，MongoDB会并行这些查询，哪个先返回100个结果就会被保留并缓存下来再接下来的查询中使用，其他的查询计划会被中止。</p>
-<p>被缓存的查询计划在接下来都会被使用，直到集合数据发生了比较大的变化或者查询超过1000次之后，或者建立了新的索引之后，查询优化其会重新评估。</p>
-<p>explain中的allPlans字段显示了本次查询尝试过的所有查询计划。</p>
-<h3 id="不适用索引的场合"><a href="#不适用索引的场合" class="headerlink" title="不适用索引的场合"></a>不适用索引的场合</h3><p>使用索引需要进行两次查找：</p>
-<ol>
-<li>查找索引条目</li>
-<li>根据索引指针查找相应文档</li>
-</ol>
-<p>当结果集合在原集合中占的比例越大，就越不适合用索引。最极端的情况是要求返回整份文档，此时使用索引所需要的操作会比表扫描多一倍。</p>
-<p>索引通常适合在集合比较大、文档比较大或者选择性查询的时候使用。</p>
-<h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><p>建立这个索引的目的是防止插入相同的数据。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.users.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尝试这么插入文档会报错</span></span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>插入重复键的时候会抛异常，这会影响效率。所以不能用这个功能来过滤，它只能应对偶现的不太能解决的问题。</p>
-<p>_id是一个默认的、不可删除的唯一索引。</p>
-<blockquote>
-<p>注意<br>MongoDB有一个特性：超过1024字节的字段不会被加入到索引库中。这意味着即使某个键被设置为唯一索引，只要值超过了8KB，那么即使插入多次也没问题。</p>
-</blockquote>
-<h4 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h4><p>如果集合里面对某个键已经有重复的文档，那么对这个键创建唯一索引会失败。如果还是想创建的话，可以暴力一点把他们去重了。注意，这个操作<strong>很暴力</strong>，别乱用。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.people.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'dropDups'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h3><p>说实话光看这个名词我真的不知道他想表达啥，这tm谁起的名字！</p>
-<p>起因是这样的：当把某个键设置为唯一索引之后，如果插入文档的时候没有这个键，那么对应的值会被设置成null。当下次再次插入这种文档的时候，就会出现<code>null == null</code>的判断，导致无法插入。</p>
-<p>如果想要MongoDB不把空当作null来看带，希望唯一索引支队包含对应键的文档生效，使得当字段存在的时候才需要唯一，那么就使用稀疏索引吧。</p>
-<p>使用sparse选项就可以创建稀疏索引。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.ensureIndex(&#123;<span class="string">'email'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'sparse'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>A sprase index doesn’t have to be unique.</p>
-<p>稀疏索引对查询的结果可能会有影响。影响就是不把不存在当作是null。如果不使用稀疏索引，当使用$ne不等于某个非null值的时候，会包括没这个字段的文档。</p>
-<h3 id="强制不使用索引"><a href="#强制不使用索引" class="headerlink" title="强制不使用索引"></a>强制不使用索引</h3><p>使用<code>hint()</code>来表示不使用任何索引。</p>
-<h2 id="索引管理"><a href="#索引管理" class="headerlink" title="索引管理"></a>索引管理</h2><p>所有的索引存储在MongoDB保留集合system.indexes中，可以执行<code>db.collectionName.getIndexes()</code>来查看集合上的所有索引信息。</p>
-<h3 id="舍弃索引"><a href="#舍弃索引" class="headerlink" title="舍弃索引"></a>舍弃索引</h3><p>dropIndex接受两种参数：</p>
-<ul>
-<li>db.test.drop(‘index_name’) 名字字符串</li>
-<li>db.test.drop({‘key’: value}) 索引本身</li>
-</ul>
+          三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。
+简介创建索引：
+1db.data.ensureIndex(&#123;'field': 1&#125;)
+为啥要有索引捏
+自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个：indexValue, _id。当进行查询的时候数据库可以用各种简单的方法快速定位到索引元素，找到它的_id。
 
-          
+同一个集合，同样的索引只能创建一次，重复尝试创建也没用。
+对某个键创建了索引，譬如对
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/16/【MongoDB权威指南】三/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2070,98 +1848,29 @@
       
         
           
-            <h1 id="二-查询"><a href="#二-查询" class="headerlink" title="二 查询"></a>二 查询</h1><p>这里是本系列第二篇，对应书中第三章，主要讲各种find的技巧。</p>
-<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><h3 id="返回指定的键"><a href="#返回指定的键" class="headerlink" title="返回指定的键"></a>返回指定的键</h3><p>为了节省流量和客户端解读开销等等，只返回指定的键。把需要的键放在第二位参数就好了。</p>
-<p>把要的键的值设置为1则返回，设置为0则不返回。</p>
-<h3 id="查询条件"><a href="#查询条件" class="headerlink" title="查询条件"></a>查询条件</h3><p>大小比较包括</p>
-<ul>
-<li>$lt 小于</li>
-<li>$lte 小于等于</li>
-<li>$gt</li>
-<li>$gte</li>
-<li>$ne</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'age'</span>: &#123;<span class="string">'$lt'</span>: <span class="number">24</span>, <span class="string">'$gt'</span>: <span class="number">18</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="or查询"><a href="#or查询" class="headerlink" title="or查询"></a>or查询</h3><p>$in</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'number'</span>: &#123;<span class="string">'$in'</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<p>$nin代表不在这里头。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'number'</span>: &#123;<span class="string">'$nin'</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<p>$or</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'$or'</span>: [&#123;<span class="string">'name'</span>: <span class="string">'aa'</span>&#125;, &#123;<span class="string">'age'</span>: <span class="number">18</span>&#125;])</span><br></pre></td></tr></table></figure>
-<p>$not</p>
-<h3 id="null"><a href="#null" class="headerlink" title="null"></a>null</h3><p>会匹配值是null的，以及没有此键的。</p>
-<p>若只要匹配值是null的，需要这么写</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'z'</span>: &#123;<span class="string">'$in'</span>: [<span class="literal">null</span>], <span class="string">'$exsits'</span>: <span class="literal">true</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<p>即是存在该字段并且为null。</p>
-<h3 id="使用正则表达式搜索"><a href="#使用正则表达式搜索" class="headerlink" title="使用正则表达式搜索"></a>使用正则表达式搜索</h3><p>使用/符号包裹正则表达式，不用加引号了。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'name'</span>: <span class="regexp">/abo/</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="查询数组"><a href="#查询数组" class="headerlink" title="查询数组"></a>查询数组</h3><p>如果键是数组名，则只要值是数组中任意一个元素，都可以查询出数组来。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.data.insert(&#123;<span class="string">'array'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;)</span><br><span class="line">db.find(&#123;<span class="string">'array'</span>: <span class="number">2</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="all"><a href="#all" class="headerlink" title="$all"></a>$all</h4><p>需要拥有所有元素，顺序无关紧要。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'array'</span>: &#123;<span class="string">'$all'</span>: [<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="size"><a href="#size" class="headerlink" title="$size"></a>$size</h4><p>顾名思义查询数组长度。但是不节省性能。<br>建议自己维护一个size字段，每次插入的时候顺便用<code>{&#39;$inc&#39;: {&#39;size&#39;: 1}}</code>来更新它。</p>
-<h4 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h4><p>获取返回数列的一部分，用法有二：</p>
-<ul>
-<li><code>{&#39;$slice&#39;: [min, max]}</code> 返回查询后数组中的min到max间的结果</li>
-<li><code>{&#39;$slice&#39;: index}</code> 返回索引为index的元素，当index为-1时返回最后一个</li>
-</ul>
-<h3 id="嵌入查询"><a href="#嵌入查询" class="headerlink" title="嵌入查询"></a>嵌入查询</h3><p>假设数据如下</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">'name'</span>:&#123;</span><br><span class="line">        <span class="string">'first'</span>: <span class="string">'ABo'</span>,</span><br><span class="line">        <span class="string">'last'</span>: <span class="string">'Lin'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'age'</span>: <span class="number">18</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="第一种查询条件"><a href="#第一种查询条件" class="headerlink" title="第一种查询条件"></a>第一种查询条件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'name'</span>: &#123;<span class="string">'firtst'</span>: <span class="string">'ABO'</span>, <span class="string">'last'</span>: <span class="string">'Lin'</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>这种方法的缺点是必须精确匹配，如果name中又加入一个middle，那么就搜索不出来了。为了可以模糊搜索，我们用嵌入查询。</p>
-<h4 id="第二种查询条件"><a href="#第二种查询条件" class="headerlink" title="第二种查询条件"></a>第二种查询条件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'name'</span>: &#123;<span class="string">'elemMatch'</span>: &#123;<span class="string">'firtst'</span>: <span class="string">'ABO'</span>, <span class="string">'last'</span>: <span class="string">'Lin'</span>&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>这种查法是部分匹配即可。</p>
-<h3 id="where查询"><a href="#where查询" class="headerlink" title="where查询"></a>where查询</h3><p>直接使用一个js函数来查询。函数的第一个参数this为where过滤前的结果集合。</p>
-<p>假设需要返回集合里有重复值的集合，可以这么写</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'$where'</span>, function()&#123;</span><br><span class="line">    <span class="keyword">for</span>(var current <span class="keyword">in</span> this)&#123;</span><br><span class="line">        <span class="keyword">for</span>(var other <span class="keyword">in</span> this)&#123;</span><br><span class="line">            <span class="keyword">if</span> current != other <span class="keyword">and</span> this[current] == this[other]&#123;</span><br><span class="line">                <span class="keyword">return</span> true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> false</span><br><span class="line">&#125;&#125;)</span><br></pre></td></tr></table></figure>
-<p>不仅可以传入一个function对象，传入字符串也是可以的。比如</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.data.find(&#123;<span class="string">'$where'</span>: <span class="string">'this.x + this.y == 10'</span>&#125;) <span class="comment">// 直接写判断语句</span></span><br><span class="line">db.data.find(&#123;<span class="string">'where'</span>: <span class="string">'function() &#123;return this.x + this.y == 10&#125;'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h3><p>如果用一个变量来接住find返回的结果，那这个变量就变成了游标cursor。cursor的用法无非就那样</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(cursor.hasNext())&#123;</span><br><span class="line">    obj = cursor.next()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意，当产生cursor的时候，并没有马上查询数据库。真正执行查询操作的时候在cursor.hasNext()之时。这样就使得我们可以对cursor执行复杂的链式操作了。譬如：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cursor = db.data.find().sort(&#123;<span class="string">'x'</span>: <span class="number">1</span>&#125;).limit(<span class="number">1</span>).skip(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
-<p>当执行第一次hasNext的时候，立即尝试从服务器获取前100个结果，或者4MB的数据中的较小者。当第一批数据被用完了之后，再次hasNext又会取回新的一批数据，如此往复直至游标耗尽。</p>
-<h3 id="后续操作"><a href="#后续操作" class="headerlink" title="后续操作"></a>后续操作</h3><ul>
-<li><strong>limit</strong> 限制返回的结果个数</li>
-<li><strong>skip</strong> 跳过前几个结果</li>
-<li><strong>sort</strong> 排序，1是正序，-1是倒序</li>
-</ul>
-<h4 id="利用skip做分页"><a href="#利用skip做分页" class="headerlink" title="利用skip做分页"></a>利用skip做分页</h4><p>最简单的方法如下</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> page1 = db.data.find(condition).limit(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">var</span> page2 = db.data.find(condition).skip(<span class="number">100</span>).limit(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">var</span> page3 = db.data.find(condition).skip(<span class="number">200</span>).limit(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
-<p>但是其实大剂量的skip是非常慢的，所以需要避免。</p>
-<p>可以用一个trick来避免分页。</p>
-<ol>
-<li>对整个文档做一次降序排序</li>
-<li>取前n个作为第一页，然后取其中最小者作为the_last</li>
-<li>再次find，这次条件为要比the_last更小</li>
-<li>再对3产生的cursor做一次降序排序，并limit设置n作为第二页</li>
-</ol>
-<blockquote>
-<p><strong>有个疑问</strong><br>对所有文档做排序就不耗性能了么？<br>不过想了想由于cursor是分批次取数据的，所以这个排序相当于经典的「求最大的k个数」题目了。<br>顺便看<a href="https://blog.csdn.net/xiaoding133/article/details/8037086" target="_blank" rel="noopener">这个网页</a>复习了下。可以利用堆排序找出最大k个数。</p>
-</blockquote>
-<h4 id="随机选取文档"><a href="#随机选取文档" class="headerlink" title="随机选取文档"></a>随机选取文档</h4><p>当然最常见的方法就是弄个随机数来skip(nRandom)然后limit(1)。但是计算总文档数目和skip这两个操作就是比较耗时的。</p>
-<p>比较投机取巧的方法是每次插入文档的时候都带一个随机数。当需要随机的时候只要产生一个随机数，并作为条件去筛选文档即可。（卧槽这都可以？）偶尔会遇到往一个方向（比如大于我random出来的随机数）找不到，那就反个方向。</p>
-<h3 id="链式查询转换"><a href="#链式查询转换" class="headerlink" title="链式查询转换"></a>链式查询转换</h3><p>实际上，执行<code>db.data.find(condition).sort(sortDict)</code>的时候，是把条件转化成了<code>db.data.find({&#39;$query&#39;: condition, &#39;$orderby&#39;: sortDict})</code>。除了常用的<code>$query</code>、<code>$orderby</code>以外，还有一些有用的高级选项比如：</p>
-<ul>
-<li>$maxscan 查询最多扫描的文档数量</li>
-<li>$min 查询开始条件</li>
-<li>$max</li>
-<li>$hint 使用哪个索引进行查询</li>
-<li>$explain 不是真正的做查询，只是为了获得耗时、结果数量等信息</li>
-<li>$snapshot 确保查询的是执行查询那一刻的时候的快照</li>
-</ul>
-<h4 id="保证结果一致性"><a href="#保证结果一致性" class="headerlink" title="保证结果一致性"></a>保证结果一致性</h4><p>假设我们需要对每个文档进行修改，并且是新增加内容。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cursor = db.data.find(condition)</span><br><span class="line"><span class="keyword">while</span>(cursor.hasNext())&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="built_in">document</span> = cursor.next()</span><br><span class="line">    modify(<span class="built_in">document</span>)</span><br><span class="line">    db.data.save(<span class="built_in">document</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由于数据库对每个文档预留的大小有限，当文档变大之后，可能它就无法再塞入到原本那个位置了，数据库会把它放到最后边去。这样造成的结果是，cursor遍历到的有可能是已经前面modify过的文档。</p>
-<p>$snapshot就解决了这个问题。它在开始查询那一瞬间就保留了文档快照，这使得后面文档的位置不管怎么挪，都不再会影响查询结果。</p>
-<h3 id="游标的存在时间"><a href="#游标的存在时间" class="headerlink" title="游标的存在时间"></a>游标的存在时间</h3><p>游标在几种情况下会销毁并释放资源</p>
-<ul>
-<li>遍历完成之后</li>
-<li>游标超出客户端作用域，驱动向服务器发送专门的消息（估计这得要求语言有像c++一样超出作用域之后执行析构函数的特性）</li>
-<li>10分钟不使用之后，当然这一机制也可以通过配置来关闭</li>
-</ul>
+          二 查询这里是本系列第二篇，对应书中第三章，主要讲各种find的技巧。
+find返回指定的键为了节省流量和客户端解读开销等等，只返回指定的键。把需要的键放在第二位参数就好了。
+把要的键的值设置为1则返回，设置为0则不返回。
+查询条件大小比较包括
 
-          
+$lt 小于
+$lte 小于等于
+$gt
+$gte
+$ne
+
+1db.data.find(&#123;'age': &#123;'$lt': 24, '$gt': 18&#125;&#125;)
+or查询$in
+1db.data.find(&#123;'number': &#123;'$in': [10, 20, 30]&#125;&#125;)
+$
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/15/【MongoDB权威指南】二/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
