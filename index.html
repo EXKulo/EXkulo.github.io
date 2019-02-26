@@ -356,7 +356,8 @@
       
         
           
-            <h1 id="【计算机图形学基础】6-表面渲染"><a href="#【计算机图形学基础】6-表面渲染" class="headerlink" title="【计算机图形学基础】6 表面渲染"></a>【计算机图形学基础】6 表面渲染</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+            <h1 id="【计算机图形学基础】6-表面渲染"><a href="#【计算机图形学基础】6-表面渲染" class="headerlink" title="【计算机图形学基础】6 表面渲染"></a>【计算机图形学基础】6 表面渲染</h1><p>本篇也可改名<strong>给大家看的图形学趣味基础</strong>23333.</p>
+<p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
 <p>本篇对应书中第十章 <strong>Surface Shading</strong>。</p>
 <p>第九章是离散数学<del>，实在是懒得啃了</del>，傅里叶变换那一套。</p>
 <p>本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。</p>
@@ -366,7 +367,39 @@
 <p>$$c \propto \theta$$</p>
 <p>也就是</p>
 <p>$$c \propto \textbf{n} \cdot \textbf{l}$$</p>
-
+<p>有两个因素可以决定表面的明亮：光照强度和表面的反射率。反射率也是由RGB组成的。假设物体的漫反射颜色比较接近红色，那么反射率中R的那部分就要大一些。于是可以把式子改写成这样：</p>
+<p>$$c \propto c_r \textbf{n} \cdot \textbf{l}$$</p>
+<p>为了保证输出的表面颜色值的RGB均属于[0, 1]的范围，需要让光照强度也属于[0, 1]。式子加上光强之后就变成：</p>
+<p>$$c = c_r c_l \textbf{n} \cdot \textbf{l}$$</p>
+<p>这是一个形式很简单的式子，但是有可能输出不在[0, 1]范围内的RGB值，只因<strong>点乘</strong>的结果可能是负数。为了避免结果出现西安负数，还需要加一个取max值的操作。</p>
+<p>$$c = c_r c_l \max(0, \textbf{n} \cdot \textbf{l})$$</p>
+<h3 id="环境光着色"><a href="#环境光着色" class="headerlink" title="环境光着色"></a>环境光着色</h3><p>在真实世界中，往往除了我们所给的光源，还有环境光存在。我们不用考虑方向，把它整个叠加上去就行了。得到：</p>
+<p>$$c = c_r (c_a + c_l \max(0, \textbf{n} \cdot \textbf{l})), c_a + c_l \leq (1, 1, 1)$$</p>
+<h3 id="基于顶点的漫反射着色"><a href="#基于顶点的漫反射着色" class="headerlink" title="基于顶点的漫反射着色"></a>基于顶点的漫反射着色</h3><p>想象一个三角形，如果只对中间某个点计算颜色并应用到整个三角形，就会让一个由多个三角形组成的平面看起来很粗糙（区分得出各个三角形，边界may be非常明显）。</p>
+<p>为了避免上述情况，我们把三角形的法向量应用到它三个点上，求得三个点的颜色之后再来做插值。</p>
+<p>当然，更好更细腻的着色是把光照直接放到fragment shader里头去，针对每个像素做着色处理，不过这非常非常消耗性能。</p>
+<h2 id="Phong着色"><a href="#Phong着色" class="headerlink" title="Phong着色"></a>Phong着色</h2><p>现在考虑一些有高光反射的表面。我们可以观察到高光的位置会随着我们眼睛的位置移动，并且高光的颜色一半就是光源的颜色，和物体本身的颜色无关。另外，高光一般来说会有某种程度的blur（模糊），这就需要一个模糊半径。所以在式子里我们要多加入一个向量<strong>e</strong>表示眼睛。</p>
+<h3 id="Phong光照模型"><a href="#Phong光照模型" class="headerlink" title="Phong光照模型"></a>Phong光照模型</h3><img src="/2019/02/25/【计算机图形学基础】6%20表面渲染/2.png" title="Phong">
+<p>图中，<strong>r</strong>为<strong>l</strong>关于法向量<strong>n</strong>对称的向量。当人眼<strong>e</strong>越接近<strong>r</strong>，看到的镜面反射光强就越大。</p>
+<p>给出向量<strong>r</strong>，为了能让<strong>e</strong> = <strong>r</strong>的时候最亮，且<strong>e</strong>远离<strong>r</strong>的时候可以逐步变暗。可以简单地产出这么个式子：</p>
+<p>$$c = c_l (\textbf{e} \cdot \textbf{r})$$</p>
+<p>但是这个式子有两个问题。一个是点乘的结果有可能是个负数，这个还好，可以通过绝对值或者取max之类的解决。另一个问题是，这个式子产出的光斑面积要比现实中的大太多，显得不自然。</p>
+<p>为了解决光斑太大的问题，我们给点乘的结果加上一个幂数。结合max得到以下式子：</p>
+<p>$$c = c_l \max(0, \textbf{e} \cdot \textbf{r})^p$$</p>
+<img src="/2019/02/25/【计算机图形学基础】6%20表面渲染/3.png" title="Phong Exponent">
+<p>上式中的p被称为Phong指数，它是一个正实数。</p>
+<img src="/2019/02/25/【计算机图形学基础】6%20表面渲染/4.png" title="如何计算一个r">
+<p>为了完成上式，我们必须要先知道<strong>r</strong>，根据上图，它可以被这么算出：</p>
+<p>$$\textbf{r} = -\textbf{l} + 2(\textbf{l} \cdot \textbf{n})\textbf{n}$$</p>
+<p>其中的$\textbf{l} \cdot \textbf{n} = \cos \theta$。</p>
+<p>有一种近似的算法，可以避免算出r。我们现在要计算<strong>l</strong>与<strong>e</strong>的中间单位向量<strong>h</strong>(half)。</p>
+<p>$$\textbf{h} = \frac{\textbf{e} + \textbf{l}}{|\textbf{e} + \textbf{l}|}$$</p>
+<p>当<strong>h</strong>与<strong>n</strong>重合的时候，光斑达到最大亮度。于是：</p>
+<p>$$c = c_l(\textbf{h} \cdot \textbf{n})^p$$</p>
+<p>这个式子还能少了一个max操作，hin完美。如果想把镜面反射变得再暗一点，还可以添加一个因子$c_p$。</p>
+<p>最后，结合漫反射，得到式子为：</p>
+<p>$$c = c_r(c_a + c_l\max(0, \textbf{n} \cdot  \textbf{l})) + c_l c_p(\textbf{h} \cdot \textbf{n})^p$$</p>
+<h2 id="艺术着色"><a href="#艺术着色" class="headerlink" title="艺术着色"></a>艺术着色</h2>
           
         
       
@@ -700,6 +733,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】4 视觉/" itemprop="url">【计算机图形学基础】四 Viewing</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机图形学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/19/【计算机图形学基础】4 视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第七章四 Viewing。</p>
+<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
+<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
+<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
+<p>一般来说要投影到屏幕上，一系列的变换：</p>
+<ul>
+<li>一个相机变换</li>
+<li>一个投影变换</li>
+<li>一个窗口变换</li>
+</ul>
+<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
+<img src="/2019/02/19/【计算机图形学基础】4%20视觉/1.png" title="一系列变换">
+<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
+<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
+<ul>
+<li>缩放 矩阵$\hat{S}$代表</li>
+<li>位移 矩阵$\hat{T}$代表</li>
+</ul>
+<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
+<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
+<p>相乘得</p>
+<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
+<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -857,181 +1065,6 @@
 <p>$$\alpha x_A + \beta x_B + \gamma x_c = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_c = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
 <p>画出一个三角形的伪代码：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> all x <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> all y <span class="keyword">do</span></span><br><span class="line">        compute (alpha, beta, gamma) <span class="keyword">for</span> (x, y)</span><br><span class="line">        <span class="keyword">if</span>(alpha <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> beta <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> gamma <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">            c = alpha * cA + beta * cB + gamma * cC</span><br><span class="line">            drawpixel(x, y) with color c</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】4 视觉/" itemprop="url">【计算机图形学基础】四 Viewing</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
-                2019-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/02/19/【计算机图形学基础】4 视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第七章四 Viewing。</p>
-<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
-<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
-<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
-<p>一般来说要投影到屏幕上，一系列的变换：</p>
-<ul>
-<li>一个相机变换</li>
-<li>一个投影变换</li>
-<li>一个窗口变换</li>
-</ul>
-<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
-<img src="/2019/02/19/【计算机图形学基础】4%20视觉/1.png" title="一系列变换">
-<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
-<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
-<ul>
-<li>缩放 矩阵$\hat{S}$代表</li>
-<li>位移 矩阵$\hat{T}$代表</li>
-</ul>
-<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
-<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<p>相乘得</p>
-<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
           
         
       
