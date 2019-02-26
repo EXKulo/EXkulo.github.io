@@ -399,7 +399,9 @@
 <p>这个式子还能少了一个max操作，hin完美。如果想把镜面反射变得再暗一点，还可以添加一个因子$c_p$。</p>
 <p>最后，结合漫反射，得到式子为：</p>
 <p>$$c = c_r(c_a + c_l\max(0, \textbf{n} \cdot  \textbf{l})) + c_l c_p(\textbf{h} \cdot \textbf{n})^p$$</p>
-<h2 id="艺术着色"><a href="#艺术着色" class="headerlink" title="艺术着色"></a>艺术着色</h2>
+<h2 id="艺术着色"><a href="#艺术着色" class="headerlink" title="艺术着色"></a>艺术着色</h2><h3 id="轮廓着色"><a href="#轮廓着色" class="headerlink" title="轮廓着色"></a>轮廓着色</h3><p>当两个三角形共用一条边，且一个三角形看得到，一个三角形看不到的时候，就应该把这条轮廓画下来。这一条件可以表达为：</p>
+<p>$$(\textbf{e} \cdot \textbf{n}_0)(\textbf{e} \cdot \textbf{n}_1) \leq 0$$</p>
+
           
         
       

@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6%20表面渲染/2.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6%20表面渲染/3.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6%20表面渲染/4.png">
-<meta property="og:updated_time" content="2019-02-26T03:54:33.733Z">
+<meta property="og:updated_time" content="2019-02-26T07:18:26.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【计算机图形学基础】6 表面渲染">
 <meta name="twitter:description" content="【计算机图形学基础】6 表面渲染本篇也可改名给大家看的图形学趣味基础23333. 该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光">
@@ -400,7 +400,9 @@
 <p>这个式子还能少了一个max操作，hin完美。如果想把镜面反射变得再暗一点，还可以添加一个因子$c_p$。</p>
 <p>最后，结合漫反射，得到式子为：</p>
 <p>$$c = c_r(c_a + c_l\max(0, \textbf{n} \cdot  \textbf{l})) + c_l c_p(\textbf{h} \cdot \textbf{n})^p$$</p>
-<h2 id="艺术着色"><a href="#艺术着色" class="headerlink" title="艺术着色"></a>艺术着色</h2>
+<h2 id="艺术着色"><a href="#艺术着色" class="headerlink" title="艺术着色"></a>艺术着色</h2><h3 id="轮廓着色"><a href="#轮廓着色" class="headerlink" title="轮廓着色"></a>轮廓着色</h3><p>当两个三角形共用一条边，且一个三角形看得到，一个三角形看不到的时候，就应该把这条轮廓画下来。这一条件可以表达为：</p>
+<p>$$(\textbf{e} \cdot \textbf{n}_0)(\textbf{e} \cdot \textbf{n}_1) \leq 0$$</p>
+
       
     </div>
     
@@ -560,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】6-表面渲染"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】6 表面渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Diffuse-Shading"><span class="nav-number">1.1.</span> <span class="nav-text">Diffuse Shading</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambertian着色模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">Lambertian着色模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境光着色"><span class="nav-number">1.1.2.</span> <span class="nav-text">环境光着色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于顶点的漫反射着色"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于顶点的漫反射着色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phong着色"><span class="nav-number">1.2.</span> <span class="nav-text">Phong着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Phong光照模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">Phong光照模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#艺术着色"><span class="nav-number">1.3.</span> <span class="nav-text">艺术着色</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】6-表面渲染"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】6 表面渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Diffuse-Shading"><span class="nav-number">1.1.</span> <span class="nav-text">Diffuse Shading</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambertian着色模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">Lambertian着色模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境光着色"><span class="nav-number">1.1.2.</span> <span class="nav-text">环境光着色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于顶点的漫反射着色"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于顶点的漫反射着色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phong着色"><span class="nav-number">1.2.</span> <span class="nav-text">Phong着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Phong光照模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">Phong光照模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#艺术着色"><span class="nav-number">1.3.</span> <span class="nav-text">艺术着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#轮廓着色"><span class="nav-number">1.3.1.</span> <span class="nav-text">轮廓着色</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
