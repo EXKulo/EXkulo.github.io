@@ -86,19 +86,17 @@
 
 
 
-<meta name="description" content="【计算机图形学基础】7 纹理映射该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十一章 Texture Mapping。 对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。 这里">
+<meta name="description" content="【计算机图形学基础】三 线性代数与矩阵变换该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第五章Linear Algebra和第六章Transformation Matrices。 虽然之前零零散散看过三四次线性代数，不过老是记不住也没想着用心整理一版。本来看到这一章和下一章讲matrix变换，是准备跳过的。后来想了想也好，趁此机会好好地">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【计算机图形学基础】7 纹理映射">
-<meta property="og:url" content="http://yoursite.com/2019/02/26/【计算机图形学基础】7 纹理映射/index.html">
+<meta property="og:title" content="【计算机图形学基础】三 线性代数与矩阵变换">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】3线性代数/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="【计算机图形学基础】7 纹理映射该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十一章 Texture Mapping。 对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。 这里">
+<meta property="og:description" content="【计算机图形学基础】三 线性代数与矩阵变换该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第五章Linear Algebra和第六章Transformation Matrices。 虽然之前零零散散看过三四次线性代数，不过老是记不住也没想着用心整理一版。本来看到这一章和下一章讲matrix变换，是准备跳过的。后来想了想也好，趁此机会好好地">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/02/26/【计算机图形学基础】7%20纹理映射/1.png">
-<meta property="og:updated_time" content="2019-02-27T10:50:14.649Z">
+<meta property="og:updated_time" content="2019-02-19T03:31:30.692Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【计算机图形学基础】7 纹理映射">
-<meta name="twitter:description" content="【计算机图形学基础】7 纹理映射该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十一章 Texture Mapping。 对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。 这里">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/26/【计算机图形学基础】7%20纹理映射/1.png">
+<meta name="twitter:title" content="【计算机图形学基础】三 线性代数与矩阵变换">
+<meta name="twitter:description" content="【计算机图形学基础】三 线性代数与矩阵变换该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第五章Linear Algebra和第六章Transformation Matrices。 虽然之前零零散散看过三四次线性代数，不过老是记不住也没想着用心整理一版。本来看到这一章和下一章讲matrix变换，是准备跳过的。后来想了想也好，趁此机会好好地">
 
 
 
@@ -128,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/26/【计算机图形学基础】7 纹理映射/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】3线性代数/">
 
 
 
 
 
-  <title>【计算机图形学基础】7 纹理映射 | 左未的笔记本</title>
+  <title>【计算机图形学基础】三 线性代数与矩阵变换 | 左未的笔记本</title>
   
 
 
@@ -261,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/【计算机图形学基础】7 纹理映射/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】3线性代数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -278,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】7 纹理映射</h1>
+          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】三 线性代数与矩阵变换</h1>
         
 
         <div class="post-meta">
@@ -290,8 +288,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T17:53:28+08:00">
-                2019-02-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T10:53:28+08:00">
+                2019-02-19
               </time>
             
 
@@ -330,7 +328,7 @@
 
           
           
-             <span id="/2019/02/26/【计算机图形学基础】7 纹理映射/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】7 纹理映射">
+             <span id="/2019/02/19/【计算机图形学基础】3线性代数/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】三 线性代数与矩阵变换">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -361,62 +359,10 @@
       
 
       
-        <h1 id="【计算机图形学基础】7-纹理映射"><a href="#【计算机图形学基础】7-纹理映射" class="headerlink" title="【计算机图形学基础】7 纹理映射"></a>【计算机图形学基础】7 纹理映射</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第十一章 <strong>Texture Mapping</strong>。</p>
-<p>对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。</p>
-<p>这里会先讲3D纹理，也叫solid textures或volumn textures。再讲2d纹理，也叫image textures。不过如果我们纹理一词没有加上个2d或者3d的前缀，那一般指的就是2d的纹理。</p>
-<blockquote>
-<p><a href="https://gamedev.stackexchange.com/questions/9668/what-are-3d-textures" target="_blank" rel="noopener">2d纹理和3d纹理的区别</a></p>
-<p>3D texture works like regular texture. But it is truly 3D. 2D textures has UV coords, 3D has UVW (you had to use them propably). Texture coords are unit cube (0 - 1, 0 - 1, 0 - 1).</p>
-<p>Possible usage:</p>
-<p>volumetric effects in games (fire, smoke, light rays, realistic fog)<br>caching light for realtime global illumination (CryEngine for example)<br>scientific (MRI, CT scans are saved into volumes)<br>Performance:<br>Same as regular texture - super fast (fastest memory access in gpu). Cached for threads and optimized for the situation when near threads (pixel shaders) are looking for near values.</p>
-<p>Can be read as point or used linear sampling (native tri-linear interpolation. Eq bi-linear interpolation in 2D texture).</p>
-<p>They are stored in memory like a array of 2D textures.</p>
-<p>另可见<a href="https://docs.microsoft.com/zh-cn/windows/desktop/direct3d11/overviews-direct3d-11-resources-textures-intro" target="_blank" rel="noopener">Introduction To Textures in Direct3D 11</a>。</p>
-<p>说了这么多，其实下面说的3d texture mapping<strong>并不是在讲3d纹理</strong>，是在讲怎么给3d物体做纹理映射（摔(′д｀ )…彡…彡 我特码…）</p>
-</blockquote>
-<h2 id="3D上的纹理映射"><a href="#3D上的纹理映射" class="headerlink" title="3D上的纹理映射"></a>3D上的纹理映射</h2><p>3D纹理的一般作用：</p>
-<ul>
-<li>CT扫描出来的立体图像</li>
-<li>游戏中的火焰或者烟雾</li>
-<li>游戏中的草地</li>
-</ul>
-<p>上集节目中我们提到我们用$c_r$来代表表面的颜色。而拥有复杂图案的表面，其上的颜色肯定不止一种。为了表示表面的颜色，我们使用关于p点的函数$c_r(\textbf{p})$。</p>
-<h3 id="3d条纹纹理"><a href="#3d条纹纹理" class="headerlink" title="3d条纹纹理"></a>3d条纹纹理</h3><p>有很多种方法可以弄出一个条纹纹理。假设我们有两种颜色$c_0$和$c_1$要来组成条纹纹理。我们可以使用sin的方法来生成纹理：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">sin</span>(p.positionX) <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> c0</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c1</span><br></pre></td></tr></table></figure>
-<p>为了调节条纹的宽度，我们可以控制一下sin的频率，加入因子$\omega$：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p, omega)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">sin</span>(<span class="built_in">pi</span> * p.positionX / omega) &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> c0</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c1</span><br></pre></td></tr></table></figure>
-<p>如果我们想对条纹做模糊化，就要做插值，插值的算法如下：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p, omega)</span></span></span><br><span class="line">    t = (<span class="number">1</span> + <span class="built_in">sin</span>(<span class="built_in">pi</span> * p.positionX / omega)) / <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="number">1</span> - t) * c0 + t * c1</span><br></pre></td></tr></table></figure>
-<p>我不知道这节有什么用。。真有人会去生成条纹嘛，做斑马？</p>
-<img src="/2019/02/26/【计算机图形学基础】7%20纹理映射/1.png" title="分别对应上面讲的三种算法">
-<h3 id="纹理数组"><a href="#纹理数组" class="headerlink" title="纹理数组"></a>纹理数组</h3><p>假设纹理的大小是$n_x \times n_y$，另有屏幕上对应像素点坐标ij的uv坐标。那么对于某个uv坐标，它的颜色是：<br>$$c(u, v) = c_{ij}$$</p>
-<p>, where</p>
-<p>$$i = \text{floor}(un_x)$$<br>$$j = \text{floor}(vn_y)$$</p>
-<p>为了有一个更smooth的效果，可以使用双线性插值，计算公式如下：</p>
-<p>$$c(u,v) = (1 - u’)(1 - v’)c_{ij} \\</p>
-<ul>
-<li>u’(1 - v’)c_{(i + 1)j} \\</li>
-<li>(1 - u’)v’c_{i(j + 1)} \\</li>
-<li>u’v’c_{(i + 1)(j + 1)}$$</li>
-</ul>
-<p>where</p>
-<p>$$u’ = n_xu - \text{floor}(n_xu)$$<br>$$v’ = n_xv - \text{floor}(n_yv)$$</p>
-<p>好了，细节就不用懂了，skip，skip。</p>
-<p>另外还有一种叫hermite插值的，也不讲了，感觉以后也没啥机会写这个…</p>
-<h3 id="生成噪点"><a href="#生成噪点" class="headerlink" title="生成噪点"></a>生成噪点</h3><p>这节讲怎么生成能看的随即图，也不看。</p>
-<h2 id="2D纹理映射"><a href="#2D纹理映射" class="headerlink" title="2D纹理映射"></a>2D纹理映射</h2><p>怎么得出一个球的uv坐标呢（所以本节为什么考虑个球呢？）？首先要给出球面上xyz点的表达式，进而推导出它的极坐标，再由极坐标计算出uv（为什么呢？）</p>
-<p>首先，xyz：</p>
-<p>$$x = x_c + R\cos\phi\sin\theta$$<br>$$y = y_c + R\cos\phi\sin\theta$$<br>$$z = z_c + R\cos\theta$$</p>
-<p>从而得到极坐标$(\theta, \phi)$：</p>
-<p>$$\theta = \arccos(\frac{z - z_c}{R})$$<br>$$\phi = \arctan2(y - y_c, x - x_c)$$</p>
-<p>由于$(\theta, \phi) \in [0, \pi] \times [-\pi, \pi]$，所以我们要把它转化到$[0, 1]^2$域，从而得到uv。</p>
-<p>$$u = \frac{\phi}{2\pi}$$<br>$$v = \frac{\pi - \theta}{\pi}$$</p>
-<p>看到这里，结合前文，明白了两个道理：</p>
-<ul>
-<li>为什么说给3d纹理映射更简单呢，这是建立在3d纹理由一个一个小平面组成的基础上</li>
-<li>2d纹理映射的意思是映射到一个<strong>曲面</strong>上</li>
-</ul>
+        <h1 id="【计算机图形学基础】三-线性代数与矩阵变换"><a href="#【计算机图形学基础】三-线性代数与矩阵变换" class="headerlink" title="【计算机图形学基础】三 线性代数与矩阵变换"></a>【计算机图形学基础】三 线性代数与矩阵变换</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第五章<strong>Linear Algebra</strong>和第六章<strong>Transformation Matrices</strong>。</p>
+<p>虽然之前零零散散看过三四次线性代数，不过老是记不住也没想着用心整理一版。本来看到这一章和下一章讲matrix变换，是准备跳过的。后来想了想也好，趁此机会好好地整理，过一遍这些问题。<del>（心里几百个不愿意）</del></p>
+<p>现在先留着坑，以后有空再来看。</p>
 
       
     </div>
@@ -441,8 +387,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/25/【计算机图形学基础】6 表面渲染/" rel="next" title="【计算机图形学基础】6 表面渲染">
-                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】6 表面渲染
+              <a href="/2019/02/14/【计算机图形学基础】2射线追踪/" rel="next" title="【计算机图形学基础】二 射线追踪">
+                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】二 射线追踪
               </a>
             
           </div>
@@ -450,6 +396,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/19/【计算机图形学基础】4视觉/" rel="prev" title="【计算机图形学基础】四 Viewing">
+                【计算机图形学基础】四 Viewing <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -587,7 +537,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】7-纹理映射"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】7 纹理映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3D上的纹理映射"><span class="nav-number">1.1.</span> <span class="nav-text">3D上的纹理映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3d条纹纹理"><span class="nav-number">1.1.1.</span> <span class="nav-text">3d条纹纹理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纹理数组"><span class="nav-number">1.1.2.</span> <span class="nav-text">纹理数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成噪点"><span class="nav-number">1.1.3.</span> <span class="nav-text">生成噪点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D纹理映射"><span class="nav-number">1.2.</span> <span class="nav-text">2D纹理映射</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】三-线性代数与矩阵变换"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】三 线性代数与矩阵变换</span></a></li></ol></div>
             
 
           </div>

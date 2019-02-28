@@ -86,19 +86,22 @@
 
 
 
-<meta name="description" content="【计算机图形学基础】四 Viewing该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第七章四 Viewing。 这篇讲的是如何把3d物体映射成2d的，也就是投影。 第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。 Viewing Transformations对应矩阵名称MVP，是最后阶">
+<meta name="description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【计算机图形学基础】四 Viewing">
-<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/index.html">
+<meta property="og:title" content="【计算机图形学基础】5 Pipeline">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="【计算机图形学基础】四 Viewing该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第七章四 Viewing。 这篇讲的是如何把3d物体映射成2d的，也就是投影。 第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。 Viewing Transformations对应矩阵名称MVP，是最后阶">
+<meta property="og:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】4%20视觉/1.png">
-<meta property="og:updated_time" content="2019-02-19T07:28:48.646Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/4.png">
+<meta property="og:updated_time" content="2019-02-25T09:51:07.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【计算机图形学基础】四 Viewing">
-<meta name="twitter:description" content="【计算机图形学基础】四 Viewing该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第七章四 Viewing。 这篇讲的是如何把3d物体映射成2d的，也就是投影。 第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。 Viewing Transformations对应矩阵名称MVP，是最后阶">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】4%20视觉/1.png">
+<meta name="twitter:title" content="【计算机图形学基础】5 Pipeline">
+<meta name="twitter:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/1.png">
 
 
 
@@ -128,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/">
 
 
 
 
 
-  <title>【计算机图形学基础】四 Viewing | 左未的笔记本</title>
+  <title>【计算机图形学基础】5 Pipeline | 左未的笔记本</title>
   
 
 
@@ -261,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4 视觉/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -278,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】四 Viewing</h1>
+          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】5 Pipeline</h1>
         
 
         <div class="post-meta">
@@ -330,7 +333,7 @@
 
           
           
-             <span id="/2019/02/19/【计算机图形学基础】4 视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
+             <span id="/2019/02/19/【计算机图形学基础】5管线/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】5 Pipeline">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -361,30 +364,59 @@
       
 
       
-        <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第七章四 Viewing。</p>
-<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
-<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
-<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
-<p>一般来说要投影到屏幕上，一系列的变换：</p>
+        <h1 id="【计算机图形学基础】5-Pipeline"><a href="#【计算机图形学基础】5-Pipeline" class="headerlink" title="【计算机图形学基础】5 Pipeline"></a>【计算机图形学基础】5 Pipeline</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第八章 <strong>The Graphics Pipeline</strong>。</p>
+<p>看过好几次的渲染管线。</p>
+<p>object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMan。但是两者用的渲染管线结构都差不多。</p>
+<p>渲染管线的起点是object，终点是更新图像中的像素点。</p>
+<p>先贴图</p>
+<img src="/2019/02/19/【计算机图形学基础】5管线/1.png" title="Pipeline">
+<h2 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h2><p>由于前面几章已经讲过Vertex Processing阶段的矩阵变换了，这篇就从第二阶段的光栅化讲起。</p>
+<p>写过shader的同学都知道，顶点着色器的输入和输出都是顶点，而像素着色器的输入却是fragment。怎么从顶点着色器输出的几个顶点，变成几何面上拥有的所有像素呢？这个转化的过程就叫做光栅化。</p>
+<p>光栅器接收顶点和其他顶点着色器输出信息作为参数，输出fragments。fragment包含一个像素里所有的信息，这些信息是顶点着色器输出信息的插值版本。</p>
+<p>光栅器的工作有二：</p>
 <ul>
-<li>一个相机变换</li>
-<li>一个投影变换</li>
-<li>一个窗口变换</li>
+<li>枚举出几何体所包含的所有像素</li>
+<li>对顶点着色器的输出做插值</li>
 </ul>
-<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
-<img src="/2019/02/19/【计算机图形学基础】4%20视觉/1.png" title="一系列变换">
-<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
-<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
-<ul>
-<li>缩放 矩阵$\hat{S}$代表</li>
-<li>位移 矩阵$\hat{T}$代表</li>
-</ul>
-<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
-<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<p>相乘得</p>
-<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
+<h3 id="理解梯度"><a href="#理解梯度" class="headerlink" title="理解梯度"></a>理解梯度</h3><p>首先要复习一下$\nabla$(nabla)算子，也叫向量微分算子。定义为$\nabla = \frac{d}{dr}$。在n维空间中有不同的表现。<br>在三位情况下，$\nabla = \frac{\partial}{\partial x}i + \frac{\partial}{\partial y}j + \frac{\partial}{\partial z}k$ 或 $\nabla = (\frac{\partial}{\partial x},\frac{\partial}{\partial y}, \frac{\partial}{\partial z})$</p>
+<p>梯度是啥呢？<br>假设三维空间中有个映射$f(x,y,z)$，则在某个点$(x, y, z)$上，<strong>梯度</strong>表示该点的一个方向，往这个方向移动，$f()$的变化最大。如果假设$f(x, y, z)$是某个山坡的表面，那么梯度就是该点上最抖的方向，梯度的大小代表有多抖。</p>
+<p>一个标量函数的梯度记为$\nabla \varphi$，再三维直角坐标中<br>$$\nabla \varphi = (\frac{\partial \varphi}{\partial x},\frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z})$$</p>
+<p>剩下的就是对每个维度求导数了。</p>
+<p>譬如对于$\varphi = 2x + 3y^2 - \sin(z)$，梯度为</p>
+<p>$$\nabla \varphi = (\frac{\partial \varphi}{\partial x},\frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z}) = (1, 6y, -\cos(z))$$</p>
+<h3 id="画线"><a href="#画线" class="headerlink" title="画线"></a>画线</h3><p>根据线的两点式，可以推断出线的表达式</p>
+<p>$$f(x,y) \equiv (y_0 - y_1)x + (x_1 - x_0)y + x_0y_1 - x_1y_0 = 0$$</p>
+<p>假设$x_0 \leq x_1$，那么斜率m为</p>
+<p>$$m = \frac{y_1 - y_0}{x_1 - x_0}$$</p>
+<img src="/2019/02/19/【计算机图形学基础】5管线/2.png" title="光栅化">
+<p>下面仅考虑$m \in [0, 1)$的情况。</p>
+<p>为了光栅化，现在先确定线的开头和结尾在哪个像素点，设线的左边在$(x_0, y_0)$，线的右边末端在$(x_1, y_1)$，那么光栅化算法大概是这样</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> (some condition) <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>其中的x和y都是整数。<br>简而言之，从最左边开始遍历，往右水平地选择（保持y相同）像素，当遇到<strong>某种情况</strong>的时候把y提高一。关键就是要找到这个<strong>某种情况</strong>是什么。</p>
+<img src="/2019/02/19/【计算机图形学基础】5管线/3.png" title="中点算法">
+<p>决定要不要y+1很简单。首先取两个可选择的潜在像素的中点，然后判断线在这个中点之上还是之下。如果在这个中点之上，则y+1，否则保持y。接下来就是根据高中的数学知识，只要$f(x) \lt 0$，那么点就在线的下面，要上移一个y；反之点在线的上面，保持y不变。</p>
+<p>如果需要<strong>更高性能</strong>的表现，就要使用更高效的方法。</p>
+<p>以下结论基于我们两个推导（很简单，自己相减就能得到$\delta$）。</p>
+<p>$$f(x + 1, y) = f(x, y) + (y_0 - y_1)$$<br>$$f(x + 1, y + 1) = f(x, y) + (y_0 - y_1) + (x_1 - x_0)$$</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line">d = f(x0 + <span class="number">1</span>, y0 + <span class="number">0.5</span>)</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> d &lt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br><span class="line">        d = d + (x1 - x0) + (y0 - y1) <span class="comment">-- d = f(x + 1, y + 1) = f(x, y) + (y0 - y1) + (x1 - x0)</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        d = d + (y0 - y1) <span class="comment">-- d = f(x + 1, y) + (y0 - y1)</span></span><br></pre></td></tr></table></figure>
+<p>$f(x + 1, y)$和$f(x + 1, y + 1)$的推导可以自己验证。由于后面那一串都是常数，对常数做加法是很快的。<br>为啥这么算更快呢？其实判断也是基于上面的基础结论，就是判断中点于$f(x, y)$的结果与0做比较。由于我们的线是一条直线，是线性的，所以可以在一开始算出$x+1$的中点值，后面x步进1，y看情况要不要步进1，就可以算出$x+1$时$f(x, y)$的值。这样就避免了每次去计算$f(x, y)$的值，每次要计算的结果都可以在上一个结果加一个常数来计算，大大提高了速度。</p>
+<h3 id="三角形光栅化"><a href="#三角形光栅化" class="headerlink" title="三角形光栅化"></a>三角形光栅化</h3><p>主要是要考虑插值问题。假设三角形三个点的颜色分别是$\textbf{c}_0$、$\textbf{c}_1$、$\textbf{c}_2$，那么三角形内某个点的颜色应该是</p>
+<p>$$\textbf{c} = \alpha \textbf{c}_0 + \beta \textbf{c}_1 + \gamma \textbf{c}_2$$</p>
+<p>其中的$(\alpha, \beta, \gamma)$是重心坐标。</p>
+<blockquote>
+<p><strong>重心坐标</strong><br><img src="/2019/02/19/【计算机图形学基础】5管线/4.png" title="重心坐标"><br>也叫面积坐标。我们用黑体小写字母表示对应点的向量。假设三角形被点$\textbf{p}$分割为三个小三角形，它们的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$</p>
+<p>首先BD:DC = $\lambda_3 : \lambda_2$。这个结论怎么出来的呢：<br>$$\frac{\triangle ADC}{\triangle ADB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$<br>得到<br>存在一个$\lambda$使得：<br>$$\triangle ADC = \lambda \triangle PDC$$<br>$$\triangle ADB = \lambda \triangle PDB$$<br>得到：<br>$$\frac{\lambda_2}{\lambda_3} = \frac{\triangle APC}{\triangle APB} = \frac{\triangle ADC - \triangle PDC}{\triangle ADB - \triangle PDB} =\frac{\lambda \triangle PDC - \triangle PDC}{\lambda \triangle PDB - \triangle PDB} = \frac{(\lambda - 1) \triangle PDC}{(\lambda - 1)\triangle PDB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$</p>
+<p>根据<br>$$\frac{\textbf{d} - \textbf{b}}{\textbf{c} - \textbf{d}} = \frac{\lambda_3}{\lambda_2}$$<br>可以求得$\textbf{d}$关于$\textbf{b}$和$\textbf{c}$的等式：<br>$$\textbf{d} = \frac{\lambda_2 \textbf{b} + \lambda_3 \textbf{c}}{\lambda_2 + \lambda_3}$$<br>现在已知点A和点D了，准备从A和D身上计算出点P的向量。</p>
+</blockquote>
+<p>没耐心看完上面论证的胖友，知道一点就好：点p在跟三个点的连线把三角形分为三个小的三角形，三个三角形的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$，那么，这个三角形关于三个顶点的表达式为$\textbf{p} = \lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}$，这就是它的重心坐标。</p>
+<p>根据这点，假设有<strong>线性函数</strong>F，输入为顶点，输出为颜色。已知ABC三点的颜色为xyz，那么：<br>$$F(A) = x$$<br>$$F(B) = y$$<br>$$F(C) = z$$<br>对于点p来说<br>$$F(P) = F(\lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}) = \lambda_1 x + \lambda_2 y + \lambda_3 z$$</p>
+<p>另一个问题。</p>
+<p>有时候画相邻的两个三角形，会修改共用边的颜色多次。为了避免这样，重心法只用在三角形内部的点。</p>
+<p>计算出点的重心坐标很简单，只要符合下面三条式子即可求出三个未知数</p>
+<p>$$\alpha x_A + \beta x_B + \gamma x_c = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_c = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
+<p>画出一个三角形的伪代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> all x <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> all y <span class="keyword">do</span></span><br><span class="line">        compute (alpha, beta, gamma) <span class="keyword">for</span> (x, y)</span><br><span class="line">        <span class="keyword">if</span>(alpha <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> beta <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> gamma <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">            c = alpha * cA + beta * cB + gamma * cC</span><br><span class="line">            drawpixel(x, y) with color c</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -408,8 +440,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/19/【计算机图形学基础】3 线性代数.1/" rel="next" title="【计算机图形学基础】三 线性代数与矩阵变换">
-                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】三 线性代数与矩阵变换
+              <a href="/2019/02/19/【计算机图形学基础】4视觉/" rel="next" title="【计算机图形学基础】四 Viewing">
+                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】四 Viewing
               </a>
             
           </div>
@@ -418,8 +450,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/19/【计算机图形学基础】5 管线/" rel="prev" title="【计算机图形学基础】5 Pipeline">
-                【计算机图形学基础】5 Pipeline <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/22/图形学数学补充/" rel="prev" title="图形学数学补充">
+                图形学数学补充 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -558,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】四-Viewing"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】四 Viewing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Viewing-Transformations"><span class="nav-number">1.1.</span> <span class="nav-text">Viewing Transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Viewport-Transformation"><span class="nav-number">1.1.1.</span> <span class="nav-text">The Viewport Transformation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平行投影矩阵"><span class="nav-number">1.2.</span> <span class="nav-text">平行投影矩阵</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】5-Pipeline"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】5 Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅化"><span class="nav-number">1.1.</span> <span class="nav-text">光栅化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解梯度"><span class="nav-number">1.1.1.</span> <span class="nav-text">理解梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画线"><span class="nav-number">1.1.2.</span> <span class="nav-text">画线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三角形光栅化"><span class="nav-number">1.1.3.</span> <span class="nav-text">三角形光栅化</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

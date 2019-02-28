@@ -86,22 +86,22 @@
 
 
 
-<meta name="description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
+<meta name="description" content="【计算机图形学基础】6 表面渲染本篇也可改名给大家看的图形学趣味基础23333. 该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【计算机图形学基础】5 Pipeline">
-<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/index.html">
+<meta property="og:title" content="【计算机图形学基础】6 表面渲染">
+<meta property="og:url" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
+<meta property="og:description" content="【计算机图形学基础】6 表面渲染本篇也可改名给大家看的图形学趣味基础23333. 该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/2.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/3.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/4.png">
-<meta property="og:updated_time" content="2019-02-25T09:51:07.340Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/4.png">
+<meta property="og:updated_time" content="2019-02-26T07:18:26.480Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【计算机图形学基础】5 Pipeline">
-<meta name="twitter:description" content="【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第八章 The Graphics Pipeline。 看过好几次的渲染管线。 object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMa">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】5%20管线/1.png">
+<meta name="twitter:title" content="【计算机图形学基础】6 表面渲染">
+<meta name="twitter:description" content="【计算机图形学基础】6 表面渲染本篇也可改名给大家看的图形学趣味基础23333. 该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/1.png">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/">
 
 
 
 
 
-  <title>【计算机图形学基础】5 Pipeline | 左未的笔记本</title>
+  <title>【计算机图形学基础】6 表面渲染 | 左未的笔记本</title>
   
 
 
@@ -264,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5 管线/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -281,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】5 Pipeline</h1>
+          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】6 表面渲染</h1>
         
 
         <div class="post-meta">
@@ -293,8 +293,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
-                2019-02-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T17:53:28+08:00">
+                2019-02-25
               </time>
             
 
@@ -333,7 +333,7 @@
 
           
           
-             <span id="/2019/02/19/【计算机图形学基础】5 管线/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】5 Pipeline">
+             <span id="/2019/02/25/【计算机图形学基础】6表面渲染/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】6 表面渲染">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -364,59 +364,52 @@
       
 
       
-        <h1 id="【计算机图形学基础】5-Pipeline"><a href="#【计算机图形学基础】5-Pipeline" class="headerlink" title="【计算机图形学基础】5 Pipeline"></a>【计算机图形学基础】5 Pipeline</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第八章 <strong>The Graphics Pipeline</strong>。</p>
-<p>看过好几次的渲染管线。</p>
-<p>object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMan。但是两者用的渲染管线结构都差不多。</p>
-<p>渲染管线的起点是object，终点是更新图像中的像素点。</p>
-<p>先贴图</p>
-<img src="/2019/02/19/【计算机图形学基础】5%20管线/1.png" title="Pipeline">
-<h2 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h2><p>由于前面几章已经讲过Vertex Processing阶段的矩阵变换了，这篇就从第二阶段的光栅化讲起。</p>
-<p>写过shader的同学都知道，顶点着色器的输入和输出都是顶点，而像素着色器的输入却是fragment。怎么从顶点着色器输出的几个顶点，变成几何面上拥有的所有像素呢？这个转化的过程就叫做光栅化。</p>
-<p>光栅器接收顶点和其他顶点着色器输出信息作为参数，输出fragments。fragment包含一个像素里所有的信息，这些信息是顶点着色器输出信息的插值版本。</p>
-<p>光栅器的工作有二：</p>
-<ul>
-<li>枚举出几何体所包含的所有像素</li>
-<li>对顶点着色器的输出做插值</li>
-</ul>
-<h3 id="理解梯度"><a href="#理解梯度" class="headerlink" title="理解梯度"></a>理解梯度</h3><p>首先要复习一下$\nabla$(nabla)算子，也叫向量微分算子。定义为$\nabla = \frac{d}{dr}$。在n维空间中有不同的表现。<br>在三位情况下，$\nabla = \frac{\partial}{\partial x}i + \frac{\partial}{\partial y}j + \frac{\partial}{\partial z}k$ 或 $\nabla = (\frac{\partial}{\partial x},\frac{\partial}{\partial y}, \frac{\partial}{\partial z})$</p>
-<p>梯度是啥呢？<br>假设三维空间中有个映射$f(x,y,z)$，则在某个点$(x, y, z)$上，<strong>梯度</strong>表示该点的一个方向，往这个方向移动，$f()$的变化最大。如果假设$f(x, y, z)$是某个山坡的表面，那么梯度就是该点上最抖的方向，梯度的大小代表有多抖。</p>
-<p>一个标量函数的梯度记为$\nabla \varphi$，再三维直角坐标中<br>$$\nabla \varphi = (\frac{\partial \varphi}{\partial x},\frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z})$$</p>
-<p>剩下的就是对每个维度求导数了。</p>
-<p>譬如对于$\varphi = 2x + 3y^2 - \sin(z)$，梯度为</p>
-<p>$$\nabla \varphi = (\frac{\partial \varphi}{\partial x},\frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z}) = (1, 6y, -\cos(z))$$</p>
-<h3 id="画线"><a href="#画线" class="headerlink" title="画线"></a>画线</h3><p>根据线的两点式，可以推断出线的表达式</p>
-<p>$$f(x,y) \equiv (y_0 - y_1)x + (x_1 - x_0)y + x_0y_1 - x_1y_0 = 0$$</p>
-<p>假设$x_0 \leq x_1$，那么斜率m为</p>
-<p>$$m = \frac{y_1 - y_0}{x_1 - x_0}$$</p>
-<img src="/2019/02/19/【计算机图形学基础】5%20管线/2.png" title="光栅化">
-<p>下面仅考虑$m \in [0, 1)$的情况。</p>
-<p>为了光栅化，现在先确定线的开头和结尾在哪个像素点，设线的左边在$(x_0, y_0)$，线的右边末端在$(x_1, y_1)$，那么光栅化算法大概是这样</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> (some condition) <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>其中的x和y都是整数。<br>简而言之，从最左边开始遍历，往右水平地选择（保持y相同）像素，当遇到<strong>某种情况</strong>的时候把y提高一。关键就是要找到这个<strong>某种情况</strong>是什么。</p>
-<img src="/2019/02/19/【计算机图形学基础】5%20管线/3.png" title="中点算法">
-<p>决定要不要y+1很简单。首先取两个可选择的潜在像素的中点，然后判断线在这个中点之上还是之下。如果在这个中点之上，则y+1，否则保持y。接下来就是根据高中的数学知识，只要$f(x) \lt 0$，那么点就在线的下面，要上移一个y；反之点在线的上面，保持y不变。</p>
-<p>如果需要<strong>更高性能</strong>的表现，就要使用更高效的方法。</p>
-<p>以下结论基于我们两个推导（很简单，自己相减就能得到$\delta$）。</p>
-<p>$$f(x + 1, y) = f(x, y) + (y_0 - y_1)$$<br>$$f(x + 1, y + 1) = f(x, y) + (y_0 - y_1) + (x_1 - x_0)$$</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">y = y0</span><br><span class="line">d = f(x0 + <span class="number">1</span>, y0 + <span class="number">0.5</span>)</span><br><span class="line"><span class="keyword">for</span> x = x0; x1 <span class="keyword">do</span></span><br><span class="line">    draw(x, y)</span><br><span class="line">    <span class="keyword">if</span> d &lt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        y = y + <span class="number">1</span></span><br><span class="line">        d = d + (x1 - x0) + (y0 - y1) <span class="comment">-- d = f(x + 1, y + 1) = f(x, y) + (y0 - y1) + (x1 - x0)</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        d = d + (y0 - y1) <span class="comment">-- d = f(x + 1, y) + (y0 - y1)</span></span><br></pre></td></tr></table></figure>
-<p>$f(x + 1, y)$和$f(x + 1, y + 1)$的推导可以自己验证。由于后面那一串都是常数，对常数做加法是很快的。<br>为啥这么算更快呢？其实判断也是基于上面的基础结论，就是判断中点于$f(x, y)$的结果与0做比较。由于我们的线是一条直线，是线性的，所以可以在一开始算出$x+1$的中点值，后面x步进1，y看情况要不要步进1，就可以算出$x+1$时$f(x, y)$的值。这样就避免了每次去计算$f(x, y)$的值，每次要计算的结果都可以在上一个结果加一个常数来计算，大大提高了速度。</p>
-<h3 id="三角形光栅化"><a href="#三角形光栅化" class="headerlink" title="三角形光栅化"></a>三角形光栅化</h3><p>主要是要考虑插值问题。假设三角形三个点的颜色分别是$\textbf{c}_0$、$\textbf{c}_1$、$\textbf{c}_2$，那么三角形内某个点的颜色应该是</p>
-<p>$$\textbf{c} = \alpha \textbf{c}_0 + \beta \textbf{c}_1 + \gamma \textbf{c}_2$$</p>
-<p>其中的$(\alpha, \beta, \gamma)$是重心坐标。</p>
-<blockquote>
-<p><strong>重心坐标</strong><br><img src="/2019/02/19/【计算机图形学基础】5%20管线/4.png" title="重心坐标"><br>也叫面积坐标。我们用黑体小写字母表示对应点的向量。假设三角形被点$\textbf{p}$分割为三个小三角形，它们的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$</p>
-<p>首先BD:DC = $\lambda_3 : \lambda_2$。这个结论怎么出来的呢：<br>$$\frac{\triangle ADC}{\triangle ADB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$<br>得到<br>存在一个$\lambda$使得：<br>$$\triangle ADC = \lambda \triangle PDC$$<br>$$\triangle ADB = \lambda \triangle PDB$$<br>得到：<br>$$\frac{\lambda_2}{\lambda_3} = \frac{\triangle APC}{\triangle APB} = \frac{\triangle ADC - \triangle PDC}{\triangle ADB - \triangle PDB} =\frac{\lambda \triangle PDC - \triangle PDC}{\lambda \triangle PDB - \triangle PDB} = \frac{(\lambda - 1) \triangle PDC}{(\lambda - 1)\triangle PDB} = \frac{\triangle PDC}{\triangle PDB} = \frac{DC}{BD}$$</p>
-<p>根据<br>$$\frac{\textbf{d} - \textbf{b}}{\textbf{c} - \textbf{d}} = \frac{\lambda_3}{\lambda_2}$$<br>可以求得$\textbf{d}$关于$\textbf{b}$和$\textbf{c}$的等式：<br>$$\textbf{d} = \frac{\lambda_2 \textbf{b} + \lambda_3 \textbf{c}}{\lambda_2 + \lambda_3}$$<br>现在已知点A和点D了，准备从A和D身上计算出点P的向量。</p>
-</blockquote>
-<p>没耐心看完上面论证的胖友，知道一点就好：点p在跟三个点的连线把三角形分为三个小的三角形，三个三角形的面积之比为$\lambda_1 : \lambda_2 : \lambda_3$，且$\lambda_1 + \lambda_2 + \lambda_3 = 1$，那么，这个三角形关于三个顶点的表达式为$\textbf{p} = \lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}$，这就是它的重心坐标。</p>
-<p>根据这点，假设有<strong>线性函数</strong>F，输入为顶点，输出为颜色。已知ABC三点的颜色为xyz，那么：<br>$$F(A) = x$$<br>$$F(B) = y$$<br>$$F(C) = z$$<br>对于点p来说<br>$$F(P) = F(\lambda_1 \textbf{a} + \lambda_2 \textbf{b} + \lambda_3 \textbf{c}) = \lambda_1 x + \lambda_2 y + \lambda_3 z$$</p>
-<p>另一个问题。</p>
-<p>有时候画相邻的两个三角形，会修改共用边的颜色多次。为了避免这样，重心法只用在三角形内部的点。</p>
-<p>计算出点的重心坐标很简单，只要符合下面三条式子即可求出三个未知数</p>
-<p>$$\alpha x_A + \beta x_B + \gamma x_c = x_p$$<br>$$\alpha y_A + \beta y_B + \gamma y_c = y_p$$<br>$$\alpha + \beta + \gamma = 1$$</p>
-<p>画出一个三角形的伪代码：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> all x <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">for</span> all y <span class="keyword">do</span></span><br><span class="line">        compute (alpha, beta, gamma) <span class="keyword">for</span> (x, y)</span><br><span class="line">        <span class="keyword">if</span>(alpha <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> beta <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>] <span class="keyword">and</span> gamma <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>]) <span class="keyword">then</span></span><br><span class="line">            c = alpha * cA + beta * cB + gamma * cC</span><br><span class="line">            drawpixel(x, y) with color c</span><br></pre></td></tr></table></figure>
+        <h1 id="【计算机图形学基础】6-表面渲染"><a href="#【计算机图形学基础】6-表面渲染" class="headerlink" title="【计算机图形学基础】6 表面渲染"></a>【计算机图形学基础】6 表面渲染</h1><p>本篇也可改名<strong>给大家看的图形学趣味基础</strong>23333.</p>
+<p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
+<p>本篇对应书中第十章 <strong>Surface Shading</strong>。</p>
+<p>第九章是离散数学<del>，实在是懒得啃了</del>，傅里叶变换那一套。</p>
+<p>本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。</p>
+<h2 id="Diffuse-Shading"><a href="#Diffuse-Shading" class="headerlink" title="Diffuse Shading"></a>Diffuse Shading</h2><p>用来着色无光泽的表面。</p>
+<h3 id="Lambertian着色模型"><a href="#Lambertian着色模型" class="headerlink" title="Lambertian着色模型"></a>Lambertian着色模型</h3><p>一个Lambertian物体遵守Lambert的cos法则。</p>
+<img src="/2019/02/25/【计算机图形学基础】6表面渲染/1.png" title="原理图">
+<p>$$c \propto \theta$$</p>
+<p>也就是</p>
+<p>$$c \propto \textbf{n} \cdot \textbf{l}$$</p>
+<p>有两个因素可以决定表面的明亮：光照强度和表面的反射率。反射率也是由RGB组成的。假设物体的漫反射颜色比较接近红色，那么反射率中R的那部分就要大一些。于是可以把式子改写成这样：</p>
+<p>$$c \propto c_r \textbf{n} \cdot \textbf{l}$$</p>
+<p>为了保证输出的表面颜色值的RGB均属于[0, 1]的范围，需要让光照强度也属于[0, 1]。式子加上光强之后就变成：</p>
+<p>$$c = c_r c_l \textbf{n} \cdot \textbf{l}$$</p>
+<p>这是一个形式很简单的式子，但是有可能输出不在[0, 1]范围内的RGB值，只因<strong>点乘</strong>的结果可能是负数。为了避免结果出现西安负数，还需要加一个取max值的操作。</p>
+<p>$$c = c_r c_l \max(0, \textbf{n} \cdot \textbf{l})$$</p>
+<h3 id="环境光着色"><a href="#环境光着色" class="headerlink" title="环境光着色"></a>环境光着色</h3><p>在真实世界中，往往除了我们所给的光源，还有环境光存在。我们不用考虑方向，把它整个叠加上去就行了。得到：</p>
+<p>$$c = c_r (c_a + c_l \max(0, \textbf{n} \cdot \textbf{l})), c_a + c_l \leq (1, 1, 1)$$</p>
+<h3 id="基于顶点的漫反射着色"><a href="#基于顶点的漫反射着色" class="headerlink" title="基于顶点的漫反射着色"></a>基于顶点的漫反射着色</h3><p>想象一个三角形，如果只对中间某个点计算颜色并应用到整个三角形，就会让一个由多个三角形组成的平面看起来很粗糙（区分得出各个三角形，边界may be非常明显）。</p>
+<p>为了避免上述情况，我们把三角形的法向量应用到它三个点上，求得三个点的颜色之后再来做插值。</p>
+<p>当然，更好更细腻的着色是把光照直接放到fragment shader里头去，针对每个像素做着色处理，不过这非常非常消耗性能。</p>
+<h2 id="Phong着色"><a href="#Phong着色" class="headerlink" title="Phong着色"></a>Phong着色</h2><p>现在考虑一些有高光反射的表面。我们可以观察到高光的位置会随着我们眼睛的位置移动，并且高光的颜色一半就是光源的颜色，和物体本身的颜色无关。另外，高光一般来说会有某种程度的blur（模糊），这就需要一个模糊半径。所以在式子里我们要多加入一个向量<strong>e</strong>表示眼睛。</p>
+<h3 id="Phong光照模型"><a href="#Phong光照模型" class="headerlink" title="Phong光照模型"></a>Phong光照模型</h3><img src="/2019/02/25/【计算机图形学基础】6表面渲染/2.png" title="Phong">
+<p>图中，<strong>r</strong>为<strong>l</strong>关于法向量<strong>n</strong>对称的向量。当人眼<strong>e</strong>越接近<strong>r</strong>，看到的镜面反射光强就越大。</p>
+<p>给出向量<strong>r</strong>，为了能让<strong>e</strong> = <strong>r</strong>的时候最亮，且<strong>e</strong>远离<strong>r</strong>的时候可以逐步变暗。可以简单地产出这么个式子：</p>
+<p>$$c = c_l (\textbf{e} \cdot \textbf{r})$$</p>
+<p>但是这个式子有两个问题。一个是点乘的结果有可能是个负数，这个还好，可以通过绝对值或者取max之类的解决。另一个问题是，这个式子产出的光斑面积要比现实中的大太多，显得不自然。</p>
+<p>为了解决光斑太大的问题，我们给点乘的结果加上一个幂数。结合max得到以下式子：</p>
+<p>$$c = c_l \max(0, \textbf{e} \cdot \textbf{r})^p$$</p>
+<img src="/2019/02/25/【计算机图形学基础】6表面渲染/3.png" title="Phong Exponent">
+<p>上式中的p被称为Phong指数，它是一个正实数。</p>
+<img src="/2019/02/25/【计算机图形学基础】6表面渲染/4.png" title="如何计算一个r">
+<p>为了完成上式，我们必须要先知道<strong>r</strong>，根据上图，它可以被这么算出：</p>
+<p>$$\textbf{r} = -\textbf{l} + 2(\textbf{l} \cdot \textbf{n})\textbf{n}$$</p>
+<p>其中的$\textbf{l} \cdot \textbf{n} = \cos \theta$。</p>
+<p>有一种近似的算法，可以避免算出r。我们现在要计算<strong>l</strong>与<strong>e</strong>的中间单位向量<strong>h</strong>(half)。</p>
+<p>$$\textbf{h} = \frac{\textbf{e} + \textbf{l}}{|\textbf{e} + \textbf{l}|}$$</p>
+<p>当<strong>h</strong>与<strong>n</strong>重合的时候，光斑达到最大亮度。于是：</p>
+<p>$$c = c_l(\textbf{h} \cdot \textbf{n})^p$$</p>
+<p>这个式子还能少了一个max操作，hin完美。如果想把镜面反射变得再暗一点，还可以添加一个因子$c_p$。</p>
+<p>最后，结合漫反射，得到式子为：</p>
+<p>$$c = c_r(c_a + c_l\max(0, \textbf{n} \cdot  \textbf{l})) + c_l c_p(\textbf{h} \cdot \textbf{n})^p$$</p>
+<h2 id="艺术着色"><a href="#艺术着色" class="headerlink" title="艺术着色"></a>艺术着色</h2><h3 id="轮廓着色"><a href="#轮廓着色" class="headerlink" title="轮廓着色"></a>轮廓着色</h3><p>当两个三角形共用一条边，且一个三角形看得到，一个三角形看不到的时候，就应该把这条轮廓画下来。这一条件可以表达为：</p>
+<p>$$(\textbf{e} \cdot \textbf{n}_0)(\textbf{e} \cdot \textbf{n}_1) \leq 0$$</p>
+
       
     </div>
     
@@ -440,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/19/【计算机图形学基础】4 视觉/" rel="next" title="【计算机图形学基础】四 Viewing">
-                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】四 Viewing
+              <a href="/2019/02/25/表面着色/" rel="next" title="表面着色">
+                <i class="fa fa-chevron-left"></i> 表面着色
               </a>
             
           </div>
@@ -450,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/22/图形学数学补充/" rel="prev" title="图形学数学补充">
-                图形学数学补充 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/26/【计算机图形学基础】7纹理映射/" rel="prev" title="【计算机图形学基础】7 纹理映射">
+                【计算机图形学基础】7 纹理映射 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -590,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】5-Pipeline"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】5 Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅化"><span class="nav-number">1.1.</span> <span class="nav-text">光栅化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解梯度"><span class="nav-number">1.1.1.</span> <span class="nav-text">理解梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画线"><span class="nav-number">1.1.2.</span> <span class="nav-text">画线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三角形光栅化"><span class="nav-number">1.1.3.</span> <span class="nav-text">三角形光栅化</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】6-表面渲染"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】6 表面渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Diffuse-Shading"><span class="nav-number">1.1.</span> <span class="nav-text">Diffuse Shading</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambertian着色模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">Lambertian着色模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境光着色"><span class="nav-number">1.1.2.</span> <span class="nav-text">环境光着色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于顶点的漫反射着色"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于顶点的漫反射着色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phong着色"><span class="nav-number">1.2.</span> <span class="nav-text">Phong着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Phong光照模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">Phong光照模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#艺术着色"><span class="nav-number">1.3.</span> <span class="nav-text">艺术着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#轮廓着色"><span class="nav-number">1.3.1.</span> <span class="nav-text">轮廓着色</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
