@@ -98,7 +98,8 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/28/【计算机图形学基础】8数据结构/3.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/28/【计算机图形学基础】8数据结构/4.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/28/【计算机图形学基础】8数据结构/5.png">
-<meta property="og:updated_time" content="2019-03-01T07:41:11.262Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/28/【计算机图形学基础】8数据结构/6.png">
+<meta property="og:updated_time" content="2019-03-06T03:30:58.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【计算机图形学基础】8数据结构">
 <meta name="twitter:description" content="【计算机图形学基础】8数据结构该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十二章 Data Structures for Graphics。 主要讲几种比较实用的数据结构：网格、空间数据、场景图形。 三角网格每个顶点的数据通常要包含：位置、颜色、法向量、反射率等。 网格拓扑 The idea that meshes are surf">
@@ -424,9 +425,32 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mesh</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> tIdx[nTriangles][<span class="number">3</span>]; <span class="comment">// 每个三角形的顶点</span></span><br><span class="line">    <span class="keyword">int</span> tNbr[nTriangles][<span class="number">3</span>]; <span class="comment">// 每个三角形的邻三角形</span></span><br><span class="line">    <span class="keyword">int</span> vTri[nVertices]; <span class="comment">// 每个顶点对应的一个毗邻的三角形</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>如果$v$是三角形$t$的第$k$个顶点，那么$v$沿着逆时针方向的下一个毗邻三角形就是t.tNbr[k]。</p>
 <p>对于给出的一个顶点v，可以这么顺时针遍历出它所有的毗邻三角形：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TrianglesOfVertex</span><span class="params">(v)</span></span></span><br><span class="line">    tResult = &#123;&#125;</span><br><span class="line">    t = v.t <span class="comment">-- 其中一个毗邻三角形</span></span><br><span class="line">    tResult.add(t)</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">        newT = <span class="literal">nil</span></span><br><span class="line">        <span class="keyword">for</span> _, ngb <span class="keyword">in</span> <span class="built_in">ipairs</span>(t.tNbr) <span class="keyword">do</span></span><br><span class="line">            <span class="keyword">for</span> __, vertex <span class="keyword">in</span> <span class="built_in">ipairs</span>(ngb.v) <span class="keyword">do</span></span><br><span class="line">                <span class="keyword">if</span> vertex == v <span class="keyword">then</span></span><br><span class="line">                    newT = ngb</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">if</span> nweT <span class="keyword">then</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        t = newT</span><br><span class="line">        tResult.add(t)</span><br><span class="line">    <span class="keyword">while</span> t ~= v.t</span><br><span class="line">    <span class="keyword">return</span> tResult</span><br></pre></td></tr></table></figure>
-<p>思路是先找到信息中的一个毗邻三角形，再从这个三角形中的毗邻三角形找到一个毗邻的三角形（毗邻的记录顺序是逆时针的，所以是固定方向的），这个三角形也共用了顶点v，于是就是该顶点的毗邻三角形之一。由于是按顺序来遍历的，所以要求平面是manifold。</p>
-
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function TrianglesOfVertex(v):</span><br><span class="line">    tResult = &#123;&#125;</span><br><span class="line">    t = v.t -- 其中一个毗邻三角形</span><br><span class="line">    tResult.append(t)</span><br><span class="line">    do:</span><br><span class="line">        newT = <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">for</span> _, ngb <span class="keyword">in</span> t.tNbr.iteritems() do</span><br><span class="line">            <span class="keyword">for</span> __, vertex <span class="keyword">in</span> ngb.v.iteritems() do</span><br><span class="line">                <span class="comment"># 寻找未被遍历过的三角形</span></span><br><span class="line">                <span class="keyword">if</span> vertex == v <span class="keyword">and</span> (ngb <span class="keyword">not</span> <span class="keyword">in</span> tResult):</span><br><span class="line">                    newT = ngb</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> nweT:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        t = newT</span><br><span class="line">        <span class="keyword">if</span> t:</span><br><span class="line">            tResult.add(t)</span><br><span class="line">    <span class="keyword">while</span> t</span><br><span class="line">    <span class="keyword">return</span> tResult</span><br></pre></td></tr></table></figure>
+<p>思路是先找到信息中的一个毗邻三角形，再从这个三角形的毗邻中寻找未被遍历过的、公用定点v的三角形性。由于判断了符合条件的毗邻三角形是否已经被选入结果集，所以这个遍历算法是维持着同一方向的（顺时针或逆时针）。</p>
+<h4 id="边翼结构"><a href="#边翼结构" class="headerlink" title="边翼结构"></a>边翼结构</h4><p>把关系信息储存在边上而不是三角形面上。</p>
+<p>后面各种讲网格储存方式的，由于暂时在开发中用不上，所以先不看，待以后有机会涉及到光栅化了，再来看也不迟。</p>
+<h2 id="Scene-Graphs"><a href="#Scene-Graphs" class="headerlink" title="Scene Graphs"></a>Scene Graphs</h2><p>大多数场景组织物体都是通过使用scene graph，采用继承(hierachical)的方式。</p>
+<p>假设有这么一个铰链钟摆，分为上下两个部分。现在要求它们转过一定角度后的位置。首先设钟摆的上半部分转交为$\theta$，并产生了位移。假设钟摆上下两部分的衔接点为b。</p>
+<img src="/2019/02/28/【计算机图形学基础】8数据结构/6.png" title="A Hinged Pendulum">
+<p>则上半部分可以表示为：</p>
+<p>$M_1 = \text{rotate}(\theta)$</p>
+<p>$M_2 = \text{transform(p)}$</p>
+<p>$M_3 = M_2 M_1$</p>
+<p>把$M_3$应用到上半部分的所有点上。</p>
+<p>考虑下半部分的时候，由于有衔接点b，所以可以认为下半部分继承于上半部分。因故下半部分的运动可以考虑为自身的运动和上半部分运动的复合。</p>
+<p>现在假设下半部分运动角度$\Phi$。</p>
+<p>那么下半部分：</p>
+<p>$M_a = \text{rotate}(\Phi)$</p>
+<p>$M_b = \text{translate}\text{(b)}$</p>
+<p>$M_c = M_b M_a$</p>
+<p>$M_d = M_3 M_d$</p>
+<p>应用$M_d$到下半部分钟摆的所有点。</p>
+<blockquote>
+<p>transform中，步骤先的，做乘法的时候其矩阵反而在后面</p>
+</blockquote>
+<p>结论是，子项的运动可以通过和父项的运动的矩阵相乘，来得到结果。</p>
+<p>假设有一艘渡船，上面有一辆可以自由行驶的车。假设渡船相对于世界的运动矩阵（船的本地运动矩阵）为$M_0$，车相对于船的运动（车的本地运动矩阵）为$M_1$。那么车相对于世界的运动矩阵为$M_1 M_0$。</p>
+<h2 id="空间的数据结构"><a href="#空间的数据结构" class="headerlink" title="空间的数据结构"></a>空间的数据结构</h2>
       
     </div>
     
@@ -459,6 +483,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/04/Man-s-Search-for-Meaning/" rel="prev" title="Man's Search for Meaning">
+                Man's Search for Meaning <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -540,7 +568,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -596,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】8数据结构"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】8数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三角网格"><span class="nav-number">1.1.</span> <span class="nav-text">三角网格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网格拓扑"><span class="nav-number">1.1.1.</span> <span class="nav-text">网格拓扑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Indexed-Mesh-Storage"><span class="nav-number">1.1.2.</span> <span class="nav-text">Indexed Mesh Storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triangle-Strips-and-Fans"><span class="nav-number">1.1.3.</span> <span class="nav-text">Triangle Strips and Fans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Structures-for-Mesh-Connectivity"><span class="nav-number">1.1.4.</span> <span class="nav-text">Data Structures for Mesh Connectivity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Triangle-Neighbor-Structure"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">The Triangle-Neighbor Structure</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】8数据结构"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】8数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三角网格"><span class="nav-number">1.1.</span> <span class="nav-text">三角网格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网格拓扑"><span class="nav-number">1.1.1.</span> <span class="nav-text">网格拓扑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Indexed-Mesh-Storage"><span class="nav-number">1.1.2.</span> <span class="nav-text">Indexed Mesh Storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triangle-Strips-and-Fans"><span class="nav-number">1.1.3.</span> <span class="nav-text">Triangle Strips and Fans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Structures-for-Mesh-Connectivity"><span class="nav-number">1.1.4.</span> <span class="nav-text">Data Structures for Mesh Connectivity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Triangle-Neighbor-Structure"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">The Triangle-Neighbor Structure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#边翼结构"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">边翼结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scene-Graphs"><span class="nav-number">1.2.</span> <span class="nav-text">Scene Graphs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间的数据结构"><span class="nav-number">1.3.</span> <span class="nav-text">空间的数据结构</span></a></li></ol></li></ol></div>
             
 
           </div>
