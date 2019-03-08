@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4视觉/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】5管线/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】4视觉/" itemprop="url">【计算机图形学基础】四 Viewing</a></h1>
+                <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】5管线/" itemprop="url">【计算机图形学基础】5 Pipeline</a></h1>
         
 
         <div class="post-meta">
@@ -330,7 +330,7 @@
 
           
           
-             <span id="/2019/02/19/【计算机图形学基础】4视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
+             <span id="/2019/02/19/【计算机图形学基础】5管线/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】5 Pipeline">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -363,22 +363,18 @@
       
         
           
-          【计算机图形学基础】四 Viewing该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
-本篇对应书中第七章四 Viewing。
-这篇讲的是如何把3d物体映射成2d的，也就是投影。
-第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。
-Viewing Transformations对应矩阵名称MVP，是最后阶段的变换。
-一般来说要投影到屏幕上，一系列的变换：
+          【计算机图形学基础】5 Pipeline该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。
+本篇对应书中第八章 The Graphics Pipeline。
+看过好几次的渲染管线。
+object-order rendering其实分为硬件和软件两种，硬件的高效一些，用于实时渲染，api比如OpenGL和DirectX；软件的注重质量，比如RenderMan。但是两者用的渲染管线结构都差不多。
+渲染管线的起点是object，终点是更新图像中的像素点。
+先贴图
 
-一个相机变换
-一个投影变换
-一个窗口变换
-
-一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换
+光栅化由于前面几章已经讲过Vertex Processing阶段的矩阵变换了，这篇就从第二阶
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/19/【计算机图形学基础】4视觉/#more" rel="contents">
+            <a class="btn" href="/2019/02/19/【计算机图形学基础】5管线/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
