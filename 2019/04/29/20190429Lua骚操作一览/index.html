@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="计算机语言,">
 
 
 
@@ -86,17 +86,18 @@
 
 
 
-<meta name="description" content="【计算机图形学基础】一 光栅图像该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第三章Raster Images。Raster其词翻译为光栅，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。 在Google中可以看到如下：  1930s: from German Raster, literally ‘sc">
+<meta name="description" content="前言做了三年的游戏开发，其中有两年都在使用Lua这一脚本语言，想着是时候写点什么东西输出一下，算是给个交代。本文既不是讲Lua入门，也不会讲到Lua虚拟机那么深，读者尽可放大心随意看。 类的实现原生Lua是不支持面向对象编程的。那怎么办呢？使用prototype模式即可。 首先读者需要知道Lua的原方法和原表这一知识点。如果接触过c++或者c#的同学应该知道我们可以对一些类的操作做重载(overl">
+<meta name="keywords" content="计算机语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【计算机图形学基础】一 光栅图像">
-<meta property="og:url" content="http://yoursite.com/2019/02/13/【计算机图形学基础】1光栅图像/index.html">
+<meta property="og:title" content="Lua骚操作一览">
+<meta property="og:url" content="http://yoursite.com/2019/04/29/20190429Lua骚操作一览/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="【计算机图形学基础】一 光栅图像该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第三章Raster Images。Raster其词翻译为光栅，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。 在Google中可以看到如下：  1930s: from German Raster, literally ‘sc">
+<meta property="og:description" content="前言做了三年的游戏开发，其中有两年都在使用Lua这一脚本语言，想着是时候写点什么东西输出一下，算是给个交代。本文既不是讲Lua入门，也不会讲到Lua虚拟机那么深，读者尽可放大心随意看。 类的实现原生Lua是不支持面向对象编程的。那怎么办呢？使用prototype模式即可。 首先读者需要知道Lua的原方法和原表这一知识点。如果接触过c++或者c#的同学应该知道我们可以对一些类的操作做重载(overl">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-06T09:12:16.641Z">
+<meta property="og:updated_time" content="2019-04-29T12:07:12.593Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【计算机图形学基础】一 光栅图像">
-<meta name="twitter:description" content="【计算机图形学基础】一 光栅图像该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第三章Raster Images。Raster其词翻译为光栅，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。 在Google中可以看到如下：  1930s: from German Raster, literally ‘sc">
+<meta name="twitter:title" content="Lua骚操作一览">
+<meta name="twitter:description" content="前言做了三年的游戏开发，其中有两年都在使用Lua这一脚本语言，想着是时候写点什么东西输出一下，算是给个交代。本文既不是讲Lua入门，也不会讲到Lua虚拟机那么深，读者尽可放大心随意看。 类的实现原生Lua是不支持面向对象编程的。那怎么办呢？使用prototype模式即可。 首先读者需要知道Lua的原方法和原表这一知识点。如果接触过c++或者c#的同学应该知道我们可以对一些类的操作做重载(overl">
 
 
 
@@ -126,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/13/【计算机图形学基础】1光栅图像/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/29/20190429Lua骚操作一览/">
 
 
 
 
 
-  <title>【计算机图形学基础】一 光栅图像 | 左未的笔记本</title>
+  <title>Lua骚操作一览 | 左未的笔记本</title>
   
 
 
@@ -259,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/【计算机图形学基础】1光栅图像/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/20190429Lua骚操作一览/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -276,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】一 光栅图像</h1>
+          <h1 class="post-title" itemprop="name headline">Lua骚操作一览</h1>
         
 
         <div class="post-meta">
@@ -288,8 +289,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T15:53:28+08:00">
-                2019-02-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-29T19:03:31+08:00">
+                2019-04-29
               </time>
             
 
@@ -299,28 +300,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -328,7 +307,7 @@
 
           
           
-             <span id="/2019/02/13/【计算机图形学基础】1光栅图像/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】一 光栅图像">
+             <span id="/2019/04/29/20190429Lua骚操作一览/" class="leancloud_visitors" data-flag-title="Lua骚操作一览">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -359,87 +338,43 @@
       
 
       
-        <h1 id="【计算机图形学基础】一-光栅图像"><a href="#【计算机图形学基础】一-光栅图像" class="headerlink" title="【计算机图形学基础】一 光栅图像"></a>【计算机图形学基础】一 光栅图像</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第三章<em>Raster Images</em>。Raster其词翻译为<em>光栅</em>，光栅这个词在字面上非常难以看出它想表达的意思。于是转而去Google它的英文释义。</p>
-<p>在Google中可以看到如下：</p>
-<blockquote>
-<p>1930s: from German Raster, literally ‘screen’, from Latin rastrum ‘rake’, from ras- ‘scraped’, from the verb radere .</p>
-</blockquote>
-<p>Raster字面上的意思是<strong>屏幕</strong>。这个词来源于rake的意思<strong>掠过</strong>，和scraped的意思<strong>刮过</strong>。说到屏幕我们都会想到逐行扫描中，新的图像信息确实是一行一行掠（扫描）过去的，所以这个词的发明其实非常形象。</p>
-<p>光栅可以理解成把一个图像分解成逐像素的。像素英文pixel，全称picture element，中文全称应该是图像元素，简称像素。<br>光栅显示装备包括显示器、电视和打印机，光栅输入设备有现代数码相机、扫描仪等。</p>
-<p>除了光栅图像以外还有别的形式的图像，只是光栅这种形式已经非常流行了，所以现在基本图像都是光栅形式的。光栅图之外还有一种图叫做<strong>矢量图</strong>，光栅图可以转换成各种分辨率的光栅图，这是题外话了。</p>
-<h2 id="光栅设备"><a href="#光栅设备" class="headerlink" title="光栅设备"></a>光栅设备</h2><blockquote>
-<p><strong>生词</strong></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>做了三年的游戏开发，其中有两年都在使用Lua这一脚本语言，想着是时候写点什么东西输出一下，算是给个交代。本文既不是讲Lua入门，也不会讲到Lua虚拟机那么深，读者尽可放大心随意看。</p>
+<h2 id="类的实现"><a href="#类的实现" class="headerlink" title="类的实现"></a>类的实现</h2><p>原生Lua是不支持面向对象编程的。那怎么办呢？使用prototype模式即可。</p>
+<p>首先读者需要知道Lua的原方法和原表这一知识点。如果接触过c++或者c#的同学应该知道我们可以对一些类的操作做重载(<em>overload</em>)，改变诸如加减乘除，甚至一些更高级的操作。而在像是Lua这种脚本语言来说是没有重载这一操作的。取而代之的，我们可以通过重写元表来改变table原有的操作逻辑。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> theMetaTable = &#123;&#125;</span><br><span class="line"><span class="comment">-- 加号</span></span><br><span class="line">theMetaTable.<span class="built_in">__add</span> = <span class="function"><span class="keyword">function</span><span class="params">(leftVal, rightVal)</span></span></span><br><span class="line">    <span class="keyword">local</span> ret = &#123;&#125;</span><br><span class="line">    ret.age = leftVal.age + rightVal.age</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> tA = &#123;age = <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">local</span> tB = &#123;age = <span class="number">99</span>&#125;</span><br><span class="line"><span class="built_in">setmetatable</span>(tA, theMetaTable)</span><br><span class="line"><span class="built_in">setmetatable</span>(tB, theMetaTable)</span><br><span class="line"><span class="keyword">local</span> tC = tA + tB</span><br><span class="line"><span class="comment">-- tC = &#123;age = 100&#125;</span></span><br><span class="line"><span class="built_in">print</span>(tc.age)</span><br></pre></td></tr></table></figure>
+<p>在这么多元方法里面有一个最值得关注的，称为<code>__index</code>。顾名思义，传入一个key，返回一个value。接下来就来讲解如何使用这个元方法实现面向对象。首先我们假设有一个方法叫做<code>class(string name)</code>，会生成一个带有构造方法和其他各种方法的类原型（类原型是啥意思？类似于Java里的Class，c#里的Type），我们使用这个类原型就可以实例化出我们的实例来。使用方法大概是这样子的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Person = class(<span class="string">'class'</span>)</span><br><span class="line">Person.name = <span class="string">'DefaultName'</span></span><br><span class="line">Person.age = <span class="number">-1</span>;</span><br><span class="line">Person.sex = <span class="string">'male'</span></span><br><span class="line">Person.<span class="built_in">create</span> = <span class="function"><span class="keyword">function</span><span class="params">(name, age)</span></span></span><br><span class="line">    <span class="keyword">local</span> ret = Person.new()</span><br><span class="line">    ret.name = name</span><br><span class="line">    ret.age = age</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">Person.introduce = <span class="function"><span class="keyword">function</span><span class="params">(self)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">'i am %s, and i am %d'</span>, self.name, self.age))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> oldWong = Person.<span class="built_in">create</span>(<span class="string">'oldWong'</span>, <span class="number">45</span>)</span><br><span class="line">oldWong.sex = <span class="string">'female'</span></span><br><span class="line">oldWong:introduce()</span><br><span class="line"><span class="comment">-- console print: I am oldWong, and i am 45.</span></span><br></pre></td></tr></table></figure>
+<p>明眼的读者可以发现了：从class函数返回的<code>Person</code>一定是一个带着new方法的table。但是为什么这个new方法会生成新的实例呢？我改变oldWong实例的<code>sex</code>属性之后，再用Person去实例化一个实例，会是什么性别？有兴趣的读者可自行试试。</p>
+<p>接下来笔者将为你揭秘<code>__index</code>方法在<code>class(string name)</code>函数中的应用。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">class</span><span class="params">(clzName)</span></span></span><br><span class="line">    <span class="keyword">local</span> ret = &#123;&#125;</span><br><span class="line">    ret.__class = &#123;&#125;</span><br><span class="line">    ret.__class.__name = clzName</span><br><span class="line">    ret.new = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">        <span class="keyword">local</span> instance</span><br><span class="line">        <span class="comment">-- metatable</span></span><br><span class="line">        <span class="keyword">local</span> mt = &#123;&#125;</span><br><span class="line">        mt.<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(t, key)</span></span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">rawget</span>(instance, key) <span class="keyword">or</span> ret[key]</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="built_in">setmetatable</span>(instance, mt)</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>看一个函数我习惯先看最后return了什么东西，再看这个返回值是怎么被创建的，内容是啥。在这个<code>class</code>方法中，返回值是一个被命名为ret的表，这个表被填进了两个东西：</p>
 <ul>
-<li>emissive 发射的</li>
-<li>transmissive 递送的</li>
-<li>illumiate $v.$ 照亮</li>
+<li>类的信息，暂时只有类名</li>
+<li>一个叫做new的方法</li>
 </ul>
-</blockquote>
+<p>看起来这个new方法就是关键了。</p>
+<p>new方法最后返回了一个叫instance的table，这个看似什么内容都没有。等等…并不是什么东西都没有，这个table被塞进了一个元表(metatable)，而这个元表被重写了<code>__index</code>方法。</p>
+<p><code>__index</code>方法实际上是为了定义一种行为：传进一个key，返回一个value。也就是说根据上面的代码，当mt这个表被设置为instance的元表之后，当以后外界要从instance取东西出去的时候，会先在表本身里面找(rawget)，如果找不到了，再继续在找ret表里面找。</p>
+<p>看完上面的解释，我相信还是有一部分读者会睁着大眼睛问我，你说了这么多，那和面向对象有鸡毛关系？没事，笔者这篇文章本来就是想写给对Lua了解不深的朋友看的，所以一定会解释清楚。</p>
+<p>我们要知道，在Lua中，方法其实是一个内置类型，成为function。当一个表想调用自己拥有的一个方法的时候有两种形式：</p>
 <ul>
-<li>输出设备<ul>
-<li>显示设备<ul>
-<li>液晶显示屏 LCD (liquid crystal display) 原理是晶体的不同面有不同颜色，通过转动晶体可以出现不同的颜色，缺点是可视角度小</li>
-<li>发光二极管屏幕 LED (light emitting diode display) 色域大，亮度高，可视角度大</li>
+<li>t.function(t)</li>
+<li>t:function()</li>
 </ul>
-</li>
-<li>影印设备<ul>
-<li>染料升华打印机</li>
-<li>喷墨打印机</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>输入设备<ul>
-<li>2d感应器：数字相机</li>
-<li>1d感应器：平板扫描仪</li>
-</ul>
-</li>
-</ul>
-<h3 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h3><p>分为emissive设备和transmissive设备两种，前者常见为LED显示器，可以自发光；后者为液晶显示器，需要一个背景光源。</p>
-<h3 id="影印设备-amp-输入设备"><a href="#影印设备-amp-输入设备" class="headerlink" title="影印设备&amp;输入设备"></a>影印设备&amp;输入设备</h3><p>略过不看。</p>
-<h2 id="图像、像素、几何体"><a href="#图像、像素、几何体" class="headerlink" title="图像、像素、几何体"></a>图像、像素、几何体</h2><blockquote>
-<p><strong>生词</strong></p>
-<ul>
-<li>reproduce 重现</li>
-<li>idealize 理想化</li>
-<li>notion 概念</li>
-</ul>
-</blockquote>
-<p>这里先贴上一篇文章<a href="https://www.quora.com/Whats-the-difference-between-a-picture-image-and-photo" target="_blank" rel="noopener">单词image、picture和photo有什么区别</a>。</p>
-<p>可以简单地说，picture这词来源较老，表示被画出来的，可以被触摸的绘画作品，可被翻译为图片或者图画；photo的定义是picture made by camera；而image表示一个影像，你看镜子的时候，看到的画面就可以成为image，常为无形，翻译为图像较为妥当。</p>
-<p>为了避免图片过大，每个像素中的一个颜色通道只有8个位，256种亮度。LDR图一般储存亮度用的都是整数，而HDR图可以用浮点数来表示亮度，所以精度更高。</p>
-<p>以下是一些常见的像素格式：</p>
-<ul>
-<li>1-bit 灰度，常用于文字</li>
-<li>8-bit 固定范围RGB(24 bits total per pixel) 每个颜色通道八个位，也就是256的精度</li>
-<li>16-bit 固定范围RGB 常用于专业摄影和打印</li>
-<li>16-bit 固定范围灰度 x光或者其他医学影像</li>
-<li>32-bit 浮点RGB HDR图像</li>
-</ul>
-<blockquote>
-<p>Second, encoding images with limited precision leads to quantization artifacts, or banding, when the need to round pixel values to the nearest representable value introduces visible jumps in intensity or color.</p>
-<p>这是一个英语长句。when the need是一个词组，表示当需要干啥的时候。这里表示当需要把像素取整至最接近的整数的时候。这时会introduces，也就是引入，引入可见的亮度或者颜色跳跃。整句可翻译为：当<strong>需要对有限精度编码的图像中的像素，取整至最接近的整数的时候，会引发亮度或者颜色的跳跃。</strong>（也就是传说中的失真）</p>
-</blockquote>
-<h3 id="显示器亮度与伽马"><a href="#显示器亮度与伽马" class="headerlink" title="显示器亮度与伽马"></a>显示器亮度与伽马</h3><p>我们可以这么定义：关闭屏幕的时候屏幕为<strong>黑色</strong>，开启屏幕的时候为<strong>白色</strong>。假设输入数据中亮度范围为0~1，那么亮度的一半就是屏幕物理亮度的一半。然而其实人对亮度的敏感度不是线性的，在高亮度的时候，人眼分辨亮度差别的敏感度不高，而在亮度低的时候则相反。所以人眼觉得的中等亮度，其实不是0.5那个亮度。为了不浪费仅有的八位储存空间，我们尽可能地把人眼觉得的中等亮度（据说是0.18）储存为0.5，于是这就需要一个公式来校正。</p>
-<p>要在显示器上正确显示亮度，有两点要注意：</p>
-<p>显示器显示的亮度与输入的值其实是非线性关系的。什么意思呢？就是当你输入亮度0、0.5、1的时候，显示器亮度可能分别是0，0.25、1。假设输入亮度为$a$，可以得到这样一个公式来表达他们的关系：</p>
-<p>display intensity = (maximum intensity)$a^\gamma$</p>
-<p>在上面的举例中，$\gamma$就应该为2。</p>
-<p>这个公式只能够近似地描述显示器的非线性显示。假设我们知道输入亮度$a$以及输出亮度，这里假设输入亮度为0.5，那么可以得到：</p>
-<p>$$0.5 = a^\gamma$$</p>
-<p>从而推导出：</p>
-<p>$$\gamma = \frac{ln\,0.5}{ln\,a}$$</p>
-<blockquote>
-<p>顺便这里提一下怎么把log计算转为ln计算<br>$$log_ab = \frac{log_cb}{log_ca} = \frac{ln_b}{lin_a}$$<br>这里第一步叫换底公式。</p>
-<p>换底公式的证明：<br>若有对数$log_ab$，现假设$a=n^x$，$b=n^y$，可得：</p>
-<p>$x = log_na$, $y = log_nb$<br>所以：<br>$$log_ab = log_{n^x}{n^y}\,\,① $$<br>已知对数基本公式：<br>$$log_{xa}b = \frac{1}{x}log_ab$$<br>和<br>$$log_axb = xlog_ab$$<br>对$①$进行处理可得<br>$$log_ab = log_{n^x}{n^y} = \frac{1}{x}log_n{n^y} = \frac{y}{x}log_nn = \frac{y}{x} = \frac{log_nb}{log_na}$$</p>
-</blockquote>
-<p>电视上，或者游戏中我们常常可以看到伽马校正的功能，就是在调整$\gamma$的值。</p>
-<p>关于gamma校正，可以参考<a href="https://blog.csdn.net/candycat1992/article/details/46228771" target="_blank" rel="noopener">这篇文章</a>。</p>
-<p>关于真实的显示还有一点，这里就不讲了。</p>
-<h2 id="RGB颜色"><a href="#RGB颜色" class="headerlink" title="RGB颜色"></a>RGB颜色</h2><p>讲光的三原色的混合，莫得谈。</p>
-<h2 id="alpha混合"><a href="#alpha混合" class="headerlink" title="alpha混合"></a>alpha混合</h2><p>这部分讲的是blend的内容，也先不提。</p>
+<p>上面两种形式是等效的，使用冒号连接的时候，会把冒号前面的变量作为后面方法的第一个变量传入。</p>
+<p>在上面关于Person的代码例子中，有一句代码我们来看看是怎么最后调用成功的。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oldWong:introduce()</span><br></pre></td></tr></table></figure>
+<p>在调用<code>introduce()</code>之前，Lua需要先从oldWong这个表中拿出这个属性。这是一种以key换value的操作，于是自然会调用到<code>__index</code>元方法。首先Lua会在oldWong本身中找这个方法，找不到，然后就会在<code>__index</code>那段代码里的ret表里面找。还记得ret最后被返回，被我们持有为叫做Person的表了吗？</p>
+<p>所以’oldWong:introduce()’的实质调用，可以看做是</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person.introduce(oldWong)</span><br></pre></td></tr></table></figure>
+<p>明白了吧。</p>
+<h3 id="老王的叛逆"><a href="#老王的叛逆" class="headerlink" title="老王的叛逆"></a>老王的叛逆</h3><p>接下来，我们假设老王是一个很叛逆的人，他不想按照我们给他的方法进行自我介绍，想要用自己的方式来展示足够骚的自己，他怎么做呢：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">oldWong.introduce = <span class="function"><span class="keyword">function</span><span class="params">(self)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'i am Xiao Wang, bu yiyang de Xiao Wang'</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">oldWong.introduce()</span><br></pre></td></tr></table></figure>
+<p>老王他重写了自己的introduce方法。现在再从老王这个<del>婊</del>表中再读出introdce这个成员变量的时候，由于老王本身就已经拥有了自我介绍这个方法，于是就直接返回这个方法，不需要再从类里面去寻找原始的introduce方法了。于是老王的自我介绍就自成一派了。</p>
+<p>在老王叛逆的故事中，我们可以学到一种debug的方法。在我两年的lua使用时间中，其中一年半是在使用cocos2dx的，以这里为例子解释一下如何使用这个原理来快速debug。</p>
+<p>cocos2dx的节点Node类有一个<code>addChild(self, childNode)</code>方法，用来添加一个子节点。现在我发现游戏中有一个节点oldWongNode，莫名其妙地添加了一个叫做runNode的节点，但是由于前人写的代码太冗长太垃圾，找了半天都找不到究竟这个子节点是在哪里被添加的。这个时候我想起了老王的故事，这么写了一段代码，然后发现了究竟是哪个<del>凶手</del>同事调用了调用了这个方法添加了runNode：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> rawAddChild = oldWongNode.addChild</span><br><span class="line">oldWongNode.addChild = <span class="function"><span class="keyword">function</span><span class="params">(self, child)</span></span></span><br><span class="line">    <span class="keyword">if</span> child.name == <span class="string">'runNode'</span>:</span><br><span class="line">        printTraceback()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    rawAddChild(self, child)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>未完待续。。。</p>
 
       
     </div>
@@ -455,6 +390,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/计算机语言/" rel="tag"># 计算机语言</a>
+          
+        </div>
+      
 
       
       
@@ -464,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/13/CPU内核、用户模式/" rel="next" title="CPU内核、用户模式">
-                <i class="fa fa-chevron-left"></i> CPU内核、用户模式
+              <a href="/2019/04/08/20190408使用思维导图的正确姿势/" rel="next" title="思维大爆炸！使用思维导图的正确姿势">
+                <i class="fa fa-chevron-left"></i> 思维大爆炸！使用思维导图的正确姿势
               </a>
             
           </div>
@@ -473,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/13/【精通Linux】一/" rel="prev" title="【精通Linux】一 概述">
-                【精通Linux】一 概述 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -623,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】一-光栅图像"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】一 光栅图像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#光栅设备"><span class="nav-number">1.1.</span> <span class="nav-text">光栅设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示"><span class="nav-number">1.1.1.</span> <span class="nav-text">显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#影印设备-amp-输入设备"><span class="nav-number">1.1.2.</span> <span class="nav-text">影印设备&amp;输入设备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像、像素、几何体"><span class="nav-number">1.2.</span> <span class="nav-text">图像、像素、几何体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示器亮度与伽马"><span class="nav-number">1.2.1.</span> <span class="nav-text">显示器亮度与伽马</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RGB颜色"><span class="nav-number">1.3.</span> <span class="nav-text">RGB颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#alpha混合"><span class="nav-number">1.4.</span> <span class="nav-text">alpha混合</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的实现"><span class="nav-number">2.</span> <span class="nav-text">类的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#老王的叛逆"><span class="nav-number">2.1.</span> <span class="nav-text">老王的叛逆</span></a></li></ol></li></ol></div>
             
 
           </div>
