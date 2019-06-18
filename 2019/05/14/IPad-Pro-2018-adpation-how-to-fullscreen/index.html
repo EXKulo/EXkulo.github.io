@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="MTL测试结果说在IPad Pro 2018上出现了没有全屏的问题。由于是在Splash Screen阶段就出现了不全屏的现象，故认为应该这是native阶段的问题。 于是以「ipad pro 2018 unity fullscreen」为关键字进行搜索。查到一可行之方法如下：  进入ios Player Setting 找到Splash Screen项 将其下的IPad的选项改成default">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-14T03:04:50.461Z">
+<meta property="og:updated_time" content="2019-05-15T01:47:43.505Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IPad Pro 2018 Unity 屏幕适配 解决无法全屏问题">
 <meta name="twitter:description" content="MTL测试结果说在IPad Pro 2018上出现了没有全屏的问题。由于是在Splash Screen阶段就出现了不全屏的现象，故认为应该这是native阶段的问题。 于是以「ipad pro 2018 unity fullscreen」为关键字进行搜索。查到一可行之方法如下：  进入ios Player Setting 找到Splash Screen项 将其下的IPad的选项改成default">
@@ -375,8 +375,14 @@
 <p>由于该文章强调了第二步的重要性，故可推断出错误的（或缺失）闪屏图会导致无法全屏。</p>
 <p>参考文献：</p>
 <p><a href="https://forum.unity.com/threads/edge-to-edge-on-ipad-pro.583228/" target="_blank" rel="noopener">Edge-to-Edge on iPad Pro</a></p>
+<p>改法</p>
 <blockquote>
 <p>I upgraded my XCode to 10.1 and still had the same behavior, but when I built an empty project it didn’t have the problem– so I went through every setting and it turned out to be caused by my Launch Screen settings in PlayerSettings. I had mine set to “None”. When I switched to “Default” my build fills the screen properly ‾_(ツ)_/‾</p>
+</blockquote>
+<p>原理</p>
+<blockquote>
+<p>iOS determines App’s resolution by looking for launch image with matching screen dimensions in the app asset catalog (*.xassets). If the matching one is not found, it will try to find launch images used by older generation devices for backward compatibility. The app will launch in resolution of whatever launch image is eventually found.</p>
+<p>When launch screen options are set to default, Unity generates blank launch image for every screen dimension variant and add them to the asset catalog. The same effect can be achieved with a Storyboard file.</p>
 </blockquote>
 
       
@@ -411,6 +417,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/01/Install-Deepin-and-hexo/" rel="prev" title="Deepin系统体验报告">
+                Deepin系统体验报告 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -483,7 +493,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -494,7 +504,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

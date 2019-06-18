@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言一次刷知乎的时候刷到了deepin这个词，一查竟是一个国产的基于Linux的系统，从图片上来看体验特别接近Windows，QQ和微信等各种常用软件一应俱全，拿来日常用完全没问题，从UI上看，也比ubuntu要高上一个level。于是就想着给自己家里的奔腾老爷机装上试试。 接下来是一份体验大概两小时的报告，看完这文章的你可以决定是否装个双系统尝尝鲜，解决一下自己一直面对windows(mac)的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deepin系统体验报告">
+<meta property="og:url" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/index.html">
+<meta property="og:site_name" content="左未的笔记本">
+<meta property="og:description" content="前言一次刷知乎的时候刷到了deepin这个词，一查竟是一个国产的基于Linux的系统，从图片上来看体验特别接近Windows，QQ和微信等各种常用软件一应俱全，拿来日常用完全没问题，从UI上看，也比ubuntu要高上一个level。于是就想着给自己家里的奔腾老爷机装上试试。 接下来是一份体验大概两小时的报告，看完这文章的你可以决定是否装个双系统尝尝鲜，解决一下自己一直面对windows(mac)的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/homepage.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/dock_fashion.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/dock_traditional.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/access_windows_desktop.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/explorer_send_to_desktop.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/my_pc.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/setting.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/theme_setting.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/input_setting.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/sogou_input.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/vsc.png">
+<meta property="og:updated_time" content="2019-06-05T05:33:07.129Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deepin系统体验报告">
+<meta name="twitter:description" content="前言一次刷知乎的时候刷到了deepin这个词，一查竟是一个国产的基于Linux的系统，从图片上来看体验特别接近Windows，QQ和微信等各种常用软件一应俱全，拿来日常用完全没问题，从UI上看，也比ubuntu要高上一个level。于是就想着给自己家里的奔腾老爷机装上试试。 接下来是一份体验大概两小时的报告，看完这文章的你可以决定是否装个双系统尝尝鲜，解决一下自己一直面对windows(mac)的">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/homepage.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/">
+
+
+
+
+
+  <title>Deepin系统体验报告 | 左未的笔记本</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">左未的笔记本</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">却又想着不止做一本笔记本</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-spinner"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/aboutme" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/01/Install-Deepin-and-hexo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Deepin系统体验报告</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-01T11:47:56+08:00">
+                2019-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/玩机/" itemprop="url" rel="index">
+                    <span itemprop="name">玩机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/01/Install-Deepin-and-hexo/" class="leancloud_visitors" data-flag-title="Deepin系统体验报告">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一次刷知乎的时候刷到了deepin这个词，一查竟是一个国产的基于Linux的系统，从图片上来看体验特别接近Windows，QQ和微信等各种常用软件一应俱全，拿来日常用完全没问题，从UI上看，也比ubuntu要高上一个level。于是就想着给自己家里的奔腾老爷机装上试试。</p>
+<p>接下来是一份体验大概两小时的报告，看完这文章的你可以决定是否装个双系统尝尝鲜，解决一下自己一直面对windows(mac)的审美疲劳。</p>
+<p>为了家里人能够无缝地切换到这个系统上做日常娱乐和工作，下面还会讲一些如何把deepin改得更像windows的方法。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装deepin的步骤非常简单。</p>
+<p>在准备安装双系统之前当然，你得先把硬盘分区出一个新的区拿来安装新系统，关于如何<strong>硬盘分区</strong>，分出大概20G到50G那么大的一个区应该就够用了，具体操作可以自行搜索，装机老鸟当笔者这段话是在放屁就行了。</p>
+<img src="/2019/06/01/Install-Deepin-and-hexo/homepage.png" title="选择官方下载就可以">
+<p>安装盘很容易解决，跟安装windows一样，上<a href="https://www.deepin.org/download/" target="_blank" rel="noopener">官网(点击进入下载页)</a>把系统镜像iso文件下载下来，再使用深度官网自带的镜像<a href="https://www.deepin.org/original/deepin-boot-maker/" target="_blank" rel="noopener">烧录工具(点击下载)</a>把iso烧录到U盘中就可以。</p>
+<blockquote>
+<p>注意：最好使用能够格式化的U盘，直接选中格式化选项，把iso文件烧录进去。</p>
+</blockquote>
+<p>准备好启动盘之后，保持U盘插在电脑上，就是启动电脑的时候疯狂按F12和Delete，进入bios界面，把启动顺序调成usb启动优先。重启电脑之后就可以发现能够进入系统安装界面了。</p>
+<p>在选择语言那里选中简体中文，然后勾选用户协议，下一步来到了选择之前分出来的区，勾选格式化（最好勾选，避免多出一些不可预料的问题），然后下一步就开始自动安装了。</p>
+<p>在笔者的固态硬盘 + 垃圾CPU老爷机上，大概十五分钟后安装进度条就会跑完，这个时候切记先<strong>拔掉U盘</strong>，然后重启电脑，电脑启动之后有一个系统启动菜单，一般选择第一个回车就能进入deepin系统了。</p>
+<h2 id="系统界面"><a href="#系统界面" class="headerlink" title="系统界面"></a>系统界面</h2><h3 id="dock"><a href="#dock" class="headerlink" title="dock"></a>dock</h3><p>用过mac的读者应该就知道dock是啥，大概可以理解为跟windows任务栏差不多的东西，可以固定常用软件和查看正在运行的软件。</p>
+<p>deepin的dock刚好就可以选择比较接近mac的时尚模式和接近Windows的高效模式，右键<code>dock-模式</code>就可以选择相应的模式。</p>
+<img src="/2019/06/01/Install-Deepin-and-hexo/dock_fashion.png" title="时尚模式">
+<img src="/2019/06/01/Install-Deepin-and-hexo/dock_traditional.png" title="高效模式">
+<p>笔者本人还是比较习惯高效模式，右下角能够显示对应的小图标，还能跟Windows一样看当前输入法状态、查看当前时间和快捷调节电脑音量。</p>
+<h3 id="文件浏览器"><a href="#文件浏览器" class="headerlink" title="文件浏览器"></a>文件浏览器</h3><p>基本做到了和Windows的习惯非常接近，同样同时按住<code>win + E</code>键就可以打开。</p>
+<p>为了能够方便地访问Windows那边的桌面，可以用文件管理器前往<code>你的windows盘/Users/你的windows用户名/Desktop</code>，右键Desktop文件夹选择发送快捷方式到桌面，并在桌面把这个快捷方式命名为我的桌面。</p>
+<img src="/2019/06/01/Install-Deepin-and-hexo/access_windows_desktop.png" title="发送windows桌面到deepin桌面">
+<p>接下来我们把文件管理器发送到桌面，并改名为<code>我的电脑</code>，双击可以进入类似于windows我的电脑的界面。</p>
+<img src="/2019/06/01/Install-Deepin-and-hexo/explorer_send_to_desktop.png" title="发送我的电脑到桌面">
+<img src="/2019/06/01/Install-Deepin-and-hexo/my_pc.png" title="我的电脑">
+<h3 id="设置界面"><a href="#设置界面" class="headerlink" title="设置界面"></a>设置界面</h3><p>设置界面如图，点击设置之后会从右边弹出，半透明背景令人极其舒适。</p>
+<img src="/2019/06/01/Install-Deepin-and-hexo/setting.png" title="设置">
+<h3 id="字体设置"><a href="#字体设置" class="headerlink" title="字体设置"></a>字体设置</h3><p>deepin支持双击ttf字体文件直接安装字体，安装完之后可以在设置界面的<code>个性化</code>里直接更改系统字体。</p>
+<p>由于日常使用从windows那边移过来的PPT，所以为了字体兼容性，最好还要自己去网上把楷体、微软雅黑、黑体之类的几个常用字体给安装了。</p>
+<h3 id="主题设置"><a href="#主题设置" class="headerlink" title="主题设置"></a>主题设置</h3><p>deepin支持各种gtk主题的安装，可以从<a href="https://www.opendesktop.org/browse/cat/135/" target="_blank" rel="noopener">这里</a>下载GTK3的主题，然后按照<a href="https://wiki.deepin.org/wiki/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%BB%E9%A2%98" target="_blank" rel="noopener">这个教程</a>把主题文件夹复制到对应目录，最后需要注销一下用户或者重启系统，就可以在<code>设置</code>的<code>个性化</code>里找到新的主题了。</p>
+<p>笔者下载了一个macOS的主题装了上去，然后迷之没有任何变化，不知为何。</p>
+<img src="/2019/06/01/Install-Deepin-and-hexo/theme_setting.png" title="主题设置">
+<p>在个性化这个菜单里还可以改鼠标的颜色，使用白色那一套会比较接近windows的习惯。</p>
+<h2 id="软件适应性"><a href="#软件适应性" class="headerlink" title="软件适应性"></a>软件适应性</h2><p>deepin买下了商业版的crossover，使得用户可以在这个系统上使用一些已经移植了的windows程序，基本涵盖了我们平时工作娱乐所需要的软件。</p>
+<h3 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h3><p>用户可以在deepin上使用已经安装好的搜狗输入法<strong>阉割版</strong>，基本功能都有，但是没有windows上的一些比较细致的设置。</p>
+<p>同时按<code>ctrl + 空格</code>可以切换输入法。</p>
+<p>除了搜狗输入法，deepin还带了一个五笔输入法，不需要的同学可以点击右下角输入法标志进入输入法设置（dock高效模式下），把五笔输入法从列表里去掉。</p>
+<img src="/2019/06/01/Install-Deepin-and-hexo/input_setting.png" title="输入法设置">
+<img src="/2019/06/01/Install-Deepin-and-hexo/sogou_input.png" title="搜狗输入法">
+<h3 id="普通办公软件"><a href="#普通办公软件" class="headerlink" title="普通办公软件"></a>普通办公软件</h3><p><strong>WPS</strong>：系统自带WPS，对office要求不是很高的操作基本都能完成。</p>
+<p><strong>XMind</strong>：思维导图软件xmind也可以从应用商店下载到。</p>
+<h3 id="编程环境"><a href="#编程环境" class="headerlink" title="编程环境"></a>编程环境</h3><p><strong>Teamviewer</strong>：远程控制工具</p>
+<p><strong>FileZilla</strong>：FTP访问工具。</p>
+<p>商店中可以直接点击安装visual studio code，其他的JetBrain系软件也都提供了下载。既然用了Linux，这些应该难不倒程序员们，这里就不多说了。</p>
+<p>上张图秀一下刚装的vsc。</p>
+<img src="/2019/06/01/Install-Deepin-and-hexo/vsc.png" title="vsc">
+<h3 id="娱乐软件"><a href="#娱乐软件" class="headerlink" title="娱乐软件"></a>娱乐软件</h3><p>基本常用的娱乐软件在应用商店都能找到，包括了：</p>
+<p><strong>网易云音乐</strong> 其实这货本来就有一个Linux发行版，之前在ubuntu也用过。</p>
+<p><strong>VLC</strong> 免费的全能视频播放器，基本通吃所有视频格式。</p>
+<p><strong>迅雷极速版</strong> 没有广告，没有广告，没有广告！</p>
+<p><strong>krita</strong> 轻量级P图软件，要求不那么高的话拿来当Photoshop估计也够用</p>
+<p><strong>百度网盘</strong> 网盘</p>
+<p><strong>QQ</strong>和<strong>微信</strong> 这两个没啥好说了，有了这两货基本可以断了你不切换到Linux的最后一个借口</p>
+<p><strong>steam</strong> 游戏平台</p>
+<p><strong>浏览器</strong> 系统自带chrome，也可以自行从应用商店安装其他的浏览器</p>
+<p>deepin基本上是根据国人的习惯移植了各种常用的软件，对于一个轻量使用电脑的用户来说，完全够用。</p>
+<h2 id="使用感觉"><a href="#使用感觉" class="headerlink" title="使用感觉"></a>使用感觉</h2><p>笔者本人是一个颜值至上的用户，喜欢鼓捣各种各样的系统，装上deepin的时候真的是耳目一新，各种透明效果极其舒适。对颜值有要求的用户不妨看看。</p>
+<p>deepin作为一个商业化团队做的系统，系统的安装上尽量简单化，基本半个小时就可以完成，并且在设计上可谓是千方百计贴近普通用户原来的应用习惯，你以前在windows常用的快捷键在这边基本都被沿袭了下来。日常使用的软件在这边也完全可以下载得到。</p>
+<p>在性能上，足矣让家里的<strong>老爷机新春换发</strong>。开机极快且不会在开机之后还需要等待半分钟甚至五分钟等各种软件和服务自启动完毕，更不用在开机后看到右下角弹出的无数广告弹窗。</p>
+<p>在笔者体验的几个小时中，其中有一次系统出现了卡顿，不知道是由哪个软件引起，此类的bug还需要团队慢慢去解决。另外的不方便就是windows上一些比较小众的软件这边当然是用不了，大部分的网络游戏应该也不会在Linux上发布对应的版本，所以对网游爱好者并不是特别友好。</p>
+<p>除却上面提到的几个小缺陷之外，少玩游戏的读者完全可以装上windows + deepin双系统，并把主要工作环境切换到deepin来。</p>
+<p>本期的体验报告到此结束，谢谢观众老爷们～</p>
+<hr>
+<h2 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h2><p>接下来讲一下怎么在Deepin上安装hexo并发布博客。</p>
+<h3 id="安装nodejs和npm"><a href="#安装nodejs和npm" class="headerlink" title="安装nodejs和npm"></a>安装nodejs和npm</h3><p>注意：<strong>不要使用</strong>apt get去获取nodejs！可以获取到nodejs但没办法运行npm！！</p>
+<p>从官网下载<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a>之后解压，用<strong>管理员身份</strong>把<code>bin</code>中的node文件和npm文件的链接到<code>./bin</code>.</p>
+<p>打开终端可以测试node和npm命令是否运行正常。</p>
+<p>接下来<strong>更新npm淘宝源</strong>，在终端敲下面的代码就行了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><p>可以自行百度如何在Linux下安装hexo，注意安装完hexo之后为了能够在终端中直接使用，需要在<code>./bin</code>文件夹下创建hexo的软链接。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/14/IPad-Pro-2018-adpation-how-to-fullscreen/" rel="next" title="IPad Pro 2018 Unity 屏幕适配 解决无法全屏问题">
+                <i class="fa fa-chevron-left"></i> IPad Pro 2018 Unity 屏幕适配 解决无法全屏问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/18/Programmer-Interview-Redbook-1-Big-Data/" rel="prev" title="程序员代码面试指南 笔记">
+                程序员代码面试指南 笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/default_avatar.png" alt="左未">
+            
+              <p class="site-author-name" itemprop="name">左未</p>
+              <p class="site-description motion-element" itemprop="description">其实只是一本笔记本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:exkulo@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统界面"><span class="nav-number">3.</span> <span class="nav-text">系统界面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dock"><span class="nav-number">3.1.</span> <span class="nav-text">dock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件浏览器"><span class="nav-number">3.2.</span> <span class="nav-text">文件浏览器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置界面"><span class="nav-number">3.3.</span> <span class="nav-text">设置界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字体设置"><span class="nav-number">3.4.</span> <span class="nav-text">字体设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题设置"><span class="nav-number">3.5.</span> <span class="nav-text">主题设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件适应性"><span class="nav-number">4.</span> <span class="nav-text">软件适应性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入法"><span class="nav-number">4.1.</span> <span class="nav-text">输入法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通办公软件"><span class="nav-number">4.2.</span> <span class="nav-text">普通办公软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程环境"><span class="nav-number">4.3.</span> <span class="nav-text">编程环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#娱乐软件"><span class="nav-number">4.4.</span> <span class="nav-text">娱乐软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用感觉"><span class="nav-number">5.</span> <span class="nav-text">使用感觉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo"><span class="nav-number">6.</span> <span class="nav-text">hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nodejs和npm"><span class="nav-number">6.1.</span> <span class="nav-text">安装nodejs和npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装hexo"><span class="nav-number">6.2.</span> <span class="nav-text">安装hexo</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左未</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7CaWPI6HXpR1CiqpYnyY0JdE-gzGzoHsz", "rB1Vxs2fw7BXYUN9iyRcwfM3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/unitychan.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":200,"vOffset":-150},"mobile":{"show":false,"scale":0.2,"motion":true},"react":{"opacityDefault":0.7,"opacityOnHover":0.2}});</script></body>
+</html>
