@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/18/Coding-Interview-Guide-1-Big-Data/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/19/Coding-Interview-Guide-02-Stack-And-Queue/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -278,7 +278,173 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/18/Coding-Interview-Guide-1-Big-Data/" itemprop="url">一 大数据</a></h1>
+                <a class="post-title-link" href="/2019/06/19/Coding-Interview-Guide-02-Stack-And-Queue/" itemprop="url">二 栈和队列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-19T19:28:31+08:00">
+                2019-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/程序员代码面试指南-笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">程序员代码面试指南 笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/19/Coding-Interview-Guide-02-Stack-And-Queue/" class="leancloud_visitors" data-flag-title="二 栈和队列">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          由于个人兴趣，首文献给了「大数据和空间限制」一章。现在反过头来看书中的第一章「栈和队列」。
+01 设计一个有getMin功能的栈01.1 问题描述实现一个功能正常的栈，并实现一个返回栈中最小元素的操作。
+要求pop、push、getMin操作的时间复杂度都是$O$(1)。
+
+注：$O$(1)代表一个常数。
+
+01.2 笔者自己的弱智思路一个栈就可以解决。
+12345678910class Node&lt;T&gt;&#123;    T data;    uint nextMinIndex = -1;    uint preMinIndex = -1;&#125;class GetMinSta
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/19/Coding-Interview-Guide-02-Stack-And-Queue/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/18/Coding-Interview-Guide-01-Big-Data/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/18/Coding-Interview-Guide-01-Big-Data/" itemprop="url">一 大数据</a></h1>
         
 
         <div class="post-meta">
@@ -330,7 +496,7 @@
 
           
           
-             <span id="/2019/06/18/Coding-Interview-Guide-1-Big-Data/" class="leancloud_visitors" data-flag-title="一 大数据">
+             <span id="/2019/06/18/Coding-Interview-Guide-01-Big-Data/" class="leancloud_visitors" data-flag-title="一 大数据">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -363,7 +529,7 @@
       
         
           
-          前言这又是一个新的系列，为阅读「程序员代码面试指南」所做之笔记。尽量以一个小白能看懂的话讲。
+          01 前言这又是一个新的系列，为阅读「程序员代码面试指南」所做之笔记。尽量以一个小白能看懂的话讲。
 每个问题分为几个部分：
 
 题目
@@ -373,11 +539,11 @@
 
 只用2GB在20亿个整数中找到出现次数最多的数题目内存限制2GB，有一个包含20亿个全是32bit整数的大文件，找到出现次数最多的数。
 具体方案首先考虑所有数字都一样的情况，同一个数字的出现次数将达到20亿，我们使用一个32bit的整数足够记录。
-假设我们使用哈希表，key为整数，value为出现次数，一个键值对共占用8Byte。由于当出现2亿个数的时候，内存占用为1.6G，在此我们假定每次能够比较的最大数字个数
+假设我们使用哈希表，key为整数，value为出现次数，一个键值对共占用8Byte。由于当出现2亿个数的时候，内存占用为1.6G，在此我们假定每次能够比较的最大数
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/06/18/Coding-Interview-Guide-1-Big-Data/#more" rel="contents">
+            <a class="btn" href="/2019/06/18/Coding-Interview-Guide-01-Big-Data/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1693,165 +1859,6 @@ Motion capture 动作捕捉
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/【计算机图形学基础】9模型/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的笔记本">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/06/【计算机图形学基础】9模型/" itemprop="url">【计算机图形学基础】9模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-06T11:42:37+08:00">
-                2019-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/03/06/【计算机图形学基础】9模型/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】9模型">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/06/【计算机图形学基础】9模型/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1904,7 +1911,7 @@ Motion capture 动作捕捉
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

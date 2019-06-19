@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="【精通Linux】一 概述本系列是阅读精通Linux所作之笔记。这本书的原名叫How Linux Works，半点没有精通的意思，算是本入门书。 系统抽象层级 用户进程，运行于CPU的用户模式 Linux内核，运行于CPU的内核模式 硬件  kernel 内核内核将内存划分为多块。每个进程都有自己的内存区块，内核会保证它只能只用自己的内存区块，无法存取其他进程的内存。 每次CPU切换用户进程的时候">
+<meta name="description" content="01 前言这又是一个新的系列，为阅读「程序员代码面试指南」所做之笔记。尽量以一个小白能看懂的话讲。 每个问题分为几个部分：  题目 具体解决方案 思路重点 最后尝试用一句话来说完整个思路  只用2GB在20亿个整数中找到出现次数最多的数题目内存限制2GB，有一个包含20亿个全是32bit整数的大文件，找到出现次数最多的数。 具体方案首先考虑所有数字都一样的情况，同一个数字的出现次数将达到20亿，我">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【精通Linux】一 概述">
-<meta property="og:url" content="http://yoursite.com/2019/02/13/【精通Linux】一/index.html">
+<meta property="og:title" content="一 大数据">
+<meta property="og:url" content="http://yoursite.com/2019/06/18/Coding-Interview-Guide-01-Big-Data/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="【精通Linux】一 概述本系列是阅读精通Linux所作之笔记。这本书的原名叫How Linux Works，半点没有精通的意思，算是本入门书。 系统抽象层级 用户进程，运行于CPU的用户模式 Linux内核，运行于CPU的内核模式 硬件  kernel 内核内核将内存划分为多块。每个进程都有自己的内存区块，内核会保证它只能只用自己的内存区块，无法存取其他进程的内存。 每次CPU切换用户进程的时候">
+<meta property="og:description" content="01 前言这又是一个新的系列，为阅读「程序员代码面试指南」所做之笔记。尽量以一个小白能看懂的话讲。 每个问题分为几个部分：  题目 具体解决方案 思路重点 最后尝试用一句话来说完整个思路  只用2GB在20亿个整数中找到出现次数最多的数题目内存限制2GB，有一个包含20亿个全是32bit整数的大文件，找到出现次数最多的数。 具体方案首先考虑所有数字都一样的情况，同一个数字的出现次数将达到20亿，我">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-14T09:40:48.496Z">
+<meta property="og:updated_time" content="2019-06-19T11:31:00.024Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【精通Linux】一 概述">
-<meta name="twitter:description" content="【精通Linux】一 概述本系列是阅读精通Linux所作之笔记。这本书的原名叫How Linux Works，半点没有精通的意思，算是本入门书。 系统抽象层级 用户进程，运行于CPU的用户模式 Linux内核，运行于CPU的内核模式 硬件  kernel 内核内核将内存划分为多块。每个进程都有自己的内存区块，内核会保证它只能只用自己的内存区块，无法存取其他进程的内存。 每次CPU切换用户进程的时候">
+<meta name="twitter:title" content="一 大数据">
+<meta name="twitter:description" content="01 前言这又是一个新的系列，为阅读「程序员代码面试指南」所做之笔记。尽量以一个小白能看懂的话讲。 每个问题分为几个部分：  题目 具体解决方案 思路重点 最后尝试用一句话来说完整个思路  只用2GB在20亿个整数中找到出现次数最多的数题目内存限制2GB，有一个包含20亿个全是32bit整数的大文件，找到出现次数最多的数。 具体方案首先考虑所有数字都一样的情况，同一个数字的出现次数将达到20亿，我">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/13/【精通Linux】一/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/18/Coding-Interview-Guide-01-Big-Data/">
 
 
 
 
 
-  <title>【精通Linux】一 概述 | 左未的笔记本</title>
+  <title>一 大数据 | 左未的笔记本</title>
   
 
 
@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/【精通Linux】一/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/18/Coding-Interview-Guide-01-Big-Data/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -276,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【精通Linux】一 概述</h1>
+          <h1 class="post-title" itemprop="name headline">一 大数据</h1>
         
 
         <div class="post-meta">
@@ -288,8 +288,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T19:04:44+08:00">
-                2019-02-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-18T18:50:35+08:00">
+                2019-06-18
               </time>
             
 
@@ -311,8 +311,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/程序员代码面试指南-笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">程序员代码面试指南 笔记</span>
                   </a>
                 </span>
 
@@ -328,7 +328,7 @@
 
           
           
-             <span id="/2019/02/13/【精通Linux】一/" class="leancloud_visitors" data-flag-title="【精通Linux】一 概述">
+             <span id="/2019/06/18/Coding-Interview-Guide-01-Big-Data/" class="leancloud_visitors" data-flag-title="一 大数据">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -359,15 +359,22 @@
       
 
       
-        <h1 id="【精通Linux】一-概述"><a href="#【精通Linux】一-概述" class="headerlink" title="【精通Linux】一 概述"></a>【精通Linux】一 概述</h1><p>本系列是阅读<a href="https://book.douban.com/subject/26546893/" target="_blank" rel="noopener">精通Linux</a>所作之笔记。这本书的原名叫<strong>How Linux Works</strong>，半点没有精通的意思，算是本入门书。</p>
-<h2 id="系统抽象层级"><a href="#系统抽象层级" class="headerlink" title="系统抽象层级"></a>系统抽象层级</h2><ul>
-<li>用户进程，运行于CPU的用户模式</li>
-<li>Linux内核，运行于CPU的内核模式</li>
-<li>硬件</li>
-</ul>
-<h2 id="kernel-内核"><a href="#kernel-内核" class="headerlink" title="kernel 内核"></a>kernel 内核</h2><p>内核将内存划分为多块。每个进程都有自己的内存区块，内核会保证它只能只用自己的内存区块，无法存取其他进程的内存。</p>
-<p>每次CPU切换用户进程的时候，需要先把CPU控制权交给内核，由内核来完成上下文切换。</p>
-<p>为了避免一个进程访问到另一个进程的内存，现代CPU都使用了MMU（Memory Management Unit）。MMU使用了虚拟内存的内存访问机制，使得进程不是访问内存实际的物理地址，而是通过内核来访问一个虚拟地址，内核再通过映射表使得进程可以访问到内存。</p>
+        <h2 id="01-前言"><a href="#01-前言" class="headerlink" title="01 前言"></a>01 前言</h2><p>这又是一个新的系列，为阅读「程序员代码面试指南」所做之笔记。尽量以一个小白能看懂的话讲。</p>
+<p>每个问题分为几个部分：</p>
+<ol>
+<li>题目</li>
+<li>具体解决方案</li>
+<li>思路重点</li>
+<li>最后尝试用一句话来说完整个思路</li>
+</ol>
+<h2 id="只用2GB在20亿个整数中找到出现次数最多的数"><a href="#只用2GB在20亿个整数中找到出现次数最多的数" class="headerlink" title="只用2GB在20亿个整数中找到出现次数最多的数"></a>只用2GB在20亿个整数中找到出现次数最多的数</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>内存限制2GB，有一个包含20亿个全是32bit整数的大文件，找到出现次数最多的数。</p>
+<h3 id="具体方案"><a href="#具体方案" class="headerlink" title="具体方案"></a>具体方案</h3><p>首先考虑所有数字都一样的情况，同一个数字的出现次数将达到20亿，我们使用一个32bit的整数足够记录。</p>
+<p>假设我们使用哈希表，key为整数，value为出现次数，一个键值对共占用8Byte。由于当出现2亿个数的时候，内存占用为1.6G，在此我们假定每次能够比较的最大数字个数就为2亿个。</p>
+<p>那么我们的下一步希望能够把大文件根据某种条件分散到n个文件中，每个文件中的数字个数最多为2亿。</p>
+<p>考虑先根据哈希函数把整数分散到16个不同的文件中，这里假设我们的<strong>分类哈希函数</strong>足够秀，不会让其中某个文件的数字个数超过2亿。注意：由于同样的数字哈希值是一样的，所以会被分到同一个文件中。</p>
+<p>最后，我们分别统计16个文件中出现次数最多的数字（可以同一台计算机统计16次，或者直接分发到16台计算机中分别统计）。得到了每个文件中出现次数最多的数之后，我们再找出这16个数字中出现次数最多者，即可得到答案。</p>
+<h3 id="思路重点"><a href="#思路重点" class="headerlink" title="思路重点"></a>思路重点</h3><p>如何把大文件分为若干个小文件，条件是什么。</p>
+<h3 id="一句话"><a href="#一句话" class="headerlink" title="一句话"></a>一句话</h3><p>把大文件中的数字按照某种条件分类成若干小文件，保证同一个数字只会出现在一个小文件中，再分别统计小文件中出现个数最多者。</p>
 
       
     </div>
@@ -392,8 +399,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/13/【计算机图形学基础】1光栅图像/" rel="next" title="【计算机图形学基础】一 光栅图像">
-                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】一 光栅图像
+              <a href="/2019/06/01/Install-Deepin-and-hexo/" rel="next" title="Deepin系统体验报告">
+                <i class="fa fa-chevron-left"></i> Deepin系统体验报告
               </a>
             
           </div>
@@ -402,8 +409,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/14/【计算机图形学基础】2射线追踪/" rel="prev" title="【计算机图形学基础】二 射线追踪">
-                【计算机图形学基础】二 射线追踪 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/19/Coding-Interview-Guide-02-Stack-And-Queue/" rel="prev" title="二 栈和队列">
+                二 栈和队列 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -551,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【精通Linux】一-概述"><span class="nav-number">1.</span> <span class="nav-text">【精通Linux】一 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统抽象层级"><span class="nav-number">1.1.</span> <span class="nav-text">系统抽象层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kernel-内核"><span class="nav-number">1.2.</span> <span class="nav-text">kernel 内核</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-前言"><span class="nav-number">1.</span> <span class="nav-text">01 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只用2GB在20亿个整数中找到出现次数最多的数"><span class="nav-number">2.</span> <span class="nav-text">只用2GB在20亿个整数中找到出现次数最多的数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体方案"><span class="nav-number">2.2.</span> <span class="nav-text">具体方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路重点"><span class="nav-number">2.3.</span> <span class="nav-text">思路重点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一句话"><span class="nav-number">2.4.</span> <span class="nav-text">一句话</span></a></li></ol></li></ol></div>
             
 
           </div>
