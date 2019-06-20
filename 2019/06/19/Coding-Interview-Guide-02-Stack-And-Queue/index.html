@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="由于个人兴趣，首文献给了「大数据和空间限制」一章。现在反过头来看书中的第一章「栈和队列」。 01 设计一个有getMin功能的栈01.1 问题描述实现一个功能正常的栈，并实现一个返回栈中最小元素的操作。 要求pop、push、getMin操作的时间复杂度都是$O$(1)。  注：$O$(1)代表一个常数。  01.2 笔者自己的弱智思路一个栈就可以解决。 12345678910class Node">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-19T11:53:33.755Z">
+<meta property="og:updated_time" content="2019-06-20T12:09:44.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二 栈和队列">
 <meta name="twitter:description" content="由于个人兴趣，首文献给了「大数据和空间限制」一章。现在反过头来看书中的第一章「栈和队列」。 01 设计一个有getMin功能的栈01.1 问题描述实现一个功能正常的栈，并实现一个返回栈中最小元素的操作。 要求pop、push、getMin操作的时间复杂度都是$O$(1)。  注：$O$(1)代表一个常数。  01.2 笔者自己的弱智思路一个栈就可以解决。 12345678910class Node">
@@ -375,7 +375,30 @@
 <p>出栈时，将栈顶从链表中扯出来，根据nextMinIndex和preMinIndex把前后节点连在一起。</p>
 <p>当执行<code>getMin()</code>时，直接返回<code>minIndex</code>。</p>
 <p>该弱智方法的缺陷就是插入的时候时间复杂度为$O$(n)。</p>
-<h3 id="01-2-作者的睿智思路"><a href="#01-2-作者的睿智思路" class="headerlink" title="01.2 作者的睿智思路"></a>01.2 作者的睿智思路</h3><p>似乎是要用到两个栈，明日再看。</p>
+<h3 id="01-2-作者的睿智思路"><a href="#01-2-作者的睿智思路" class="headerlink" title="01.2 作者的睿智思路"></a>01.2 作者的睿智思路</h3><p>准备两个栈，一个名为stackData，作为普通栈使用，另一个名为stackMin，栈顶永远是最小值。</p>
+<p>入栈规则：</p>
+<p>规定新进来的数字为newNum，先将其压入stackData，然后判断stackMin是否为空</p>
+<ol>
+<li>如果stackMin为空，那么压入stackMin作为栈顶</li>
+<li>如果stackMin不为空，那么比较newNum和stackMin的栈顶</li>
+<li>如果newNum &lt;= 栈顶，那么压入stackMin</li>
+<li>否则不做操作</li>
+</ol>
+<p>此举可以保证stackMin栈顶永远最小。</p>
+<p>出栈规则：</p>
+<ol>
+<li>从stackData出栈</li>
+<li>比较出栈的value和stackMin和栈顶</li>
+<li>当value == stackMin.top的时候，从stackMin出栈</li>
+<li>否则啥事儿不做</li>
+</ol>
+<p>关键：</p>
+<p>比stackMin栈顶大的并不会入栈（比栈顶大的一律被忽略），导致stackMin的栈顶必然小于等于stackData栈顶。stackData出栈的时候同步出栈stackMin即可。</p>
+<h3 id="比起笔者弱智方法的好处"><a href="#比起笔者弱智方法的好处" class="headerlink" title="比起笔者弱智方法的好处"></a>比起笔者弱智方法的好处</h3><p>其实算是个改进版。笔者的弱智方法想的是用一个数永远来记录最小值，当stackData有出栈需求的时候就变得很蛋疼了，因为没法获取下一个最小值。为了能够渐进地获取最小值，当然就需要另一个栈。</p>
+<p>接下来的问题就是判断何时需要把数字压到另一个栈里面。</p>
+<p>在笔者的弱智方法中需要考虑一个问题，就是当一个数字出栈之后，是否会影响最小值。而作者思路的关键是，一旦出栈这个数字大于stackMin的栈顶，那么它必然不是最小值，可以安全出栈而不用考虑其他因素。</p>
+<p>作者的思路其实将stackData分为一段一段，并将每一段的最小值记录在stackMin中。</p>
+<p>假设我们压入3、4、5、1、2。最终被压入stackMin的就是3和1，将stackData分为了两段，在3之后1之前，以及1到栈顶之间的都可以安全出栈。</p>
 
       
     </div>
@@ -555,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-设计一个有getMin功能的栈"><span class="nav-number">1.</span> <span class="nav-text">01 设计一个有getMin功能的栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01-1-问题描述"><span class="nav-number">1.1.</span> <span class="nav-text">01.1 问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#01-2-笔者自己的弱智思路"><span class="nav-number">1.2.</span> <span class="nav-text">01.2 笔者自己的弱智思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#01-2-作者的睿智思路"><span class="nav-number">1.3.</span> <span class="nav-text">01.2 作者的睿智思路</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-设计一个有getMin功能的栈"><span class="nav-number">1.</span> <span class="nav-text">01 设计一个有getMin功能的栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01-1-问题描述"><span class="nav-number">1.1.</span> <span class="nav-text">01.1 问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#01-2-笔者自己的弱智思路"><span class="nav-number">1.2.</span> <span class="nav-text">01.2 笔者自己的弱智思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#01-2-作者的睿智思路"><span class="nav-number">1.3.</span> <span class="nav-text">01.2 作者的睿智思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比起笔者弱智方法的好处"><span class="nav-number">1.4.</span> <span class="nav-text">比起笔者弱智方法的好处</span></a></li></ol></li></ol></div>
             
 
           </div>
