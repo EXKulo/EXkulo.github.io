@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="12 使用成员初始化器运行时机成员初始化器要比任何构造函数早运行。 何时不推荐 当不需要有默认值的时候 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。  12MyValType myVal; // 被初始化为0MyValType myVal = new MyValType(); // 同样">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-04T11:43:40.309Z">
+<meta property="og:updated_time" content="2019-07-08T11:54:28.828Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective-C#-12~20">
 <meta name="twitter:description" content="12 使用成员初始化器运行时机成员初始化器要比任何构造函数早运行。 何时不推荐 当不需要有默认值的时候 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。  12MyValType myVal; // 被初始化为0MyValType myVal = new MyValType(); // 同样">
@@ -367,7 +367,22 @@
 </li>
 <li>当还会在某个构造函数再次被初始化的时候<br> 当然，不需要被初始化两次。</li>
 </ol>
-
+<h2 id="13-正确地初始化静态成员变量"><a href="#13-正确地初始化静态成员变量" class="headerlink" title="13 正确地初始化静态成员变量"></a>13 正确地初始化静态成员变量</h2><p>静态构造函数。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">A</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> A instance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">A</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        instance = A();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>静态构造函数由CLR自动调用</li>
+<li>不能接受任何参数</li>
+<li>必须处理任何可能会抛出的异常，否则（由于是CLR调用的）会使CLR终止整个程序</li>
+<li>如果内部吞下了异常，会导致创建该类型的代码以失败告终，直到该AppDomain停止</li>
+</ul>
+<h2 id="16-避免创建非必要的对象"><a href="#16-避免创建非必要的对象" class="headerlink" title="16 避免创建非必要的对象"></a>16 避免创建非必要的对象</h2><p>在那种频繁调用的函数中尽量避免创建对象（比如游戏中每帧调用的Update函数）。</p>
+<p>创建过多对象会给GC造成负担。</p>
+<p>两种方法可以改良：</p>
+<ol>
+<li>把常用的局部变量升级为成员变量</li>
+<li>提供一个类，存放某个类型常用实例的<strong>单例</strong>对象（比如某种颜色的笔刷）</li>
+</ol>
+<h2 id="17-实现标准的销毁模式"><a href="#17-实现标准的销毁模式" class="headerlink" title="17 实现标准的销毁模式"></a>17 实现标准的销毁模式</h2>
       
     </div>
     
@@ -550,7 +565,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-使用成员初始化器"><span class="nav-number">1.</span> <span class="nav-text">12 使用成员初始化器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时机"><span class="nav-number">1.1.</span> <span class="nav-text">运行时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时不推荐"><span class="nav-number">1.2.</span> <span class="nav-text">何时不推荐</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-使用成员初始化器"><span class="nav-number">1.</span> <span class="nav-text">12 使用成员初始化器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时机"><span class="nav-number">1.1.</span> <span class="nav-text">运行时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时不推荐"><span class="nav-number">1.2.</span> <span class="nav-text">何时不推荐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-正确地初始化静态成员变量"><span class="nav-number">2.</span> <span class="nav-text">13 正确地初始化静态成员变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-避免创建非必要的对象"><span class="nav-number">3.</span> <span class="nav-text">16 避免创建非必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-实现标准的销毁模式"><span class="nav-number">4.</span> <span class="nav-text">17 实现标准的销毁模式</span></a></li></ol></div>
             
 
           </div>
