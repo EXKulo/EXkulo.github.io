@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="12 使用成员初始化器运行时机成员初始化器要比任何构造函数早运行。 何时不推荐 当不需要有默认值的时候 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。  12MyValType myVal; // 被初始化为0MyValType myVal = new MyValType(); // 同样">
+<meta name="description" content="12 使用成员初始化器运行时机成员初始化器要比任何构造方法早运行。 何时不推荐 当不需要有默认值的时候 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。  12MyValType myVal; // 被初始化为0MyValType myVal = new MyValType(); // 同样">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Effective-C#-12~20">
 <meta property="og:url" content="http://yoursite.com/2019/07/04/Effective-C-12/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="12 使用成员初始化器运行时机成员初始化器要比任何构造函数早运行。 何时不推荐 当不需要有默认值的时候 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。  12MyValType myVal; // 被初始化为0MyValType myVal = new MyValType(); // 同样">
+<meta property="og:description" content="12 使用成员初始化器运行时机成员初始化器要比任何构造方法早运行。 何时不推荐 当不需要有默认值的时候 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。  12MyValType myVal; // 被初始化为0MyValType myVal = new MyValType(); // 同样">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-08T11:54:28.828Z">
+<meta property="og:updated_time" content="2019-07-09T09:05:14.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective-C#-12~20">
-<meta name="twitter:description" content="12 使用成员初始化器运行时机成员初始化器要比任何构造函数早运行。 何时不推荐 当不需要有默认值的时候 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。  12MyValType myVal; // 被初始化为0MyValType myVal = new MyValType(); // 同样">
+<meta name="twitter:description" content="12 使用成员初始化器运行时机成员初始化器要比任何构造方法早运行。 何时不推荐 当不需要有默认值的时候 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。  12MyValType myVal; // 被初始化为0MyValType myVal = new MyValType(); // 同样">
 
 
 
@@ -359,30 +359,66 @@
       
 
       
-        <h2 id="12-使用成员初始化器"><a href="#12-使用成员初始化器" class="headerlink" title="12 使用成员初始化器"></a>12 使用成员初始化器</h2><h3 id="运行时机"><a href="#运行时机" class="headerlink" title="运行时机"></a>运行时机</h3><p>成员初始化器要比任何构造函数早运行。</p>
+        <h2 id="12-使用成员初始化器"><a href="#12-使用成员初始化器" class="headerlink" title="12 使用成员初始化器"></a>12 使用成员初始化器</h2><h3 id="运行时机"><a href="#运行时机" class="headerlink" title="运行时机"></a>运行时机</h3><p>成员初始化器要比任何构造方法早运行。</p>
 <h3 id="何时不推荐"><a href="#何时不推荐" class="headerlink" title="何时不推荐"></a>何时不推荐</h3><ol>
 <li><p>当不需要有默认值的时候<br> 当要初始化为默认值的时候，不推荐还多余地做一个初始化。当不初始化的时候，系统直接把一整块内存置为0，如果自己画蛇添足偏要初始化，反而是多了个创建实例的消耗。</p>
  <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MyValType myVal; <span class="comment">// 被初始化为0</span></span><br><span class="line">MyValType myVal = <span class="keyword">new</span> MyValType(); <span class="comment">// 同样被初始化为0</span></span><br></pre></td></tr></table></figure>
 <p> 第一条直接把内存变为0，第二条则还要调用<code>initobj</code>这条IL命令。</p>
 </li>
-<li>当还会在某个构造函数再次被初始化的时候<br> 当然，不需要被初始化两次。</li>
+<li>当还会在某个构造方法再次被初始化的时候<br> 当然，不需要被初始化两次。</li>
 </ol>
-<h2 id="13-正确地初始化静态成员变量"><a href="#13-正确地初始化静态成员变量" class="headerlink" title="13 正确地初始化静态成员变量"></a>13 正确地初始化静态成员变量</h2><p>静态构造函数。</p>
+<h2 id="13-正确地初始化静态成员变量"><a href="#13-正确地初始化静态成员变量" class="headerlink" title="13 正确地初始化静态成员变量"></a>13 正确地初始化静态成员变量</h2><p>静态构造方法。</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">A</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> A instance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">A</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        instance = A();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">A</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>静态构造函数由CLR自动调用</li>
+<li>静态构造方法由CLR自动调用</li>
 <li>不能接受任何参数</li>
 <li>必须处理任何可能会抛出的异常，否则（由于是CLR调用的）会使CLR终止整个程序</li>
 <li>如果内部吞下了异常，会导致创建该类型的代码以失败告终，直到该AppDomain停止</li>
 </ul>
-<h2 id="16-避免创建非必要的对象"><a href="#16-避免创建非必要的对象" class="headerlink" title="16 避免创建非必要的对象"></a>16 避免创建非必要的对象</h2><p>在那种频繁调用的函数中尽量避免创建对象（比如游戏中每帧调用的Update函数）。</p>
+<h2 id="16-避免创建非必要的对象"><a href="#16-避免创建非必要的对象" class="headerlink" title="16 避免创建非必要的对象"></a>16 避免创建非必要的对象</h2><p>在那种频繁调用的方法中尽量避免创建对象（比如游戏中每帧调用的Update方法）。</p>
 <p>创建过多对象会给GC造成负担。</p>
 <p>两种方法可以改良：</p>
 <ol>
 <li>把常用的局部变量升级为成员变量</li>
 <li>提供一个类，存放某个类型常用实例的<strong>单例</strong>对象（比如某种颜色的笔刷）</li>
 </ol>
-<h2 id="17-实现标准的销毁模式"><a href="#17-实现标准的销毁模式" class="headerlink" title="17 实现标准的销毁模式"></a>17 实现标准的销毁模式</h2>
+<h2 id="17-实现标准的销毁模式"><a href="#17-实现标准的销毁模式" class="headerlink" title="17 实现标准的销毁模式"></a>17 实现标准的销毁模式</h2><p>资源分为两种，一种称为非托管资源，可以理解为非c#对象，如系统API中的socket或者数据库连接；另一种成为托管资源，为c#对象，可由GC回收。</p>
+<p>当使用非托管资源后，应该显示地调用非托管资源的关闭资源方法。</p>
+<p>关闭一个资源常有三种方法：</p>
+<ol>
+<li>析构方法（终结器） 特点是无法主动调用，且被调用时机不明，一般作为补救措施用</li>
+<li>实现了IDisposable接口的Dispose方法</li>
+<li>Close方法（如Socket）</li>
+</ol>
+<p>一般而言他们的关系是：InternalDispose方法为虚方法且不公开，执行释放资源的任务，Dispose方法公开且调用Dispose方法，在有些地方，Dispose方法也常被命名为Close，析构方法的实现亦同样是调用InternalDispose方法。</p>
+<p>Dispose方法的逻辑中还需有一句命令，告知GC在回收本对象时无需再调用析构函数，避免二次调用InternalDispose。</p>
+<p>从下面代码中可简明地明白他们的关系：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ASocketLikeClass: IDisposable</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 标志位，防止被多次执行dispose</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">bool</span> _isDisposed;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> IDisposable.Dispose()&#123;</span><br><span class="line">        <span class="keyword">this</span>.InternalDispose();</span><br><span class="line">        <span class="comment">// 通知GC，回收此对象的时候无需再调用析构方法</span></span><br><span class="line">        GC.SuppressFinalize(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">InternalDispose</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span>(_isDisposed)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"This object has been disposed!!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// a socket like function</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Close</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">this</span>.Dispose();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~ASocketLikeClass()&#123;</span><br><span class="line">        InternalDispose();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>应该注意的是，在InternalDispose中，不要写和释放资源无关的任何代码，避免造成对象的生命周期紊乱。</p>
+<h2 id="18-区分值类型和引用类型"><a href="#18-区分值类型和引用类型" class="headerlink" title="18 区分值类型和引用类型"></a>18 区分值类型和引用类型</h2><p>c#中，struct为值类型，class为引用类型。值类型不支持多态，而引用类型支持。</p>
+<h3 id="值对象有更好的隐蔽性"><a href="#值对象有更好的隐蔽性" class="headerlink" title="值对象有更好的隐蔽性"></a>值对象有更好的隐蔽性</h3><p>当作为某个函数的返回值时，值类型会被复制一遍，而引用类型会被直接返回。故出现一问题，即如果函数返回了某个私有的引用类型对象，那么就相当于把该对象暴露出去，外界可以随意更改该对象。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">A</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> PrivateClass _privateObject;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PrivateClass <span class="title">GetInfo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _privateObject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// call it</span></span><br><span class="line">A a = <span class="keyword">new</span> A();</span><br><span class="line"><span class="keyword">var</span> obj = a.GetInfo();</span><br><span class="line">obj.xxx = <span class="number">999</span>;</span><br></pre></td></tr></table></figure>
+<p>（代码1-1）</p>
+<p>当PrivateClass是一个struct时，<code>obj.xxx = 999</code>语句并不会影响到<code>a._privateObject</code>的内容（因为修改的是它的副本），相反，当PrivateClass为一个class时，<code>a._privateObject</code>的内容就可能会被改变。</p>
+<h3 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h3><p>值类型被分配在栈上，引用类型被分配在堆上。</p>
+<p>当你需要创建一个数组的时候，数组内容若是值类型，会更加高效（但是可能会爆栈）。</p>
+<p>这是因为当创建该数组的时候，若，CLR将在栈上直接分配<code>数组长度 * 值类型大小</code>那么大的内存空间。</p>
+<p>而当内容为引用类型的时候，只会分配<code>数组长度 * 引用指针大小</code>的内存于堆中。后续对数组的初始化过程中，会不断地在堆上new出新对象，它们在内存里的分布不一定是连续的，有可能会让堆上充满碎片，让程序变慢。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> A&#123;</span><br><span class="line">    <span class="keyword">double</span> field;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title">B</span>&#123;</span><br><span class="line">    <span class="keyword">double</span> field;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use them</span></span><br><span class="line">A[] arrA = <span class="keyword">new</span> A[<span class="number">100</span>]; <span class="comment">// 在栈上直接分配空间 64bit * 100</span></span><br><span class="line">B[] arrB = <span class="keyword">new</span> B[<span class="number">100</span>]; <span class="comment">// 在栈上分配空间，给指针使用（假设为32位指针） 32bit * 100</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">uint</span> i = <span class="number">0</span>; i &lt; arrB.Length; i++)</span><br><span class="line">&#123;</span><br><span class="line">    arrB[i] = <span class="keyword">new</span> B(); <span class="comment">// 在堆上分配 32bit 空间，并将地址计入arrB[i]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="两者之间的转换"><a href="#两者之间的转换" class="headerlink" title="两者之间的转换"></a>两者之间的转换</h2><p>当想把struct转成class的时候要小心。由于struct作为值类型，根据前文所说，当它从方法中被返回出来后，外界的修改并不会影响内部数据，因而其修改非永久性的。若有人利用这一特性，而又有人把struct改成了class，就有可能导致数据被误修改。</p>
+<p>参见<strong>代码1-1</strong>，当PrivateClass是个struct时，原有程序员可随意对其内容进行改动。若此时有人将struct草率地改成class，那么就会导致<code>A._privateObject</code>的内容被永久改变。</p>
+<h2 id="19-保证0为值类型的初始状态"><a href="#19-保证0为值类型的初始状态" class="headerlink" title="19 保证0为值类型的初始状态"></a>19 保证0为值类型的初始状态</h2><p>众所周知一个enum类型的值，默认值是0。但是如果你人为地让enum从1开始，不包括0，那么enum值被默认初始化成0之后，就成了一个非法值。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Status&#123;</span><br><span class="line">    StatusA = <span class="number">1</span>,</span><br><span class="line">    StautsB = <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Status status;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use it</span></span><br><span class="line">A a = <span class="keyword">new</span> A();</span><br><span class="line"><span class="comment">// 此时，status的值为0，为一个非法值</span></span><br></pre></td></tr></table></figure>
+<p>为避免status为非法值，一般有两种处理方法：</p>
+<ol>
+<li><p>利用默认初始化方法</p>
+ <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Status status = Status.StatusA;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给Status设置一个默认值0，如此，就会被CLR自动设置为None状态</p>
+ <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Status</span><br><span class="line">&#123;</span><br><span class="line">    None = <span class="number">0</span>,</span><br><span class="line">    StatusA = <span class="number">1</span>,</span><br><span class="line">    StatusB = <span class="number">2</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
       
     </div>
     
@@ -500,7 +536,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -565,7 +601,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-使用成员初始化器"><span class="nav-number">1.</span> <span class="nav-text">12 使用成员初始化器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时机"><span class="nav-number">1.1.</span> <span class="nav-text">运行时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时不推荐"><span class="nav-number">1.2.</span> <span class="nav-text">何时不推荐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-正确地初始化静态成员变量"><span class="nav-number">2.</span> <span class="nav-text">13 正确地初始化静态成员变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-避免创建非必要的对象"><span class="nav-number">3.</span> <span class="nav-text">16 避免创建非必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-实现标准的销毁模式"><span class="nav-number">4.</span> <span class="nav-text">17 实现标准的销毁模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-使用成员初始化器"><span class="nav-number">1.</span> <span class="nav-text">12 使用成员初始化器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时机"><span class="nav-number">1.1.</span> <span class="nav-text">运行时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时不推荐"><span class="nav-number">1.2.</span> <span class="nav-text">何时不推荐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-正确地初始化静态成员变量"><span class="nav-number">2.</span> <span class="nav-text">13 正确地初始化静态成员变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-避免创建非必要的对象"><span class="nav-number">3.</span> <span class="nav-text">16 避免创建非必要的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-实现标准的销毁模式"><span class="nav-number">4.</span> <span class="nav-text">17 实现标准的销毁模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-区分值类型和引用类型"><span class="nav-number">5.</span> <span class="nav-text">18 区分值类型和引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值对象有更好的隐蔽性"><span class="nav-number">5.1.</span> <span class="nav-text">值对象有更好的隐蔽性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存分配"><span class="nav-number">5.2.</span> <span class="nav-text">内存分配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两者之间的转换"><span class="nav-number">6.</span> <span class="nav-text">两者之间的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-保证0为值类型的初始状态"><span class="nav-number">7.</span> <span class="nav-text">19 保证0为值类型的初始状态</span></a></li></ol></div>
             
 
           </div>
