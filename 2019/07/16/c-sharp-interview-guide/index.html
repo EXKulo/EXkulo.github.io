@@ -86,19 +86,19 @@
 
 
 
-<meta name="description" content="【计算机图形学基础】四 Viewing该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第七章四 Viewing。 这篇讲的是如何把3d物体映射成2d的，也就是投影。 第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。 Viewing Transformations对应矩阵名称MVP，是最后阶">
+<meta name="description" content="序此文为阅读csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。 参数传递参">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【计算机图形学基础】四 Viewing">
-<meta property="og:url" content="http://yoursite.com/2019/02/19/【计算机图形学基础】4视觉/index.html">
+<meta property="og:title" content="C#查缺补漏">
+<meta property="og:url" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="【计算机图形学基础】四 Viewing该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第七章四 Viewing。 这篇讲的是如何把3d物体映射成2d的，也就是投影。 第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。 Viewing Transformations对应矩阵名称MVP，是最后阶">
+<meta property="og:description" content="序此文为阅读csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。 参数传递参">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】4视觉/1.png">
-<meta property="og:updated_time" content="2019-02-19T07:28:48.646Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/1.png">
+<meta property="og:updated_time" content="2019-07-16T11:31:36.326Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【计算机图形学基础】四 Viewing">
-<meta name="twitter:description" content="【计算机图形学基础】四 Viewing该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第七章四 Viewing。 这篇讲的是如何把3d物体映射成2d的，也就是投影。 第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。 Viewing Transformations对应矩阵名称MVP，是最后阶">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/19/【计算机图形学基础】4视觉/1.png">
+<meta name="twitter:title" content="C#查缺补漏">
+<meta name="twitter:description" content="序此文为阅读csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。 参数传递参">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/1.png">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4视觉/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/16/c-sharp-interview-guide/">
 
 
 
 
 
-  <title>【计算机图形学基础】四 Viewing | 左未的笔记本</title>
+  <title>C#查缺补漏 | 左未的笔记本</title>
   
 
 
@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/【计算机图形学基础】4视觉/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/c-sharp-interview-guide/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】四 Viewing</h1>
+          <h1 class="post-title" itemprop="name headline">C#查缺补漏</h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T11:53:28+08:00">
-                2019-02-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-16T18:59:42+08:00">
+                2019-07-16
               </time>
             
 
@@ -301,28 +301,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -330,7 +308,7 @@
 
           
           
-             <span id="/2019/02/19/【计算机图形学基础】4视觉/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】四 Viewing">
+             <span id="/2019/07/16/c-sharp-interview-guide/" class="leancloud_visitors" data-flag-title="C#查缺补漏">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -361,30 +339,48 @@
       
 
       
-        <h1 id="【计算机图形学基础】四-Viewing"><a href="#【计算机图形学基础】四-Viewing" class="headerlink" title="【计算机图形学基础】四 Viewing"></a>【计算机图形学基础】四 Viewing</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第七章四 Viewing。</p>
-<p>这篇讲的是如何把3d物体映射成2d的，也就是投影。</p>
-<p>第四章的射线检测讲了那么多，现在都是没人用了的，现在基本都在顶点着色器那里直接用投影矩阵给投影了。</p>
-<h2 id="Viewing-Transformations"><a href="#Viewing-Transformations" class="headerlink" title="Viewing Transformations"></a>Viewing Transformations</h2><p>对应矩阵名称MVP，是最后阶段的变换。</p>
-<p>一般来说要投影到屏幕上，一系列的变换：</p>
-<ul>
-<li>一个相机变换</li>
-<li>一个投影变换</li>
-<li>一个窗口变换</li>
-</ul>
-<p>一个物体首先要把自己的旋转和位置转换成相对于世界的，这一步叫modeling变换；然后，再进行相机变换，转换到以相机位置为原点的坐标系上；然后使用投影矩阵进行投影到一个单位矩形内；最后，把单位矩形映射成屏幕坐标。</p>
-<img src="/2019/02/19/【计算机图形学基础】4视觉/1.png" title="一系列变换">
-<h3 id="The-Viewport-Transformation"><a href="#The-Viewport-Transformation" class="headerlink" title="The Viewport Transformation"></a>The Viewport Transformation</h3><p>视窗变换。</p>
-<p>把$(x, y, z) \in [-1, 1]^3$的矩阵转换到分辨率为$n_x \times n_y$的屏幕上。变换由两部分组成：</p>
-<ul>
-<li>缩放 矩阵$\hat{S}$代表</li>
-<li>位移 矩阵$\hat{T}$代表</li>
-</ul>
-<p>$$\mbox{${\mathbf{\hat{S}}}$}=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;0 \\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;0 \\<br>0&amp;0&amp;\frac{1}{2}&amp;0 \\<br>0&amp;0&amp;0&amp; 1 \end{array} \right)$$</p>
-<p>$$\mbox{${\mathbf{\hat{T}}}$}=\left(\begin{array}{ccccc}<br>1&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;1&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;1&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<p>相乘得</p>
-<p>$$\mathbf{\hat{V_p}}=\mathbf{\hat{T}}\mathbf{\hat{S}}<br>=\left(\begin{array}{ccccc}<br>\frac{v_r-v_l}{2}&amp;0&amp;0&amp;\frac{v_r+v_l}{2}\\<br>0&amp;\frac{v_t-v_b}{2}&amp;0&amp;\frac{v_t+v_b}{2}\\<br>0&amp;0&amp;\frac{1}{2}&amp;\frac{1}{2}\\<br>0&amp;0&amp;0&amp;1 \end{array} \right)$$</p>
-<h2 id="平行投影矩阵"><a href="#平行投影矩阵" class="headerlink" title="平行投影矩阵"></a>平行投影矩阵</h2>
+        <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>此文为阅读<a href="https://www.cnblogs.com/anding/category/262808.html" target="_blank" rel="noopener">csdn博客</a>所作之笔记。挑一些自己不太清楚的点记下来。</p>
+<h2 id="01-值类型和引用类型"><a href="#01-值类型和引用类型" class="headerlink" title="01 值类型和引用类型"></a>01 值类型和引用类型</h2><p>C#中的类型分为值类型和引用类型。其分类大概如下图：</p>
+<img src="/2019/07/16/c-sharp-interview-guide/1.png" title="类型">
+<h3 id="所在位置"><a href="#所在位置" class="headerlink" title="所在位置"></a>所在位置</h3><p>位置分为两种：</p>
+<ol>
+<li>线程栈</li>
+<li>托管堆</li>
+</ol>
+<p>栈分配的速度快，其中的变量一旦跨出作用域就会失效。</p>
+<p>值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。</p>
+<p>因故，struct类型也非一定会被分配在栈上。</p>
+<h3 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h3><p>参数的传递用的都是值传递。</p>
+<p>传递值类型的时候直接复制一遍值，传递引用的时候把引用（指向引用内容的指针）复制一遍。</p>
+<p>例外是使用out和ref的时候，复制的是指向引用的引用（类似于指向指针的指针），所以看起来就像是把引用也传递了过去。</p>
+<h3 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h3><p>struct不支持new，且不能有无参的构造方法。</p>
+<h2 id="02-装箱与拆箱"><a href="#02-装箱与拆箱" class="headerlink" title="02 装箱与拆箱"></a>02 装箱与拆箱</h2><p>装箱就是把值类型变成引用类型，主要步骤是：</p>
+<ol>
+<li>在堆上申请一块内存，大小与值类型一样大</li>
+<li>复制值类型的值到堆上的那块内存上</li>
+<li>返回堆内存的地址给引用</li>
+</ol>
+<h3 id="消耗"><a href="#消耗" class="headerlink" title="消耗"></a>消耗</h3><p>装箱的消耗要比拆箱大。这是由于装箱的时候需要在堆上开辟内存，而拆箱是把值写入栈中。对栈的操作比对堆的操作要快。</p>
+<h3 id="建议多使用泛型，少使用Object"><a href="#建议多使用泛型，少使用Object" class="headerlink" title="建议多使用泛型，少使用Object"></a>建议多使用泛型，少使用Object</h3><p>当想让参数支持多类型的时候，尽量使用泛型，少使用Object，可以避免不必要的装箱操作。</p>
+<h2 id="03-string"><a href="#03-string" class="headerlink" title="03 string"></a>03 string</h2><p>string是一种特殊的引用类型，不能new。</p>
+<h3 id="string的不变性"><a href="#string的不变性" class="headerlink" title="string的不变性"></a>string的不变性</h3><p>CLR会维持一个string驻留池（实质上是一个哈希表），当新建一个<strong>需要驻留的</strong>（也有不用驻留的string）string的时候，会先根据其hash值判断是否已存在该字符串，如果存在，则直接返回该字符串的引用。这说明string驻留池里必定不可能存在两个内容一样的string。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> a = <span class="string">"123"</span>;</span><br><span class="line"><span class="keyword">string</span> b = <span class="string">"123"</span>;</span><br><span class="line">Console.WriteLine(System.Object.Equals(a, b)); <span class="comment">// true，对象内容相同</span></span><br><span class="line">Console.WriteLine(System.Object.ReferenceEquals(a, b)); <span class="comment">// true，引用的内存地址相同</span></span><br></pre></td></tr></table></figure>
+<p>有些string会被驻留，有些则不会，这可以大大减小爆内存的可能性。那么，被驻留的条件是什么呢？</p>
+<p>被驻留的string有两种：</p>
+<ol>
+<li>客户主动创建的，如<code>string a = &quot;a&quot;</code></li>
+<li>客户调用了<code>string.Intern(string content)</code>后的</li>
+</ol>
+<p>被大多数系统API创建的string不会被驻留，比如</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">string</span> strA = a.ToString();</span><br><span class="line"><span class="keyword">string</span> b = <span class="string">"b"</span>;</span><br><span class="line"><span class="keyword">string</span> strB = b.ToLower();</span><br><span class="line">Console.WriteLine(<span class="keyword">string</span>.IsIntern(strA));  <span class="comment">// false</span></span><br><span class="line">Console.WriteLine(<span class="keyword">string</span>.IsIntern(strB));  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>其中，<code>string string.IsIntern(string);</code>方法会判断string是否被驻留，被驻留的话会返回string本身，否则返回null（不是返回布尔值）。</p>
+<h3 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h3><p>小剂量操作时，用<code>string.concat()</code>，大剂量操作时，用<code>StringBuilder</code>。</p>
+<h3 id="考虑如何最高效率反转字符串"><a href="#考虑如何最高效率反转字符串" class="headerlink" title="考虑如何最高效率反转字符串"></a>考虑如何最高效率反转字符串</h3><ol>
+<li>使用capacity大小刚好的<code>StringBuilder</code></li>
+<li>直接使用<code>char[]</code></li>
+</ol>
+<h2 id="04-对象"><a href="#04-对象" class="headerlink" title="04 对象"></a>04 对象</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> typeA = a.GetType();</span><br><span class="line"><span class="keyword">var</span> typeB = b.GetType();</span><br><span class="line">Console.WriteLine(System.Object.Equals(typeA, typeB));</span><br><span class="line">Console.WriteLine(System.Object.ReferenceEquals(typeA, typeB));</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -408,8 +404,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/19/【计算机图形学基础】5管线/" rel="next" title="【计算机图形学基础】5 Pipeline">
-                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】5 Pipeline
+              <a href="/2019/07/16/unity-csharp-optimization/" rel="next" title="Unity中的C#使用优化">
+                <i class="fa fa-chevron-left"></i> Unity中的C#使用优化
               </a>
             
           </div>
@@ -417,10 +413,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/22/图形学数学补充/" rel="prev" title="图形学数学补充">
-                图形学数学补充 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -567,7 +559,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】四-Viewing"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】四 Viewing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Viewing-Transformations"><span class="nav-number">1.1.</span> <span class="nav-text">Viewing Transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Viewport-Transformation"><span class="nav-number">1.1.1.</span> <span class="nav-text">The Viewport Transformation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平行投影矩阵"><span class="nav-number">1.2.</span> <span class="nav-text">平行投影矩阵</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#序"><span class="nav-number">1.</span> <span class="nav-text">序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#01-值类型和引用类型"><span class="nav-number">2.</span> <span class="nav-text">01 值类型和引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所在位置"><span class="nav-number">2.1.</span> <span class="nav-text">所在位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数传递"><span class="nav-number">2.2.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#struct"><span class="nav-number">2.3.</span> <span class="nav-text">struct</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-装箱与拆箱"><span class="nav-number">3.</span> <span class="nav-text">02 装箱与拆箱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消耗"><span class="nav-number">3.1.</span> <span class="nav-text">消耗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建议多使用泛型，少使用Object"><span class="nav-number">3.2.</span> <span class="nav-text">建议多使用泛型，少使用Object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-string"><span class="nav-number">4.</span> <span class="nav-text">03 string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string的不变性"><span class="nav-number">4.1.</span> <span class="nav-text">string的不变性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效率"><span class="nav-number">4.2.</span> <span class="nav-text">效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#考虑如何最高效率反转字符串"><span class="nav-number">4.3.</span> <span class="nav-text">考虑如何最高效率反转字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04-对象"><span class="nav-number">5.</span> <span class="nav-text">04 对象</span></a></li></ol></div>
             
 
           </div>
