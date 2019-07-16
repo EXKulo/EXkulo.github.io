@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="45 尽量减少装箱和拆箱装箱拆箱操作是为了能够让值类型支持多态等特性。这两个操作都及其影响性能，能避免则避免。 装箱会把值类型转换为引用类型。箱子将分配于堆上，该值的副本会放在箱子的内部。从箱中取数据的时候当然返回的也是值得副本，而非值本身。 装箱有时很隐蔽。当你把值作为object传入某个函数的时候，装箱就悄悄发生了。 12// 发生了装箱string.format(&quot;&amp;#123;0&amp;#125;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-12T09:57:56.921Z">
+<meta property="og:updated_time" content="2019-07-15T03:29:36.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective-csharp-6 杂项">
 <meta name="twitter:description" content="45 尽量减少装箱和拆箱装箱拆箱操作是为了能够让值类型支持多态等特性。这两个操作都及其影响性能，能避免则避免。 装箱会把值类型转换为引用类型。箱子将分配于堆上，该值的副本会放在箱子的内部。从箱中取数据的时候当然返回的也是值得副本，而非值本身。 装箱有时很隐蔽。当你把值作为object传入某个函数的时候，装箱就悄悄发生了。 12// 发生了装箱string.format(&quot;&amp;#123;0&amp;#125;">
@@ -342,7 +342,9 @@
 <p>装箱有时很隐蔽。当你把值作为object传入某个函数的时候，装箱就悄悄发生了。</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发生了装箱</span></span><br><span class="line"><span class="keyword">string</span>.format(<span class="string">"&#123;0&#125;, &#123;1&#125;"</span>, <span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
 <p>为了避免发生上面的装箱操作，可以在外头手动把它们转成string。</p>
-
+<h2 id="46-为应用程序创建专门的异常类"><a href="#46-为应用程序创建专门的异常类" class="headerlink" title="46 为应用程序创建专门的异常类"></a>46 为应用程序创建专门的异常类</h2><p>在异常处理机制之中，异常的抛出位置和处理位置可能相去甚远，所以应该尽可能地把所有必须信息包含在异常对象中。</p>
+<p>何时需要创建自己的异常类呢？当你觉得使用者会为该种类的异常提供一个不同于它者的解决方案时。</p>
+<h2 id="47"><a href="#47" class="headerlink" title="47"></a>47</h2><h2 id="48-尽量使用安全的代码"><a href="#48-尽量使用安全的代码" class="headerlink" title="48 尽量使用安全的代码"></a>48 尽量使用安全的代码</h2><h2 id="49-实现与CLS兼容的程序集"><a href="#49-实现与CLS兼容的程序集" class="headerlink" title="49 实现与CLS兼容的程序集"></a>49 实现与CLS兼容的程序集</h2>
       
     </div>
     
@@ -375,6 +377,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/16/unity-csharp-optimization/" rel="prev" title="unity csharp optimization">
+                unity csharp optimization <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -456,7 +462,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -521,7 +527,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#45-尽量减少装箱和拆箱"><span class="nav-number">1.</span> <span class="nav-text">45 尽量减少装箱和拆箱</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#45-尽量减少装箱和拆箱"><span class="nav-number">1.</span> <span class="nav-text">45 尽量减少装箱和拆箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#46-为应用程序创建专门的异常类"><span class="nav-number">2.</span> <span class="nav-text">46 为应用程序创建专门的异常类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#47"><span class="nav-number">3.</span> <span class="nav-text">47</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#48-尽量使用安全的代码"><span class="nav-number">4.</span> <span class="nav-text">48 尽量使用安全的代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#49-实现与CLS兼容的程序集"><span class="nav-number">5.</span> <span class="nav-text">49 实现与CLS兼容的程序集</span></a></li></ol></div>
             
 
           </div>

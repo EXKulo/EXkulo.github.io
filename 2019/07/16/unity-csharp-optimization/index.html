@@ -86,22 +86,17 @@
 
 
 
-<meta name="description" content="【计算机图形学基础】6 表面渲染本篇也可改名给大家看的图形学趣味基础23333. 该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光">
+<meta name="description" content="Unity C#代码注意事项避免装箱拆箱所谓装箱就是把值类型变成引用类型，比较隐蔽的情况是：把值类型作为Object类型参数的时候，或者返回一个object对象的时候。 第一种： 1Debug.Log(string.Format(&quot;content: &amp;#123;0&amp;#125;&quot;, 1)); 非装箱版本： 1Debug.Log(string.Format(&quot;content: &amp;#123;0&amp;#125">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【计算机图形学基础】6 表面渲染">
-<meta property="og:url" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/index.html">
+<meta property="og:title" content="unity csharp optimization">
+<meta property="og:url" content="http://yoursite.com/2019/07/16/unity-csharp-optimization/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="【计算机图形学基础】6 表面渲染本篇也可改名给大家看的图形学趣味基础23333. 该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光">
+<meta property="og:description" content="Unity C#代码注意事项避免装箱拆箱所谓装箱就是把值类型变成引用类型，比较隐蔽的情况是：把值类型作为Object类型参数的时候，或者返回一个object对象的时候。 第一种： 1Debug.Log(string.Format(&quot;content: &amp;#123;0&amp;#125;&quot;, 1)); 非装箱版本： 1Debug.Log(string.Format(&quot;content: &amp;#123;0&amp;#125">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/2.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/3.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/4.png">
-<meta property="og:updated_time" content="2019-02-26T07:18:26.480Z">
+<meta property="og:updated_time" content="2019-07-16T08:21:36.586Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【计算机图形学基础】6 表面渲染">
-<meta name="twitter:description" content="【计算机图形学基础】6 表面渲染本篇也可改名给大家看的图形学趣味基础23333. 该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十章 Surface Shading。 第九章是离散数学，实在是懒得啃了，傅里叶变换那一套。 本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。 Diffuse Shading用来着色无光">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/1.png">
+<meta name="twitter:title" content="unity csharp optimization">
+<meta name="twitter:description" content="Unity C#代码注意事项避免装箱拆箱所谓装箱就是把值类型变成引用类型，比较隐蔽的情况是：把值类型作为Object类型参数的时候，或者返回一个object对象的时候。 第一种： 1Debug.Log(string.Format(&quot;content: &amp;#123;0&amp;#125;&quot;, 1)); 非装箱版本： 1Debug.Log(string.Format(&quot;content: &amp;#123;0&amp;#125">
 
 
 
@@ -131,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/16/unity-csharp-optimization/">
 
 
 
 
 
-  <title>【计算机图形学基础】6 表面渲染 | 左未的笔记本</title>
+  <title>unity csharp optimization | 左未的笔记本</title>
   
 
 
@@ -264,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/【计算机图形学基础】6表面渲染/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/unity-csharp-optimization/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -281,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】6 表面渲染</h1>
+          <h1 class="post-title" itemprop="name headline">unity csharp optimization</h1>
         
 
         <div class="post-meta">
@@ -293,8 +288,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T17:53:28+08:00">
-                2019-02-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-16T16:21:07+08:00">
+                2019-07-16
               </time>
             
 
@@ -316,8 +311,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机图形学</span>
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity3d</span>
                   </a>
                 </span>
 
@@ -333,7 +328,7 @@
 
           
           
-             <span id="/2019/02/25/【计算机图形学基础】6表面渲染/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】6 表面渲染">
+             <span id="/2019/07/16/unity-csharp-optimization/" class="leancloud_visitors" data-flag-title="unity csharp optimization">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -364,51 +359,30 @@
       
 
       
-        <h1 id="【计算机图形学基础】6-表面渲染"><a href="#【计算机图形学基础】6-表面渲染" class="headerlink" title="【计算机图形学基础】6 表面渲染"></a>【计算机图形学基础】6 表面渲染</h1><p>本篇也可改名<strong>给大家看的图形学趣味基础</strong>23333.</p>
-<p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第十章 <strong>Surface Shading</strong>。</p>
-<p>第九章是离散数学<del>，实在是懒得啃了</del>，傅里叶变换那一套。</p>
-<p>本章探讨比较有启发性的三种着色：漫反射着色、Phong着色、艺术着色。</p>
-<h2 id="Diffuse-Shading"><a href="#Diffuse-Shading" class="headerlink" title="Diffuse Shading"></a>Diffuse Shading</h2><p>用来着色无光泽的表面。</p>
-<h3 id="Lambertian着色模型"><a href="#Lambertian着色模型" class="headerlink" title="Lambertian着色模型"></a>Lambertian着色模型</h3><p>一个Lambertian物体遵守Lambert的cos法则。</p>
-<img src="/2019/02/25/【计算机图形学基础】6表面渲染/1.png" title="原理图">
-<p>$$c \propto \theta$$</p>
-<p>也就是</p>
-<p>$$c \propto \textbf{n} \cdot \textbf{l}$$</p>
-<p>有两个因素可以决定表面的明亮：光照强度和表面的反射率。反射率也是由RGB组成的。假设物体的漫反射颜色比较接近红色，那么反射率中R的那部分就要大一些。于是可以把式子改写成这样：</p>
-<p>$$c \propto c_r \textbf{n} \cdot \textbf{l}$$</p>
-<p>为了保证输出的表面颜色值的RGB均属于[0, 1]的范围，需要让光照强度也属于[0, 1]。式子加上光强之后就变成：</p>
-<p>$$c = c_r c_l \textbf{n} \cdot \textbf{l}$$</p>
-<p>这是一个形式很简单的式子，但是有可能输出不在[0, 1]范围内的RGB值，只因<strong>点乘</strong>的结果可能是负数。为了避免结果出现西安负数，还需要加一个取max值的操作。</p>
-<p>$$c = c_r c_l \max(0, \textbf{n} \cdot \textbf{l})$$</p>
-<h3 id="环境光着色"><a href="#环境光着色" class="headerlink" title="环境光着色"></a>环境光着色</h3><p>在真实世界中，往往除了我们所给的光源，还有环境光存在。我们不用考虑方向，把它整个叠加上去就行了。得到：</p>
-<p>$$c = c_r (c_a + c_l \max(0, \textbf{n} \cdot \textbf{l})), c_a + c_l \leq (1, 1, 1)$$</p>
-<h3 id="基于顶点的漫反射着色"><a href="#基于顶点的漫反射着色" class="headerlink" title="基于顶点的漫反射着色"></a>基于顶点的漫反射着色</h3><p>想象一个三角形，如果只对中间某个点计算颜色并应用到整个三角形，就会让一个由多个三角形组成的平面看起来很粗糙（区分得出各个三角形，边界may be非常明显）。</p>
-<p>为了避免上述情况，我们把三角形的法向量应用到它三个点上，求得三个点的颜色之后再来做插值。</p>
-<p>当然，更好更细腻的着色是把光照直接放到fragment shader里头去，针对每个像素做着色处理，不过这非常非常消耗性能。</p>
-<h2 id="Phong着色"><a href="#Phong着色" class="headerlink" title="Phong着色"></a>Phong着色</h2><p>现在考虑一些有高光反射的表面。我们可以观察到高光的位置会随着我们眼睛的位置移动，并且高光的颜色一半就是光源的颜色，和物体本身的颜色无关。另外，高光一般来说会有某种程度的blur（模糊），这就需要一个模糊半径。所以在式子里我们要多加入一个向量<strong>e</strong>表示眼睛。</p>
-<h3 id="Phong光照模型"><a href="#Phong光照模型" class="headerlink" title="Phong光照模型"></a>Phong光照模型</h3><img src="/2019/02/25/【计算机图形学基础】6表面渲染/2.png" title="Phong">
-<p>图中，<strong>r</strong>为<strong>l</strong>关于法向量<strong>n</strong>对称的向量。当人眼<strong>e</strong>越接近<strong>r</strong>，看到的镜面反射光强就越大。</p>
-<p>给出向量<strong>r</strong>，为了能让<strong>e</strong> = <strong>r</strong>的时候最亮，且<strong>e</strong>远离<strong>r</strong>的时候可以逐步变暗。可以简单地产出这么个式子：</p>
-<p>$$c = c_l (\textbf{e} \cdot \textbf{r})$$</p>
-<p>但是这个式子有两个问题。一个是点乘的结果有可能是个负数，这个还好，可以通过绝对值或者取max之类的解决。另一个问题是，这个式子产出的光斑面积要比现实中的大太多，显得不自然。</p>
-<p>为了解决光斑太大的问题，我们给点乘的结果加上一个幂数。结合max得到以下式子：</p>
-<p>$$c = c_l \max(0, \textbf{e} \cdot \textbf{r})^p$$</p>
-<img src="/2019/02/25/【计算机图形学基础】6表面渲染/3.png" title="Phong Exponent">
-<p>上式中的p被称为Phong指数，它是一个正实数。</p>
-<img src="/2019/02/25/【计算机图形学基础】6表面渲染/4.png" title="如何计算一个r">
-<p>为了完成上式，我们必须要先知道<strong>r</strong>，根据上图，它可以被这么算出：</p>
-<p>$$\textbf{r} = -\textbf{l} + 2(\textbf{l} \cdot \textbf{n})\textbf{n}$$</p>
-<p>其中的$\textbf{l} \cdot \textbf{n} = \cos \theta$。</p>
-<p>有一种近似的算法，可以避免算出r。我们现在要计算<strong>l</strong>与<strong>e</strong>的中间单位向量<strong>h</strong>(half)。</p>
-<p>$$\textbf{h} = \frac{\textbf{e} + \textbf{l}}{|\textbf{e} + \textbf{l}|}$$</p>
-<p>当<strong>h</strong>与<strong>n</strong>重合的时候，光斑达到最大亮度。于是：</p>
-<p>$$c = c_l(\textbf{h} \cdot \textbf{n})^p$$</p>
-<p>这个式子还能少了一个max操作，hin完美。如果想把镜面反射变得再暗一点，还可以添加一个因子$c_p$。</p>
-<p>最后，结合漫反射，得到式子为：</p>
-<p>$$c = c_r(c_a + c_l\max(0, \textbf{n} \cdot  \textbf{l})) + c_l c_p(\textbf{h} \cdot \textbf{n})^p$$</p>
-<h2 id="艺术着色"><a href="#艺术着色" class="headerlink" title="艺术着色"></a>艺术着色</h2><h3 id="轮廓着色"><a href="#轮廓着色" class="headerlink" title="轮廓着色"></a>轮廓着色</h3><p>当两个三角形共用一条边，且一个三角形看得到，一个三角形看不到的时候，就应该把这条轮廓画下来。这一条件可以表达为：</p>
-<p>$$(\textbf{e} \cdot \textbf{n}_0)(\textbf{e} \cdot \textbf{n}_1) \leq 0$$</p>
+        <h1 id="Unity-C-代码注意事项"><a href="#Unity-C-代码注意事项" class="headerlink" title="Unity C#代码注意事项"></a>Unity C#代码注意事项</h1><h2 id="避免装箱拆箱"><a href="#避免装箱拆箱" class="headerlink" title="避免装箱拆箱"></a>避免装箱拆箱</h2><p>所谓装箱就是把值类型变成引用类型，比较隐蔽的情况是：把值类型作为Object类型参数的时候，或者返回一个object对象的时候。</p>
+<p>第一种：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Debug.Log(<span class="keyword">string</span>.Format(<span class="string">"content: &#123;0&#125;"</span>, <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<p>非装箱版本：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Debug.Log(<span class="keyword">string</span>.Format(<span class="string">"content: &#123;0&#125;"</span>, <span class="number">1.</span>ToString()));</span><br></pre></td></tr></table></figure>
+<p>第二种。众所周知，协程IEnumerator返回的类型是object。当我们想跳过当前帧的时候有三种方式：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">yield</span> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">yield</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForFrame</span>(<span class="params"></span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>在这上面三种方法中，第一种为最佳。这是因为第二种需要把0装箱成一个Object，而第三种则需要new一个新对象。如果这个协程经常被调用（每帧），应该选择返回null。</p>
+<h2 id="避免高消耗API的频繁调用"><a href="#避免高消耗API的频繁调用" class="headerlink" title="避免高消耗API的频繁调用"></a>避免高消耗API的频繁调用</h2><p>包括：</p>
+<ol>
+<li><code>GameObject.GetComponent&lt;T&gt;</code></li>
+<li><code>GameObject.transform</code> <code>GameObject.rigidBody</code></li>
+<li><code>UnityEngine.Object == null</code> 可以使用Assert来代替</li>
+</ol>
+<h2 id="提取常用的局部变量为成员变量"><a href="#提取常用的局部变量为成员变量" class="headerlink" title="提取常用的局部变量为成员变量"></a>提取常用的局部变量为成员变量</h2><p>反例</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Test</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">IEnumerator <span class="title">Co_Test</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForEndOfFrame</span>(<span class="params"></span>)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改进</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Test</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> WaitForEndOfFrame _waitForEndOfFrame = <span class="keyword">new</span> WaitForEndOfFrame();</span><br><span class="line"></span><br><span class="line">    <span class="function">IEnumerator <span class="title">Co_Test</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">return</span> _waitForEndOfFrame;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="提取常使用的不变对象为静态常量"><a href="#提取常使用的不变对象为静态常量" class="headerlink" title="提取常使用的不变对象为静态常量"></a>提取常使用的不变对象为静态常量</h2><p>假设我们每帧需要对画笔对象设置颜色，而当前情况中需要每帧都设置为白色，比较高消耗的写法为：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    _painter.color = <span class="keyword">new</span> Color(<span class="number">1f</span>, <span class="number">1f</span>, <span class="number">1f</span>, <span class="number">1f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改进的情况下，我们新建一个PaintColor的类，设置好几种颜色，外面直接用，不需要每次都new。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PaintColor</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> Color WHITE = <span class="keyword">new</span> Color(<span class="number">1f</span>, <span class="number">1f</span>, <span class="number">1f</span>, <span class="number">1f</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> MyClass : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">void</span> Update</span><br><span class="line">    &#123;</span><br><span class="line">        _painter.color = PaintColor.WHITE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同理，应当多多使用unity提供给我们的静态常量如Vector.zero，而尽量避免自己new一个Vector(0,0,0)。</p>
+<h2 id="string操作"><a href="#string操作" class="headerlink" title="string操作"></a>string操作</h2><p>避免使用string +操作，多多使用string.format和StringBuilder.Append()。</p>
 
       
     </div>
@@ -433,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/25/表面着色/" rel="next" title="表面着色">
-                <i class="fa fa-chevron-left"></i> 表面着色
+              <a href="/2019/07/12/Effective-csharp-6/" rel="next" title="Effective-csharp-6 杂项">
+                <i class="fa fa-chevron-left"></i> Effective-csharp-6 杂项
               </a>
             
           </div>
@@ -442,10 +416,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/26/【计算机图形学基础】7纹理映射/" rel="prev" title="【计算机图形学基础】7 纹理映射">
-                【计算机图形学基础】7 纹理映射 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -592,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】6-表面渲染"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】6 表面渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Diffuse-Shading"><span class="nav-number">1.1.</span> <span class="nav-text">Diffuse Shading</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambertian着色模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">Lambertian着色模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境光着色"><span class="nav-number">1.1.2.</span> <span class="nav-text">环境光着色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于顶点的漫反射着色"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于顶点的漫反射着色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phong着色"><span class="nav-number">1.2.</span> <span class="nav-text">Phong着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Phong光照模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">Phong光照模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#艺术着色"><span class="nav-number">1.3.</span> <span class="nav-text">艺术着色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#轮廓着色"><span class="nav-number">1.3.1.</span> <span class="nav-text">轮廓着色</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity-C-代码注意事项"><span class="nav-number">1.</span> <span class="nav-text">Unity C#代码注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#避免装箱拆箱"><span class="nav-number">1.1.</span> <span class="nav-text">避免装箱拆箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免高消耗API的频繁调用"><span class="nav-number">1.2.</span> <span class="nav-text">避免高消耗API的频繁调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取常用的局部变量为成员变量"><span class="nav-number">1.3.</span> <span class="nav-text">提取常用的局部变量为成员变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取常使用的不变对象为静态常量"><span class="nav-number">1.4.</span> <span class="nav-text">提取常使用的不变对象为静态常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string操作"><span class="nav-number">1.5.</span> <span class="nav-text">string操作</span></a></li></ol></li></ol></div>
             
 
           </div>
