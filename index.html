@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/16/unity-csharp-optimization/" itemprop="url">unity csharp optimization</a></h1>
+                <a class="post-title-link" href="/2019/07/16/unity-csharp-optimization/" itemprop="url">Unity中的C#使用优化</a></h1>
         
 
         <div class="post-meta">
@@ -330,7 +330,7 @@
 
           
           
-             <span id="/2019/07/16/unity-csharp-optimization/" class="leancloud_visitors" data-flag-title="unity csharp optimization">
+             <span id="/2019/07/16/unity-csharp-optimization/" class="leancloud_visitors" data-flag-title="Unity中的C#使用优化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -363,13 +363,13 @@
       
         
           
-          Unity C#代码注意事项避免装箱拆箱所谓装箱就是把值类型变成引用类型，比较隐蔽的情况是：把值类型作为Object类型参数的时候，或者返回一个object对象的时候。
+          避免装箱拆箱所谓装箱就是把值类型变成引用类型，比较隐蔽的情况是：把值类型作为Object类型参数的时候，或者返回一个object对象的时候。
 第一种：
 1Debug.Log(string.Format("content: &#123;0&#125;", 1));
 非装箱版本：
 1Debug.Log(string.Format("content: &#123;0&#125;", 1.ToString()));
 第二种。众所周知，协程IEnumerator返回的类型是object。当我们想跳过当前帧的时候有三种方式：
-123yield return null;yield
+123yield return null;yield return 0;yiel
           ...
           <!--noindex-->
           <div class="post-button text-center">
