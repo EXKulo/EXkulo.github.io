@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="序此文为阅读csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。 参数传递参">
+<meta name="description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C#查缺补漏">
 <meta property="og:url" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="序此文为阅读csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。 参数传递参">
+<meta property="og:description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/1.png">
-<meta property="og:updated_time" content="2019-07-16T11:31:36.326Z">
+<meta property="og:updated_time" content="2019-07-17T03:45:08.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C#查缺补漏">
-<meta name="twitter:description" content="序此文为阅读csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。 参数传递参">
+<meta name="twitter:description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。">
 <meta name="twitter:image" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/1.png">
 
 
@@ -339,7 +339,7 @@
       
 
       
-        <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>此文为阅读<a href="https://www.cnblogs.com/anding/category/262808.html" target="_blank" rel="noopener">csdn博客</a>所作之笔记。挑一些自己不太清楚的点记下来。</p>
+        <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>此文为阅读<a href="https://www.cnblogs.com/anding/category/262808.html" target="_blank" rel="noopener">dalao的csdn博客</a>所作之笔记。挑一些自己不太清楚的点记下来。</p>
 <h2 id="01-值类型和引用类型"><a href="#01-值类型和引用类型" class="headerlink" title="01 值类型和引用类型"></a>01 值类型和引用类型</h2><p>C#中的类型分为值类型和引用类型。其分类大概如下图：</p>
 <img src="/2019/07/16/c-sharp-interview-guide/1.png" title="类型">
 <h3 id="所在位置"><a href="#所在位置" class="headerlink" title="所在位置"></a>所在位置</h3><p>位置分为两种：</p>
@@ -379,8 +379,94 @@
 <li>使用capacity大小刚好的<code>StringBuilder</code></li>
 <li>直接使用<code>char[]</code></li>
 </ol>
-<h2 id="04-对象"><a href="#04-对象" class="headerlink" title="04 对象"></a>04 对象</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> typeA = a.GetType();</span><br><span class="line"><span class="keyword">var</span> typeB = b.GetType();</span><br><span class="line">Console.WriteLine(System.Object.Equals(typeA, typeB));</span><br><span class="line">Console.WriteLine(System.Object.ReferenceEquals(typeA, typeB));</span><br></pre></td></tr></table></figure>
-
+<h2 id="04-对象"><a href="#04-对象" class="headerlink" title="04 对象"></a>04 对象</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> typeA = a.GetType();</span><br><span class="line"><span class="keyword">var</span> typeB = b.GetType();</span><br><span class="line">Console.WriteLine(System.Object.Equals(typeA, typeB)); <span class="comment">// true</span></span><br><span class="line">Console.WriteLine(System.Object.ReferenceEquals(typeA, typeB)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>以上两个输出都是true，代表着所有同类型的对象GetType()获取到的类对象是同一个实例。</p>
+<h2 id="Load-Heap"><a href="#Load-Heap" class="headerlink" title="Load Heap"></a>Load Heap</h2><p>Load Heap中文<strong>加载堆</strong>，上面分配内存的生命周期从AppDomain一直延续到结束，不受GC回收控制。</p>
+<p>GCHeap上分配的对象内存中，包括了三部分：成员变量，SyncBlockIndex，TypeHandler。其中的TypeHandler又指向了LoadHeap上的一块内存，这块内存上又有两个重要的部分：静态成员变量，类方法表。</p>
+<p>类类型(System.Type)在程序一开始就被加载到LoadHeap中，所有该类型实例的TypeHandler都指向同一个唯一的类对象。</p>
+<h2 id="方法表与方法覆盖"><a href="#方法表与方法覆盖" class="headerlink" title="方法表与方法覆盖"></a>方法表与方法覆盖</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="keyword">virtual</span> <span class="title">Func</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"A"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">B1</span> : <span class="title">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="keyword">override</span> <span class="title">Func</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"B1"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">B2</span> : <span class="title">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> new <span class="title">Func</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"B2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">B1 b1 = <span class="keyword">new</span> B1();</span><br><span class="line">B2 b2 = <span class="keyword">new</span> B2();</span><br><span class="line">b1.Func(); <span class="comment">// B1</span></span><br><span class="line">b2.Func(); <span class="comment">// B2</span></span><br><span class="line">A a1 = b1;</span><br><span class="line">A a1 = b2;</span><br><span class="line">a1.Func(); <span class="comment">// B1</span></span><br><span class="line">a2.Func(); <span class="comment">// A</span></span><br></pre></td></tr></table></figure>
+<p>我们看上面这个例子，结论是new和override都可以定义一个和基类同名的方法，但是当使用基类引用派生类的时候，采用new关键字的会调用基类的方法，而采用override的会调用派生类对应的方法。</p>
+<p>为什么会这样呢？首先要看一下上面提到的方法表。</p>
+<p>方法表中方法的加载顺序如下：</p>
+<ol>
+<li>万物祖先System.Object的虚方法ToString(), Hash()等</li>
+<li>基类的虚方法和非虚方法</li>
+<li>派生类的方法</li>
+<li>派生类的静态构造函数.cctor和对象构造函数.ctor</li>
+</ol>
+<p>根据上面的顺序，我们可以得到结论B1和B2的方法表如下：</p>
+<p>B1方法表</p>
+<ol>
+<li>ToString(), Hash()…</li>
+<li><del>A.Func()</del> <strong>=&gt; B.Func</strong></li>
+<li>B.Func()</li>
+<li>B.cctor B.ctor</li>
+</ol>
+<p>B2方法表</p>
+<ol>
+<li>ToString(), Hash()…</li>
+<li>A.Func()</li>
+<li>B.Func()</li>
+<li>B.cctor B.ctor</li>
+</ol>
+<p>可以注意到二者的区别是使用了override关键字的B1的方法表中，A的Func会被B的Func重写，这一步在加载方法表的时候发生。</p>
+<h3 id="执行就近原则"><a href="#执行就近原则" class="headerlink" title="执行就近原则"></a>执行就近原则</h3><p>首先我们要明白，CLR在找一个方法的时候是从底下往上找的，<strong>和方法表的加载顺序相反</strong>。</p>
+<p>当我们使用A引用来分别持有B1和B2对象的时候，搜寻方法的时候都是从上面的2往上搜寻方法。当找到B1中的A.Func()时，CLR注意到这个方法已经被B.Func()给override了，就会直接返回B.Func()；而对于B2来说，A.Func()仍然原封不动地躺在那里，所以会直接返回基类A版本的Func方法。</p>
+<ol>
+<li>ToString(), Hash()…</li>
+<li><del>A.Func()</del> <strong>=&gt; B.Func</strong>   &lt;= 基类A引用，从这里开始找方法</li>
+<li>B.Func()</li>
+<li>B.cctor B.ctor</li>
+</ol>
+<p>B2方法表</p>
+<ol>
+<li>ToString(), Hash()…</li>
+<li>A.Func()   &lt;= 基类A引用，从这里开始找方法</li>
+<li>B.Func()</li>
+<li>B.cctor B.ctor</li>
+</ol>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>直接摘抄大佬的文章：</p>
+<blockquote>
+<p>抽象类提供多个派生类共享基类的公共定义，它既可以提供抽象方法，也可以提供非抽象方法。抽象类不能实例化，必须通过继承由派生类实现其抽象方法，因此对抽象类<strong>不能使用new关键字，也不能被密封</strong>。</p>
+<p>基本特点：</p>
+<ul>
+<li>抽象类使用Abstract声明，抽象方法也是用Abstract标示；</li>
+<li>抽象类不能被实例化；</li>
+<li>抽象方法必须定义在抽象类中；</li>
+<li>抽象类可以继承一个抽象类；</li>
+<li>抽象类不能被密封（不能使用sealed）；</li>
+<li>同类Class一样，只支持单继承；</li>
+</ul>
+</blockquote>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>接口同样不能被实例化，只能声明函数和属性，不能包含成员变量（这一点与抽象类不同）。</p>
+<h2 id="05-常量、字段、属性、特性、委托"><a href="#05-常量、字段、属性、特性、委托" class="headerlink" title="05 常量、字段、属性、特性、委托"></a>05 常量、字段、属性、特性、委托</h2><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>const常量符合几个特性：</p>
+<ol>
+<li>在编译的时候确定的，在编译完的时候就会把常量替换到代码里面去，得到的代码是常量全被替换成实际内容的代码</li>
+<li>因此如果只是部分编译，有可能出现你改动了常量，但是其他未被重新编译的旧代码的常量值可能就是旧值，容易引发谜之bug</li>
+<li>常量只支持内建类型，比如int, double, float, char, bool等</li>
+</ol>
+<h4 id="建议使用readonly来代替const"><a href="#建议使用readonly来代替const" class="headerlink" title="建议使用readonly来代替const"></a>建议使用readonly来代替const</h4><p>相对于const，使用static readonly有几个好处：</p>
+<ol>
+<li>支持丰富多样的类型，随便new一个对象都行</li>
+<li>readonly是运行时常量，只是代表赋值后无法再进行更改引用，不会被替换到代码之中，部分编译的时候没有上面提到的const的危险</li>
+</ol>
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>枚举其实就是一个const常量集合，和const有一样的性质，会直接替换代码里的值，同样有部分编译引坑的危险。</p>
+<h3 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h3><p>文中说到了<strong>成员初始化器</strong>，可以参见<a href="https://exkulo.github.io/2019/07/04/Effective-csharp-2/" target="_blank" rel="noopener">另一篇文章</a>里面提到的内容。</p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>实质上是堆私有字段的封装。</p>
+<p>自定义的属性get和set可以返回自己指定的私有字段。当然也可以什么也不指定，只写一个<code>{set; get;}</code></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> Id&#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;;</span><br></pre></td></tr></table></figure>
+<p>这种情况下，CLR会自动生成一个私有字段，以及getter和setter方法。</p>
+<h3 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h3><p>delegate的本质是生成了一个继承于System.MulticastDelegate的类，类名与delegate的名字相同，其中包含一个Invoke方法，签名与delegate定义的方法相同（签名相同即意味着参数长度和类型相同，返回值相同）。</p>
+<p>当传入一个delegate作为参数的时候，事实上是传入了生成的包含Invoke方法的这个实例。</p>
+<p>所以我们可以说，传递delegate其实也是在传递类实例的引用。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>这是C#闭包的一个坑。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Action&gt; acs = <span class="keyword">new</span> List&lt;Action&gt;(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    acs.Add(() =&gt; &#123; Console.WriteLine(i); &#125;);</span><br><span class="line">&#125;</span><br><span class="line">acs.ForEach(ac =&gt; ac()); <span class="comment">// 输出了 5 5 5 5 5</span></span><br></pre></td></tr></table></figure>
+<p>原因在于所有的lambda表达式都引用了for作用域内的同一个i，所以i会被提取出来作为一个upvalue。</p>
+<p>之前在python上也遇到过类似的问题，这个属于编译器的优化，不了解的话这个就变成了负优化。</p>
+<p>改进：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Action&gt; acss = <span class="keyword">new</span> List&lt;Action&gt;(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> m = i;</span><br><span class="line">    acss.Add(() =&gt; &#123; Console.WriteLine(m); &#125;);</span><br><span class="line">&#125;</span><br><span class="line">acss.ForEach(ac =&gt; ac()); <span class="comment">// 输出了 0 1 2 3 4</span></span><br></pre></td></tr></table></figure>
+<p>很明显m的作用域在每一次循环里面，每个匿名变量引用的并不是同一个i，所以值会不一样。</p>
+<h2 id="06-GC与内存管理"><a href="#06-GC与内存管理" class="headerlink" title="06 GC与内存管理"></a>06 GC与内存管理</h2>
       
     </div>
     
@@ -559,7 +645,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#序"><span class="nav-number">1.</span> <span class="nav-text">序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#01-值类型和引用类型"><span class="nav-number">2.</span> <span class="nav-text">01 值类型和引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所在位置"><span class="nav-number">2.1.</span> <span class="nav-text">所在位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数传递"><span class="nav-number">2.2.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#struct"><span class="nav-number">2.3.</span> <span class="nav-text">struct</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-装箱与拆箱"><span class="nav-number">3.</span> <span class="nav-text">02 装箱与拆箱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消耗"><span class="nav-number">3.1.</span> <span class="nav-text">消耗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建议多使用泛型，少使用Object"><span class="nav-number">3.2.</span> <span class="nav-text">建议多使用泛型，少使用Object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-string"><span class="nav-number">4.</span> <span class="nav-text">03 string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string的不变性"><span class="nav-number">4.1.</span> <span class="nav-text">string的不变性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效率"><span class="nav-number">4.2.</span> <span class="nav-text">效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#考虑如何最高效率反转字符串"><span class="nav-number">4.3.</span> <span class="nav-text">考虑如何最高效率反转字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04-对象"><span class="nav-number">5.</span> <span class="nav-text">04 对象</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#序"><span class="nav-number">1.</span> <span class="nav-text">序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#01-值类型和引用类型"><span class="nav-number">2.</span> <span class="nav-text">01 值类型和引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所在位置"><span class="nav-number">2.1.</span> <span class="nav-text">所在位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数传递"><span class="nav-number">2.2.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#struct"><span class="nav-number">2.3.</span> <span class="nav-text">struct</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-装箱与拆箱"><span class="nav-number">3.</span> <span class="nav-text">02 装箱与拆箱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消耗"><span class="nav-number">3.1.</span> <span class="nav-text">消耗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建议多使用泛型，少使用Object"><span class="nav-number">3.2.</span> <span class="nav-text">建议多使用泛型，少使用Object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-string"><span class="nav-number">4.</span> <span class="nav-text">03 string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string的不变性"><span class="nav-number">4.1.</span> <span class="nav-text">string的不变性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效率"><span class="nav-number">4.2.</span> <span class="nav-text">效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#考虑如何最高效率反转字符串"><span class="nav-number">4.3.</span> <span class="nav-text">考虑如何最高效率反转字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04-对象"><span class="nav-number">5.</span> <span class="nav-text">04 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Load-Heap"><span class="nav-number">6.</span> <span class="nav-text">Load Heap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法表与方法覆盖"><span class="nav-number">7.</span> <span class="nav-text">方法表与方法覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#执行就近原则"><span class="nav-number">7.1.</span> <span class="nav-text">执行就近原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象类"><span class="nav-number">7.2.</span> <span class="nav-text">抽象类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口"><span class="nav-number">7.3.</span> <span class="nav-text">接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#05-常量、字段、属性、特性、委托"><span class="nav-number">8.</span> <span class="nav-text">05 常量、字段、属性、特性、委托</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常量"><span class="nav-number">8.1.</span> <span class="nav-text">常量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建议使用readonly来代替const"><span class="nav-number">8.1.1.</span> <span class="nav-text">建议使用readonly来代替const</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举"><span class="nav-number">8.2.</span> <span class="nav-text">枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成员变量"><span class="nav-number">8.3.</span> <span class="nav-text">成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">8.4.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#委托"><span class="nav-number">8.5.</span> <span class="nav-text">委托</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">8.6.</span> <span class="nav-text">闭包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#06-GC与内存管理"><span class="nav-number">9.</span> <span class="nav-text">06 GC与内存管理</span></a></li></ol></div>
             
 
           </div>
