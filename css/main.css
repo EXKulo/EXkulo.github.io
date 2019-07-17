@@ -1836,7 +1836,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2e42ff;
+  background: #2a8fee;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2734,13 +2734,15 @@ body {
   color: #fff;
 }
 .sidebar {
-  background: url("/images/sidebar-bg.png") no-repeat;
+  background: url("/images/sidebar-bg.jpg") no-repeat center center;
+  background-size: cover;
 }
 .sidebar a {
-  color: #fff;
+  color: #111;
 }
 .post-toc ol a {
   color: #fff;
+  text-shadow: 1px 1px 1px #000;
 }
 .site-description {
   color: #fff;
