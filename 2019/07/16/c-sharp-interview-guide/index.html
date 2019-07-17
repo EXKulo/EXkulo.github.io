@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。">
+<meta name="description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 此文可以说是站躺在巨人的肩膀上。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，str">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C#查缺补漏">
 <meta property="og:url" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。">
+<meta property="og:description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 此文可以说是站躺在巨人的肩膀上。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，str">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/1.png">
-<meta property="og:updated_time" content="2019-07-17T03:45:08.202Z">
+<meta property="og:updated_time" content="2019-07-17T03:54:06.264Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C#查缺补漏">
-<meta name="twitter:description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，struct类型也非一定会被分配在栈上。">
+<meta name="twitter:description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 此文可以说是站躺在巨人的肩膀上。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，str">
 <meta name="twitter:image" content="http://yoursite.com/2019/07/16/c-sharp-interview-guide/1.png">
 
 
@@ -340,6 +340,7 @@
 
       
         <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>此文为阅读<a href="https://www.cnblogs.com/anding/category/262808.html" target="_blank" rel="noopener">dalao的csdn博客</a>所作之笔记。挑一些自己不太清楚的点记下来。</p>
+<p>此文可以说是<del>站</del>躺在巨人的肩膀上。</p>
 <h2 id="01-值类型和引用类型"><a href="#01-值类型和引用类型" class="headerlink" title="01 值类型和引用类型"></a>01 值类型和引用类型</h2><p>C#中的类型分为值类型和引用类型。其分类大概如下图：</p>
 <img src="/2019/07/16/c-sharp-interview-guide/1.png" title="类型">
 <h3 id="所在位置"><a href="#所在位置" class="headerlink" title="所在位置"></a>所在位置</h3><p>位置分为两种：</p>
@@ -500,6 +501,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/17/hexo-next-theme-beautify-guide/" rel="prev" title="hexo next主题美化备忘录">
+                hexo next主题美化备忘录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -580,7 +585,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

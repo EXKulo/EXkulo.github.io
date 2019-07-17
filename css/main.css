@@ -1836,7 +1836,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #38ff2f;
+  background: #fa7fff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2689,6 +2689,27 @@ body {
   background-attachment: fixed;
   background-position: 50% 50%;
 }
+.site-title {
+  color: #fff;
+  text-shadow: 1px 2px 3px #000;
+}
+.brand {
+  padding-left: 0;
+}
+.custom-logo-site-title {
+  text-align: left;
+}
+.site-subtitle {
+  color: #fff;
+  text-shadow: 1px 2px 3px #000;
+  text-align: left;
+}
+.site-nav .menu {
+  text-align: left;
+}
+.menu .menu-item a {
+  text-shadow: 1px 2px 2px #000;
+}
 .main-inner {
   margin-top: 0;
   padding: 0 60px 60px 60px;
@@ -2700,7 +2721,7 @@ body {
   padding: 50px 0 20px;
 }
 .header-inner {
-  background: url("/images/background.jpg");
+  background: url("/images/background.jpg") no-repeat center center;
   padding: 80px 60px 80px 60px;
 }
 .btn {
