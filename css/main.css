@@ -1836,7 +1836,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #332537;
+  background: #28ff3b;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2722,6 +2722,7 @@ body {
 }
 .header-inner {
   background: url("/images/background.jpg") no-repeat center center;
+  background-size: cover;
   padding: 80px 60px 80px 60px;
 }
 .btn {
@@ -2733,6 +2734,10 @@ body {
 .site-subtitle {
   color: #fff;
 }
+.site-description .motion-element {
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+}
 .sidebar {
   background: url("/images/sidebar-bg.jpg") no-repeat center center;
   background-size: cover;
@@ -2743,9 +2748,6 @@ body {
 .post-toc ol a {
   color: #fff;
   text-shadow: 1px 1px 1px #000;
-}
-.site-description {
-  color: #fff;
 }
 @media (max-width: 767px) {
   .site-nav {
