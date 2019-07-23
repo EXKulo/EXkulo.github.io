@@ -380,12 +380,11 @@
       
         
           
-          想完成这样一个功能：
+          小试牛刀想完成这样一个功能：
 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。
 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。
 现在当然要在javascript中改。
-首先我找到了整个宏观布局定义的代码在themes\next\layout\_layout.swig。stylus其实可以看做是html的超集，可以使用各种html属性，当然也就可以在里面插入js代码了。于是我试着往header那一端里面插入：
-12
+首先我找到了整个宏观布局定义的代码在themes\next\layout\_layout.swig。stylus其实可以看做是html的超集，可以使用各种html属性，当然也就可以在里面插入js代码了。于是我试着往header那一端里面插入
           ...
           <!--noindex-->
           <div class="post-button text-center">

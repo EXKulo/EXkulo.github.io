@@ -89,17 +89,17 @@
 
 
 
-<meta name="description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
+<meta name="description" content="小试牛刀想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在th">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo Next为每篇文章设置自定义的banner图片">
 <meta property="og:url" content="http://yoursite.com/2019/07/23/Hexo-Change-Header-Banner/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
+<meta property="og:description" content="小试牛刀想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在th">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-23T11:08:35.067Z">
+<meta property="og:updated_time" content="2019-07-23T11:27:58.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo Next为每篇文章设置自定义的banner图片">
-<meta name="twitter:description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
+<meta name="twitter:description" content="小试牛刀想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在th">
 
 
 
@@ -376,14 +376,14 @@
       
 
       
-        <p>想完成这样一个功能：</p>
+        <h2 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h2><p>想完成这样一个功能：</p>
 <p>顶部banner默认读取<code>images/background.jpg</code>，当进入文章页面的时候，判断文件夹内是否存在<code>header-banner.jpg</code>图片存在，有就优先使用它。</p>
 <p>之前改变banner图是直接在custom.styl里改变<code>.header-inner</code>里的background属性的。</p>
 <p>现在当然要在javascript中改。</p>
 <p>首先我找到了整个宏观布局定义的代码在<code>themes\next\layout\_layout.swig</code>。stylus其实可以看做是html的超集，可以使用各种html属性，当然也就可以在里面插入js代码了。于是我试着往header那一端里面插入：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <p>重启hexo服务器之后可以顺利地在控制台看到输出。</p>
-<p>可以看到<code>post.swig</code>第一句，说明它扩展于<code>_layout.swig</code>，仔细看<code>_layout.swig</code>里面header一段，可以看到它又include了<code>_partials/header.swig</code></p>
+<h2 id="最终解决方案"><a href="#最终解决方案" class="headerlink" title="最终解决方案"></a>最终解决方案</h2><p>可以看到<code>post.swig</code>第一句，说明它扩展于<code>_layout.swig</code>，仔细看<code>_layout.swig</code>里面header一段，可以看到它又include了<code>_partials/header.swig</code></p>
 <p>在<code>class=&quot;header-inner&quot;</code>前面加上id。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span> <span class="attr">id</span>=<span class="string">"header"</span> <span class="attr">class</span>=<span class="string">"header"</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">"http://schema.org/WPHeader"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 添加了id，后面改变css样式用 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"id-header-inner"</span> <span class="attr">class</span>=<span class="string">"header-inner"</span>&gt;</span> &#123;%- include '_partials/header.swig' %&#125; <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>然后在下方粘贴上这段代码：</p>
@@ -479,8 +479,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -552,6 +561,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#小试牛刀"><span class="nav-number">1.</span> <span class="nav-text">小试牛刀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终解决方案"><span class="nav-number">2.</span> <span class="nav-text">最终解决方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
