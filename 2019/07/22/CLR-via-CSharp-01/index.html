@@ -91,19 +91,19 @@
 
 <meta name="description" content="开坑开了个新坑，做读了CLR via C#的笔记。 Chapter 1 CLR的执行模型1.1 托管模块是什么托管模块是面向CLR的语言被编译之后的产出物，需要有CLR才能运行。 CLR，全称Common Language Runtime，中文公共语言运行时，一般随着.NET Framework的一部分安装。核心功能包括：内存管理、程序集加载、安全性、异常处理和线程同步。开发人员可以随意选择自己喜">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CLR via CShapr 01">
-<meta property="og:url" content="http://yoursite.com/2019/07/22/CLR-via-CShapr-01/index.html">
+<meta property="og:title" content="CLR via CSharp 01">
+<meta property="og:url" content="http://yoursite.com/2019/07/22/CLR-via-CSharp-01/index.html">
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="开坑开了个新坑，做读了CLR via C#的笔记。 Chapter 1 CLR的执行模型1.1 托管模块是什么托管模块是面向CLR的语言被编译之后的产出物，需要有CLR才能运行。 CLR，全称Common Language Runtime，中文公共语言运行时，一般随着.NET Framework的一部分安装。核心功能包括：内存管理、程序集加载、安全性、异常处理和线程同步。开发人员可以随意选择自己喜">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/CLR-via-CShapr-01/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/CLR-via-CShapr-01/2.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/CLR-via-CShapr-01/3.png">
-<meta property="og:updated_time" content="2019-07-23T10:57:29.460Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/CLR-via-CSharp-01/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/CLR-via-CSharp-01/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/CLR-via-CSharp-01/3.png">
+<meta property="og:updated_time" content="2019-07-23T11:24:12.119Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CLR via CShapr 01">
+<meta name="twitter:title" content="CLR via CSharp 01">
 <meta name="twitter:description" content="开坑开了个新坑，做读了CLR via C#的笔记。 Chapter 1 CLR的执行模型1.1 托管模块是什么托管模块是面向CLR的语言被编译之后的产出物，需要有CLR才能运行。 CLR，全称Common Language Runtime，中文公共语言运行时，一般随着.NET Framework的一部分安装。核心功能包括：内存管理、程序集加载、安全性、异常处理和线程同步。开发人员可以随意选择自己喜">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/22/CLR-via-CShapr-01/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/22/CLR-via-CSharp-01/1.png">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/22/CLR-via-CShapr-01/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/22/CLR-via-CSharp-01/">
 
 
 
 
 
-  <title>CLR via CShapr 01 | 左未的笔记本</title>
+  <title>CLR via CSharp 01 | 左未的笔记本</title>
   
 
 
@@ -302,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/CLR-via-CShapr-01/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/CLR-via-CSharp-01/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CLR via CShapr 01</h1>
+          <h1 class="post-title" itemprop="name headline">CLR via CSharp 01</h1>
         
 
         <div class="post-meta">
@@ -371,7 +371,7 @@
 
           
           
-             <span id="/2019/07/22/CLR-via-CShapr-01/" class="leancloud_visitors" data-flag-title="CLR via CShapr 01">
+             <span id="/2019/07/22/CLR-via-CSharp-01/" class="leancloud_visitors" data-flag-title="CLR via CSharp 01">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -430,7 +430,7 @@
 <p>一般而言代码可以在任何装有CLR的Windows上运行，不过也可以在编译的时候指定<code>/platform</code>参数来控制运行的CPU平台。可以右击项目进入属性，在debug标签页找到更改目标平台的选项。</p>
 <h3 id="1-4-执行程序集的代码"><a href="#1-4-执行程序集的代码" class="headerlink" title="1.4 执行程序集的代码"></a>1.4 执行程序集的代码</h3><h4 id="IL"><a href="#IL" class="headerlink" title="IL"></a>IL</h4><p>IL与CPU无关，能访问和操作对象类型，并提供了指令来创建和初始化对象、调用对象上的虚方法以及直接操作数组元素，还提供了抛出和捕捉异常的指令来实现错误处理。</p>
 <p>我们用的高级语言（C#，F#）只公开了IL全部功能的子集，想要使用IL全部功能，可以使用汇编编写IL。</p>
-<img src="/2019/07/22/CLR-via-CShapr-01/1.png" class="方法的首次调用">
+<img src="/2019/07/22/CLR-via-CSharp-01/1.png" class="方法的首次调用">
 <p>上图中的JIT表示Just In Time。</p>
 <p>很明显，当第二次执行<code>Console.WriteLine()</code>的时候已经不需要再次经过JITCompiler了，直接拿到CPU指令运行就可以了。</p>
 <p>IL基于栈，没有提供操作寄存器的指令。将IL编译成本机CPU指令时，CLR会执行一个名为验证的过程，以确保代码所做的一切都是安全的。保证每个方法的参数数量都是对的，传给每个方法的参数都有正确的类型，每个方法的返回值都得到了正确的使用，每个方法都有一个返回语句。</p>
@@ -468,8 +468,8 @@
 </ul>
 <h3 id="1-7-通用类型系统"><a href="#1-7-通用类型系统" class="headerlink" title="1.7 通用类型系统"></a>1.7 通用类型系统</h3><p>简单知识。</p>
 <h3 id="1-8-反汇编工具ILDasm-exe"><a href="#1-8-反汇编工具ILDasm-exe" class="headerlink" title="1.8 反汇编工具ILDasm.exe"></a>1.8 反汇编工具ILDasm.exe</h3><p>使用这个工具可以分析最终生成的托管模块。位于<code>C:\Program Files (x86)\Microsoft SDKs\Windows\v8.0A\bin\NETFX 4.0 Tools</code>。直接打开一个c#可执行文件就可以看到其内容。</p>
-<img src="/2019/07/22/CLR-via-CShapr-01/2.png" class="ILDasm">
-<img src="/2019/07/22/CLR-via-CShapr-01/3.png" class="查看IL代码">
+<img src="/2019/07/22/CLR-via-CSharp-01/2.png" class="ILDasm">
+<img src="/2019/07/22/CLR-via-CSharp-01/3.png" class="查看IL代码">
 <h3 id="1-9-与非托管代码的互操作性"><a href="#1-9-与非托管代码的互操作性" class="headerlink" title="1.9 与非托管代码的互操作性"></a>1.9 与非托管代码的互操作性</h3><p>CLR支持三种互操作情形：</p>
 <ul>
 <li>托管代码调用DLL中的非托管函数</li>
