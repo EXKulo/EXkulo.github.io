@@ -285,6 +285,10 @@ NexT.utils = NexT.$u = {
           ((sidebarPadding * 2) + sidebarNavHeight + (CONFIG.sidebar.offset * 2) + this.getSidebarb2tHeight()) :
           ((sidebarPadding * 2) + (sidebarNavHeight / 2));
     return sidebarSchemePadding;
+  },
+
+  getTopBannerUrl: function () {
+    return "url(/images/background.jpg)"
   }
 
   /**

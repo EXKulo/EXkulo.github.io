@@ -154,22 +154,10 @@
   
 
   <div class="container sidebar-position-left page-archive">
-    <div class="headband"></div>
-    <!-- 添加自定义js代码 -->
-    <script type="text/javascript">
-    var url = document.location.toString();
-　　var arrUrl = url.split("//");
-
-　　var start = arrUrl[1].indexOf("/");
-　　var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
-
-　　if(relUrl.indexOf("?") != -1){
-　　　　relUrl = relUrl.split("?")[0];
-　　}
-    console.log(url);
-    </script>
+  <div class="headband"></div>
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <!-- 添加了id，后面改变css样式用 -->
+      <div id="id-header-inner" class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -253,6 +241,42 @@
  </div>
     </header>
 
+    <!-- 改变css样式 -->
+    <script type="text/javascript">
+    var url = document.location.pathname;
+    var folderName = url.substr(1, url.length - 2)
+    console.log(folderName);
+
+    var strPostUrlPng = "/" + folderName + "/" + "post-banner.png";
+
+    function changeBanner(strPostUrl){
+      var xmlhttp;
+      if (window.XMLHttpRequest)
+      {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+      }
+      else
+      {
+        // IE6, IE5 浏览器执行代码
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xmlhttp.onreadystatechange=function()
+      {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+          document.getElementById("id-header-inner").style.backgroundImage = "url(" + strPostUrl + ")";
+        } else {
+          document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+        }
+      }
+      xmlhttp.open("HEAD",strPostUrl,true);
+      xmlhttp.send();
+    }
+
+    changeBanner(strPostUrlPng);
+    </script>
+
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
@@ -297,7 +321,7 @@
         
             <a class="post-title-link" href="/2019/07/23/Hexo-Change-Header-Banner/" itemprop="url">
               
-                <span itemprop="name">Hexo Next顶部banner图读取文章中自定义的图</span>
+                <span itemprop="name">Hexo Next为每篇文章设置自定义的banner图片</span>
               
             </a>
         

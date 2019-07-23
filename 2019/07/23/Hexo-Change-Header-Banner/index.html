@@ -91,14 +91,14 @@
 
 <meta name="description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo Next顶部banner图读取文章中自定义的图">
+<meta property="og:title" content="Hexo Next为每篇文章设置自定义的banner图片">
 <meta property="og:url" content="http://yoursite.com/2019/07/23/Hexo-Change-Header-Banner/index.html">
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-23T05:34:58.974Z">
+<meta property="og:updated_time" content="2019-07-23T11:08:35.067Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo Next顶部banner图读取文章中自定义的图">
+<meta name="twitter:title" content="Hexo Next为每篇文章设置自定义的banner图片">
 <meta name="twitter:description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <title>Hexo Next顶部banner图读取文章中自定义的图 | 左未的笔记本</title>
+  <title>Hexo Next为每篇文章设置自定义的banner图片 | 左未的笔记本</title>
   
 
 
@@ -155,22 +155,10 @@
   
 
   <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-    <!-- 添加自定义js代码 -->
-    <script type="text/javascript">
-    var url = document.location.toString();
-　　var arrUrl = url.split("//");
-
-　　var start = arrUrl[1].indexOf("/");
-　　var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
-
-　　if(relUrl.indexOf("?") != -1){
-　　　　relUrl = relUrl.split("?")[0];
-　　}
-    console.log(url);
-    </script>
+  <div class="headband"></div>
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <!-- 添加了id，后面改变css样式用 -->
+      <div id="id-header-inner" class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -254,6 +242,42 @@
  </div>
     </header>
 
+    <!-- 改变css样式 -->
+    <script type="text/javascript">
+    var url = document.location.pathname;
+    var folderName = url.substr(1, url.length - 2)
+    console.log(folderName);
+
+    var strPostUrlPng = "/" + folderName + "/" + "post-banner.png";
+
+    function changeBanner(strPostUrl){
+      var xmlhttp;
+      if (window.XMLHttpRequest)
+      {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+      }
+      else
+      {
+        // IE6, IE5 浏览器执行代码
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xmlhttp.onreadystatechange=function()
+      {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+          document.getElementById("id-header-inner").style.backgroundImage = "url(" + strPostUrl + ")";
+        } else {
+          document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+        }
+      }
+      xmlhttp.open("HEAD",strPostUrl,true);
+      xmlhttp.send();
+    }
+
+    changeBanner(strPostUrlPng);
+    </script>
+
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
@@ -291,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo Next顶部banner图读取文章中自定义的图</h1>
+          <h1 class="post-title" itemprop="name headline">Hexo Next为每篇文章设置自定义的banner图片</h1>
         
 
         <div class="post-meta">
@@ -321,7 +345,7 @@
 
           
           
-             <span id="/2019/07/23/Hexo-Change-Header-Banner/" class="leancloud_visitors" data-flag-title="Hexo Next顶部banner图读取文章中自定义的图">
+             <span id="/2019/07/23/Hexo-Change-Header-Banner/" class="leancloud_visitors" data-flag-title="Hexo Next为每篇文章设置自定义的banner图片">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -359,7 +383,15 @@
 <p>首先我找到了整个宏观布局定义的代码在<code>themes\next\layout\_layout.swig</code>。stylus其实可以看做是html的超集，可以使用各种html属性，当然也就可以在里面插入js代码了。于是我试着往header那一端里面插入：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <p>重启hexo服务器之后可以顺利地在控制台看到输出。</p>
-<p>找到文章的swig为<code>post.swig</code>，又有另一个想法是可以直接在这里面覆写header的参数。</p>
+<p>可以看到<code>post.swig</code>第一句，说明它扩展于<code>_layout.swig</code>，仔细看<code>_layout.swig</code>里面header一段，可以看到它又include了<code>_partials/header.swig</code></p>
+<p>在<code>class=&quot;header-inner&quot;</code>前面加上id。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span> <span class="attr">id</span>=<span class="string">"header"</span> <span class="attr">class</span>=<span class="string">"header"</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">"http://schema.org/WPHeader"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 添加了id，后面改变css样式用 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"id-header-inner"</span> <span class="attr">class</span>=<span class="string">"header-inner"</span>&gt;</span> &#123;%- include '_partials/header.swig' %&#125; <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后在下方粘贴上这段代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 改变css样式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> url = <span class="built_in">document</span>.location.pathname;</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> folderName = url.substr(<span class="number">1</span>, url.length - <span class="number">2</span>)</span></span><br><span class="line"><span class="javascript"><span class="built_in">console</span>.log(folderName);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> strPostUrlPng = <span class="string">"/"</span> + folderName + <span class="string">"/"</span> + <span class="string">"post-banner.png"</span>;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">changeBanner</span>(<span class="params">strPostUrl</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> xmlhttp;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</span></span><br><span class="line"><span class="undefined">    &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码</span></span></span><br><span class="line"><span class="javascript">    xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">else</span></span></span><br><span class="line"><span class="undefined">    &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// IE6, IE5 浏览器执行代码</span></span></span><br><span class="line"><span class="javascript">    xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    xmlhttp.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></span></span><br><span class="line"><span class="undefined">    &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (xmlhttp.readyState==<span class="number">4</span> &amp;&amp; xmlhttp.status==<span class="number">200</span>)</span></span><br><span class="line"><span class="undefined">    &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">"id-header-inner"</span>).style.backgroundImage = <span class="string">"url("</span> + strPostUrl + <span class="string">")"</span>;</span></span><br><span class="line"><span class="javascript">    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">"id-header-inner"</span>).style.backgroundImage = <span class="string">"url(/images/background.jpg)"</span>;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    xmlhttp.open(<span class="string">"HEAD"</span>,strPostUrl,<span class="literal">true</span>);</span></span><br><span class="line"><span class="undefined">    xmlhttp.send();</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">changeBanner(strPostUrlPng);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这段代码的含义是在本文章的文件夹底下用head模式（只下载文件头，不下载文件内容）寻找名为<code>post-banner.png</code>的图，如果找到了就用这个图作为背景图，否则使用默认的在<code>/images/background.jpg</code>背景图。</p>
+<p>以后就只需要在每篇文章的目录里面放一张<code>post-banner.png</code>的图，就可以用作自定义banner图片了。</p>
+<p>实际使用的时候把下面的默认背景图改成你自己的默认背景图路径就可以了。</p>
+<p>注意，这里使用<code>background-image</code>属性，不宜直接使用<code>background</code>属性，这是为了避免覆盖了我在<code>custom.styl</code>给banner设置的<code>background-size: cover</code>属性。</p>
 
       
     </div>
