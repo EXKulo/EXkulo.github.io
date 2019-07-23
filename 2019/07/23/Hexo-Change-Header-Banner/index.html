@@ -89,17 +89,17 @@
 
 
 
-<meta name="description" content="八 分片分片$sharding$或者叫分区$partitioning$，表示将数据拆分存放到不同的机器上。 MongoDB支持自动分片。 分片对应用程序来说是透明的。 创建集群1mongo --nodb 1cluster = new ShardingTest(&amp;#123;&apos;shards&apos;: 3, &apos;chunksize&apos;: 1&amp;#125;) 创建之后控制台会不断滚新的信息，快速按ctrl+c退出，然">
+<meta name="description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【MongoDB权威指南】八">
-<meta property="og:url" content="http://yoursite.com/2019/01/29/【MongoDB权威指南】八/index.html">
+<meta property="og:title" content="Hexo Next顶部banner图读取文章中自定义的图">
+<meta property="og:url" content="http://yoursite.com/2019/07/23/Hexo-Change-Header-Banner/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="八 分片分片$sharding$或者叫分区$partitioning$，表示将数据拆分存放到不同的机器上。 MongoDB支持自动分片。 分片对应用程序来说是透明的。 创建集群1mongo --nodb 1cluster = new ShardingTest(&amp;#123;&apos;shards&apos;: 3, &apos;chunksize&apos;: 1&amp;#125;) 创建之后控制台会不断滚新的信息，快速按ctrl+c退出，然">
+<meta property="og:description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-29T09:18:27.585Z">
+<meta property="og:updated_time" content="2019-07-23T05:34:58.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【MongoDB权威指南】八">
-<meta name="twitter:description" content="八 分片分片$sharding$或者叫分区$partitioning$，表示将数据拆分存放到不同的机器上。 MongoDB支持自动分片。 分片对应用程序来说是透明的。 创建集群1mongo --nodb 1cluster = new ShardingTest(&amp;#123;&apos;shards&apos;: 3, &apos;chunksize&apos;: 1&amp;#125;) 创建之后控制台会不断滚新的信息，快速按ctrl+c退出，然">
+<meta name="twitter:title" content="Hexo Next顶部banner图读取文章中自定义的图">
+<meta name="twitter:description" content="想完成这样一个功能： 顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。 之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。 现在当然要在javascript中改。 首先我找到了整个宏观布局定义的代码在themes">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/29/【MongoDB权威指南】八/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/23/Hexo-Change-Header-Banner/">
 
 
 
 
 
-  <title>【MongoDB权威指南】八 | 左未的笔记本</title>
+  <title>Hexo Next顶部banner图读取文章中自定义的图 | 左未的笔记本</title>
   
 
 
@@ -274,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/【MongoDB权威指南】八/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/Hexo-Change-Header-Banner/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -291,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【MongoDB权威指南】八</h1>
+          <h1 class="post-title" itemprop="name headline">Hexo Next顶部banner图读取文章中自定义的图</h1>
         
 
         <div class="post-meta">
@@ -303,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T16:03:20+08:00">
-                2019-01-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-23T13:17:46+08:00">
+                2019-07-23
               </time>
             
 
@@ -314,28 +314,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/后端技术/" itemprop="url" rel="index">
-                    <span itemprop="name">后端技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -343,7 +321,7 @@
 
           
           
-             <span id="/2019/01/29/【MongoDB权威指南】八/" class="leancloud_visitors" data-flag-title="【MongoDB权威指南】八">
+             <span id="/2019/07/23/Hexo-Change-Header-Banner/" class="leancloud_visitors" data-flag-title="Hexo Next顶部banner图读取文章中自定义的图">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,22 +352,14 @@
       
 
       
-        <h1 id="八-分片"><a href="#八-分片" class="headerlink" title="八 分片"></a>八 分片</h1><p>分片$sharding$或者叫分区$partitioning$，表示将数据拆分存放到不同的机器上。</p>
-<p>MongoDB支持自动分片。</p>
-<p>分片对应用程序来说是透明的。</p>
-<h2 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --nodb</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cluster = <span class="keyword">new</span> ShardingTest(&#123;<span class="string">'shards'</span>: <span class="number">3</span>, <span class="string">'chunksize'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>创建之后控制台会不断滚新的信息，快速按ctrl+c退出，然后滚到最上看port为何。</p>
-<p>再新启一个shell来连接集群</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db = (<span class="keyword">new</span> Mongo(<span class="string">'localhost:20006'</span>)).getDB(<span class="string">'test'</span>)</span><br></pre></td></tr></table></figure>
-<p>在当前版本，mongos运行在20006端口。</p>
-<p>接下来看集群状态</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh.status()</span><br></pre></td></tr></table></figure>
-<h3 id="分片依据"><a href="#分片依据" class="headerlink" title="分片依据"></a>分片依据</h3><p>要对一个集合分片，首先要启用分片，然后对<strong>片键</strong>建立索引，最后设置片键。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh.enableSharding(<span class="string">'test'</span>) <span class="comment">// 参数是数据库名称</span></span><br><span class="line">db.users.ensureIndex(&#123;<span class="string">'no'</span>: <span class="number">1</span>&#125;)</span><br><span class="line">sh.shardCollection(<span class="string">'test.users'</span>, &#123;<span class="string">'no'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<hr>
-<p>好了，这个系列到此打住。毕竟是给自己这种后端一窍不通的人看的，暂时也不会转岗去做后端，所以这里把基础概念都了解了就行了。</p>
-<p>谢谢各位看官~~</p>
+        <p>想完成这样一个功能：</p>
+<p>顶部banner默认读取<code>images/background.jpg</code>，当进入文章页面的时候，判断文件夹内是否存在<code>header-banner.jpg</code>图片存在，有就优先使用它。</p>
+<p>之前改变banner图是直接在custom.styl里改变<code>.header-inner</code>里的background属性的。</p>
+<p>现在当然要在javascript中改。</p>
+<p>首先我找到了整个宏观布局定义的代码在<code>themes\next\layout\_layout.swig</code>。stylus其实可以看做是html的超集，可以使用各种html属性，当然也就可以在里面插入js代码了。于是我试着往header那一端里面插入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重启hexo服务器之后可以顺利地在控制台看到输出。</p>
+<p>找到文章的swig为<code>post.swig</code>，又有另一个想法是可以直接在这里面覆写header的参数。</p>
 
       
     </div>
@@ -414,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/28/【MongoDB权威指南】七/" rel="next" title="【MongoDB权威指南】七">
-                <i class="fa fa-chevron-left"></i> 【MongoDB权威指南】七
+              <a href="/2019/07/22/CLR-via-CShapr-01/" rel="next" title="CLR via CShapr 01">
+                <i class="fa fa-chevron-left"></i> CLR via CShapr 01
               </a>
             
           </div>
@@ -423,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/30/Unity优化回忆录/" rel="prev" title="Unity优化回忆录">
-                Unity优化回忆录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -481,17 +447,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -563,22 +520,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#八-分片"><span class="nav-number">1.</span> <span class="nav-text">八 分片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建集群"><span class="nav-number">1.1.</span> <span class="nav-text">创建集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分片依据"><span class="nav-number">1.1.1.</span> <span class="nav-text">分片依据</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -168,7 +168,19 @@
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
+    <!-- 添加自定义js代码 -->
+    <script type="text/javascript">
+    var url = document.location.toString();
+　　var arrUrl = url.split("//");
 
+　　var start = arrUrl[1].indexOf("/");
+　　var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+
+　　if(relUrl.indexOf("?") != -1){
+　　　　relUrl = relUrl.split("?")[0];
+　　}
+    console.log(url);
+    </script>
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
@@ -608,7 +620,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
