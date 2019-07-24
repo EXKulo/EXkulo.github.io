@@ -322,6 +322,29 @@
   
   
   <div class="post-block">
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    左未
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/" title="C#查缺补漏">https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+    <br>
+    <br>
+
     <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -513,7 +536,7 @@
 <li>readonly是运行时常量，只是代表赋值后无法再进行更改引用，不会被替换到代码之中，部分编译的时候没有上面提到的const的危险</li>
 </ol>
 <h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>枚举其实就是一个const常量集合，和const有一样的性质，会直接替换代码里的值，同样有部分编译引坑的危险。</p>
-<h3 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h3><p>文中说到了<strong>成员初始化器</strong>，可以参见<a href="https://exkulo.github.io/2019/07/04/Effective-csharp-2/" target="_blank" rel="noopener">另一篇文章</a>里面提到的内容。</p>
+<h3 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h3><p>文中说到了<strong>成员初始化器</strong>，可以参见<a href="https://exkulo.github.io/2019/07/04/Effective-csharp-2/">另一篇文章</a>里面提到的内容。</p>
 <h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>实质上是堆私有字段的封装。</p>
 <p>自定义的属性get和set可以返回自己指定的私有字段。当然也可以什么也不指定，只写一个<code>{set; get;}</code></p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> Id&#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;;</span><br></pre></td></tr></table></figure>
@@ -566,7 +589,7 @@
 <p>大多数情况下GC只需要回收第0代，可以显著提高GC效率。</p>
 <h3 id="线程相关"><a href="#线程相关" class="headerlink" title="线程相关"></a>线程相关</h3><p>在GC执行回收的时候，首先要安全地挂起所有线程。GC回收后在恢复所有线程。所以线程越多，GC要做的事情就会越多。</p>
 <h3 id="非托管资源回收"><a href="#非托管资源回收" class="headerlink" title="非托管资源回收"></a>非托管资源回收</h3><p>什么是非托管资源？比如你新建了一个数据库连接，这个连接的一部分内存是分配在数据库软件里的，并不属于本程序管理，自然也就无法托管以及GC。使用完非托管资源之后，我们需要手动地调用非托管资源的释放方法，以保证资源能够正确释放。</p>
-<p>关于这部分，之前写过<a href="https://exkulo.github.io/2019/07/04/Effective-csharp-2/" target="_blank" rel="noopener">一个笔记</a>第17条目有说明白。</p>
+<p>关于这部分，之前写过<a href="https://exkulo.github.io/2019/07/04/Effective-csharp-2/">一个笔记</a>第17条目有说明白。</p>
 
       
     </div>
@@ -576,26 +599,6 @@
 
     
 
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    左未
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/" title="C#查缺补漏">https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
     
 
     <footer class="post-footer">
@@ -703,7 +706,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
