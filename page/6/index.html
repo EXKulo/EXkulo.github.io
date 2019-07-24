@@ -248,34 +248,56 @@
     var folderName = url.substr(1, url.length - 2)
     console.log(folderName);
 
-    var strPostUrlPng = "/" + folderName + "/" + "post-banner.png";
+    var listPostUrl = [
+        "/" + folderName + "/" + "post-banner.png",
+        "/" + folderName + "/" + "post-banner.jpg",
+    ];
 
-    function changeBanner(strPostUrl){
-      var xmlhttp;
-      if (window.XMLHttpRequest)
-      {
-        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-        xmlhttp=new XMLHttpRequest();
-      }
-      else
-      {
-        // IE6, IE5 浏览器执行代码
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      xmlhttp.onreadystatechange=function()
-      {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-          document.getElementById("id-header-inner").style.backgroundImage = "url(" + strPostUrl + ")";
-        } else {
-          document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+    var nSuccessCount = 0;
+    var nResponceCount = 0;
+    function OnHttpResponse(bSuccess, strUrl) {
+        console.log("OnHttpResponse: " + bSuccess + ", " + strUrl);
+        nResponceCount++;
+        if(nSuccessCount > 0){
+            return;
         }
-      }
-      xmlhttp.open("HEAD",strPostUrl,true);
-      xmlhttp.send();
+        if(bSuccess) {
+            nSuccessCount++;
+            document.getElementById("id-header-inner").style.backgroundImage = "url(" + strUrl + ")";
+        }
+        if(nResponceCount >= listPostUrl.length && nSuccessCount <= 0){
+            // 使用默认图
+            document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+        }
     }
 
-    changeBanner(strPostUrlPng);
+    function changeBanner(strPostUrl, nIndex){
+        console.log("try to load" + strPostUrl);
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                OnHttpResponse(true, strPostUrl);
+            } else {
+                OnHttpResponse(false, strPostUrl);
+            }
+        }
+        xmlhttp.open("HEAD",strPostUrl,true);
+        xmlhttp.send();
+    }
+
+    listPostUrl.forEach(changeBanner);
     </script>
 
     <main id="main" class="main">
@@ -284,6 +306,169 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/解决JetBrain系渲染问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/10/解决JetBrain系渲染问题/" itemprop="url">解决JetBrain系渲染问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T15:05:54+08:00">
+                2018-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发周边/" itemprop="url" rel="index">
+                    <span itemprop="name">开发周边</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/10/解决JetBrain系渲染问题/" class="leancloud_visitors" data-flag-title="解决JetBrain系渲染问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          参见知乎
+去这里下载一个插件然后安装。
+https://gist.github.com/CrazyCoder/0d9e54f450000d3fb6edcbda6d9788be
+https://superuser.com/questions/614960/how-to-fix-font-anti-aliasing-in-intellij-idea-when-using-high-dpi
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/10/解决JetBrain系渲染问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1451,7 +1636,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1462,7 +1647,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

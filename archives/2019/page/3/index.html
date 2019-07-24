@@ -247,34 +247,56 @@
     var folderName = url.substr(1, url.length - 2)
     console.log(folderName);
 
-    var strPostUrlPng = "/" + folderName + "/" + "post-banner.png";
+    var listPostUrl = [
+        "/" + folderName + "/" + "post-banner.png",
+        "/" + folderName + "/" + "post-banner.jpg",
+    ];
 
-    function changeBanner(strPostUrl){
-      var xmlhttp;
-      if (window.XMLHttpRequest)
-      {
-        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-        xmlhttp=new XMLHttpRequest();
-      }
-      else
-      {
-        // IE6, IE5 浏览器执行代码
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      xmlhttp.onreadystatechange=function()
-      {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-          document.getElementById("id-header-inner").style.backgroundImage = "url(" + strPostUrl + ")";
-        } else {
-          document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+    var nSuccessCount = 0;
+    var nResponceCount = 0;
+    function OnHttpResponse(bSuccess, strUrl) {
+        console.log("OnHttpResponse: " + bSuccess + ", " + strUrl);
+        nResponceCount++;
+        if(nSuccessCount > 0){
+            return;
         }
-      }
-      xmlhttp.open("HEAD",strPostUrl,true);
-      xmlhttp.send();
+        if(bSuccess) {
+            nSuccessCount++;
+            document.getElementById("id-header-inner").style.backgroundImage = "url(" + strUrl + ")";
+        }
+        if(nResponceCount >= listPostUrl.length && nSuccessCount <= 0){
+            // 使用默认图
+            document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+        }
     }
 
-    changeBanner(strPostUrlPng);
+    function changeBanner(strPostUrl, nIndex){
+        console.log("try to load" + strPostUrl);
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                OnHttpResponse(true, strPostUrl);
+            } else {
+                OnHttpResponse(false, strPostUrl);
+            }
+        }
+        xmlhttp.open("HEAD",strPostUrl,true);
+        xmlhttp.send();
+    }
+
+    listPostUrl.forEach(changeBanner);
     </script>
 
     <main id="main" class="main">
@@ -295,7 +317,7 @@
         
          
           
-        学而不思则罔，思而不学则殆。 目前共计 57 篇日志。 keep_on
+        学而不思则罔，思而不学则殆。 目前共计 58 篇日志。 keep_on
       </span>
 
       
@@ -309,6 +331,41 @@
           <div class="collection-title">
             <h1 class="archive-year" id="archive-year-2019">2019</h1>
           </div>
+        
+        
+
+        
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2019/03/08/读后感-远见/" itemprop="url">
+              
+                <span itemprop="name">读后感 远见</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-03-08T14:07:06+08:00" content="2019-03-08">
+          03-08
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+      
+
+        
+        
+        
+
         
         
 
@@ -599,41 +656,6 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】5管线/" itemprop="url">
-              
-                <span itemprop="name">【计算机图形学基础】5 Pipeline</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-02-19T11:53:28+08:00" content="2019-02-19">
-          02-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
             <a class="post-title-link" href="/2019/02/19/【计算机图形学基础】4视觉/" itemprop="url">
               
                 <span itemprop="name">【计算机图形学基础】四 Viewing</span>
@@ -712,7 +734,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -723,7 +745,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

@@ -248,34 +248,56 @@
     var folderName = url.substr(1, url.length - 2)
     console.log(folderName);
 
-    var strPostUrlPng = "/" + folderName + "/" + "post-banner.png";
+    var listPostUrl = [
+        "/" + folderName + "/" + "post-banner.png",
+        "/" + folderName + "/" + "post-banner.jpg",
+    ];
 
-    function changeBanner(strPostUrl){
-      var xmlhttp;
-      if (window.XMLHttpRequest)
-      {
-        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-        xmlhttp=new XMLHttpRequest();
-      }
-      else
-      {
-        // IE6, IE5 浏览器执行代码
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      xmlhttp.onreadystatechange=function()
-      {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-          document.getElementById("id-header-inner").style.backgroundImage = "url(" + strPostUrl + ")";
-        } else {
-          document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+    var nSuccessCount = 0;
+    var nResponceCount = 0;
+    function OnHttpResponse(bSuccess, strUrl) {
+        console.log("OnHttpResponse: " + bSuccess + ", " + strUrl);
+        nResponceCount++;
+        if(nSuccessCount > 0){
+            return;
         }
-      }
-      xmlhttp.open("HEAD",strPostUrl,true);
-      xmlhttp.send();
+        if(bSuccess) {
+            nSuccessCount++;
+            document.getElementById("id-header-inner").style.backgroundImage = "url(" + strUrl + ")";
+        }
+        if(nResponceCount >= listPostUrl.length && nSuccessCount <= 0){
+            // 使用默认图
+            document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+        }
     }
 
-    changeBanner(strPostUrlPng);
+    function changeBanner(strPostUrl, nIndex){
+        console.log("try to load" + strPostUrl);
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                OnHttpResponse(true, strPostUrl);
+            } else {
+                OnHttpResponse(false, strPostUrl);
+            }
+        }
+        xmlhttp.open("HEAD",strPostUrl,true);
+        xmlhttp.send();
+    }
+
+    listPostUrl.forEach(changeBanner);
     </script>
 
     <main id="main" class="main">
@@ -284,6 +306,174 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/sspai-software-pdf-beautify-tool/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/24/sspai-software-pdf-beautify-tool/" itemprop="url">PDF对比度提高工具</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T17:56:44+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/少数派-软件推荐/" itemprop="url" rel="index">
+                    <span itemprop="name">少数派-软件推荐</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/24/sspai-software-pdf-beautify-tool/" class="leancloud_visitors" data-flag-title="PDF对比度提高工具">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          工具推荐在网上下载的扫描版pdf打开的时候经常会发现对比度不高的问题，看起来十分费劲。于是搜索了一下如何提高对比度的工具，找来找去都是一些先要把图片用xx工具解压，然后对比度，最后再重新合成一个pdf。
+手动操作未免也太麻烦了。
+后来搜到这个工具：如何调整 PDF 的对比度？
+直接下载里面的软件之后一步转换完事儿。
+其实它做的事情也是我前面说那些步骤，只不过人家自动批量地完成了。
+
+
+使用注意事项选择pdf的时候会让你先安装另一个东西，跟着指引安装就可以了。
+其他絮絮叨叨其实我感觉可以自己上gayhub找对应的工具然后用脚本自动化跑起来。（说不定还能拿来卖？）
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/24/sspai-software-pdf-beautify-tool/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -403,10 +593,10 @@
         
           
           小试牛刀想完成这样一个功能：
-顶部banner默认读取images/background.jpg，当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它。
-之前改变banner图是直接在custom.styl里改变.header-inner里的background属性的。
-现在当然要在javascript中改。
-首先我找到了整个宏观布局定义的代码在themes\next\layout\_layout.swig。stylus其实可以看做是html的超集，可以使用各种html属性，当然也就可以在里面插入js代码了。于是我试着往header那一端里面插入
+顶部banner默认读取images/background.jpg。当进入文章页面的时候，判断文件夹内是否存在header-banner.jpg图片存在，有就优先使用它，否则使用images/background.jpg。
+之前静态改变banner图是直接在custom.styl里改变.header-inner里的background属性的。
+现在要动态改banner图，当然要在javascript中改。
+首先我找到了整个宏观布局定义的代码在themes\next\layout\_layout.swig。swig其实可以看做是html的超集（类似于ejs），可以使
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1715,168 +1905,6 @@ Banner文字全部居左对齐12345678910111213141516171819202122232425262728293
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/Books-Reading-Serial-The-Outline-Of-Neo-Confucianism/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/default_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的笔记本">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/05/Books-Reading-Serial-The-Outline-Of-Neo-Confucianism/" itemprop="url">【读书】理学纲要</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-05T19:24:16+08:00">
-                2019-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书/" itemprop="url" rel="index">
-                    <span itemprop="name">读书</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/05/Books-Reading-Serial-The-Outline-Of-Neo-Confucianism/" class="leancloud_visitors" data-flag-title="【读书】理学纲要">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-前言哲学相关的书我读过《大问题》《中国哲学简史》。前者主要讲西方哲学，而后者讲中国自古至今的哲学。
-中国哲学里面大概分为几个比较著名的时期，其中便包括春秋战国诸子百家，汉朝儒学兴起，以及后来的宋明理学。春秋战国那些人的观点，在看过《中国哲学简史》之后还能记住个大概，可这宋明理学偏偏一直理不清记不住。适逢在微信读书上看到这本《理学纲要》，便起了兴趣。豆瓣一查9.0分，算是极高的分数了，于是纳入想读列表中。
-后翻开书看前几章才发现这书使用古代汉语写的，虽不至于像春秋战国那时的语言一样晦涩难懂，但有些词也需要随时查询，才能继续阅读下去。刚好最近对古文有点兴趣，所以便算是一边读书学知识点，一边学古文
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/05/Books-Reading-Serial-The-Outline-Of-Neo-Confucianism/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1929,7 +1957,7 @@ Banner文字全部居左对齐12345678910111213141516171819202122232425262728293
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1940,7 +1968,7 @@ Banner文字全部居左对齐12345678910111213141516171819202122232425262728293
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
