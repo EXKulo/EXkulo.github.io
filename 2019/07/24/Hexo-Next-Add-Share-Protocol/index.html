@@ -97,7 +97,7 @@
 <meta property="og:description" content="参考参考了这篇文章：Hexo Next主题添加版权信息 步骤首先打开next的_config.yaml，设置enable为true 12345# Declare license on postspost_copyright:  enable: true  license: CC BY-NC-SA 3.0  license_url: https://creativecommons.org/licen">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://exkulo.github.io/2019/07/24/Hexo-Next-Add-Share-Protocol/1.png">
-<meta property="og:updated_time" content="2019-07-24T11:30:10.601Z">
+<meta property="og:updated_time" content="2019-07-24T11:42:38.692Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo Next 添加版权协议">
 <meta name="twitter:description" content="参考参考了这篇文章：Hexo Next主题添加版权信息 步骤首先打开next的_config.yaml，设置enable为true 12345# Declare license on postspost_copyright:  enable: true  license: CC BY-NC-SA 3.0  license_url: https://creativecommons.org/licen">
@@ -456,6 +456,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if theme.post_copyright.enable and not is_index %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% include 'post-copyright.swig' with &#123; post: post &#125; %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 <p>把这几行代码剪切，放到这个位置</p>
 <img src="/2019/07/24/Hexo-Next-Add-Share-Protocol/1.png" class="放到正文前面">
+<p>下面的两行<code>&lt;br /&gt;</code>是为了把正文的位置下移，显得不会那么挤。</p>
 
       
     </div>
