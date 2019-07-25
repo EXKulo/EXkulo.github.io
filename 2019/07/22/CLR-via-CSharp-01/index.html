@@ -100,7 +100,7 @@
 <meta property="og:image" content="https://exkulo.github.io/2019/07/22/CLR-via-CSharp-01/2.png">
 <meta property="og:image" content="https://exkulo.github.io/2019/07/22/CLR-via-CSharp-01/3.png">
 <meta property="og:image" content="https://exkulo.github.io/2019/07/22/CLR-via-CSharp-01/4.png">
-<meta property="og:updated_time" content="2019-07-25T06:33:04.053Z">
+<meta property="og:updated_time" content="2019-07-25T07:12:20.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR via CSharp 01">
 <meta name="twitter:description" content="开坑开了个新坑，做读了CLR via C#的笔记。 Chapter 1 CLR的执行模型1.1 托管模块是什么托管模块是面向CLR的语言被编译之后的产出物，需要有CLR才能运行。 CLR，全称Common Language Runtime，中文公共语言运行时，一般随着.NET Framework的一部分安装。核心功能包括：内存管理、程序集加载、安全性、异常处理和线程同步。开发人员可以随意选择自己喜">
@@ -547,12 +547,12 @@
 <p>打开全局的<code>CSC.rsp</code>文件可以看到里面配置了一堆默认的引用程序集，这些程序集我们开发者就不需要再引用了。</p>
 <p>如果想要忽略本地和全局的<code>CSC.rsp文件</code>，可以指定<code>/noconfig</code>命令行开关。</p>
 <h4 id="再论元数据"><a href="#再论元数据" class="headerlink" title="再论元数据"></a>再论元数据</h4><p>PE文件（Portable Executable)</p>
-<blockquote class="pullquote mindmap mindmap-md"><ul>
-<li>PE文件的构成<ul>
+<blockquote class="pullquote mindmap mindmap-md km-view"><ul>
+<li>PE文件构成<ul>
 <li>PE32(+)头</li>
 <li>CLR头</li>
 <li>元数据</li>
-<li>IL</li>
+<li>IL代码</li>
 </ul>
 </li>
 </ul>
@@ -912,8 +912,6 @@
   <script type="text/javascript" src="/js/src/kity.min.js?v=5.1.4"></script>
 
   <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/mindmap.js?v=5.1.4"></script>
 
   <script type="text/javascript" src="/js/src/mindmap.min.js?v=5.1.4"></script>
 
