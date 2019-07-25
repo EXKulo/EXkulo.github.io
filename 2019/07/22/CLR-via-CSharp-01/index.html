@@ -99,7 +99,8 @@
 <meta property="og:image" content="https://exkulo.github.io/2019/07/22/CLR-via-CSharp-01/1.png">
 <meta property="og:image" content="https://exkulo.github.io/2019/07/22/CLR-via-CSharp-01/2.png">
 <meta property="og:image" content="https://exkulo.github.io/2019/07/22/CLR-via-CSharp-01/3.png">
-<meta property="og:updated_time" content="2019-07-23T11:24:12.119Z">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/22/CLR-via-CSharp-01/4.png">
+<meta property="og:updated_time" content="2019-07-25T05:00:49.512Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR via CSharp 01">
 <meta name="twitter:description" content="开坑开了个新坑，做读了CLR via C#的笔记。 Chapter 1 CLR的执行模型1.1 托管模块是什么托管模块是面向CLR的语言被编译之后的产出物，需要有CLR才能运行。 CLR，全称Common Language Runtime，中文公共语言运行时，一般随着.NET Framework的一部分安装。核心功能包括：内存管理、程序集加载、安全性、异常处理和线程同步。开发人员可以随意选择自己喜">
@@ -521,7 +522,32 @@
 <li>托管代码使用现有COM控件</li>
 <li>非托管代码可以使用托管类型</li>
 </ul>
-<h2 id="Chapter-02-生成、打包、部署和管理应用程序及类型"><a href="#Chapter-02-生成、打包、部署和管理应用程序及类型" class="headerlink" title="Chapter 02 生成、打包、部署和管理应用程序及类型"></a>Chapter 02 生成、打包、部署和管理应用程序及类型</h2>
+<h2 id="Chapter-02-生成、打包、部署和管理应用程序及类型"><a href="#Chapter-02-生成、打包、部署和管理应用程序及类型" class="headerlink" title="Chapter 02 生成、打包、部署和管理应用程序及类型"></a>Chapter 02 生成、打包、部署和管理应用程序及类型</h2><h3 id="2-1-DLL-Hell"><a href="#2-1-DLL-Hell" class="headerlink" title="2.1 DLL Hell"></a>2.1 DLL Hell</h3><p>DLL hell指的是安装新应用程序时，它可能莫名其妙地破坏了另一个已经安装好的程序。</p>
+<p>.NET Framework正在尝试彻底解决这个问题。</p>
+<h3 id="2-2-将类型生成到模块中"><a href="#2-2-将类型生成到模块中" class="headerlink" title="2.2 将类型生成到模块中"></a>2.2 将类型生成到模块中</h3><h4 id="编译C-代码为exe"><a href="#编译C-代码为exe" class="headerlink" title="编译C#代码为exe"></a>编译C#代码为exe</h4><p>我们将使用csc.ex（<code>C:\Windows\Microsoft.NET\Framework64\v4.0.30319</code>）来把下面这段代码生成为一个exe可执行文件：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Program</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        System.Console.WriteLine(<span class="string">"Hi"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以超级管理员权限打开cmd或者powershell，进入到csc.exe所在路径，放入<code>Program.cs</code>，键入：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\csc.exe /out:Program.exe /t:exe /r:MSCorLib.dll Program.cs</span><br></pre></td></tr></table></figure>
+<img src="/2019/07/22/CLR-via-CSharp-01/4.png" class="编译Program.cs">
+<blockquote>
+<p><code>/t</code>表示target，影响PE头（关于PE头前文有述）。<code>/r</code>表示引用。</p>
+<p>‘/t’支持三种平台：exe控制台用户界面，winexe图形用户界面GUI，appcontainerexe为Windows Store应用</p>
+</blockquote>
+<p>由于程序中使用了<code>System.Console</code>，而该类型在<code>MSCorLib.dll</code>程序集中被定义，所以需要被引用进去。<code>MSCorLib.dll</code>是一个特殊文件，包括了所有的核心类型，包括Byte，Char，String等。由于它被使用的频率很高，C#编译器会自动引用它，所以不写入<code>/r:MSCorLib.dll</code>这一段也是可以的。</p>
+<p>另外，<code>/out:Program.exe&#39;和&#39;/t:exe</code>也是C#编译器的默认设定，所以也可以不写。</p>
+<p>最后我们可以简写成</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\csc.exe Program.cs</span><br></pre></td></tr></table></figure>
+<p>如果不想要编译器自动包含<code>MSCorLib.dll</code>，可以在参数中加入<code>/nostdlib</code>参数，告知不要加入标准库。</p>
+<h4 id="响应文件"><a href="#响应文件" class="headerlink" title="响应文件"></a>响应文件</h4><p>如果每次编译都要输入这么一串参数是很麻烦的，我们可以把它放到一个响应文件中，在编译时引用即可。例如在上一节的例子中，我们新建一个文件，称为<code>Program.rsp</code>，里面包含以下文本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/out:Program.exe</span><br><span class="line">/target:exe</span><br></pre></td></tr></table></figure>
+<p>然后在执行的时候使用<code>@</code>符号加上响应文件名：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./csc.exe @Program.rsp Program.cs</span><br></pre></td></tr></table></figure>
+<p>C#编译器支持多个响应文件。</p>
+<p>如果没有指定响应文件，编译器会自动查找名为<code>CSC.rsp</code>的文件是否存在，路径一般是<code>C:\Windows\Microsoft.NET\Framework(64)\vXXX\CSC.rsp</code>，如果存在会使用。一些全局的参数可以放到该文件中。使用者自定义的响应文件里的参数优先级要高于<code>CSC.rsp</code>文件中参数的优先级。</p>
+<p>打开全局的<code>CSC.rsp</code>文件可以看到里面配置了一堆默认的引用程序集，这些程序集我们开发者就不需要再引用了。</p>
+<p>如果想要忽略本地和全局的<code>CSC.rsp文件</code>，可以指定<code>/noconfig</code>命令行开关。</p>
+<h4 id="再论元数据"><a href="#再论元数据" class="headerlink" title="再论元数据"></a>再论元数据</h4><p>PE文件（Portable Executable)</p>
+
       
     </div>
     
@@ -530,6 +556,35 @@
 
     
 
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy Me A Coffee / 捐一杯咖啡的钱</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="左未 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="左未 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
     
 
     <footer class="post-footer">
@@ -637,7 +692,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -702,7 +757,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开坑"><span class="nav-number">1.</span> <span class="nav-text">开坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-1-CLR的执行模型"><span class="nav-number">2.</span> <span class="nav-text">Chapter 1 CLR的执行模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-托管模块是什么"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 托管模块是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-程序集是什么"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 程序集是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-加载CLR"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 加载CLR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-执行程序集的代码"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 执行程序集的代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IL"><span class="nav-number">2.4.1.</span> <span class="nav-text">IL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不安全的代码"><span class="nav-number">2.4.2.</span> <span class="nav-text">不安全的代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optimize和debug参数"><span class="nav-number">2.4.3.</span> <span class="nav-text">optimize和debug参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用NGen-exe跳过JIT编译阶段"><span class="nav-number">2.4.4.</span> <span class="nav-text">使用NGen.exe跳过JIT编译阶段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-本地代码生成器NGen-exe"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 本地代码生成器NGen.exe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-Framework类库"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 Framework类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-通用类型系统"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 通用类型系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-反汇编工具ILDasm-exe"><span class="nav-number">2.8.</span> <span class="nav-text">1.8 反汇编工具ILDasm.exe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-与非托管代码的互操作性"><span class="nav-number">2.9.</span> <span class="nav-text">1.9 与非托管代码的互操作性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-02-生成、打包、部署和管理应用程序及类型"><span class="nav-number">3.</span> <span class="nav-text">Chapter 02 生成、打包、部署和管理应用程序及类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开坑"><span class="nav-number">1.</span> <span class="nav-text">开坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-1-CLR的执行模型"><span class="nav-number">2.</span> <span class="nav-text">Chapter 1 CLR的执行模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-托管模块是什么"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 托管模块是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-程序集是什么"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 程序集是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-加载CLR"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 加载CLR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-执行程序集的代码"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 执行程序集的代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IL"><span class="nav-number">2.4.1.</span> <span class="nav-text">IL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不安全的代码"><span class="nav-number">2.4.2.</span> <span class="nav-text">不安全的代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optimize和debug参数"><span class="nav-number">2.4.3.</span> <span class="nav-text">optimize和debug参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用NGen-exe跳过JIT编译阶段"><span class="nav-number">2.4.4.</span> <span class="nav-text">使用NGen.exe跳过JIT编译阶段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-本地代码生成器NGen-exe"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 本地代码生成器NGen.exe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-Framework类库"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 Framework类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-通用类型系统"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 通用类型系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-反汇编工具ILDasm-exe"><span class="nav-number">2.8.</span> <span class="nav-text">1.8 反汇编工具ILDasm.exe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-与非托管代码的互操作性"><span class="nav-number">2.9.</span> <span class="nav-text">1.9 与非托管代码的互操作性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chapter-02-生成、打包、部署和管理应用程序及类型"><span class="nav-number">3.</span> <span class="nav-text">Chapter 02 生成、打包、部署和管理应用程序及类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-DLL-Hell"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 DLL Hell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-将类型生成到模块中"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 将类型生成到模块中</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编译C-代码为exe"><span class="nav-number">3.2.1.</span> <span class="nav-text">编译C#代码为exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应文件"><span class="nav-number">3.2.2.</span> <span class="nav-text">响应文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#再论元数据"><span class="nav-number">3.2.3.</span> <span class="nav-text">再论元数据</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1038,6 +1093,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
   
