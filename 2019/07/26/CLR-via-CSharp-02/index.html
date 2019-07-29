@@ -96,10 +96,21 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="所有类型都从System.Object派生System.Object的几个方法运行时要求每个类型最终都从System.Object类型派生。 System.Object提供了4个public实例方法：  Equals GetHashCode 当某个类型的对象要在哈希表集合汇总作为key使用，就应该重写这个方法 ToString 默认返回类型的完整名称(this.GetType().FullName">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-26T12:08:51.943Z">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/1.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/2.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/3.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/4.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/5.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/6.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/7.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/8.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/9.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/10.png">
+<meta property="og:updated_time" content="2019-07-29T08:57:26.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR-via-CSharp-02 第4章 类型基础">
 <meta name="twitter:description" content="所有类型都从System.Object派生System.Object的几个方法运行时要求每个类型最终都从System.Object类型派生。 System.Object提供了4个public实例方法：  Equals GetHashCode 当某个类型的对象要在哈希表集合汇总作为key使用，就应该重写这个方法 ToString 默认返回类型的完整名称(this.GetType().FullName">
+<meta name="twitter:image" content="https://exkulo.github.io/2019/07/26/CLR-via-CSharp-02/1.png">
 
 
 
@@ -410,6 +421,62 @@
 <li>调用类型的<strong>实例</strong>构造器(.ctor)</li>
 </ol>
 <p>new执行了所有以上操作之后，返回一个引用。</p>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p>推荐使用<code>is</code>和<code>as</code>来判断类型转换是否可行，以及转换类型。</p>
+<p>CLR允许将对象转换为它的实际类型或者它的任何基类类型。</p>
+<p>当一个对象要转换成基类类型时，可以隐式转换，但是如果开发者想要把基类转成派生类，就一定要显式转换。</p>
+<h2 id="命名空间和程序集"><a href="#命名空间和程序集" class="headerlink" title="命名空间和程序集"></a>命名空间和程序集</h2><p>命名空间的作用在于逻辑分组，类似于Java中的包名。</p>
+<p>使用<code>using</code>关键字可以让程序员少打很多字。当编辑器在查找一个类型的时候，会现在源代码或者引用的任何程序集（通过<code>/reference</code>编辑器开关实现）中找指定名称的类型，找不到后就会把<code>using</code>的命名空间加到类型名字前边。</p>
+<p>CLR对命名空间一无所知，访问一个类型的时候，CLR需要知道的是类的<strong>完整名称</strong>（命名空间+类名）。</p>
+<h3 id="歧义"><a href="#歧义" class="headerlink" title="歧义"></a>歧义</h3><p>在不同的命名空间定义了同一个名称的类型，又在使用的时候分别using了这几个命名空间，那么使用这个类的时候就要打入全称。</p>
+<h3 id="命名空间别名"><a href="#命名空间别名" class="headerlink" title="命名空间别名"></a>命名空间别名</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> WintellectWidget = Wintellect.Widget;</span><br></pre></td></tr></table></figure>
+<p>可以只引入命名空间中部分类，且赋予其别称。</p>
+<h3 id="命名空间与程序集的关系"><a href="#命名空间与程序集的关系" class="headerlink" title="命名空间与程序集的关系"></a>命名空间与程序集的关系</h3><p>同一个命名空间中的类型可能在不同程序集中实现，例如<code>System.IO.FileStream</code>在MSCorLib.dll程序集中实现，而<code>System.IO.FileSystemWatcher</code>类型在System.dll程序集中实现。</p>
+<p>当然反过来，一个程序集可以定义多个命名空间。</p>
+<p>查询api文档的时候能够查到类型所在的程序集。</p>
+<h3 id="运行时的相互关系"><a href="#运行时的相互关系" class="headerlink" title="运行时的相互关系"></a>运行时的相互关系</h3><p>本节探讨类型、对象、线程栈和托管堆在运行时的相互关系，并解释静态方法、实例方法和虚方法的区别。</p>
+<h4 id="一个方法运行时线程栈的情况"><a href="#一个方法运行时线程栈的情况" class="headerlink" title="一个方法运行时线程栈的情况"></a>一个方法运行时线程栈的情况</h4><p>这里以一个例子来做说明。</p>
+<p>下图展示了已加载CLR的一个Windows进程。一个进程可能有多个线程，每个线程创建时会分配到1MB的空间。栈空间用于向方法传递实参，方法内部定义的局部函数变量也在栈上。栈从高位内存向低位内存构建。下图中的阴影部分是一些已执行过的代码使用的数据（可无视）。假定线程即将执行M1方法。</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/1.png" class="4-1">
+<p>序幕(prologue)代码在方法开始做工作之前对其进行初始化，M1方法执行时，它的序幕代码在线程栈上分配局部变量name。之后栈上的情况如下图：</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/2.png" class="4-2">
+<p>接着，M1调用M2方法，这需要把局部变量name作为实参传递——把name局部变量中的地址压入栈。除了实参之外，调用方法的时候还会把<strong>返回地址</strong>压入栈，以便在M2执行完之后继续M1的工作。如下图：</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/3.png" class="4-3">
+<p>这之后M2的序幕代码运行，在线程栈中分配<code>length</code>和<code>tally</code>的内存，然后执行M2的内部代码。</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/4.png" class="4-4">
+<p>执行完M2的内部代码之后，CPU的指令指针被设置成栈中的<strong>返回地址</strong>，M2的栈帧（可以简单地理解M2所占用的栈空间）被unwind（反绑，展开），恢复成4-2的样子。</p>
+<p>然后M1继续执行。</p>
+<blockquote>
+<p>栈帧 执行线程的过程中，进行的每个方法调用都会在调用栈中创建并压入一个StackFrame。</p>
+<p><a href="https://stackoverflow.com/questions/10057443/explain-the-concept-of-a-stack-frame-in-a-nutshell" target="_blank" rel="noopener">Explain the concept of a stack frame in a nutshell</a>If I remember correctly, the function return address is pushed onto the stack first, then the arguments and space for local variables. Together, they make the “frame,” although this is likely architecture-dependent. The processor knows how many bytes are in each frame and moves the stack pointer accordingly as frames are pushed and popped off the stack.</p>
+<p>unwind意味着当一个方法执行完毕的时候把这个方法在栈上的数据都pop掉。</p>
+</blockquote>
+<h4 id="方法、虚方法、静态方法"><a href="#方法、虚方法、静态方法" class="headerlink" title="方法、虚方法、静态方法"></a>方法、虚方法、静态方法</h4><p>假设有代码：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Employee</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Int32 <span class="title">GetYearEmployed</span>(<span class="params"></span>)</span> &#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">string</span> <span class="title">GetProgressReport</span>(<span class="params"></span>)</span> &#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Employee <span class="title">Lookup</span>(<span class="params"><span class="keyword">string</span> name</span>)</span> &#123;...&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">internal</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Manager</span> : <span class="title">Employee</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">GetProgressReport</span>(<span class="params"></span>)</span> &#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们要执行M3方法，来观察线程栈和托管堆的情况。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">M3</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Employee e;</span><br><span class="line">    int32 year;</span><br><span class="line">    e = <span class="keyword">new</span> Manager();</span><br><span class="line">    e = Employee.Lookup(<span class="string">"xxx"</span>);</span><br><span class="line">    year = e.GetYearsEmployed();</span><br><span class="line">    e.GetProgressReport();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始状态如下图</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/5.png" class="4-5">
+<p>JIT编译器在将M3的IL代码转成本机CPU指令时，会注意到M3内部饮用到的所有类型，CLR要确保定义了这些类型的程序集都已经被加载。</p>
+<p>由于int32和string对象是很常用的，我们可以假定它们在执行M3之前已经被加载了。</p>
+<p>下图中xxx<strong>类型对象</strong>在的位置应该是加载堆(Load Heap)，不是GC堆。在M3执行之前就要保证这些类型对象都已经被加载好。</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/6.png" class="4-6">
+<p>接下来开始执行M3，首先CLR会调用序幕代码，把局部变量初始化为null或0。注意这里是隐式初始化。如果后面的代码视图访问尚未显示初始化的局部变量，C#会报错：使用了未赋值的局部对象。<br>在运行时，CLR总是知道对象的类型是什么——通过调用<code>GetType</code>就可以知道对象的确切类型。</p>
+<p>图4-7中分配了局部变量。</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/7.png" class="4-7">
+<p>之后调用了一个<code>new</code>，造成了对象的生成，如图4-8。</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/8.png" class="4-8">
+<p>接下来调用了静态方法，返回一个Manager对象。</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/9.png" class="4-9">
+<p>然后调用了一个非虚方法<code>GetYearsEmployed</code>。调用非虚实例方法时，JIT编译器找到与发出调用的那个类型(Employee持有了该对象，因故这里就是Employee)对应的类型对象，来找这个方法。如果在本类型对象中找不到该方法，就一路回溯基类，直到找到该方法。在该类型对象的方发表中查找该方法的记录项，对其进行JIT编译吗，然后运行，最后把结果返回到局部变量year中。</p>
+<p>接下来是重点了，代码调用了一个虚实例方法<code>GetProgressReport</code>。首先会在Manager对象的类型对象指针所指向的Manager类型对象中直接查找虚方法的新实现。</p>
+<h4 id="类型对象"><a href="#类型对象" class="headerlink" title="类型对象"></a>类型对象</h4><p>类型对象的类型都是<code>System.Type</code>。CLR开始在一个进程中运行时，会立即为MSCorLib.dll中定义的<code>System.Type</code>类型创建一个特殊的类型对象。任何类型对象都是<code>System.Type</code>的实例，因此上面例子提到的<code>Employee</code>和<code>Manager</code>类型对象的类型对象指针会指向<code>Type</code>类型对象。</p>
+<p>另外，这个特殊的<code>Type</code>类型的类型对象的类型指针对象，指向自身。</p>
+<p>我们调用GetType方法，返回的都是对象的真实类型。</p>
+<h2 id="用自己的话总结一下上面的道理"><a href="#用自己的话总结一下上面的道理" class="headerlink" title="用自己的话总结一下上面的道理"></a>用自己的话总结一下上面的道理</h2><p>假设有一个类Person</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">string</span> _name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> GetName</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们new出一个person实例之后，内存里是这样的：</p>
+<img src="/2019/07/26/CLR-via-CSharp-02/10.png" class="4-10">
+<p>Person e指向了GC堆中的Person对象。Person对象中的类型对象指针指向了Person类型对象（Person类型对象如字面上理解，本身也是个对象，它的类型是Type）。Person类型对象又指向了Type类型对象，这是一个特殊的类型对象，它的类型对象指针指向自己。</p>
 
       
     </div>
@@ -637,7 +704,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#所有类型都从System-Object派生"><span class="nav-number">1.</span> <span class="nav-text">所有类型都从System.Object派生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#System-Object的几个方法"><span class="nav-number">1.1.</span> <span class="nav-text">System.Object的几个方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new操作符"><span class="nav-number">1.2.</span> <span class="nav-text">new操作符</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#所有类型都从System-Object派生"><span class="nav-number">1.</span> <span class="nav-text">所有类型都从System.Object派生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#System-Object的几个方法"><span class="nav-number">1.1.</span> <span class="nav-text">System.Object的几个方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new操作符"><span class="nav-number">1.2.</span> <span class="nav-text">new操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">2.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间和程序集"><span class="nav-number">3.</span> <span class="nav-text">命名空间和程序集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#歧义"><span class="nav-number">3.1.</span> <span class="nav-text">歧义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名空间别名"><span class="nav-number">3.2.</span> <span class="nav-text">命名空间别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名空间与程序集的关系"><span class="nav-number">3.3.</span> <span class="nav-text">命名空间与程序集的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时的相互关系"><span class="nav-number">3.4.</span> <span class="nav-text">运行时的相互关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个方法运行时线程栈的情况"><span class="nav-number">3.4.1.</span> <span class="nav-text">一个方法运行时线程栈的情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法、虚方法、静态方法"><span class="nav-number">3.4.2.</span> <span class="nav-text">方法、虚方法、静态方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类型对象"><span class="nav-number">3.4.3.</span> <span class="nav-text">类型对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用自己的话总结一下上面的道理"><span class="nav-number">4.</span> <span class="nav-text">用自己的话总结一下上面的道理</span></a></li></ol></div>
             
 
           </div>
