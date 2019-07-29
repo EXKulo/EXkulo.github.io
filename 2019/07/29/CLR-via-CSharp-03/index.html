@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="基元类型编辑器直接支持的数据类型成为基元类型(primitive type)，实际上也是一个类型，但是有语法支持，写起来贼方便。最常见的基元类型就包括了我们的int32。 基元类型也可以用new关键字创建，但是如果不是作为对象的一个成员，会被直接分配在线程栈上。 每个基元类型都有对应的FCL类型。常见的int对应System.Int32。特别的，float对应System.Single，dynam">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-29T10:07:45.030Z">
+<meta property="og:updated_time" content="2019-07-29T12:03:24.457Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR-via-CSharp-03 第5章 基元类型、引用类型和值类型">
 <meta name="twitter:description" content="基元类型编辑器直接支持的数据类型成为基元类型(primitive type)，实际上也是一个类型，但是有语法支持，写起来贼方便。最常见的基元类型就包括了我们的int32。 基元类型也可以用new关键字创建，但是如果不是作为对象的一个成员，会被直接分配在线程栈上。 每个基元类型都有对应的FCL类型。常见的int对应System.Int32。特别的，float对应System.Single，dynam">
@@ -393,8 +393,27 @@
 <p>C#语言规范推荐在使用基元类型的时候，尽量用关键字而不是类名。比如用string关键字，不要用<code>System.String</code>。</p>
 <p>在C#中，int始终是32bits，long始终是64bits，与系统无关。</p>
 <p>由于基元类型于对应的FCL类型名字不一定一致，而且出于FCL类型能够正确表现类型所占用大小的理由，所以这本书在后面都会使用FCL类型。</p>
-<h3 id="基元类型之间的隐式转换"><a href="#基元类型之间的隐式转换" class="headerlink" title="基元类型之间的隐式转换"></a>基元类型之间的隐式转换</h3><p>众所周知，<code>Int32</code>和<code>Int64</code>是不同的两种类型。系统允许隐式的把数值从低精度往高精度转换。而如果想要把数值从高精度类型转换成低精度，就一定要显式转换。</p>
+<h3 id="基元类型之间的转换"><a href="#基元类型之间的转换" class="headerlink" title="基元类型之间的转换"></a>基元类型之间的转换</h3><p>众所周知，<code>Int32</code>和<code>Int64</code>是不同的两种类型。系统允许隐式的把数值从低精度往高精度转换。而如果想要把数值从高精度类型转换成低精度，就一定要显式转换。</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Int32 i = <span class="number">5</span>;</span><br><span class="line">Int64 l = i;</span><br><span class="line">Single s = i;</span><br><span class="line"></span><br><span class="line">Byte b = (Byte) i; <span class="comment">// 显式，丢失精度</span></span><br><span class="line">Int16 v = (Int16) s;</span><br></pre></td></tr></table></figure>
+<p>从高精度转成低精度，C#总是对结果进行向下取整。</p>
+<h3 id="checked和unchecked基元类型操作"><a href="#checked和unchecked基元类型操作" class="headerlink" title="checked和unchecked基元类型操作"></a>checked和unchecked基元类型操作</h3><p>当所代表的值超出自己所能表达的范围的时候，就会导致溢出。如下</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Byte b = <span class="number">100</span>;</span><br><span class="line">b = (Byte) (b + <span class="number">200</span>);</span><br></pre></td></tr></table></figure>
+<p>Byte八位，上限为127。当把b与200（默认为Int32类型）相加时，b会被转成32位值，相加后得到一个32位值。我们需要把它显式转换为Byte类型。</p>
+<p>CLR的加指令有两个，一是add指令，把两个值相加而不执行溢出检查；另一个add.ovf指令，将两个值相加，若发生了溢出则抛出<code>System.OverflowException</code>异常。当然其他四则运算也少不了，还有sub/sub.ovf, mul/mul.ovf, conv/conv.ovf。</p>
+<p>C#的溢出检查默认是关闭的，这样能让代码的效率更高。如果程序员需要溢出检查，可以使用<code>/checked+</code>编译器开关来打开全局溢出检查，也可以只在局部使用<code>checked</code>和<code>unchecked</code>关键字来控制：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UInt32 invalid = <span class="keyword">unchecked</span>((UInt32) <span class="number">-1</span>); <span class="comment">// OK</span></span><br><span class="line">UInt32 invalid = <span class="keyword">checked</span>((UInt32) <span class="number">-1</span>); <span class="comment">// 抛出System.OverflowException异常</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意这种情况</span></span><br><span class="line">UInt32 invalid = (UInt32) <span class="keyword">checked</span>(<span class="number">-1</span>); <span class="comment">// 如果写成这种形式，理所当然是不会报错的</span></span><br></pre></td></tr></table></figure>
+<p>也可以使用<code>checked</code>关键字包裹住一段区域：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">checked</span></span><br><span class="line">&#123;</span><br><span class="line">    Byte b = <span class="number">100</span>;</span><br><span class="line">    b += <span class="number">200</span>; <span class="comment">// 抛出System.OverflowException异常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，checked只能影响本层级方法的四则运算操作，无法影响所调用方法里的检查规则。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">checked</span> &#123;</span><br><span class="line">    SomeMethod(<span class="number">400</span>); <span class="comment">// CheckMethod内部是否检查溢出，不会被这个checked影响到</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>作者对程序员有几个建议：</p>
+<ol>
+<li>由于类库的多个方法（Array和String的Length属性）经常会返回有符号的值而非无符号的，所以推荐平常使用的时候多用有符号值，这样可以避免强制转换和溢出。</li>
+<li>在有可能产生溢出的地方使用<code>checked</code>，并捕捉<code>OverflowException</code>，优雅地进行处理</li>
+</ol>
+<h3 id="Decimal类型与BigInteger类型"><a href="#Decimal类型与BigInteger类型" class="headerlink" title="Decimal类型与BigInteger类型"></a>Decimal类型与BigInteger类型</h3><p>Decimal类型虽是C#基元类型，却不是CLR中的基元类型，这意味着CLR没有处理Demical的IL指令。Demical类型提供了一系列的public static方法，包括了加减乘除，并重载了<code>+ - * /</code>等操作符方法。在使用Decimal的时候，CLR实际上是在调用上面提到的方法，所以处理速度理所当然的要比CLR基元类型的要慢。</p>
+<p>由于没有对应的IL指令来处理Decimal，所以checked和unchecked操作符也就对Decimal是没有作用的。</p>
+<p>同样的，<code>System.Numerics.BigInteger</code>类型也是通过在内部使用UInt32数组来表示任意大的整数，它没有上限和下限，当然也就永远不会有OverflowException。但是如果值太大，没有足够内存来改变数组大小，对BigInteger的运算可能抛出OOM异常。</p>
 
       
     </div>
@@ -622,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基元类型"><span class="nav-number">1.</span> <span class="nav-text">基元类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基元类型之间的隐式转换"><span class="nav-number">1.1.</span> <span class="nav-text">基元类型之间的隐式转换</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基元类型"><span class="nav-number">1.</span> <span class="nav-text">基元类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基元类型之间的转换"><span class="nav-number">1.1.</span> <span class="nav-text">基元类型之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checked和unchecked基元类型操作"><span class="nav-number">1.2.</span> <span class="nav-text">checked和unchecked基元类型操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decimal类型与BigInteger类型"><span class="nav-number">1.3.</span> <span class="nav-text">Decimal类型与BigInteger类型</span></a></li></ol></li></ol></div>
             
 
           </div>
