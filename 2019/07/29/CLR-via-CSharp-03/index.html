@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="基元类型编辑器直接支持的数据类型成为基元类型(primitive type)，实际上也是一个类型，但是有语法支持，写起来贼方便。最常见的基元类型就包括了我们的int32。 基元类型也可以用new关键字创建，但是如果不是作为对象的一个成员，会被直接分配在线程栈上。 每个基元类型都有对应的FCL类型。常见的int对应System.Int32。特别的，float对应System.Single，dynam">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-29T12:03:24.457Z">
+<meta property="og:updated_time" content="2019-07-30T06:18:15.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR-via-CSharp-03 第5章 基元类型、引用类型和值类型">
 <meta name="twitter:description" content="基元类型编辑器直接支持的数据类型成为基元类型(primitive type)，实际上也是一个类型，但是有语法支持，写起来贼方便。最常见的基元类型就包括了我们的int32。 基元类型也可以用new关键字创建，但是如果不是作为对象的一个成员，会被直接分配在线程栈上。 每个基元类型都有对应的FCL类型。常见的int对应System.Int32。特别的，float对应System.Single，dynam">
@@ -414,6 +414,33 @@
 <h3 id="Decimal类型与BigInteger类型"><a href="#Decimal类型与BigInteger类型" class="headerlink" title="Decimal类型与BigInteger类型"></a>Decimal类型与BigInteger类型</h3><p>Decimal类型虽是C#基元类型，却不是CLR中的基元类型，这意味着CLR没有处理Demical的IL指令。Demical类型提供了一系列的public static方法，包括了加减乘除，并重载了<code>+ - * /</code>等操作符方法。在使用Decimal的时候，CLR实际上是在调用上面提到的方法，所以处理速度理所当然的要比CLR基元类型的要慢。</p>
 <p>由于没有对应的IL指令来处理Decimal，所以checked和unchecked操作符也就对Decimal是没有作用的。</p>
 <p>同样的，<code>System.Numerics.BigInteger</code>类型也是通过在内部使用UInt32数组来表示任意大的整数，它没有上限和下限，当然也就永远不会有OverflowException。但是如果值太大，没有足够内存来改变数组大小，对BigInteger的运算可能抛出OOM异常。</p>
+<h2 id="引用类型和值类型"><a href="#引用类型和值类型" class="headerlink" title="引用类型和值类型"></a>引用类型和值类型</h2><p>引用类型总是从托管堆中分配，<code>new</code>操作符返回对象的内存地址。使用引用类型会有一定的性能问题，要注意：</p>
+<ol>
+<li>内存必须从托管堆分配</li>
+<li>堆上分配的每个对象都有一些额外成员（同步索引块和类型对象指针），这些成员必须初始化</li>
+<li>从托管堆分配对象时，可能造成一次强制GC</li>
+</ol>
+<p>如果所有类型都是引用类型，那么每次使用的时候都需要开辟内存，会造成效率极其低。所以便有了值类型。</p>
+<p>值类型一般被分配在线程栈上（有时也作为字段嵌入成为引用类型对象的一部分，被分配于托管堆上）。可以缓解托管堆压力，减少GC次数。</p>
+<p>简单来说，任何class都是引用类型，任何struct和enum都是值类型。这里的结构包括了<code>System.Int32</code>, ‘System.Boolean’, ‘System.Dicimal’, ‘System.TimeSpan’, ‘System.TimeSpan’（？？常用的这货竟然是struct？？）, 另外，枚举就包括’System.DayOfWeek’。</p>
+<p>我们可以发现，所有的值类型都是抽象类型<code>System.ValueType</code>的<strong>直接</strong>派生类。其中，所有的枚举从<code>System.Enum</code>抽象类中派生，而这个抽象类也是派生自<code>System.ValueType</code>的。</p>
+<p>所有的值类型都是封闭的(sealed)，这是为了避免它成为其他引用类型的基类。</p>
+<p>不管是值类型和引用类型都可以<code>new</code>，这说明<code>new</code>并不是引用类型的专权。只是值类型被<code>new</code>之后，仍会被分配在线程栈上。</p>
+<p>值类型可以选择单纯声明，或者使用<code>new</code>初始化。没有经过<code>new</code>或者值类型的内容没有被修改过的，编译器会认为该值类型没有被初始化过，如果后面的代码要访问该值类型，编译器会报未初始化的错。如下面代码：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> SomeVal</span><br><span class="line">&#123;</span><br><span class="line">    Int32 x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SomeVal v1; <span class="comment">// OK</span></span><br><span class="line">    Int32 x = v1.x; <span class="comment">// error CS0170 使用了可能未赋值的字段"x"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func2</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SomeVal v1 = <span class="keyword">new</span> SomeVal(); <span class="comment">// OK，且还是被分配在线程栈上</span></span><br><span class="line">    Int32 x = v1.x; <span class="comment">// OK</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="用哪一种类型"><a href="#用哪一种类型" class="headerlink" title="用哪一种类型"></a>用哪一种类型</h3><p>设计自己的类型时，我们要慎重考虑使用值类型还是引用类型。值类型<strong>有时</strong>能提供更好的性能（如果是作为引用类型的字段来使用，则是对性能毫无改进）。如果你想把类型设计为值类型，要符合下面全部条件：</p>
+<ol>
+<li>类型要非常简单，甚至是不可变的。建议将所有字段都设置为readonly的。</li>
+<li>类型不需要从其他任何类型继承。</li>
+<li>类型不需要派生出其他任何类型。</li>
+<li>类型大小不应过大（应该小于等于16bytes）。因为实参默认以传值方式传递，对值类型的实参复制一份，影响性能。当一个方法返回一个值类型时，同样会复制出一份来，若值类型过大，同样会影响性能。</li>
+</ol>
+<p>值类型和引用类型的区别还有：</p>
+<ol>
+<li>值类型有两种表现形式：未装箱和已装箱。引用类型总是在已装箱形势下。</li>
+<li>值类型从<code>System.ValueType</code>派生，从而有了<code>System.Object</code>的方法。<code>System.ValueType</code>重写了<code>Equals</code>方法，当两个对象所有的字段值相同时才返回true，同时又重写了<code>GetHashCode</code>方法，使得哈希算法会考虑所有字段的值。这两个默认的方法重写显而易见地在字段过多的情况下会有极大的性能消耗，这种情况下程序员应该自己重写这两个方法。</li>
+<li>值类型没法作为基类，所以值类型中不应该存在新的虚方法，所有的方法都是密封的。</li>
+</ol>
 
       
     </div>
@@ -641,7 +668,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基元类型"><span class="nav-number">1.</span> <span class="nav-text">基元类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基元类型之间的转换"><span class="nav-number">1.1.</span> <span class="nav-text">基元类型之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checked和unchecked基元类型操作"><span class="nav-number">1.2.</span> <span class="nav-text">checked和unchecked基元类型操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decimal类型与BigInteger类型"><span class="nav-number">1.3.</span> <span class="nav-text">Decimal类型与BigInteger类型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基元类型"><span class="nav-number">1.</span> <span class="nav-text">基元类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基元类型之间的转换"><span class="nav-number">1.1.</span> <span class="nav-text">基元类型之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checked和unchecked基元类型操作"><span class="nav-number">1.2.</span> <span class="nav-text">checked和unchecked基元类型操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decimal类型与BigInteger类型"><span class="nav-number">1.3.</span> <span class="nav-text">Decimal类型与BigInteger类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用类型和值类型"><span class="nav-number">2.</span> <span class="nav-text">引用类型和值类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用哪一种类型"><span class="nav-number">2.1.</span> <span class="nav-text">用哪一种类型</span></a></li></ol></li></ol></div>
             
 
           </div>
