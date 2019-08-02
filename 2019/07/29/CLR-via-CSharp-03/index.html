@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="基元类型编辑器直接支持的数据类型成为基元类型(primitive type)，实际上也是一个类型，但是有语法支持，写起来贼方便。最常见的基元类型就包括了我们的int32。 基元类型也可以用new关键字创建，但是如果不是作为对象的一个成员，会被直接分配在线程栈上。 每个基元类型都有对应的FCL类型。常见的int对应System.Int32。特别的，float对应System.Single，dynam">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-30T06:18:15.249Z">
+<meta property="og:updated_time" content="2019-08-01T11:44:08.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR-via-CSharp-03 第5章 基元类型、引用类型和值类型">
 <meta name="twitter:description" content="基元类型编辑器直接支持的数据类型成为基元类型(primitive type)，实际上也是一个类型，但是有语法支持，写起来贼方便。最常见的基元类型就包括了我们的int32。 基元类型也可以用new关键字创建，但是如果不是作为对象的一个成员，会被直接分配在线程栈上。 每个基元类型都有对应的FCL类型。常见的int对应System.Int32。特别的，float对应System.Single，dynam">
@@ -170,7 +170,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">学而不思则罔，思而不学则殆，学且思而不记者如放屁</p>
+        <p class="site-subtitle">太阳底下无新事，唯有幽默解人愁。</p>
       
   </div>
 
@@ -440,7 +440,13 @@
 <li>值类型有两种表现形式：未装箱和已装箱。引用类型总是在已装箱形势下。</li>
 <li>值类型从<code>System.ValueType</code>派生，从而有了<code>System.Object</code>的方法。<code>System.ValueType</code>重写了<code>Equals</code>方法，当两个对象所有的字段值相同时才返回true，同时又重写了<code>GetHashCode</code>方法，使得哈希算法会考虑所有字段的值。这两个默认的方法重写显而易见地在字段过多的情况下会有极大的性能消耗，这种情况下程序员应该自己重写这两个方法。</li>
 <li>值类型没法作为基类，所以值类型中不应该存在新的虚方法，所有的方法都是密封的。</li>
+<li>把值类型变量赋值给另一个值类型变量会<strong>逐字段</strong>复制，将一个引用类型变量复制给另一个引用类型变量只复制内存地址。</li>
 </ol>
+<h2 id="CLR如何控制类型中的字段布局"><a href="#CLR如何控制类型中的字段布局" class="headerlink" title="CLR如何控制类型中的字段布局"></a>CLR如何控制类型中的字段布局</h2><p>我们可以为自己定义的类或者结构应用<code>System.Runtime.InteropServices.StructLayoutAttrbute</code>特性。这个特性包括三种：</p>
+<ul>
+<li><code>LayoutKind.Auto</code> 这时C#编译器的默认选择</li>
+<li><code>LayoutKind.Sequence</code></li>
+</ul>
 
       
     </div>
@@ -668,7 +674,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基元类型"><span class="nav-number">1.</span> <span class="nav-text">基元类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基元类型之间的转换"><span class="nav-number">1.1.</span> <span class="nav-text">基元类型之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checked和unchecked基元类型操作"><span class="nav-number">1.2.</span> <span class="nav-text">checked和unchecked基元类型操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decimal类型与BigInteger类型"><span class="nav-number">1.3.</span> <span class="nav-text">Decimal类型与BigInteger类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用类型和值类型"><span class="nav-number">2.</span> <span class="nav-text">引用类型和值类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用哪一种类型"><span class="nav-number">2.1.</span> <span class="nav-text">用哪一种类型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基元类型"><span class="nav-number">1.</span> <span class="nav-text">基元类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基元类型之间的转换"><span class="nav-number">1.1.</span> <span class="nav-text">基元类型之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checked和unchecked基元类型操作"><span class="nav-number">1.2.</span> <span class="nav-text">checked和unchecked基元类型操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decimal类型与BigInteger类型"><span class="nav-number">1.3.</span> <span class="nav-text">Decimal类型与BigInteger类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用类型和值类型"><span class="nav-number">2.</span> <span class="nav-text">引用类型和值类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用哪一种类型"><span class="nav-number">2.1.</span> <span class="nav-text">用哪一种类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLR如何控制类型中的字段布局"><span class="nav-number">3.</span> <span class="nav-text">CLR如何控制类型中的字段布局</span></a></li></ol></div>
             
 
           </div>
