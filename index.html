@@ -390,8 +390,9 @@
 
 类型可见性我们定义一个类型的时候经常在前面用public修饰，这代表了这个类型可以被该程序集以及其他程序集的代码都可见。实际上除了public以外，还有一个internal修饰符，代表着某个类型只可以被当前程序集使用。
 当没有指定为public的时候，会被默认指定为internal。
-
-          
+友元程序集使用System.Runtime.CompilerServices命名空间中的InternalsVisibleTo特性表明友元程序集。
+123456using System;using S
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/08/20/CLR-via-CSharp-04/#more" rel="contents">

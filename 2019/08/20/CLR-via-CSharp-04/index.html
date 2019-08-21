@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="类型的各种成员包括了：  常量 字段 实例构造器 类型构造器 方法 操作符重载 转换操作符 属性 事件 嵌套类型  类型可见性我们定义一个类型的时候经常在前面用public修饰，这代表了这个类型可以被该程序集以及其他程序集的代码都可见。实际上除了public以外，还有一个internal修饰符，代表着某个类型只可以被当前程序集使用。 当没有指定为public的时候，会被默认指定为internal。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-20T12:02:25.712Z">
+<meta property="og:updated_time" content="2019-08-21T11:31:40.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR-via-CSharp-04 第6章 类型和成员基础">
 <meta name="twitter:description" content="类型的各种成员包括了：  常量 字段 实例构造器 类型构造器 方法 操作符重载 转换操作符 属性 事件 嵌套类型  类型可见性我们定义一个类型的时候经常在前面用public修饰，这代表了这个类型可以被该程序集以及其他程序集的代码都可见。实际上除了public以外，还有一个internal修饰符，代表着某个类型只可以被当前程序集使用。 当没有指定为public的时候，会被默认指定为internal。">
@@ -404,6 +404,24 @@
 </ul>
 <h2 id="类型可见性"><a href="#类型可见性" class="headerlink" title="类型可见性"></a>类型可见性</h2><p>我们定义一个类型的时候经常在前面用<code>public</code>修饰，这代表了这个类型可以被该程序集以及其他程序集的代码都可见。实际上除了<code>public</code>以外，还有一个<code>internal</code>修饰符，代表着某个类型只可以被当前程序集使用。</p>
 <p>当没有指定为public的时候，会被默认指定为internal。</p>
+<h3 id="友元程序集"><a href="#友元程序集" class="headerlink" title="友元程序集"></a>友元程序集</h3><p>使用<code>System.Runtime.CompilerServices</code>命名空间中的<code>InternalsVisibleTo</code>特性表明友元程序集。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Runtime.CompilerServices;</span><br><span class="line"></span><br><span class="line">[<span class="meta">assembly:InternalsVisibleTo(<span class="meta-string">"Wintellect, PublicKey=12346dfsadfsda6f5123"</span>)</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">internal</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">SomeInternalType</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>像上面这么写，就是规定了名字为Wintellect，公钥为PublicKey的程序集为友元集合。</p>
+<h2 id="成员的可访问性"><a href="#成员的可访问性" class="headerlink" title="成员的可访问性"></a>成员的可访问性</h2><ul>
+<li>private</li>
+<li>protected</li>
+<li>public</li>
+</ul>
+<p>没啥好说的了。</p>
+<h2 id="静态类"><a href="#静态类" class="headerlink" title="静态类"></a>静态类</h2><p>使用static修饰一个类，这个类不能被实例化，只能拥有静态成员。注意这个关键字不能用于值类型，因为CLR总是允许值类型实例化。</p>
+<p>还有以下限制：</p>
+<ul>
+<li>静态类必须直接从<code>System.Object</code>派生</li>
+<li>静态类不能实现任何接口</li>
+<li>静态类只能定义静态成员</li>
+<li>静态类不能字段、方法参数或局部变量</li>
+</ul>
+<p>使用ILDasm可以看到一个静态类实际上是一个抽象（意味着不可被实例化）密封（意味着不可作为基类）类。</p>
 
       
     </div>
@@ -631,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型的各种成员"><span class="nav-number">1.</span> <span class="nav-text">类型的各种成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型可见性"><span class="nav-number">2.</span> <span class="nav-text">类型可见性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型的各种成员"><span class="nav-number">1.</span> <span class="nav-text">类型的各种成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型可见性"><span class="nav-number">2.</span> <span class="nav-text">类型可见性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#友元程序集"><span class="nav-number">2.1.</span> <span class="nav-text">友元程序集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员的可访问性"><span class="nav-number">3.</span> <span class="nav-text">成员的可访问性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态类"><span class="nav-number">4.</span> <span class="nav-text">静态类</span></a></li></ol></div>
             
 
           </div>
