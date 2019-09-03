@@ -1965,7 +1965,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #63ffff;
+  background: #baff05;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2920,15 +2920,15 @@ body {
   color: #fff;
   text-shadow: 1px 2px 3px #000;
 }
+.site-subtitle {
+  color: #fff;
+  text-shadow: 1px 2px 3px #000;
+  text-align: left;
+}
 .brand {
   padding-left: 0;
 }
 .custom-logo-site-title {
-  text-align: left;
-}
-.site-subtitle {
-  color: #fff;
-  text-shadow: 1px 2px 3px #000;
   text-align: left;
 }
 .site-nav .menu {
@@ -2954,9 +2954,6 @@ body {
 }
 .posts-collapse {
   padding: 50px 0 0 0;
-}
-.site-subtitle {
-  color: #fff;
 }
 .site-description .motion-element {
   color: #fff;
