@@ -445,11 +445,13 @@ body {
 .header-inner {
   margin: 0 auto;
   padding: 100px 0 70px;
-  width: 700px;
+  width: 100%;
+  height: 400px;
 }
 @media (min-width: 1600px) {
   .container .header-inner {
-    width: 900px;
+    width: 100%;
+    height: 400px;
   }
 }
 .main {
@@ -1963,7 +1965,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff8cff;
+  background: #63ffff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2941,6 +2943,7 @@ body {
   background: #fefefe;
   opacity: 0.9;
   min-height: 500px;
+  width: 1280px;
 }
 .header-inner {
   background-size: cover;
