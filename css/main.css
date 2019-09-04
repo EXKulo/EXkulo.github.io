@@ -1965,7 +1965,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #6fc2e4;
+  background: #3bfff6;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2967,7 +2967,6 @@ body {
   margin-top: 0;
   padding: 0 60px 60px 60px;
   background: #fefefe;
-  opacity: 0.9;
   min-height: 500px;
   width: 1280px;
 }
@@ -2986,7 +2985,7 @@ body {
   text-shadow: 1px 1px 1px #000;
 }
 .sidebar {
-  background: url("/images/sidebar-bg.jpg") no-repeat center center;
+  background: #fff;
   background-size: cover;
 }
 .sidebar a {
