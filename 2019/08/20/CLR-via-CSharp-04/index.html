@@ -97,7 +97,7 @@
 <meta property="og:description" content="类型的各种成员包括了：  常量 字段 实例构造器 类型构造器 方法 操作符重载 转换操作符 属性 事件 嵌套类型  类型可见性我们定义一个类型的时候经常在前面用public修饰，这代表了这个类型可以被该程序集以及其他程序集的代码都可见。实际上除了public以外，还有一个internal修饰符，代表着某个类型只可以被当前程序集使用。 当没有指定为public的时候，会被默认指定为internal。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://exkulo.github.io/2019/08/20/CLR-via-CSharp-04/1.png">
-<meta property="og:updated_time" content="2019-09-02T11:33:09.238Z">
+<meta property="og:updated_time" content="2019-09-04T11:03:43.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR-via-CSharp-04 第6章 类型和成员基础">
 <meta name="twitter:description" content="类型的各种成员包括了：  常量 字段 实例构造器 类型构造器 方法 操作符重载 转换操作符 属性 事件 嵌套类型  类型可见性我们定义一个类型的时候经常在前面用public修饰，这代表了这个类型可以被该程序集以及其他程序集的代码都可见。实际上除了public以外，还有一个internal修饰符，代表着某个类型只可以被当前程序集使用。 当没有指定为public的时候，会被默认指定为internal。">
@@ -450,7 +450,8 @@
 <li>值类型不可能是空引用，不需要验证是否为空引用</li>
 </ol>
 <h3 id="设计类的时候尽量减少虚函数"><a href="#设计类的时候尽量减少虚函数" class="headerlink" title="设计类的时候尽量减少虚函数"></a>设计类的时候尽量减少虚函数</h3><p>虚函数都需要使用<code>callvir</code>，速度比较慢，性能比较低，能少一些就少一些。</p>
-<h3 id="封闭类中的虚函数会被call调用"><a href="#封闭类中的虚函数会被call调用" class="headerlink" title="封闭类中的虚函数会被call调用"></a>封闭类中的虚函数会被call调用</h3><p>由于封闭类不用考虑多态，会被编译器做一次优化，使得调用封闭类中的虚函数的时候使用<code>call</code>就行了，可以提高性能。</p>
+<h3 id="尽可能定义封闭类"><a href="#尽可能定义封闭类" class="headerlink" title="尽可能定义封闭类"></a>尽可能定义封闭类</h3><p>封闭类中的虚函数会被call调用，这些虚函数会被「特化(Specialization)」。</p>
+<p>由于封闭类不用考虑多态，会被编译器做一次优化，使得调用封闭类中的虚函数的时候使用<code>call</code>就行了，可以提高性能。</p>
 
       
     </div>
@@ -617,7 +618,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -682,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型的各种成员"><span class="nav-number">1.</span> <span class="nav-text">类型的各种成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型可见性"><span class="nav-number">2.</span> <span class="nav-text">类型可见性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#友元程序集"><span class="nav-number">2.1.</span> <span class="nav-text">友元程序集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员的可访问性"><span class="nav-number">3.</span> <span class="nav-text">成员的可访问性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态类"><span class="nav-number">4.</span> <span class="nav-text">静态类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分部类、结构和接口"><span class="nav-number">5.</span> <span class="nav-text">分部类、结构和接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件、多态和版本控制"><span class="nav-number">6.</span> <span class="nav-text">组件、多态和版本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CLR如何调用虚方法、属性和事件"><span class="nav-number">6.1.</span> <span class="nav-text">CLR如何调用虚方法、属性和事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计类的时候尽量减少虚函数"><span class="nav-number">6.2.</span> <span class="nav-text">设计类的时候尽量减少虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封闭类中的虚函数会被call调用"><span class="nav-number">6.3.</span> <span class="nav-text">封闭类中的虚函数会被call调用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型的各种成员"><span class="nav-number">1.</span> <span class="nav-text">类型的各种成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型可见性"><span class="nav-number">2.</span> <span class="nav-text">类型可见性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#友元程序集"><span class="nav-number">2.1.</span> <span class="nav-text">友元程序集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员的可访问性"><span class="nav-number">3.</span> <span class="nav-text">成员的可访问性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态类"><span class="nav-number">4.</span> <span class="nav-text">静态类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分部类、结构和接口"><span class="nav-number">5.</span> <span class="nav-text">分部类、结构和接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件、多态和版本控制"><span class="nav-number">6.</span> <span class="nav-text">组件、多态和版本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CLR如何调用虚方法、属性和事件"><span class="nav-number">6.1.</span> <span class="nav-text">CLR如何调用虚方法、属性和事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计类的时候尽量减少虚函数"><span class="nav-number">6.2.</span> <span class="nav-text">设计类的时候尽量减少虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尽可能定义封闭类"><span class="nav-number">6.3.</span> <span class="nav-text">尽可能定义封闭类</span></a></li></ol></li></ol></div>
             
 
           </div>
