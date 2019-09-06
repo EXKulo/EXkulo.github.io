@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="常量常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（注意：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null： 1234public sealed class Som">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-05T11:27:21.286Z">
+<meta property="og:updated_time" content="2019-09-06T03:50:43.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法">
 <meta name="twitter:description" content="常量常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（注意：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null： 1234public sealed class Som">
@@ -444,6 +444,18 @@
 <li>基类构造方法</li>
 <li>本类构造方法</li>
 </ol>
+<p>由于字段默认初始化和基类实例构造器的调用永远会被加到构造方法前面，所以定义了几个构造方法，前面两个步骤的代码就会被复制多少次（虽然复制这么点代码也没啥）。</p>
+<h2 id="值类型的构造器"><a href="#值类型的构造器" class="headerlink" title="值类型的构造器"></a>值类型的构造器</h2><p>结构体<strong>不被编译器允许</strong>自定义一个无参的构造器（C#编译器不允许，但是IL允许）。不能自定义无参构造器，而且编译器也不允许对实例字段初始值设定。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> SomeValType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Int32 m_x = <span class="number">5</span>; <span class="comment">// 不会通过编译</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译器会给结构自动生成一个无参构造器，这个无参构造器可以被非显式调用，把所有字段初始化为0, false或null。</p>
+<p>但是编译器允许我们添加有参的构造器，在新建结构体的时候需要显示调用。假若新建了一个自定义的有参构造器，那么我们需要保证在这之内<strong>初始化所有的字段</strong>（否则有可能生成「不可验证」的代码），否则会有编译错误。</p>
+<h3 id="值类型中的this是可以改变引用的"><a href="#值类型中的this是可以改变引用的" class="headerlink" title="值类型中的this是可以改变引用的"></a>值类型中的this是可以改变引用的</h3><p>我们可以在结构体的方法中改变this的值。这个操作在引用类型中是无法执行的，因为引用类型中的this是只读的。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> ValType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Int32 m_x;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ValType</span>(<span class="params">Int32 val</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">this</span>.m_x = val;</span><br><span class="line">        <span class="keyword">this</span> = <span class="keyword">new</span> ValType();</span><br><span class="line">        <span class="keyword">this</span>.m_x = <span class="number">999</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么最后如果我们输出<code>m_x</code>，会是什么值呢？如果把this看做是一个简单引用，那么输出的应该是val的值。</p>
+<p>很遗憾，这里输出的将会是999。</p>
+<p><code>this = new ValType();</code>的意思在这里是让new ValType()成为this，而最后构造器返回的总是this引用。</p>
+<p>如果你的结构体有多个字段你懒得一一初始化的，就可以在你的带参构造器中调用一个无参构造器，来把所有的参数默认初始化，然后再挑少数几个需要的来做特别的初始化，比如这样：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> ValType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Int32 m_x;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ValType</span>(<span class="params">Int32 val</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">this</span> = <span class="keyword">new</span> ValType(); <span class="comment">// m_x被初始化为0</span></span><br><span class="line">        <span class="keyword">this</span>.m_x = <span class="number">999</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -671,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段"><span class="nav-number">2.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例构造器"><span class="nav-number">3.</span> <span class="nav-text">实例构造器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段"><span class="nav-number">2.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例构造器"><span class="nav-number">3.</span> <span class="nav-text">实例构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值类型的构造器"><span class="nav-number">4.</span> <span class="nav-text">值类型的构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型中的this是可以改变引用的"><span class="nav-number">4.1.</span> <span class="nav-text">值类型中的this是可以改变引用的</span></a></li></ol></li></ol></div>
             
 
           </div>
