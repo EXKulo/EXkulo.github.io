@@ -1965,7 +1965,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #855dcc;
+  background: #42c4ed;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3002,8 +3002,8 @@ h3 {
   color: #111;
 }
 .post-toc ol a {
-  color: #fff;
-  text-shadow: 1px 1px 1px #000;
+  color: #000;
+  text-shadow: 1px 1px 1px #888;
 }
 @media (max-width: 767px) {
   .site-nav {
