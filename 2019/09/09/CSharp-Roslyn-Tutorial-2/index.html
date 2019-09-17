@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="Overview这篇讲一些后面代码使用里会遇到的一些基本概念。对应这三篇文章：  https://docs.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/work-with-syntax https://docs.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/work-with-semantics https:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-09T11:47:22.901Z">
+<meta property="og:updated_time" content="2019-09-10T11:40:40.334Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【CSharp Roslyn教程】【其二】语法、语义、工作空间">
 <meta name="twitter:description" content="Overview这篇讲一些后面代码使用里会遇到的一些基本概念。对应这三篇文章：  https://docs.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/work-with-syntax https://docs.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/work-with-semantics https:">
@@ -383,8 +383,44 @@
 </ol>
 <p>每棵语法树都是由节点、token和trivia组成的。</p>
 <h3 id="语法节点-SyntaxNode"><a href="#语法节点-SyntaxNode" class="headerlink" title="语法节点 SyntaxNode"></a>语法节点 SyntaxNode</h3><p>语法节点是语法书中最主要的元素之一。语法节点代表了各种语法结构，比如定义declarations、声明statements、子句clauses、表达式expressions。每种结构所对应的语法节点都继承于基类<a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.syntaxnode" target="_blank" rel="noopener">Microsoft.CodeAnalysis.SyntaxNode</a>。用户不可以往这些节点构成的集合里再添加其他任何自定义的节点（也就是节点也就这么多了）。</p>
-<p>任何一个语法节点一定会有一个子节点列表，以及一个父节点（root的父节点是null）。由于语法树是只读的，所以父节点也是不会变的。我们可以通过<a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.syntaxnode.parent#Microsoft_CodeAnalysis_SyntaxNode_Parent" target="_blank" rel="noopener">SyntaxNode.Parent</a>来访问父节点。</p>
-<h3 id="语法token-SyntaxToken"><a href="#语法token-SyntaxToken" class="headerlink" title="语法token SyntaxToken"></a>语法token SyntaxToken</h3><h3 id="关于语法的其他琐事-SyntaxTrivia"><a href="#关于语法的其他琐事-SyntaxTrivia" class="headerlink" title="关于语法的其他琐事 SyntaxTrivia"></a>关于语法的其他琐事 SyntaxTrivia</h3><h3 id="Spans"><a href="#Spans" class="headerlink" title="Spans"></a>Spans</h3><h3 id="种类-Kinds"><a href="#种类-Kinds" class="headerlink" title="种类 Kinds"></a>种类 Kinds</h3><h3 id="错误-Errors"><a href="#错误-Errors" class="headerlink" title="错误 Errors"></a>错误 Errors</h3><h2 id="词义"><a href="#词义" class="headerlink" title="词义"></a>词义</h2><h2 id="工作空间"><a href="#工作空间" class="headerlink" title="工作空间"></a>工作空间</h2>
+<p>任何一个语法节点一定会有一个子节点列表(<code>SyntaxNode.ChildNodes()</code>)，以及一个父节点（root的父节点是null）。由于语法树是只读的，所以父节点也是不会变的。我们可以通过<a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.syntaxnode.parent#Microsoft_CodeAnalysis_SyntaxNode_Parent" target="_blank" rel="noopener">SyntaxNode.Parent</a>来访问父节点。</p>
+<blockquote>
+<p>此外，每个语法节点子类通过强类型属性公开所有相同的子级。 例如，BinaryExpressionSyntax 节点类具有三个特定于二元运算符的其他属性：Left、OperatorToken 和 Right。 Right 和 ExpressionSyntax 的类型为 Left，OperatorToken 的类型为 SyntaxToken。</p>
+<p>某些语法节点具有可选子级。 例如，IfStatementSyntax 具有可选的 ElseClauseSyntax。 如果没有子级，则该属性返回 null。</p>
+</blockquote>
+<h3 id="语法标记-SyntaxToken"><a href="#语法标记-SyntaxToken" class="headerlink" title="语法标记 SyntaxToken"></a>语法标记 SyntaxToken</h3><blockquote>
+<p>语法标记是语言语法的终端，表示代码的最小语法片段。 它们从不作为其他节点或标记的父级。 语法标记包含关键字、标识符、文本和标点。</p>
+</blockquote>
+<p>语法节点必定有父节点和子节点，语法标记是语法树的终端，相当于叶子。</p>
+<blockquote>
+<p>所有类型的标记都采用同一结构，但包含各种属性，这些属性的意义取决于表示的标记类型。</p>
+</blockquote>
+<p>包含Value属性，这个属性是Object类型的，因为它可能是各种基元类型。</p>
+<h3 id="关于语法的其他琐事-SyntaxTrivia"><a href="#关于语法的其他琐事-SyntaxTrivia" class="headerlink" title="关于语法的其他琐事 SyntaxTrivia"></a>关于语法的其他琐事 SyntaxTrivia</h3><blockquote>
+<p>表示对正常理解代码基本上没有意义的源文本部分，例如空格、注释和预处理器指令。</p>
+<p>可通过检查标记的 SyntaxToken.LeadingTrivia 或 SyntaxToken.TrailingTrivia 集合来访问琐碎内容。</p>
+<p>可使用 SyntaxTrivia.Token 属性访问关联的标记。</p>
+</blockquote>
+<h3 id="范围-Spans"><a href="#范围-Spans" class="headerlink" title="范围 Spans"></a>范围 Spans</h3><blockquote>
+<p>每个节点具有两个 TextSpan 属性：Span 和 FullSpan。</p>
+<p>Span 属性表示从节点子树中第一个标记的开头到最后一个标记末尾的文本范围。 此范围不包括任何前导或尾随琐碎内容。</p>
+<p>FullSpan 属性表示的文本范围包括节点的正常范围，加上任何前导或尾随琐碎内容的范围。</p>
+</blockquote>
+<h3 id="种类-Kinds"><a href="#种类-Kinds" class="headerlink" title="种类 Kinds"></a>种类 Kinds</h3><blockquote>
+<p>每个节点、标记或琐碎内容都具有 System.Int32 类型的 SyntaxNode.RawKind 属性，标识所表示的确切语法元素。 此值可强制转换为特定语言枚举；每种语言（C# 或 VB）都具有单个 SyntaxKind 枚举（分别为 Microsoft.CodeAnalysis.CSharp.SyntaxKind 和 Microsoft.CodeAnalysis.VisualBasic.SyntaxKind），列出了语法中所有可能的节点、标记和琐碎内容。 可通过访问 CSharpExtensions.Kind 或 VisualBasicExtensions.Kind 扩展方法自动完成此转换。</p>
+</blockquote>
+<h3 id="错误-Errors"><a href="#错误-Errors" class="headerlink" title="错误 Errors"></a>错误 Errors</h3><blockquote>
+<p>即使源文本中包含语法错误，也会公开可与源双向转换的完整语法树。 </p>
+</blockquote>
+<h2 id="语义"><a href="#语义" class="headerlink" title="语义"></a>语义</h2><p>语法树表示源代码的词法和语法结构。 尽管此信息已足以描述源中的所有声明和逻辑，但不足以识别正在引用的内容。 一个名称可能表示：</p>
+<ul>
+<li>一种类型</li>
+<li>一个字段</li>
+<li>一种方法</li>
+<li>一个局部变量</li>
+</ul>
+<p>尽管以上每一项都各不相同，但要确定标识符实际上引用哪一项，通常需要深入了解语言规则。</p>
+<h2 id="工作空间"><a href="#工作空间" class="headerlink" title="工作空间"></a>工作空间</h2>
       
     </div>
     
@@ -611,7 +647,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法树-SyntaxTree"><span class="nav-number">2.1.</span> <span class="nav-text">语法树 SyntaxTree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法节点-SyntaxNode"><span class="nav-number">2.2.</span> <span class="nav-text">语法节点 SyntaxNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法token-SyntaxToken"><span class="nav-number">2.3.</span> <span class="nav-text">语法token SyntaxToken</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于语法的其他琐事-SyntaxTrivia"><span class="nav-number">2.4.</span> <span class="nav-text">关于语法的其他琐事 SyntaxTrivia</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spans"><span class="nav-number">2.5.</span> <span class="nav-text">Spans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#种类-Kinds"><span class="nav-number">2.6.</span> <span class="nav-text">种类 Kinds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误-Errors"><span class="nav-number">2.7.</span> <span class="nav-text">错误 Errors</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词义"><span class="nav-number">3.</span> <span class="nav-text">词义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作空间"><span class="nav-number">4.</span> <span class="nav-text">工作空间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法树-SyntaxTree"><span class="nav-number">2.1.</span> <span class="nav-text">语法树 SyntaxTree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法节点-SyntaxNode"><span class="nav-number">2.2.</span> <span class="nav-text">语法节点 SyntaxNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法标记-SyntaxToken"><span class="nav-number">2.3.</span> <span class="nav-text">语法标记 SyntaxToken</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于语法的其他琐事-SyntaxTrivia"><span class="nav-number">2.4.</span> <span class="nav-text">关于语法的其他琐事 SyntaxTrivia</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#范围-Spans"><span class="nav-number">2.5.</span> <span class="nav-text">范围 Spans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#种类-Kinds"><span class="nav-number">2.6.</span> <span class="nav-text">种类 Kinds</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误-Errors"><span class="nav-number">2.7.</span> <span class="nav-text">错误 Errors</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语义"><span class="nav-number">3.</span> <span class="nav-text">语义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作空间"><span class="nav-number">4.</span> <span class="nav-text">工作空间</span></a></li></ol></div>
             
 
           </div>

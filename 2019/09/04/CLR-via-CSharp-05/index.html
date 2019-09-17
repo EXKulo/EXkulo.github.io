@@ -91,14 +91,14 @@
 
 <meta name="description" content="常量常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（注意：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null： 1234public sealed class Som">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法">
+<meta property="og:title" content="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数">
 <meta property="og:url" content="https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/index.html">
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="常量常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（注意：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null： 1234public sealed class Som">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-06T07:00:10.244Z">
+<meta property="og:updated_time" content="2019-09-17T03:17:18.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法">
+<meta name="twitter:title" content="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数">
 <meta name="twitter:description" content="常量常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（注意：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null： 1234public sealed class Som">
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <title>CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 | 左未的笔记本</title>
+  <title>CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数 | 左未的笔记本</title>
   
 
 
@@ -276,7 +276,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/" title="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法">https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/</a>
+    <a href="https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/" title="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数">https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CLR-via-CSharp-05 第7章 常量和字段 第8章 方法</h1>
+          <h1 class="post-title" itemprop="name headline">CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数</h1>
         
 
         <div class="post-meta">
@@ -358,7 +358,7 @@
 
           
           
-             <span id="/2019/09/04/CLR-via-CSharp-05/" class="leancloud_visitors" data-flag-title="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法">
+             <span id="/2019/09/04/CLR-via-CSharp-05/" class="leancloud_visitors" data-flag-title="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -462,6 +462,39 @@
 <p>当JIT编译器在编译一个方法的时候，会检查这个方法用到了什么类，以及它们的静态构造器是否被执行过，如果没有被执行过，那么会调用一次。</p>
 <p>由于多个线程可能同时想要调用类的静态构造器，所以执行静态构造器之前线程需要先获取一个互斥线程同步锁，其他的线程会被阻塞直至静态构造器被执行完毕，其他线程发现它已经被执行过，直接返回。</p>
 <h3 id="值类型的静态构造器"><a href="#值类型的静态构造器" class="headerlink" title="值类型的静态构造器"></a>值类型的静态构造器</h3><p>虽然可以定义，但是CLR有时不会调用值类型的静态构造器。所以千万不要使用。</p>
+<h3 id="操作符重载方法"><a href="#操作符重载方法" class="headerlink" title="操作符重载方法"></a>操作符重载方法</h3><p>CLR对操作符重载一无所知，甚至不知道什么是操作符。编程语言定义了出现这些特殊符号时，应该生成什么样的代码。</p>
+<p>操作符重载方法必须要是<code>public</code>和<code>static</code>的。</p>
+<p>当重载一个运算符的时候，其实是生成了一个特殊的方法。比如下面比较重载了加号的C#代码和IL代码：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Program <span class="keyword">operator</span>+(Program a, Program b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.method public hidebysig specialname static </span><br><span class="line">        class ConsoleApp2.Program  op_Addition(class ConsoleApp2.Program a,</span><br><span class="line">                                               class ConsoleApp2.Program b) cil managed</span><br><span class="line">&#123;</span><br><span class="line">  // Code size       7 (0x7)</span><br><span class="line">  .maxstack  1</span><br><span class="line">  .locals init ([0] class ConsoleApp2.Program V_0)</span><br><span class="line">  IL_0000:  nop</span><br><span class="line">  IL_0001:  ldnull</span><br><span class="line">  IL_0002:  stloc.0</span><br><span class="line">  IL_0003:  br.s       IL_0005</span><br><span class="line">  IL_0005:  ldloc.0</span><br><span class="line">  IL_0006:  ret</span><br><span class="line">&#125; // end of method Program::op_Addition</span><br></pre></td></tr></table></figure>
+<p>生成了一个方法，名为<code>op_Addition</code>，且设置了<code>specialname</code>标志，表示这是一个特殊方法。C#编译器检测到操作符+时，会查找关联了<code>specialname</code>元数据标志的<code>op_Addition</code>方法。如果程序员自己定义了一个<code>op_Addition</code>，是没有这个元数据标志的，不会被+号调用到。</p>
+<h2 id="转换操作符方法"><a href="#转换操作符方法" class="headerlink" title="转换操作符方法"></a>转换操作符方法</h2><p>感觉很容易出错，又不是很容易感知，所以平常应该很少人会用这个特性来写业务代码吧。</p>
+<p>重载转换操作符的方法，这个方法在类型被强转的时候会被调用。</p>
+<p>转型包括了隐式和显式两种：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Int32 i = <span class="number">2.5f</span>; <span class="comment">// 隐式</span></span><br><span class="line">Int32 i = (Int32) <span class="number">2.5f</span>; <span class="comment">// 显式</span></span><br></pre></td></tr></table></figure>
+<p>分别对应两个转换操作符方法：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Int32</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Int32 <span class="title">op_Implicit</span>(<span class="params">Single num</span>)</span>; <span class="comment">// 隐式</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Int32 <span class="title">op_Explicit</span>(<span class="params">Single num</span>)</span>; <span class="comment">// 显式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果显式转换失败，应该让显式转换操作符方法抛出<code>OverflowException</code>或<code>InvalidOperationException</code>。</p>
+<h2 id="扩展方法"><a href="#扩展方法" class="headerlink" title="扩展方法"></a>扩展方法</h2><p>扩展方法是个很爽的特性。由于鄙人用的已经用的比较熟练了，就先从自己的理解说起吧。</p>
+<p>C#只支持单继承，虽然可以实现多个接口，但是接口里面并不允许有任何方法的具体实现。假设我有一个类必定要继承于类BaseA，但是又想方便地使用另一个功能模块的方法，怎么办呢？这个时候我们的思路就是想着，能不能定义一个接口给它实现，然后再给这个接口搞几个有具体实现的方法。</p>
+<p>C#虽然不支持直接在interface里面直接定义方法的实现，但是支持一种叫做扩展方法的特性。一句话来说，它可以在类的定义之外，给类加方法（但是仅仅是方法，不支持扩展属性、事件以及操作符）。</p>
+<p>废话不多说，先上代码。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BaseA</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> String Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="string">"DefulatName"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IFeature</span></span><br><span class="line">&#123;</span><br><span class="line">    UInt32 ID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">FeatureExtension</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String GetInfo&lt;T&gt;(<span class="keyword">this</span> T self) <span class="keyword">where</span> T : BaseA, IFeature</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">string</span>.Format(<span class="string">"Name: &#123;0&#125;, ID: &#123;1&#125;"</span>, self.Name, self.ID);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span> : <span class="title">BaseA</span>, <span class="title">IFeature</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> UInt32 ID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Program p = <span class="keyword">new</span> Program();</span><br><span class="line">        Console.WriteLine(p.GetInfo());</span><br><span class="line">        Console.ReadLine();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>读者可以复制上面代码运行一下，然后再去掉<code>GetInfo</code>中参数列表里的<code>this</code>关键字，再编译试试。</p>
+<p>去掉<code>this</code>关键字后会发现Program的实例p无法调用<code>GetInfo</code>方法了，得使用<code>FeatureExtension.GetInfo(p)</code>来调用。</p>
+<p>GetInfo也可以不像上面一样使用泛型，如果只需要访问IFeature的属性，那么直接把T改成IFeature也是可以的。</p>
+<h3 id="给扩展方法一个自己的命名空间"><a href="#给扩展方法一个自己的命名空间" class="headerlink" title="给扩展方法一个自己的命名空间"></a>给扩展方法一个自己的命名空间</h3><p>IDE的智能感知功能可以帮程序员列出所有和本类型实例有关的所有扩展方法。</p>
+<p>为了避免扩展方法污染到全局，所以笔者建议把本模块的扩展方法放在自己定义的一个命名空间的中，使用的时候用<code>using</code>语句来导入。另外，尽量不要给Object等基类扩展方法，以免污染所有派生类的智能感知方法列表。</p>
+<p>使用命名空间</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件IFeature中</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Feature.Interface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IFeature</span></span><br><span class="line">    &#123;</span><br><span class="line">        UInt32 ID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">FeatureExtension</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> String GetInfo&lt;T&gt;(<span class="keyword">this</span> T self) <span class="keyword">where</span> T : BaseA, IFeature</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">string</span>.Format(<span class="string">"Name: &#123;0&#125;, ID: &#123;1&#125;"</span>, self.Name, self.ID);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件Program中</span></span><br><span class="line"><span class="keyword">using</span> Feature.Interface;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * .......</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>如果编译器发现了同一个扩展方法在不同类被定义了两次，会编译报错。</p>
+<h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><p>如果类中或接口中定义了和扩展方法同名的方法，会优先调用类或者接口中那个方法。所以扩展方法最好有一定的唯一性，尽量保证不会在以后被覆盖。</p>
+<h2 id="分部方法"><a href="#分部方法" class="headerlink" title="分部方法"></a>分部方法</h2><p>partial方法。懒得说。</p>
+<h2 id="可选参数和命名参数"><a href="#可选参数和命名参数" class="headerlink" title="可选参数和命名参数"></a>可选参数和命名参数</h2><p>没啥说的。</p>
+<h2 id="隐式类型的局部变量"><a href="#隐式类型的局部变量" class="headerlink" title="隐式类型的局部变量"></a>隐式类型的局部变量</h2><p>var类型的变量，没啥说的。</p>
+<h2 id="以传医用的方式向方法传递参数"><a href="#以传医用的方式向方法传递参数" class="headerlink" title="以传医用的方式向方法传递参数"></a>以传医用的方式向方法传递参数</h2><p>主要是讲ref和out。二者的区别在于out表示在传进来之前参数可能还没有被初始化好，方法内部不能使用参数的字段值。</p>
+<p>ret和out生成的IL代码是完全一样的，<strong>元数据也几乎一致</strong>，只有一个bit有区别，用来区分是ref还是out。</p>
 
       
     </div>
@@ -693,7 +726,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段"><span class="nav-number">2.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例构造器"><span class="nav-number">3.</span> <span class="nav-text">实例构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值类型的构造器"><span class="nav-number">4.</span> <span class="nav-text">值类型的构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型中的this是可以改变引用的"><span class="nav-number">4.1.</span> <span class="nav-text">值类型中的this是可以改变引用的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态构造器"><span class="nav-number">5.</span> <span class="nav-text">静态构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型的静态构造器"><span class="nav-number">5.1.</span> <span class="nav-text">值类型的静态构造器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段"><span class="nav-number">2.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例构造器"><span class="nav-number">3.</span> <span class="nav-text">实例构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值类型的构造器"><span class="nav-number">4.</span> <span class="nav-text">值类型的构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型中的this是可以改变引用的"><span class="nav-number">4.1.</span> <span class="nav-text">值类型中的this是可以改变引用的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态构造器"><span class="nav-number">5.</span> <span class="nav-text">静态构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型的静态构造器"><span class="nav-number">5.1.</span> <span class="nav-text">值类型的静态构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作符重载方法"><span class="nav-number">5.2.</span> <span class="nav-text">操作符重载方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换操作符方法"><span class="nav-number">6.</span> <span class="nav-text">转换操作符方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展方法"><span class="nav-number">7.</span> <span class="nav-text">扩展方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#给扩展方法一个自己的命名空间"><span class="nav-number">7.1.</span> <span class="nav-text">给扩展方法一个自己的命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名规范"><span class="nav-number">7.2.</span> <span class="nav-text">命名规范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分部方法"><span class="nav-number">8.</span> <span class="nav-text">分部方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选参数和命名参数"><span class="nav-number">9.</span> <span class="nav-text">可选参数和命名参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式类型的局部变量"><span class="nav-number">10.</span> <span class="nav-text">隐式类型的局部变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以传医用的方式向方法传递参数"><span class="nav-number">11.</span> <span class="nav-text">以传医用的方式向方法传递参数</span></a></li></ol></div>
             
 
           </div>
