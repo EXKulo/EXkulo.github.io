@@ -354,8 +354,12 @@
         
           
           无参属性建议把所有的字段都设置为false，所有想公开的都设置为public属性，以达到能够封装的目的。
-
-          
+我已经懂了所以基础的就不写了，具体可以自行搜索。（属性都不会你写什么C#）
+自动实现的属性只写了set; get;而没有定义具体set什么get什么的属性，叫做自动实现的属性，C#会自动声明一个私有字段和get、set方法。
+比如
+1234public class Program&#123;    public Int32 ID &#123; get; set; &#125;&#125;
+用ILDasm可以看到其实是生成了两个方法get_ID, set_ID，以及一个字段&lt;ID&gt
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/09/17/CLR-via-CSharp-06/#more" rel="contents">
