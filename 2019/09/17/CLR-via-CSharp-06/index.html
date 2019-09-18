@@ -91,15 +91,15 @@
 
 <meta name="description" content="无参属性建议把所有的字段都设置为false，所有想公开的都设置为public属性，以达到能够封装的目的。 我已经懂了所以基础的就不写了，具体可以自行搜索。（属性都不会你写什么C#） 自动实现的属性只写了set; get;而没有定义具体set什么get什么的属性，叫做自动实现的属性，C#会自动声明一个私有字段和get、set方法。 比如 1234public class Program&amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CLR-via-CSharp-06 第10章 属性">
+<meta property="og:title" content="CLR-via-CSharp-06 第10章 属性 第11章 事件">
 <meta property="og:url" content="https://exkulo.github.io/2019/09/17/CLR-via-CSharp-06/index.html">
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="无参属性建议把所有的字段都设置为false，所有想公开的都设置为public属性，以达到能够封装的目的。 我已经懂了所以基础的就不写了，具体可以自行搜索。（属性都不会你写什么C#） 自动实现的属性只写了set; get;而没有定义具体set什么get什么的属性，叫做自动实现的属性，C#会自动声明一个私有字段和get、set方法。 比如 1234public class Program&amp;#123;">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://exkulo.github.io/2019/09/17/CLR-via-CSharp-06/1.png">
-<meta property="og:updated_time" content="2019-09-17T06:24:03.759Z">
+<meta property="og:updated_time" content="2019-09-18T06:53:18.262Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CLR-via-CSharp-06 第10章 属性">
+<meta name="twitter:title" content="CLR-via-CSharp-06 第10章 属性 第11章 事件">
 <meta name="twitter:description" content="无参属性建议把所有的字段都设置为false，所有想公开的都设置为public属性，以达到能够封装的目的。 我已经懂了所以基础的就不写了，具体可以自行搜索。（属性都不会你写什么C#） 自动实现的属性只写了set; get;而没有定义具体set什么get什么的属性，叫做自动实现的属性，C#会自动声明一个私有字段和get、set方法。 比如 1234public class Program&amp;#123;">
 <meta name="twitter:image" content="https://exkulo.github.io/2019/09/17/CLR-via-CSharp-06/1.png">
 
@@ -137,7 +137,7 @@
 
 
 
-  <title>CLR-via-CSharp-06 第10章 属性 | 左未的笔记本</title>
+  <title>CLR-via-CSharp-06 第10章 属性 第11章 事件 | 左未的笔记本</title>
   
 
 
@@ -278,7 +278,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://exkulo.github.io/2019/09/17/CLR-via-CSharp-06/" title="CLR-via-CSharp-06 第10章 属性">https://exkulo.github.io/2019/09/17/CLR-via-CSharp-06/</a>
+    <a href="https://exkulo.github.io/2019/09/17/CLR-via-CSharp-06/" title="CLR-via-CSharp-06 第10章 属性 第11章 事件">https://exkulo.github.io/2019/09/17/CLR-via-CSharp-06/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CLR-via-CSharp-06 第10章 属性</h1>
+          <h1 class="post-title" itemprop="name headline">CLR-via-CSharp-06 第10章 属性 第11章 事件</h1>
         
 
         <div class="post-meta">
@@ -331,6 +331,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机语言/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -338,7 +360,7 @@
 
           
           
-             <span id="/2019/09/17/CLR-via-CSharp-06/" class="leancloud_visitors" data-flag-title="CLR-via-CSharp-06 第10章 属性">
+             <span id="/2019/09/17/CLR-via-CSharp-06/" class="leancloud_visitors" data-flag-title="CLR-via-CSharp-06 第10章 属性 第11章 事件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -386,7 +408,16 @@
 <p>其中<code>Equals</code>方法会比较每个字段是否相同。</p>
 <p>由于重写了GetHashCode所以可以被放在哈希表里。</p>
 <img src="/2019/09/17/CLR-via-CSharp-06/1.png" class="1">
-
+<p>如果定义了两个字段一样的匿名实例，最后其实用的是同一个匿名类。</p>
+<p>匿名类经常被用在LINQ中，返回一个匿名类型实例，我们用var去承接就可以了。</p>
+<h2 id="有参数性"><a href="#有参数性" class="headerlink" title="有参数性"></a>有参数性</h2><p>其实就是给自己加一个索引器。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Int32[] _array = <span class="keyword">new</span> Int32[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Int32 <span class="keyword">this</span>[Int32 index]</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> _array[index];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">set</span></span><br><span class="line">        &#123;</span><br><span class="line">            _array[index] = <span class="keyword">value</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Program p = <span class="keyword">new</span> Program();</span><br><span class="line">        Console.WriteLine(p[<span class="number">1</span>]);</span><br><span class="line">        Console.ReadLine();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="调用属性访问器方法时的性能"><a href="#调用属性访问器方法时的性能" class="headerlink" title="调用属性访问器方法时的性能"></a>调用属性访问器方法时的性能</h2><p>对于简单的get和set访问器方法，JIT编译器会将代码内联，避免了性能上的损失。</p>
+<h2 id="属性访问器的可访问性"><a href="#属性访问器的可访问性" class="headerlink" title="属性访问器的可访问性"></a>属性访问器的可访问性</h2><p>可以为set或者get设置不同的访问性，但是只能同时在内部定义其中一个。如果想定义两个不同的访问性，应该这样：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">bool</span> Property</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">get</span>; <span class="comment">//跟随外面的访问性，为public</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">set</span>; <span class="comment">// 为private</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>下面讲11章 事件。</p>
+<h2 id="设计要公开事件的类型"><a href="#设计要公开事件的类型" class="headerlink" title="设计要公开事件的类型"></a>设计要公开事件的类型</h2>
       
     </div>
     
@@ -446,6 +477,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/18/Meditations-Series-Learn-By-Analogy/" rel="prev" title="沉思录 - 举一反三之能力">
+                沉思录 - 举一反三之能力 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -548,7 +583,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -559,7 +594,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -613,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#无参属性"><span class="nav-number">1.</span> <span class="nav-text">无参属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动实现的属性"><span class="nav-number">1.1.</span> <span class="nav-text">自动实现的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用属性的注意事项"><span class="nav-number">1.2.</span> <span class="nav-text">使用属性的注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名类型"><span class="nav-number">2.</span> <span class="nav-text">匿名类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#无参属性"><span class="nav-number">1.</span> <span class="nav-text">无参属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动实现的属性"><span class="nav-number">1.1.</span> <span class="nav-text">自动实现的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用属性的注意事项"><span class="nav-number">1.2.</span> <span class="nav-text">使用属性的注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名类型"><span class="nav-number">2.</span> <span class="nav-text">匿名类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有参数性"><span class="nav-number">3.</span> <span class="nav-text">有参数性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用属性访问器方法时的性能"><span class="nav-number">4.</span> <span class="nav-text">调用属性访问器方法时的性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性访问器的可访问性"><span class="nav-number">5.</span> <span class="nav-text">属性访问器的可访问性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计要公开事件的类型"><span class="nav-number">6.</span> <span class="nav-text">设计要公开事件的类型</span></a></li></ol></div>
             
 
           </div>
