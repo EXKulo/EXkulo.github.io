@@ -288,7 +288,7 @@ NexT.utils = NexT.$u = {
   },
 
   getTopBannerUrl: function () {
-    return "url(/images/background.jpg)"
+    return "url(/images/background.png)"
   }
 
   /**

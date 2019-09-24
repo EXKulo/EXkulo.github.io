@@ -280,7 +280,6 @@ a {
   color: #222;
   text-decoration: none;
   outline: none;
-  border-bottom: 1px solid #999;
   word-wrap: break-word;
 }
 a:hover {
@@ -1269,9 +1268,8 @@ pre .javascript .function {
   opacity: 0;
 }
 .post-body p a {
-  color: #2196f3;
-  border-bottom: none;
-  border-bottom: 1px solid #2196f3;
+  color: #42b983;
+  font-weight: 600;
 }
 .post-body p a:hover {
   color: #fc6423;
@@ -1472,7 +1470,7 @@ pre .javascript .function {
 .posts-expand .post-title-link {
   display: inline-block;
   position: relative;
-  color: #004;
+  color: #42b983;
   border-bottom: none;
   line-height: 1.2;
   vertical-align: top;
@@ -1965,7 +1963,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #a48cdf;
+  background: #d64aff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2982,10 +2980,11 @@ h3 {
 }
 .header-inner {
   background-size: cover;
-  padding: 80px 60px 80px 60px;
+  padding: 80px 60px 80px 0px;
 }
 .btn {
-  background: #148;
+  background: #42b983;
+  border: 2px solid #42b983;
 }
 .posts-collapse {
   padding: 50px 0 0 0;
