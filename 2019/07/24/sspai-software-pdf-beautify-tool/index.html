@@ -2,6 +2,7 @@
 
 
 
+
   
 
 
@@ -151,6 +152,10 @@
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div v-bind:class="[VueTestClass]" id="vue-test">
+    <p class="title-welcome-text">${ welcomeStr }</p>
+  </div>
 
   
   
@@ -567,7 +572,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -770,6 +775,8 @@
   
 
 
+
+
   <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
 
   <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
@@ -781,6 +788,12 @@
   <script type="text/javascript" src="/js/src/mindmap.min.js?v=5.1.4"></script>
 
   <script type="text/javascript" src="/js/src/bg-beautifier.js?v=5.1.4"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/vue.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/vue-script/main.js?v=5.1.4"></script>
 
 
 
