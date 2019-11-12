@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="接口CLR并不支持多继承，所以所有的托管编程语言也支持不能。 类和接口继承CLR只支持类的单继承，而且最终肯定是从Object派生。 所谓接口，是对一组方法签名进行的同一命名（这就是实质了）。 定义接口CLR中的接口相对于Java中的接口而言，还能够定义：  事件 无参属性 有参数性（C#的索引器）  当然以上说的三种，本质上也是方法。 在CLR看来，接口定义就是类定义。CLR会为接口类型对象定义">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-05T05:02:11.534Z">
+<meta property="og:updated_time" content="2019-11-11T11:47:21.411Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CLR via CSharp 08 接口">
 <meta name="twitter:description" content="接口CLR并不支持多继承，所以所有的托管编程语言也支持不能。 类和接口继承CLR只支持类的单继承，而且最终肯定是从Object派生。 所谓接口，是对一组方法签名进行的同一命名（这就是实质了）。 定义接口CLR中的接口相对于Java中的接口而言，还能够定义：  事件 无参属性 有参数性（C#的索引器）  当然以上说的三种，本质上也是方法。 在CLR看来，接口定义就是类定义。CLR会为接口类型对象定义">
@@ -421,6 +421,20 @@
 <p>我们也可以显式实现接口方法，注意不能带public或者其他任意权限修饰符，也不能加virtual。</p>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">SimpleType</span> : <span class="title">IDisposable</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Dispose</span>(<span class="params"></span>)</span> &#123; Console.WriteLine(<span class="string">"public Dispose"</span>); &#125;</span><br><span class="line">    <span class="keyword">void</span> IDisposable.Dispose() &#123; Console.WriteLine(<span class="string">"IDisposable Dispose"</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果显式实现了方法，就会分别把两个记录项引用到对应的方法上。</p>
+<p>当我们要同时实现两个具有相同签名的接口的时候，也是需要显示接口方法实现的。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IWindow</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Object <span class="title">GetMenu</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IResturant</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">Object <span class="title">GetMenu</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">KFC</span> : <span class="title">IWindow</span>, <span class="title">IResturant</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Object GetMenu &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> Object IWindow.GetMenu &#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> Object IResturant.GetMenu &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，使用的时候也得用对应的接口去引用这个类的对象，才能调用对应的方法。</p>
+<p><strong>谨慎使用</strong>显示接口方法实现。因为：</p>
+<ul>
+<li>没有IDE的智能提示</li>
+<li><strong>增加装箱的可能性</strong> 值类型的实例在转换成接口的时候（由于是显式实现所以必须用接口引用才能调用方法），必须进行装箱。</li>
+<li>显式实现的方法不能由派生类调用</li>
+</ul>
+<h3 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h3><p>多使用泛型接口，某种程度上来说可能会<strong>降低装箱的机会</strong>。比如，实现了<code>IComprable&lt;Int32&gt;</code>之后，再传入一个Int32类型的对象，就不会被强转成Object。</p>
+<p>注意，一个类可以同时实现多次同一个泛型接口，就像这样：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public sealed class Number : IComparable&lt;Int32&gt;, IComparable&lt;String&gt; </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Int32 m_val = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Int32 <span class="title">CompareTo</span>(<span class="params">Int32 n</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> m_val.CompareTo(n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Int32 <span class="title">CompareTo</span>(<span class="params">String s</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> m_val.Compare(Int32.Parse(s));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="接口泛型约束"><a href="#接口泛型约束" class="headerlink" title="接口泛型约束"></a>接口泛型约束</h3><p>就是普通的约束，真的没必要多弄一小节出来呢。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Foo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>只要是实现了这两个接口的类型都可以作为参数<span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> Bar&lt;T&gt;(T param) <span class="keyword">where</span> T: IComparable, IConvertable</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -481,6 +495,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/12/Coding-Interview-Guide-03-list-problems/" rel="prev" title="Coding-Interview-Guide-03-list-problems">
+                Coding-Interview-Guide-03-list-problems <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -583,7 +601,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -648,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口"><span class="nav-number">1.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类和接口继承"><span class="nav-number">1.1.</span> <span class="nav-text">类和接口继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义接口"><span class="nav-number">1.2.</span> <span class="nav-text">定义接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于接口调用方法"><span class="nav-number">1.3.</span> <span class="nav-text">关于接口调用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型与接口"><span class="nav-number">1.4.</span> <span class="nav-text">值类型与接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式和隐式调用接口方法的区别"><span class="nav-number">1.5.</span> <span class="nav-text">显式和隐式调用接口方法的区别</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口"><span class="nav-number">1.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类和接口继承"><span class="nav-number">1.1.</span> <span class="nav-text">类和接口继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义接口"><span class="nav-number">1.2.</span> <span class="nav-text">定义接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于接口调用方法"><span class="nav-number">1.3.</span> <span class="nav-text">关于接口调用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型与接口"><span class="nav-number">1.4.</span> <span class="nav-text">值类型与接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式和隐式调用接口方法的区别"><span class="nav-number">1.5.</span> <span class="nav-text">显式和隐式调用接口方法的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型接口"><span class="nav-number">1.6.</span> <span class="nav-text">泛型接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口泛型约束"><span class="nav-number">1.7.</span> <span class="nav-text">接口泛型约束</span></a></li></ol></li></ol></div>
             
 
           </div>
