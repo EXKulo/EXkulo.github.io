@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="在单链表和双链表中删除倒数第k个节点分别实现两个函数，一个可以删除单链表中倒数第k个节点，另一个可以删除双链表中倒数第k个节点。 要求： 如果链表长度为N，时间复杂度达到O(N)，额外空间复杂度达到O(1)。 步骤： 从链表头开始遍历链表，每走一步，k自加-1 遍历完单链表时，查看k的情况： 123456789k = k - 1;if k == 0 then    return head;else">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-12T05:22:26.526Z">
+<meta property="og:updated_time" content="2019-11-12T06:20:44.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Coding-Interview-Guide-03-list-problems">
 <meta name="twitter:description" content="在单链表和双链表中删除倒数第k个节点分别实现两个函数，一个可以删除单链表中倒数第k个节点，另一个可以删除双链表中倒数第k个节点。 要求： 如果链表长度为N，时间复杂度达到O(N)，额外空间复杂度达到O(1)。 步骤： 从链表头开始遍历链表，每走一步，k自加-1 遍历完单链表时，查看k的情况： 123456789k = k - 1;if k == 0 then    return head;else">
@@ -405,8 +405,13 @@
 <li>如果k大于0，说明遍历完了链表，还不能把k消除干净，也就是k大于链表长度，倒数第k个是不存在的</li>
 </ul>
 <p>接下来考虑k小于0的情况。</p>
-<p>从k为原来的大小originalK，到k==0，总共经历了k个节点，从k到最后的结果，总共走了<code>len - originalK</code>个节点，恰好就是要删除节点的<strong>正向下标</strong>。所以我们可以得到欲删除节点的正向坐标就是k最后的值去乘以负数。</p>
-<p>由于删除单链表节点的时候，需要的是欲删除节点的上一个节点，所以我们要把k最后的值乘以-1后减去1，得到欲删除的节点的上一个节点的正向下标。</p>
+<p>接下来我们演绎推理一波：</p>
+<ol>
+<li>当从头把链表遍历到尾时，此时的k为<code>k = orignalK - len</code></li>
+<li>倒数第k个数，其实就是正数第<code>len - originalK</code>个数</li>
+<li>所以：此时的k的负数，也就是-k，就是欲删除节点的<strong>正向下标</strong>。</li>
+</ol>
+<p>由于删除单链表节点的时候，需要的是欲删除节点的上一个节点，所以我们要把-k值乘以-1后减去1，得到欲删除的节点的上一个节点的正向下标。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> preIndex = -k - <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <p>接下来只要再次遍历到这个节点，处理删除就好了。</p>
 
