@@ -1963,7 +1963,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #905dd6;
+  background: #498fc7;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3030,4 +3030,13 @@ h3 {
   width: 100%;
   text-align: center; /*设置文本水平居中*/
   font-size: 24px;
+}
+.span-head {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 8px 0 0;
+}
+.span-important {
+  font-size: 20px;
+  font-weight: 600;
 }
