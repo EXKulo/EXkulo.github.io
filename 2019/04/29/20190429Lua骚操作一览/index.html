@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d6cb46a8.js","daovoice")
+  daovoice('init', {
+      app_id: "d6cb46a8"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机语言,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言做了三年的游戏开发，其中有两年都在使用Lua这一脚本语言，想着是时候写点什么东西输出一下，算是给个交代。本文既不是讲Lua入门，也不会讲到Lua虚拟机那么深，读者尽可放大心随意看。 类的实现原生Lua是不支持面向对象编程的。那怎么办呢？使用prototype模式即可。 首先读者需要知道Lua的原方法和原表这一知识点。如果接触过c++或者c#的同学应该知道我们可以对一些类的操作做重载(overl">
+<meta name="keywords" content="计算机语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua骚操作一览">
+<meta property="og:url" content="https://exkulo.github.io/2019/04/29/20190429Lua骚操作一览/index.html">
+<meta property="og:site_name" content="左未的笔记本">
+<meta property="og:description" content="前言做了三年的游戏开发，其中有两年都在使用Lua这一脚本语言，想着是时候写点什么东西输出一下，算是给个交代。本文既不是讲Lua入门，也不会讲到Lua虚拟机那么深，读者尽可放大心随意看。 类的实现原生Lua是不支持面向对象编程的。那怎么办呢？使用prototype模式即可。 首先读者需要知道Lua的原方法和原表这一知识点。如果接触过c++或者c#的同学应该知道我们可以对一些类的操作做重载(overl">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-29T12:07:12.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lua骚操作一览">
+<meta name="twitter:description" content="前言做了三年的游戏开发，其中有两年都在使用Lua这一脚本语言，想着是时候写点什么东西输出一下，算是给个交代。本文既不是讲Lua入门，也不会讲到Lua虚拟机那么深，读者尽可放大心随意看。 类的实现原生Lua是不支持面向对象编程的。那怎么办呢？使用prototype模式即可。 首先读者需要知道Lua的原方法和原表这一知识点。如果接触过c++或者c#的同学应该知道我们可以对一些类的操作做重载(overl">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://exkulo.github.io/2019/04/29/20190429Lua骚操作一览/">
+
+
+
+
+
+  <title>Lua骚操作一览 | 左未的笔记本</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div v-bind:class="[VueTestClass]" id="vue-test">
+    <p class="title-welcome-text">${ welcomeStr }</p>
+  </div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+  <div class="headband"></div>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <!-- 添加了id，后面改变css样式用 -->
+      <div id="id-header-inner" class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">左未的笔记本</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年寿有时而尽，荣乐止乎其身。<br>二者必至之期，未若文章之无穷。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-spinner"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/aboutme" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <!-- 改变css样式 -->
+    <script type="text/javascript" src="/js/src/bg-beautifier.js"></script>
+    <script>hexoChangeBanner();</script>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    左未
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://exkulo.github.io/2019/04/29/20190429Lua骚操作一览/" title="Lua骚操作一览">https://exkulo.github.io/2019/04/29/20190429Lua骚操作一览/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+    <br>
+    <br>
+
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/04/29/20190429Lua骚操作一览/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Lua骚操作一览</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-29T19:03:31+08:00">
+                2019-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/29/20190429Lua骚操作一览/" class="leancloud_visitors" data-flag-title="Lua骚操作一览">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>做了三年的游戏开发，其中有两年都在使用Lua这一脚本语言，想着是时候写点什么东西输出一下，算是给个交代。本文既不是讲Lua入门，也不会讲到Lua虚拟机那么深，读者尽可放大心随意看。</p>
+<h2 id="类的实现"><a href="#类的实现" class="headerlink" title="类的实现"></a>类的实现</h2><p>原生Lua是不支持面向对象编程的。那怎么办呢？使用prototype模式即可。</p>
+<p>首先读者需要知道Lua的原方法和原表这一知识点。如果接触过c++或者c#的同学应该知道我们可以对一些类的操作做重载(<em>overload</em>)，改变诸如加减乘除，甚至一些更高级的操作。而在像是Lua这种脚本语言来说是没有重载这一操作的。取而代之的，我们可以通过重写元表来改变table原有的操作逻辑。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> theMetaTable = &#123;&#125;</span><br><span class="line"><span class="comment">-- 加号</span></span><br><span class="line">theMetaTable.<span class="built_in">__add</span> = <span class="function"><span class="keyword">function</span><span class="params">(leftVal, rightVal)</span></span></span><br><span class="line">    <span class="keyword">local</span> ret = &#123;&#125;</span><br><span class="line">    ret.age = leftVal.age + rightVal.age</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> tA = &#123;age = <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">local</span> tB = &#123;age = <span class="number">99</span>&#125;</span><br><span class="line"><span class="built_in">setmetatable</span>(tA, theMetaTable)</span><br><span class="line"><span class="built_in">setmetatable</span>(tB, theMetaTable)</span><br><span class="line"><span class="keyword">local</span> tC = tA + tB</span><br><span class="line"><span class="comment">-- tC = &#123;age = 100&#125;</span></span><br><span class="line"><span class="built_in">print</span>(tc.age)</span><br></pre></td></tr></table></figure>
+<p>在这么多元方法里面有一个最值得关注的，称为<code>__index</code>。顾名思义，传入一个key，返回一个value。接下来就来讲解如何使用这个元方法实现面向对象。首先我们假设有一个方法叫做<code>class(string name)</code>，会生成一个带有构造方法和其他各种方法的类原型（类原型是啥意思？类似于Java里的Class，c#里的Type），我们使用这个类原型就可以实例化出我们的实例来。使用方法大概是这样子的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Person = class(<span class="string">'class'</span>)</span><br><span class="line">Person.name = <span class="string">'DefaultName'</span></span><br><span class="line">Person.age = <span class="number">-1</span>;</span><br><span class="line">Person.sex = <span class="string">'male'</span></span><br><span class="line">Person.<span class="built_in">create</span> = <span class="function"><span class="keyword">function</span><span class="params">(name, age)</span></span></span><br><span class="line">    <span class="keyword">local</span> ret = Person.new()</span><br><span class="line">    ret.name = name</span><br><span class="line">    ret.age = age</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">Person.introduce = <span class="function"><span class="keyword">function</span><span class="params">(self)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">'i am %s, and i am %d'</span>, self.name, self.age))</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> oldWong = Person.<span class="built_in">create</span>(<span class="string">'oldWong'</span>, <span class="number">45</span>)</span><br><span class="line">oldWong.sex = <span class="string">'female'</span></span><br><span class="line">oldWong:introduce()</span><br><span class="line"><span class="comment">-- console print: I am oldWong, and i am 45.</span></span><br></pre></td></tr></table></figure>
+<p>明眼的读者可以发现了：从class函数返回的<code>Person</code>一定是一个带着new方法的table。但是为什么这个new方法会生成新的实例呢？我改变oldWong实例的<code>sex</code>属性之后，再用Person去实例化一个实例，会是什么性别？有兴趣的读者可自行试试。</p>
+<p>接下来笔者将为你揭秘<code>__index</code>方法在<code>class(string name)</code>函数中的应用。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">class</span><span class="params">(clzName)</span></span></span><br><span class="line">    <span class="keyword">local</span> ret = &#123;&#125;</span><br><span class="line">    ret.__class = &#123;&#125;</span><br><span class="line">    ret.__class.__name = clzName</span><br><span class="line">    ret.new = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">        <span class="keyword">local</span> instance</span><br><span class="line">        <span class="comment">-- metatable</span></span><br><span class="line">        <span class="keyword">local</span> mt = &#123;&#125;</span><br><span class="line">        mt.<span class="built_in">__index</span> = <span class="function"><span class="keyword">function</span><span class="params">(t, key)</span></span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">rawget</span>(instance, key) <span class="keyword">or</span> ret[key]</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="built_in">setmetatable</span>(instance, mt)</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>看一个函数我习惯先看最后return了什么东西，再看这个返回值是怎么被创建的，内容是啥。在这个<code>class</code>方法中，返回值是一个被命名为ret的表，这个表被填进了两个东西：</p>
+<ul>
+<li>类的信息，暂时只有类名</li>
+<li>一个叫做new的方法</li>
+</ul>
+<p>看起来这个new方法就是关键了。</p>
+<p>new方法最后返回了一个叫instance的table，这个看似什么内容都没有。等等…并不是什么东西都没有，这个table被塞进了一个元表(metatable)，而这个元表被重写了<code>__index</code>方法。</p>
+<p><code>__index</code>方法实际上是为了定义一种行为：传进一个key，返回一个value。也就是说根据上面的代码，当mt这个表被设置为instance的元表之后，当以后外界要从instance取东西出去的时候，会先在表本身里面找(rawget)，如果找不到了，再继续在找ret表里面找。</p>
+<p>看完上面的解释，我相信还是有一部分读者会睁着大眼睛问我，你说了这么多，那和面向对象有鸡毛关系？没事，笔者这篇文章本来就是想写给对Lua了解不深的朋友看的，所以一定会解释清楚。</p>
+<p>我们要知道，在Lua中，方法其实是一个内置类型，成为function。当一个表想调用自己拥有的一个方法的时候有两种形式：</p>
+<ul>
+<li>t.function(t)</li>
+<li>t:function()</li>
+</ul>
+<p>上面两种形式是等效的，使用冒号连接的时候，会把冒号前面的变量作为后面方法的第一个变量传入。</p>
+<p>在上面关于Person的代码例子中，有一句代码我们来看看是怎么最后调用成功的。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oldWong:introduce()</span><br></pre></td></tr></table></figure>
+<p>在调用<code>introduce()</code>之前，Lua需要先从oldWong这个表中拿出这个属性。这是一种以key换value的操作，于是自然会调用到<code>__index</code>元方法。首先Lua会在oldWong本身中找这个方法，找不到，然后就会在<code>__index</code>那段代码里的ret表里面找。还记得ret最后被返回，被我们持有为叫做Person的表了吗？</p>
+<p>所以’oldWong:introduce()’的实质调用，可以看做是</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person.introduce(oldWong)</span><br></pre></td></tr></table></figure>
+<p>明白了吧。</p>
+<h3 id="老王的叛逆"><a href="#老王的叛逆" class="headerlink" title="老王的叛逆"></a>老王的叛逆</h3><p>接下来，我们假设老王是一个很叛逆的人，他不想按照我们给他的方法进行自我介绍，想要用自己的方式来展示足够骚的自己，他怎么做呢：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">oldWong.introduce = <span class="function"><span class="keyword">function</span><span class="params">(self)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'i am Xiao Wang, bu yiyang de Xiao Wang'</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">oldWong.introduce()</span><br></pre></td></tr></table></figure>
+<p>老王他重写了自己的introduce方法。现在再从老王这个<del>婊</del>表中再读出introdce这个成员变量的时候，由于老王本身就已经拥有了自我介绍这个方法，于是就直接返回这个方法，不需要再从类里面去寻找原始的introduce方法了。于是老王的自我介绍就自成一派了。</p>
+<p>在老王叛逆的故事中，我们可以学到一种debug的方法。在我两年的lua使用时间中，其中一年半是在使用cocos2dx的，以这里为例子解释一下如何使用这个原理来快速debug。</p>
+<p>cocos2dx的节点Node类有一个<code>addChild(self, childNode)</code>方法，用来添加一个子节点。现在我发现游戏中有一个节点oldWongNode，莫名其妙地添加了一个叫做runNode的节点，但是由于前人写的代码太冗长太垃圾，找了半天都找不到究竟这个子节点是在哪里被添加的。这个时候我想起了老王的故事，这么写了一段代码，然后发现了究竟是哪个<del>凶手</del>同事调用了调用了这个方法添加了runNode：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> rawAddChild = oldWongNode.addChild</span><br><span class="line">oldWongNode.addChild = <span class="function"><span class="keyword">function</span><span class="params">(self, child)</span></span></span><br><span class="line">    <span class="keyword">if</span> child.name == <span class="string">'runNode'</span>:</span><br><span class="line">        printTraceback()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    rawAddChild(self, child)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>未完待续。。。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy Me A Coffee / 捐一杯咖啡的钱</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="左未 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="左未 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机语言/" rel="tag"># 计算机语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/08/20190408使用思维导图的正确姿势/" rel="next" title="思维大爆炸！使用思维导图的正确姿势">
+                <i class="fa fa-chevron-left"></i> 思维大爆炸！使用思维导图的正确姿势
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/14/IPad-Pro-2018-adpation-how-to-fullscreen/" rel="prev" title="IPad Pro 2018 Unity 屏幕适配 解决无法全屏问题">
+                IPad Pro 2018 Unity 屏幕适配 解决无法全屏问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          <!-- 添加分享sdk -->
+          
+<div class="-mob-share-ui-text -mob-share-open exkulo-share-btn">分享</div>
+<div class="-mob-share-ui -mob-share-ui-theme-slide-bottom" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2bd548c2dd68c"></script>
+ 
+
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/default-avatar.jpg" alt="左未">
+            
+              <p class="site-author-name" itemprop="name">左未</p>
+              <p class="site-description motion-element" itemprop="description">其实只是一本笔记本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:exkulo@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的实现"><span class="nav-number">2.</span> <span class="nav-text">类的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#老王的叛逆"><span class="nav-number">2.1.</span> <span class="nav-text">老王的叛逆</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左未</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kity.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/bg-beautifier.js?v=5.1.4"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/vue.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/vue-script/main.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7CaWPI6HXpR1CiqpYnyY0JdE-gzGzoHsz", "rB1Vxs2fw7BXYUN9iyRcwfM3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

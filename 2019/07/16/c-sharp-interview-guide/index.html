@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d6cb46a8.js","daovoice")
+  daovoice('init', {
+      app_id: "d6cb46a8"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 此文可以说是站躺在巨人的肩膀上。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，str">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#查缺补漏">
+<meta property="og:url" content="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/index.html">
+<meta property="og:site_name" content="左未的笔记本">
+<meta property="og:description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 此文可以说是站躺在巨人的肩膀上。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，str">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/1.png">
+<meta property="og:updated_time" content="2019-07-17T08:03:17.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C#查缺补漏">
+<meta name="twitter:description" content="序此文为阅读dalao的csdn博客所作之笔记。挑一些自己不太清楚的点记下来。 此文可以说是站躺在巨人的肩膀上。 01 值类型和引用类型C#中的类型分为值类型和引用类型。其分类大概如下图：  所在位置位置分为两种：  线程栈 托管堆  栈分配的速度快，其中的变量一旦跨出作用域就会失效。 值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。 因故，str">
+<meta name="twitter:image" content="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/">
+
+
+
+
+
+  <title>C#查缺补漏 | 左未的笔记本</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div v-bind:class="[VueTestClass]" id="vue-test">
+    <p class="title-welcome-text">${ welcomeStr }</p>
+  </div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+  <div class="headband"></div>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <!-- 添加了id，后面改变css样式用 -->
+      <div id="id-header-inner" class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">左未的笔记本</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年寿有时而尽，荣乐止乎其身。<br>二者必至之期，未若文章之无穷。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-spinner"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/aboutme" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <!-- 改变css样式 -->
+    <script type="text/javascript" src="/js/src/bg-beautifier.js"></script>
+    <script>hexoChangeBanner();</script>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    左未
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/" title="C#查缺补漏">https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+    <br>
+    <br>
+
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/07/16/c-sharp-interview-guide/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C#查缺补漏</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T18:59:42+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/16/c-sharp-interview-guide/" class="leancloud_visitors" data-flag-title="C#查缺补漏">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>此文为阅读<a href="https://www.cnblogs.com/anding/category/262808.html" target="_blank" rel="noopener">dalao的csdn博客</a>所作之笔记。挑一些自己不太清楚的点记下来。</p>
+<p>此文可以说是<del>站</del>躺在巨人的肩膀上。</p>
+<h2 id="01-值类型和引用类型"><a href="#01-值类型和引用类型" class="headerlink" title="01 值类型和引用类型"></a>01 值类型和引用类型</h2><p>C#中的类型分为值类型和引用类型。其分类大概如下图：</p>
+<img src="/2019/07/16/c-sharp-interview-guide/1.png" title="类型">
+<h3 id="所在位置"><a href="#所在位置" class="headerlink" title="所在位置"></a>所在位置</h3><p>位置分为两种：</p>
+<ol>
+<li>线程栈</li>
+<li>托管堆</li>
+</ol>
+<p>栈分配的速度快，其中的变量一旦跨出作用域就会失效。</p>
+<p>值类型不一定都在栈上，但引用类型的内容肯定在堆上。当值类型是作为某个类的成员时，就会被分配在堆上。</p>
+<p>因故，struct类型也非一定会被分配在栈上。</p>
+<h3 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h3><p>参数的传递用的都是值传递。</p>
+<p>传递值类型的时候直接复制一遍值，传递引用的时候把引用（指向引用内容的指针）复制一遍。</p>
+<p>例外是使用out和ref的时候，复制的是指向引用的引用（类似于指向指针的指针），所以看起来就像是把引用也传递了过去。</p>
+<h3 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h3><p>struct不支持new，且不能有无参的构造方法。</p>
+<h2 id="02-装箱与拆箱"><a href="#02-装箱与拆箱" class="headerlink" title="02 装箱与拆箱"></a>02 装箱与拆箱</h2><p>装箱就是把值类型变成引用类型，主要步骤是：</p>
+<ol>
+<li>在堆上申请一块内存，大小与值类型一样大</li>
+<li>复制值类型的值到堆上的那块内存上</li>
+<li>返回堆内存的地址给引用</li>
+</ol>
+<h3 id="消耗"><a href="#消耗" class="headerlink" title="消耗"></a>消耗</h3><p>装箱的消耗要比拆箱大。这是由于装箱的时候需要在堆上开辟内存，而拆箱是把值写入栈中。对栈的操作比对堆的操作要快。</p>
+<h3 id="建议多使用泛型，少使用Object"><a href="#建议多使用泛型，少使用Object" class="headerlink" title="建议多使用泛型，少使用Object"></a>建议多使用泛型，少使用Object</h3><p>当想让参数支持多类型的时候，尽量使用泛型，少使用Object，可以避免不必要的装箱操作。</p>
+<h2 id="03-string"><a href="#03-string" class="headerlink" title="03 string"></a>03 string</h2><p>string是一种特殊的引用类型，不能new。</p>
+<h3 id="string的不变性"><a href="#string的不变性" class="headerlink" title="string的不变性"></a>string的不变性</h3><p>CLR会维持一个string驻留池（实质上是一个哈希表），当新建一个<strong>需要驻留的</strong>（也有不用驻留的string）string的时候，会先根据其hash值判断是否已存在该字符串，如果存在，则直接返回该字符串的引用。这说明string驻留池里必定不可能存在两个内容一样的string。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> a = <span class="string">"123"</span>;</span><br><span class="line"><span class="keyword">string</span> b = <span class="string">"123"</span>;</span><br><span class="line">Console.WriteLine(System.Object.Equals(a, b)); <span class="comment">// true，对象内容相同</span></span><br><span class="line">Console.WriteLine(System.Object.ReferenceEquals(a, b)); <span class="comment">// true，引用的内存地址相同</span></span><br></pre></td></tr></table></figure>
+<p>有些string会被驻留，有些则不会，这可以大大减小爆内存的可能性。那么，被驻留的条件是什么呢？</p>
+<p>被驻留的string有两种：</p>
+<ol>
+<li>客户主动创建的，如<code>string a = &quot;a&quot;</code></li>
+<li>客户调用了<code>string.Intern(string content)</code>后的</li>
+</ol>
+<p>被大多数系统API创建的string不会被驻留，比如</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">string</span> strA = a.ToString();</span><br><span class="line"><span class="keyword">string</span> b = <span class="string">"b"</span>;</span><br><span class="line"><span class="keyword">string</span> strB = b.ToLower();</span><br><span class="line">Console.WriteLine(<span class="keyword">string</span>.IsIntern(strA));  <span class="comment">// false</span></span><br><span class="line">Console.WriteLine(<span class="keyword">string</span>.IsIntern(strB));  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>其中，<code>string string.IsIntern(string);</code>方法会判断string是否被驻留，被驻留的话会返回string本身，否则返回null（不是返回布尔值）。</p>
+<h3 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h3><p>小剂量操作时，用<code>string.concat()</code>，大剂量操作时，用<code>StringBuilder</code>。</p>
+<h3 id="考虑如何最高效率反转字符串"><a href="#考虑如何最高效率反转字符串" class="headerlink" title="考虑如何最高效率反转字符串"></a>考虑如何最高效率反转字符串</h3><ol>
+<li>使用capacity大小刚好的<code>StringBuilder</code></li>
+<li>直接使用<code>char[]</code></li>
+</ol>
+<h2 id="04-对象"><a href="#04-对象" class="headerlink" title="04 对象"></a>04 对象</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> typeA = a.GetType();</span><br><span class="line"><span class="keyword">var</span> typeB = b.GetType();</span><br><span class="line">Console.WriteLine(System.Object.Equals(typeA, typeB)); <span class="comment">// true</span></span><br><span class="line">Console.WriteLine(System.Object.ReferenceEquals(typeA, typeB)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>以上两个输出都是true，代表着所有同类型的对象GetType()获取到的类对象是同一个实例。</p>
+<h2 id="Load-Heap"><a href="#Load-Heap" class="headerlink" title="Load Heap"></a>Load Heap</h2><p>Load Heap中文<strong>加载堆</strong>，上面分配内存的生命周期从AppDomain一直延续到结束，不受GC回收控制。</p>
+<p>GCHeap上分配的对象内存中，包括了三部分：成员变量，SyncBlockIndex，TypeHandler。其中的TypeHandler又指向了LoadHeap上的一块内存，这块内存上又有两个重要的部分：静态成员变量，类方法表。</p>
+<p>类类型(System.Type)在程序一开始就被加载到LoadHeap中，所有该类型实例的TypeHandler都指向同一个唯一的类对象。</p>
+<h2 id="方法表与方法覆盖"><a href="#方法表与方法覆盖" class="headerlink" title="方法表与方法覆盖"></a>方法表与方法覆盖</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="keyword">virtual</span> <span class="title">Func</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"A"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">B1</span> : <span class="title">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="keyword">override</span> <span class="title">Func</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"B1"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">B2</span> : <span class="title">A</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> new <span class="title">Func</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"B2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">B1 b1 = <span class="keyword">new</span> B1();</span><br><span class="line">B2 b2 = <span class="keyword">new</span> B2();</span><br><span class="line">b1.Func(); <span class="comment">// B1</span></span><br><span class="line">b2.Func(); <span class="comment">// B2</span></span><br><span class="line">A a1 = b1;</span><br><span class="line">A a1 = b2;</span><br><span class="line">a1.Func(); <span class="comment">// B1</span></span><br><span class="line">a2.Func(); <span class="comment">// A</span></span><br></pre></td></tr></table></figure>
+<p>我们看上面这个例子，结论是new和override都可以定义一个和基类同名的方法，但是当使用基类引用派生类的时候，采用new关键字的会调用基类的方法，而采用override的会调用派生类对应的方法。</p>
+<p>为什么会这样呢？首先要看一下上面提到的方法表。</p>
+<p>方法表中方法的加载顺序如下：</p>
+<ol>
+<li>万物祖先System.Object的虚方法ToString(), Hash()等</li>
+<li>基类的虚方法和非虚方法</li>
+<li>派生类的方法</li>
+<li>派生类的静态构造函数.cctor和对象构造函数.ctor</li>
+</ol>
+<p>根据上面的顺序，我们可以得到结论B1和B2的方法表如下：</p>
+<p>B1方法表</p>
+<ol>
+<li>ToString(), Hash()…</li>
+<li><del>A.Func()</del> <strong>=&gt; B.Func</strong></li>
+<li>B.Func()</li>
+<li>B.cctor B.ctor</li>
+</ol>
+<p>B2方法表</p>
+<ol>
+<li>ToString(), Hash()…</li>
+<li>A.Func()</li>
+<li>B.Func()</li>
+<li>B.cctor B.ctor</li>
+</ol>
+<p>可以注意到二者的区别是使用了override关键字的B1的方法表中，A的Func会被B的Func重写，这一步在加载方法表的时候发生。</p>
+<h3 id="执行就近原则"><a href="#执行就近原则" class="headerlink" title="执行就近原则"></a>执行就近原则</h3><p>首先我们要明白，CLR在找一个方法的时候是从底下往上找的，<strong>和方法表的加载顺序相反</strong>。</p>
+<p>当我们使用A引用来分别持有B1和B2对象的时候，搜寻方法的时候都是从上面的2往上搜寻方法。当找到B1中的A.Func()时，CLR注意到这个方法已经被B.Func()给override了，就会直接返回B.Func()；而对于B2来说，A.Func()仍然原封不动地躺在那里，所以会直接返回基类A版本的Func方法。</p>
+<ol>
+<li>ToString(), Hash()…</li>
+<li><del>A.Func()</del> <strong>=&gt; B.Func</strong>   &lt;= 基类A引用，从这里开始找方法</li>
+<li>B.Func()</li>
+<li>B.cctor B.ctor</li>
+</ol>
+<p>B2方法表</p>
+<ol>
+<li>ToString(), Hash()…</li>
+<li>A.Func()   &lt;= 基类A引用，从这里开始找方法</li>
+<li>B.Func()</li>
+<li>B.cctor B.ctor</li>
+</ol>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>直接摘抄大佬的文章：</p>
+<blockquote>
+<p>抽象类提供多个派生类共享基类的公共定义，它既可以提供抽象方法，也可以提供非抽象方法。抽象类不能实例化，必须通过继承由派生类实现其抽象方法，因此对抽象类<strong>不能使用new关键字，也不能被密封</strong>。</p>
+<p>基本特点：</p>
+<ul>
+<li>抽象类使用Abstract声明，抽象方法也是用Abstract标示；</li>
+<li>抽象类不能被实例化；</li>
+<li>抽象方法必须定义在抽象类中；</li>
+<li>抽象类可以继承一个抽象类；</li>
+<li>抽象类不能被密封（不能使用sealed）；</li>
+<li>同类Class一样，只支持单继承；</li>
+</ul>
+</blockquote>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>接口同样不能被实例化，只能声明函数和属性，不能包含成员变量（这一点与抽象类不同）。</p>
+<h2 id="05-常量、字段、属性、特性、委托"><a href="#05-常量、字段、属性、特性、委托" class="headerlink" title="05 常量、字段、属性、特性、委托"></a>05 常量、字段、属性、特性、委托</h2><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>const常量符合几个特性：</p>
+<ol>
+<li>在编译的时候确定的，在编译完的时候就会把常量替换到代码里面去，得到的代码是常量全被替换成实际内容的代码</li>
+<li>因此如果只是部分编译，有可能出现你改动了常量，但是其他未被重新编译的旧代码的常量值可能就是旧值，容易引发谜之bug</li>
+<li>常量只支持内建类型，比如int, double, float, char, bool等</li>
+</ol>
+<h4 id="建议使用readonly来代替const"><a href="#建议使用readonly来代替const" class="headerlink" title="建议使用readonly来代替const"></a>建议使用readonly来代替const</h4><p>相对于const，使用static readonly有几个好处：</p>
+<ol>
+<li>支持丰富多样的类型，随便new一个对象都行</li>
+<li>readonly是运行时常量，只是代表赋值后无法再进行更改引用，不会被替换到代码之中，部分编译的时候没有上面提到的const的危险</li>
+</ol>
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>枚举其实就是一个const常量集合，和const有一样的性质，会直接替换代码里的值，同样有部分编译引坑的危险。</p>
+<h3 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h3><p>文中说到了<strong>成员初始化器</strong>，可以参见<a href="https://exkulo.github.io/2019/07/04/Effective-csharp-2/">另一篇文章</a>里面提到的内容。</p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>实质上是堆私有字段的封装。</p>
+<p>自定义的属性get和set可以返回自己指定的私有字段。当然也可以什么也不指定，只写一个<code>{set; get;}</code></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> Id&#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;;</span><br></pre></td></tr></table></figure>
+<p>这种情况下，CLR会自动生成一个私有字段，以及getter和setter方法。</p>
+<h3 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h3><p>delegate的本质是生成了一个继承于System.MulticastDelegate的类，类名与delegate的名字相同，其中包含一个Invoke方法，签名与delegate定义的方法相同（签名相同即意味着参数长度和类型相同，返回值相同）。</p>
+<p>当传入一个delegate作为参数的时候，事实上是传入了生成的包含Invoke方法的这个实例。</p>
+<p>所以我们可以说，传递delegate其实也是在传递类实例的引用。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>这是C#闭包的一个坑。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Action&gt; acs = <span class="keyword">new</span> List&lt;Action&gt;(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    acs.Add(() =&gt; &#123; Console.WriteLine(i); &#125;);</span><br><span class="line">&#125;</span><br><span class="line">acs.ForEach(ac =&gt; ac()); <span class="comment">// 输出了 5 5 5 5 5</span></span><br></pre></td></tr></table></figure>
+<p>原因在于所有的lambda表达式都引用了for作用域内的同一个i，所以i会被提取出来作为一个upvalue。</p>
+<p>之前在python上也遇到过类似的问题，这个属于编译器的优化，不了解的话这个就变成了负优化。</p>
+<p>改进：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Action&gt; acss = <span class="keyword">new</span> List&lt;Action&gt;(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> m = i;</span><br><span class="line">    acss.Add(() =&gt; &#123; Console.WriteLine(m); &#125;);</span><br><span class="line">&#125;</span><br><span class="line">acss.ForEach(ac =&gt; ac()); <span class="comment">// 输出了 0 1 2 3 4</span></span><br></pre></td></tr></table></figure>
+<p>很明显m的作用域在每一次循环里面，每个匿名变量引用的并不是同一个i，所以值会不一样。</p>
+<h2 id="06-GC与内存管理"><a href="#06-GC与内存管理" class="headerlink" title="06 GC与内存管理"></a>06 GC与内存管理</h2><p>一个对象的创建包括以下步骤：</p>
+<ol>
+<li>计算对象大小</li>
+<li>内存申请</li>
+<li>检查托管堆内存是否足够<ol>
+<li>如果足够，不做什么</li>
+<li>如果内存不足，执行GC</li>
+</ol>
+</li>
+<li>为对象分配内存，并初始化TypeHandler和同步索引块</li>
+<li>调用对象的构造函数</li>
+<li>NextObjPtr后移</li>
+<li>返回对象内存地址</li>
+</ol>
+<h3 id="计算大小"><a href="#计算大小" class="headerlink" title="计算大小"></a>计算大小</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">User</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Age &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> _Name = <span class="string">"123"</span> + <span class="string">"abc"</span>;</span><br><span class="line">    <span class="keyword">public</span> List&lt;<span class="keyword">string</span>&gt; _Names;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>属性int类型32bit，4字节</li>
+<li>属性Name，初始值NULL，4字节，指向空地址</li>
+<li>成员变量_Name，本身作为指针占据4字节。两个字符串常量会被优化成一个<code>123abc</code>，每个char占据2字节，字符串内容总共占据12字节，再加上TypeHandler和同步索引块分别4字节，该string对象总共20字节。（string不是值类型，当然不会直接把内存分配在整个User之内，而是会分配在string驻留池中）</li>
+<li><code>List&lt;string&gt;</code> 是一个引用类型，同样4字节</li>
+<li>附加成员TypeHandler和同步索引块分别4字节</li>
+</ul>
+<h3 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h3><p>GC只负责回收GCHeap，而不会动到LoaderHeap。</p>
+<p>垃圾回收基本步骤有三个：</p>
+<ol>
+<li>标记：从程序根指针Root开始遍历，生成一个可访达图</li>
+<li>清除：清除所有不可访达对象</li>
+<li>压缩：清除不可访达对象之后内存会变得不连续，这时需要移动所有可访达的对象，让内存重新变得连续，然后更改引用里的指针地址</li>
+</ol>
+<h3 id="代龄"><a href="#代龄" class="headerlink" title="代龄"></a>代龄</h3><p>代龄(Generation)。.NET将GCHeap分为三个代龄区域以及一个大对象区域（大于85000 bytes）。大对象不会被移动。</p>
+<ul>
+<li>第0代：最新分配在堆上的对象，没有经历过一次垃圾回收过程。任何一个非大对象刚被分配的时候都会被分配在第0代上。</li>
+<li>第1代：当第0代满了的时候，会触发第0代的GC，回收后剩下的对象会被迁移到第1代。</li>
+<li>第2代，当0代GC完内存还不够用，会继续触发1代的GC，其后第0代升为第1代，第1代升为第2代。</li>
+</ul>
+<p>大多数情况下GC只需要回收第0代，可以显著提高GC效率。</p>
+<h3 id="线程相关"><a href="#线程相关" class="headerlink" title="线程相关"></a>线程相关</h3><p>在GC执行回收的时候，首先要安全地挂起所有线程。GC回收后在恢复所有线程。所以线程越多，GC要做的事情就会越多。</p>
+<h3 id="非托管资源回收"><a href="#非托管资源回收" class="headerlink" title="非托管资源回收"></a>非托管资源回收</h3><p>什么是非托管资源？比如你新建了一个数据库连接，这个连接的一部分内存是分配在数据库软件里的，并不属于本程序管理，自然也就无法托管以及GC。使用完非托管资源之后，我们需要手动地调用非托管资源的释放方法，以保证资源能够正确释放。</p>
+<p>关于这部分，之前写过<a href="https://exkulo.github.io/2019/07/04/Effective-csharp-2/">一个笔记</a>第17条目有说明白。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy Me A Coffee / 捐一杯咖啡的钱</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="左未 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="左未 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/16/unity-csharp-optimization/" rel="next" title="Unity中的C#使用优化">
+                <i class="fa fa-chevron-left"></i> Unity中的C#使用优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/17/hexo-next-theme-beautify-guide/" rel="prev" title="hexo next主题美化备忘录">
+                hexo next主题美化备忘录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          <!-- 添加分享sdk -->
+          
+<div class="-mob-share-ui-text -mob-share-open exkulo-share-btn">分享</div>
+<div class="-mob-share-ui -mob-share-ui-theme-slide-bottom" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2bd548c2dd68c"></script>
+ 
+
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/default-avatar.jpg" alt="左未">
+            
+              <p class="site-author-name" itemprop="name">左未</p>
+              <p class="site-description motion-element" itemprop="description">其实只是一本笔记本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:exkulo@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#序"><span class="nav-number">1.</span> <span class="nav-text">序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#01-值类型和引用类型"><span class="nav-number">2.</span> <span class="nav-text">01 值类型和引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#所在位置"><span class="nav-number">2.1.</span> <span class="nav-text">所在位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数传递"><span class="nav-number">2.2.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#struct"><span class="nav-number">2.3.</span> <span class="nav-text">struct</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-装箱与拆箱"><span class="nav-number">3.</span> <span class="nav-text">02 装箱与拆箱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消耗"><span class="nav-number">3.1.</span> <span class="nav-text">消耗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建议多使用泛型，少使用Object"><span class="nav-number">3.2.</span> <span class="nav-text">建议多使用泛型，少使用Object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-string"><span class="nav-number">4.</span> <span class="nav-text">03 string</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string的不变性"><span class="nav-number">4.1.</span> <span class="nav-text">string的不变性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效率"><span class="nav-number">4.2.</span> <span class="nav-text">效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#考虑如何最高效率反转字符串"><span class="nav-number">4.3.</span> <span class="nav-text">考虑如何最高效率反转字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04-对象"><span class="nav-number">5.</span> <span class="nav-text">04 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Load-Heap"><span class="nav-number">6.</span> <span class="nav-text">Load Heap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法表与方法覆盖"><span class="nav-number">7.</span> <span class="nav-text">方法表与方法覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#执行就近原则"><span class="nav-number">7.1.</span> <span class="nav-text">执行就近原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象类"><span class="nav-number">7.2.</span> <span class="nav-text">抽象类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口"><span class="nav-number">7.3.</span> <span class="nav-text">接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#05-常量、字段、属性、特性、委托"><span class="nav-number">8.</span> <span class="nav-text">05 常量、字段、属性、特性、委托</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常量"><span class="nav-number">8.1.</span> <span class="nav-text">常量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建议使用readonly来代替const"><span class="nav-number">8.1.1.</span> <span class="nav-text">建议使用readonly来代替const</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举"><span class="nav-number">8.2.</span> <span class="nav-text">枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成员变量"><span class="nav-number">8.3.</span> <span class="nav-text">成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">8.4.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#委托"><span class="nav-number">8.5.</span> <span class="nav-text">委托</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">8.6.</span> <span class="nav-text">闭包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#06-GC与内存管理"><span class="nav-number">9.</span> <span class="nav-text">06 GC与内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算大小"><span class="nav-number">9.1.</span> <span class="nav-text">计算大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GC"><span class="nav-number">9.2.</span> <span class="nav-text">GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代龄"><span class="nav-number">9.3.</span> <span class="nav-text">代龄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程相关"><span class="nav-number">9.4.</span> <span class="nav-text">线程相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非托管资源回收"><span class="nav-number">9.5.</span> <span class="nav-text">非托管资源回收</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左未</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kity.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/bg-beautifier.js?v=5.1.4"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/vue.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/vue-script/main.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7CaWPI6HXpR1CiqpYnyY0JdE-gzGzoHsz", "rB1Vxs2fw7BXYUN9iyRcwfM3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

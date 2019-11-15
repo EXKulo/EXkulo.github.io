@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d6cb46a8.js","daovoice")
+  daovoice('init', {
+      app_id: "d6cb46a8"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="常量常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（注意：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null： 1234public sealed class Som">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数">
+<meta property="og:url" content="https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/index.html">
+<meta property="og:site_name" content="左未的笔记本">
+<meta property="og:description" content="常量常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（注意：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null： 1234public sealed class Som">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-17T03:31:51.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数">
+<meta name="twitter:description" content="常量常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（注意：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null： 1234public sealed class Som">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/">
+
+
+
+
+
+  <title>CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数 | 左未的笔记本</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  <div v-bind:class="[VueTestClass]" id="vue-test">
+    <p class="title-welcome-text">${ welcomeStr }</p>
+  </div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+  <div class="headband"></div>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <!-- 添加了id，后面改变css样式用 -->
+      <div id="id-header-inner" class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">左未的笔记本</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年寿有时而尽，荣乐止乎其身。<br>二者必至之期，未若文章之无穷。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-spinner"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/aboutme" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <!-- 改变css样式 -->
+    <script type="text/javascript" src="/js/src/bg-beautifier.js"></script>
+    <script>hexoChangeBanner();</script>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    左未
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/" title="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数">https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+    <br>
+    <br>
+
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/09/04/CLR-via-CSharp-05/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-04T19:09:35+08:00">
+                2019-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机语言/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/04/CLR-via-CSharp-05/" class="leancloud_visitors" data-flag-title="CLR-via-CSharp-05 第7章 常量和字段 第8章 方法 第9章 参数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>常量的值必须只能在编译时确定，一般只支持基元类型：Boolean, Char, Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal和string。（<strong>注意</strong>：基元类型不一定是值类型）。想设置非基元类型也可以，不过只支持设置null：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">SomeType</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> SomeType Empty = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>常量由于永远不会变化，所以会被编译器看做是类型的一部分（而不是实例的一部分），所以常量本身就是静态的，不需要使用static修饰。并且，我们可以通过类型直接使用常量，不需要通过实例。</p>
+<p>定义常量将导致<strong>创建元数据</strong>。当编译器要生成IL代码的时候，直接从元数据中提取常量的值，写入IL代码中。所以IL代码访问常量的时候，不需要为常量分配任何内存。由于常量是代码的一部分，所以也不能取常量的地址，不能用传引用的形式传递常量。</p>
+<p>上面说到了常量是编译时确定的，会直接决定了IL代码的内容。所以当更改常量的值的时，必须重新编译<strong>所有</strong>引用到该常量的代码。若非如此，可能出现某些代码中的常量还是旧版本的值。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> StringConst = <span class="string">"StringConst"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> Int32 IntConst = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(StringConst);</span><br><span class="line">        Console.WriteLine(IntConst);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.method private hidebysig static void  Main(string[] args) cil managed</span><br><span class="line">&#123;</span><br><span class="line">.entrypoint</span><br><span class="line">// 代码大小       21 (0x15)</span><br><span class="line">.maxstack  8</span><br><span class="line">IL_0000:  nop</span><br><span class="line">IL_0001:  ldstr      &quot;StringConst&quot;</span><br><span class="line">IL_0006:  call       void [mscorlib]System.Console::WriteLine(string)</span><br><span class="line">IL_000b:  nop</span><br><span class="line">IL_000c:  ldc.i4.s   123</span><br><span class="line">IL_000e:  call       void [mscorlib]System.Console::WriteLine(int32)</span><br><span class="line">IL_0013:  nop</span><br><span class="line">IL_0014:  ret</span><br><span class="line">&#125; // end of method Program::Main</span><br></pre></td></tr></table></figure>
+<p>可以看到上面IL代码的第7和第10行，直接使用了常量，而不是他们的引用地址。</p>
+<p>如果常量有可能会被其他程序集使用到，那么最好就保证这个常量真的是永远不会变的。否则一旦改变了这个常量，就要重新编译所有引用到这个常量的程序集。</p>
+<p>如果希望有一个能够改变值的常量，应该使用<code>static readonly</code>。</p>
+<h2 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h2><p>几种字段修饰符：</p>
+<ul>
+<li><strong>static</strong> 类型字段，在类型被加载到AppDomain的时候创建</li>
+<li>实例字段</li>
+<li><strong>readonly</strong> 这种字段只能在「初始化器」或者构造器方法中被写入（可以使用反射来强行修改）</li>
+<li><strong>volatile</strong> 编译器、CLR和硬件不会对访问这种字段的代码执行县城不安全的优化</li>
+</ul>
+<p>现在将上一节提到的C#代码略做修改，把其中一个常量改成<code>static readonly</code>，我们再来比较他们的IL代码。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> <span class="keyword">string</span> StringConst = <span class="string">"StringConst"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> Int32 IntConst = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(StringConst);</span><br><span class="line">        Console.WriteLine(IntConst);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先看它的静态构造方法<code>.cctor</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.method private hidebysig specialname rtspecialname static</span><br><span class="line">        void  .cctor() cil managed</span><br><span class="line">&#123;</span><br><span class="line">  // 代码大小       11 (0xb)</span><br><span class="line">  .maxstack  8</span><br><span class="line">  IL_0000:  ldstr      &quot;StringConst&quot;</span><br><span class="line">  IL_0005:  stsfld     string ConsoleApplication1.Program::StringConst</span><br><span class="line">  IL_000a:  ret</span><br><span class="line">&#125; // end of method Program::.cctor</span><br></pre></td></tr></table></figure>
+<p>可以看到，在静态构造方法中（类型被载入到AppDomain里时被调用），把<code>&quot;StringConst&quot;</code>这个值传递给了<code>Program::StringConst</code>。</p>
+<p>再看<code>main</code>方法的IL代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.method private hidebysig static void  Main(string[] args) cil managed</span><br><span class="line">&#123;</span><br><span class="line">  .entrypoint</span><br><span class="line">  // 代码大小       21 (0x15)</span><br><span class="line">  .maxstack  8</span><br><span class="line">  IL_0000:  nop</span><br><span class="line">  IL_0001:  ldsfld     string ConsoleApplication1.Program::StringConst</span><br><span class="line">  IL_0006:  call       void [mscorlib]System.Console::WriteLine(string)</span><br><span class="line">  IL_000b:  nop</span><br><span class="line">  IL_000c:  ldc.i4.s   123</span><br><span class="line">  IL_000e:  call       void [mscorlib]System.Console::WriteLine(int32)</span><br><span class="line">  IL_0013:  nop</span><br><span class="line">  IL_0014:  ret</span><br><span class="line">&#125; // end of method Program::Main</span><br></pre></td></tr></table></figure>
+<p>第7行那里从原来的直接使用<code>&quot;StringConst&quot;</code>这个值，改成了对<code>Program::StringConst</code>的引用。这意味着如果引用的程序集和被引用的程序集是不同一个，只要被引用者改变了readonly的值后重新编译，引用者无需重新编译也可以使用到最新版本的值。</p>
+<h2 id="实例构造器"><a href="#实例构造器" class="headerlink" title="实例构造器"></a>实例构造器</h2><p>类的构造方法在「方法定义元数据表」中始终叫做<code>.ctor</code>。</p>
+<p>创建一个实例的流程：</p>
+<ol>
+<li>分配内存</li>
+<li>初始化对象的附加字段（类型指针对象 + 同步索引块）</li>
+<li>调用实例构造器</li>
+</ol>
+<p>值得注意的是，<code>.ctor</code>方法不仅包括了你定义的那个和类同名的方法中的逻辑，还包括实例化构造器，就是你给字段的初始值。</p>
+<p>show codes!</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Int32 <span class="keyword">value</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> Int32 value2;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Program p = <span class="keyword">new</span> Program();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Program()</span><br><span class="line">    &#123;</span><br><span class="line">        value2 = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的<code>.ctor</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.method private hidebysig specialname rtspecialname </span><br><span class="line">        instance void  .ctor() cil managed</span><br><span class="line">&#123;</span><br><span class="line">  // 代码大小       24 (0x18)</span><br><span class="line">  .maxstack  8</span><br><span class="line">  IL_0000:  ldarg.0</span><br><span class="line">  IL_0001:  ldc.i4.1</span><br><span class="line">  IL_0002:  stfld      int32 Program::&apos;value&apos; // 初始化`value`</span><br><span class="line">  IL_0007:  ldarg.0</span><br><span class="line">  IL_0008:  call       instance void [mscorlib]System.Object::.ctor()</span><br><span class="line">  IL_000d:  nop</span><br><span class="line">  IL_000e:  nop</span><br><span class="line">  IL_000f:  ldarg.0</span><br><span class="line">  IL_0010:  ldc.i4.2</span><br><span class="line">  IL_0011:  stfld      int32 Program::value2 // 在构造方法中设置`value2`的值</span><br><span class="line">  IL_0016:  nop</span><br><span class="line">  IL_0017:  ret</span><br><span class="line">&#125; // end of method Program::.ctor</span><br></pre></td></tr></table></figure>
+<p>可以看到对字段的默认初始化是在构造方法前面执行的。</p>
+<p>实例构造器不能够被继承，不能够用以下修饰符：virtual, new, override, sealed, abstract。</p>
+<p>如果不自定义一个实例构造器，编译器会自动定义一个默认的无参构造器，<strong>会自动调用基类的构造器</strong>。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SomeType</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SomeType</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SomeType</span>(<span class="params"></span>) : <span class="title">base</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般来说，构造函数都必须是public的，以便在任何地方生成实例（当然也可以手动设置成private，用静态方法来暴露生成实例的逻辑）。但是如果这个类是个<strong>抽象类</strong>，由于抽象类是不可以被实例化的，所以构造器会被编译器变成protected，只让派生类访问。</p>
+<p>如果派生类的构造器没有显示地调用一个基类的构造器，C#编译器会自动生成对默认的积累构造器的调用（也就是说调用基类的默认构造方法是必然的）。</p>
+<p>假设有代码如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">ProgramBase</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span> : <span class="title">ProgramBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Int32 <span class="keyword">value</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> Int32 value2;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Program()</span><br><span class="line">    &#123;</span><br><span class="line">        value2 = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到Program的<code>.ctor</code>的IL代码会在调用自己的构造方法之前先调用一下基类的构造方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.method private hidebysig specialname rtspecialname </span><br><span class="line">        instance void  .ctor() cil managed</span><br><span class="line">&#123;</span><br><span class="line">  // 代码大小       24 (0x18)</span><br><span class="line">  .maxstack  8</span><br><span class="line">  IL_0000:  ldarg.0</span><br><span class="line">  IL_0001:  ldc.i4.1</span><br><span class="line">  IL_0002:  stfld      int32 Program::&apos;value&apos;</span><br><span class="line">  IL_0007:  ldarg.0</span><br><span class="line">  IL_0008:  call       instance void ProgramBase::.ctor()</span><br><span class="line">  IL_000d:  nop</span><br><span class="line">  IL_000e:  nop</span><br><span class="line">  IL_000f:  ldarg.0</span><br><span class="line">  IL_0010:  ldc.i4.2</span><br><span class="line">  IL_0011:  stfld      int32 Program::value2</span><br><span class="line">  IL_0016:  nop</span><br><span class="line">  IL_0017:  ret</span><br><span class="line">&#125; // end of method Program::.ctor</span><br></pre></td></tr></table></figure>
+<p>顺序是：</p>
+<ol>
+<li>初始化字段</li>
+<li>基类构造方法</li>
+<li>本类构造方法</li>
+</ol>
+<p>由于字段默认初始化和基类实例构造器的调用永远会被加到构造方法前面，所以定义了几个构造方法，前面两个步骤的代码就会被复制多少次（虽然复制这么点代码也没啥）。</p>
+<h2 id="值类型的构造器"><a href="#值类型的构造器" class="headerlink" title="值类型的构造器"></a>值类型的构造器</h2><p>结构体<strong>不被编译器允许</strong>自定义一个无参的构造器（C#编译器不允许，但是IL允许）。不能自定义无参构造器，而且编译器也不允许对实例字段初始值设定。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> SomeValType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Int32 m_x = <span class="number">5</span>; <span class="comment">// 不会通过编译</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译器会给结构自动生成一个无参构造器，这个无参构造器可以被非显式调用，把所有字段初始化为0, false或null。</p>
+<p>但是编译器允许我们添加有参的构造器，在新建结构体的时候需要显示调用。假若新建了一个自定义的有参构造器，那么我们需要保证在这之内<strong>初始化所有的字段</strong>（否则有可能生成「不可验证」的代码），否则会有编译错误。</p>
+<h3 id="值类型中的this是可以改变引用的"><a href="#值类型中的this是可以改变引用的" class="headerlink" title="值类型中的this是可以改变引用的"></a>值类型中的this是可以改变引用的</h3><p>我们可以在结构体的方法中改变this的值。这个操作在引用类型中是无法执行的，因为引用类型中的this是只读的。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> ValType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Int32 m_x;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ValType</span>(<span class="params">Int32 val</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">this</span>.m_x = val;</span><br><span class="line">        <span class="keyword">this</span> = <span class="keyword">new</span> ValType();</span><br><span class="line">        <span class="keyword">this</span>.m_x = <span class="number">999</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么最后如果我们输出<code>m_x</code>，会是什么值呢？如果把this看做是一个简单引用，那么输出的应该是val的值。</p>
+<p>很遗憾，这里输出的将会是999。</p>
+<p><code>this = new ValType();</code>的意思在这里是让new ValType()成为this，而最后构造器返回的总是this引用。</p>
+<p>如果你的结构体有多个字段你懒得一一初始化的，就可以在你的带参构造器中调用一个无参构造器，来把所有的参数默认初始化，然后再挑少数几个需要的来做特别的初始化，比如这样：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> ValType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Int32 m_x;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ValType</span>(<span class="params">Int32 val</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">this</span> = <span class="keyword">new</span> ValType(); <span class="comment">// m_x被初始化为0</span></span><br><span class="line">        <span class="keyword">this</span>.m_x = <span class="number">999</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="静态构造器"><a href="#静态构造器" class="headerlink" title="静态构造器"></a>静态构造器</h2><p>也叫类型构造器，类构造器，或者类型初始化器。永远没有参数，永远都是private的，作用是设置类型的初始状态（static字段的初始化之类的）。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Int32 s_val = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="title">Program</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        s_val = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.method private hidebysig specialname rtspecialname static </span><br><span class="line">        void  .cctor() cil managed</span><br><span class="line">&#123;</span><br><span class="line">  // 代码大小       15 (0xf)</span><br><span class="line">  .maxstack  8</span><br><span class="line">  IL_0000:  ldc.i4.1</span><br><span class="line">  IL_0001:  stsfld     int32 Program::s_val</span><br><span class="line">  IL_0006:  nop</span><br><span class="line">  IL_0007:  ldc.i4.2</span><br><span class="line">  IL_0008:  stsfld     int32 Program::s_val</span><br><span class="line">  IL_000d:  nop</span><br><span class="line">  IL_000e:  ret</span><br><span class="line">&#125; // end of method Program::.cctor</span><br></pre></td></tr></table></figure>
+<p>当JIT编译器在编译一个方法的时候，会检查这个方法用到了什么类，以及它们的静态构造器是否被执行过，如果没有被执行过，那么会调用一次。</p>
+<p>由于多个线程可能同时想要调用类的静态构造器，所以执行静态构造器之前线程需要先获取一个互斥线程同步锁，其他的线程会被阻塞直至静态构造器被执行完毕，其他线程发现它已经被执行过，直接返回。</p>
+<h3 id="值类型的静态构造器"><a href="#值类型的静态构造器" class="headerlink" title="值类型的静态构造器"></a>值类型的静态构造器</h3><p>虽然可以定义，但是CLR有时不会调用值类型的静态构造器。所以千万不要使用。</p>
+<h3 id="操作符重载方法"><a href="#操作符重载方法" class="headerlink" title="操作符重载方法"></a>操作符重载方法</h3><p>CLR对操作符重载一无所知，甚至不知道什么是操作符。编程语言定义了出现这些特殊符号时，应该生成什么样的代码。</p>
+<p>操作符重载方法必须要是<code>public</code>和<code>static</code>的。</p>
+<p>当重载一个运算符的时候，其实是生成了一个特殊的方法。比如下面比较重载了加号的C#代码和IL代码：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Program <span class="keyword">operator</span>+(Program a, Program b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.method public hidebysig specialname static </span><br><span class="line">        class ConsoleApp2.Program  op_Addition(class ConsoleApp2.Program a,</span><br><span class="line">                                               class ConsoleApp2.Program b) cil managed</span><br><span class="line">&#123;</span><br><span class="line">  // Code size       7 (0x7)</span><br><span class="line">  .maxstack  1</span><br><span class="line">  .locals init ([0] class ConsoleApp2.Program V_0)</span><br><span class="line">  IL_0000:  nop</span><br><span class="line">  IL_0001:  ldnull</span><br><span class="line">  IL_0002:  stloc.0</span><br><span class="line">  IL_0003:  br.s       IL_0005</span><br><span class="line">  IL_0005:  ldloc.0</span><br><span class="line">  IL_0006:  ret</span><br><span class="line">&#125; // end of method Program::op_Addition</span><br></pre></td></tr></table></figure>
+<p>生成了一个方法，名为<code>op_Addition</code>，且设置了<code>specialname</code>标志，表示这是一个特殊方法。C#编译器检测到操作符+时，会查找关联了<code>specialname</code>元数据标志的<code>op_Addition</code>方法。如果程序员自己定义了一个<code>op_Addition</code>，是没有这个元数据标志的，不会被+号调用到。</p>
+<h2 id="转换操作符方法"><a href="#转换操作符方法" class="headerlink" title="转换操作符方法"></a>转换操作符方法</h2><p>感觉很容易出错，又不是很容易感知，所以平常应该很少人会用这个特性来写业务代码吧。</p>
+<p>重载转换操作符的方法，这个方法在类型被强转的时候会被调用。</p>
+<p>转型包括了隐式和显式两种：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Int32 i = <span class="number">2.5f</span>; <span class="comment">// 隐式</span></span><br><span class="line">Int32 i = (Int32) <span class="number">2.5f</span>; <span class="comment">// 显式</span></span><br></pre></td></tr></table></figure>
+<p>分别对应两个转换操作符方法：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Int32</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Int32 <span class="title">op_Implicit</span>(<span class="params">Single num</span>)</span>; <span class="comment">// 隐式</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Int32 <span class="title">op_Explicit</span>(<span class="params">Single num</span>)</span>; <span class="comment">// 显式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果显式转换失败，应该让显式转换操作符方法抛出<code>OverflowException</code>或<code>InvalidOperationException</code>。</p>
+<h2 id="扩展方法"><a href="#扩展方法" class="headerlink" title="扩展方法"></a>扩展方法</h2><p>扩展方法是个很爽的特性。由于鄙人用的已经用的比较熟练了，就先从自己的理解说起吧。</p>
+<p>C#只支持单继承，虽然可以实现多个接口，但是接口里面并不允许有任何方法的具体实现。假设我有一个类必定要继承于类BaseA，但是又想方便地使用另一个功能模块的方法，怎么办呢？这个时候我们的思路就是想着，能不能定义一个接口给它实现，然后再给这个接口搞几个有具体实现的方法。</p>
+<p>C#虽然不支持直接在interface里面直接定义方法的实现，但是支持一种叫做扩展方法的特性。一句话来说，它可以在类的定义之外，给类加方法（但是仅仅是方法，不支持扩展属性、事件以及操作符）。</p>
+<p>废话不多说，先上代码。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BaseA</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> String Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="string">"DefulatName"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IFeature</span></span><br><span class="line">&#123;</span><br><span class="line">    UInt32 ID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">FeatureExtension</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String GetInfo&lt;T&gt;(<span class="keyword">this</span> T self) <span class="keyword">where</span> T : BaseA, IFeature</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">string</span>.Format(<span class="string">"Name: &#123;0&#125;, ID: &#123;1&#125;"</span>, self.Name, self.ID);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span> : <span class="title">BaseA</span>, <span class="title">IFeature</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> UInt32 ID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125; = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Program p = <span class="keyword">new</span> Program();</span><br><span class="line">        Console.WriteLine(p.GetInfo());</span><br><span class="line">        Console.ReadLine();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>读者可以复制上面代码运行一下，然后再去掉<code>GetInfo</code>中参数列表里的<code>this</code>关键字，再编译试试。</p>
+<p>去掉<code>this</code>关键字后会发现Program的实例p无法调用<code>GetInfo</code>方法了，得使用<code>FeatureExtension.GetInfo(p)</code>来调用。</p>
+<p>GetInfo也可以不像上面一样使用泛型，如果只需要访问IFeature的属性，那么直接把T改成IFeature也是可以的。</p>
+<h3 id="给扩展方法一个自己的命名空间"><a href="#给扩展方法一个自己的命名空间" class="headerlink" title="给扩展方法一个自己的命名空间"></a>给扩展方法一个自己的命名空间</h3><p>IDE的智能感知功能可以帮程序员列出所有和本类型实例有关的所有扩展方法。</p>
+<p>为了避免扩展方法污染到全局，所以笔者建议把本模块的扩展方法放在自己定义的一个命名空间的中，使用的时候用<code>using</code>语句来导入。另外，尽量不要给Object等基类扩展方法，以免污染所有派生类的智能感知方法列表。</p>
+<p>使用命名空间</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件IFeature中</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Feature.Interface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IFeature</span></span><br><span class="line">    &#123;</span><br><span class="line">        UInt32 ID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">FeatureExtension</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> String GetInfo&lt;T&gt;(<span class="keyword">this</span> T self) <span class="keyword">where</span> T : BaseA, IFeature</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">string</span>.Format(<span class="string">"Name: &#123;0&#125;, ID: &#123;1&#125;"</span>, self.Name, self.ID);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件Program中</span></span><br><span class="line"><span class="keyword">using</span> Feature.Interface;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * .......</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>如果编译器发现了同一个扩展方法在不同类被定义了两次，会编译报错。</p>
+<h3 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h3><p>如果类中或接口中定义了和扩展方法同名的方法，会优先调用类或者接口中那个方法。所以扩展方法最好有一定的唯一性，尽量保证不会在以后被覆盖。</p>
+<h2 id="分部方法"><a href="#分部方法" class="headerlink" title="分部方法"></a>分部方法</h2><p>partial方法。懒得说。</p>
+<h2 id="可选参数和命名参数"><a href="#可选参数和命名参数" class="headerlink" title="可选参数和命名参数"></a>可选参数和命名参数</h2><p>没啥说的。</p>
+<h2 id="隐式类型的局部变量"><a href="#隐式类型的局部变量" class="headerlink" title="隐式类型的局部变量"></a>隐式类型的局部变量</h2><p>var类型的变量，没啥说的。</p>
+<h2 id="以传医用的方式向方法传递参数"><a href="#以传医用的方式向方法传递参数" class="headerlink" title="以传医用的方式向方法传递参数"></a>以传医用的方式向方法传递参数</h2><p>主要是讲ref和out。二者的区别在于out表示在传进来之前参数可能还没有被初始化好，方法内部不能使用参数的值。</p>
+<p>ret和out生成的IL代码是完全一样的，<strong>元数据也几乎一致</strong>，只有一个bit有区别，用来区分是ref还是out。</p>
+<p>由于值传递需要复制一整个值，所以如果值的大小过大，使用引用传递可以提高效率。</p>
+<p>可以重载两个同名方法，一个值传递，一个引用传递。但是不能重载两个一样是引用传递的方法，即使一个是out一个是ref也不行（毕竟方法签名一样）。</p>
+<h2 id="可变参"><a href="#可变参" class="headerlink" title="可变参"></a>可变参</h2><p>使用<code>params</code>关键字可以定义可变参。跟其他语言一样，可变参只可以出现在最后一个参数上。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Func</span>(<span class="params">Int32 firstParam, <span class="keyword">params</span> Int32[] otherPrams</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参数和返回类型的设计规范"><a href="#参数和返回类型的设计规范" class="headerlink" title="参数和返回类型的设计规范"></a>参数和返回类型的设计规范</h2><p>尽量<a href="https://zhuanlan.zhihu.com/p/30572621" target="_blank" rel="noopener">面向接口编程</a>，让参数的类型是基类，或者是接口，以保持灵活性。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy Me A Coffee / 捐一杯咖啡的钱</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="左未 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="左未 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/03/Unity-content-size-fitter/" rel="next" title="Unity中ContentSizeFitter的使用">
+                <i class="fa fa-chevron-left"></i> Unity中ContentSizeFitter的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/09/CSharp-Syntax-Analysis/" rel="prev" title="【CSharp Roslyn教程】【末】应用篇">
+                【CSharp Roslyn教程】【末】应用篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          <!-- 添加分享sdk -->
+          
+<div class="-mob-share-ui-text -mob-share-open exkulo-share-btn">分享</div>
+<div class="-mob-share-ui -mob-share-ui-theme-slide-bottom" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2bd548c2dd68c"></script>
+ 
+
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/default-avatar.jpg" alt="左未">
+            
+              <p class="site-author-name" itemprop="name">左未</p>
+              <p class="site-description motion-element" itemprop="description">其实只是一本笔记本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:exkulo@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">1.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段"><span class="nav-number">2.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例构造器"><span class="nav-number">3.</span> <span class="nav-text">实例构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值类型的构造器"><span class="nav-number">4.</span> <span class="nav-text">值类型的构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型中的this是可以改变引用的"><span class="nav-number">4.1.</span> <span class="nav-text">值类型中的this是可以改变引用的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态构造器"><span class="nav-number">5.</span> <span class="nav-text">静态构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型的静态构造器"><span class="nav-number">5.1.</span> <span class="nav-text">值类型的静态构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作符重载方法"><span class="nav-number">5.2.</span> <span class="nav-text">操作符重载方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换操作符方法"><span class="nav-number">6.</span> <span class="nav-text">转换操作符方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展方法"><span class="nav-number">7.</span> <span class="nav-text">扩展方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#给扩展方法一个自己的命名空间"><span class="nav-number">7.1.</span> <span class="nav-text">给扩展方法一个自己的命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名规范"><span class="nav-number">7.2.</span> <span class="nav-text">命名规范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分部方法"><span class="nav-number">8.</span> <span class="nav-text">分部方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选参数和命名参数"><span class="nav-number">9.</span> <span class="nav-text">可选参数和命名参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式类型的局部变量"><span class="nav-number">10.</span> <span class="nav-text">隐式类型的局部变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以传医用的方式向方法传递参数"><span class="nav-number">11.</span> <span class="nav-text">以传医用的方式向方法传递参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可变参"><span class="nav-number">12.</span> <span class="nav-text">可变参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数和返回类型的设计规范"><span class="nav-number">13.</span> <span class="nav-text">参数和返回类型的设计规范</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左未</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kity.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/bg-beautifier.js?v=5.1.4"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/vue.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/vue-script/main.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7CaWPI6HXpR1CiqpYnyY0JdE-gzGzoHsz", "rB1Vxs2fw7BXYUN9iyRcwfM3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
