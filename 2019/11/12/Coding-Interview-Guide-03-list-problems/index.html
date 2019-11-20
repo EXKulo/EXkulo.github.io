@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="在单链表和双链表中删除倒数第k个节点分别实现两个函数，一个可以删除单链表中倒数第k个节点，另一个可以删除双链表中倒数第k个节点。 要求： 如果链表长度为N，时间复杂度达到O(N)，额外空间复杂度达到O(1)。 步骤： 从链表头开始遍历链表，每走一步，k自加-1 遍历完单链表时，查看k的情况： 123456789k = k - 1;if k == 0 then    return head;else">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-14T04:59:22.604Z">
+<meta property="og:updated_time" content="2019-11-19T01:24:52.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Coding-Interview-Guide-03-list-problems">
 <meta name="twitter:description" content="在单链表和双链表中删除倒数第k个节点分别实现两个函数，一个可以删除单链表中倒数第k个节点，另一个可以删除双链表中倒数第k个节点。 要求： 如果链表长度为N，时间复杂度达到O(N)，额外空间复杂度达到O(1)。 步骤： 从链表头开始遍历链表，每走一步，k自加-1 遍历完单链表时，查看k的情况： 123456789k = k - 1;if k == 0 then    return head;else">
@@ -414,6 +414,7 @@
 <p>由于删除单链表节点的时候，需要的是欲删除节点的上一个节点，所以我们要把-k值乘以-1后减去1，得到欲删除的节点的上一个节点的正向下标。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> preIndex = -k - <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <p>接下来只要再次遍历到这个节点，处理删除就好了。</p>
+<p><span id="problem-delete-middle-node"></span></p>
 <h2 id="删除链表的中间结点"><a href="#删除链表的中间结点" class="headerlink" title="删除链表的中间结点"></a>删除链表的中间结点</h2><p>给一个链表的头结点head，实现删除链表中间结点的函数。<br>例如：<br>head为null时，不删除任何结点；<br>1-&gt;2，删除节点1<br>1-&gt;2-&gt;3 删除节点2<br>1-&gt;2-&gt;3-&gt;4 删除节点2<br>1-&gt;2-&gt;3-&gt;4-&gt;5 删除节点</p>
 <h3 id="最蠢方法"><a href="#最蠢方法" class="headerlink" title="最蠢方法"></a>最蠢方法</h3><p>遍历一次链表得到其长度，除以二得到中间结点位置，再次遍历链表，删除中间结点。</p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先我们要找规律。可以发现，当链表长度小于等于2时，删除的规律比较特殊：</p>
@@ -438,6 +439,37 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原链表</span></span><br><span class="line">head</span><br><span class="line"> ↓</span><br><span class="line"> <span class="number">1</span> -&gt; <span class="number">2</span> -&gt;  <span class="number">3</span> -&gt;  <span class="number">4</span></span><br><span class="line"><span class="comment">// 逆序后</span></span><br><span class="line">                 head</span><br><span class="line">                  ↓</span><br><span class="line"> <span class="number">1</span> &lt;- <span class="number">2</span> &lt;-  <span class="number">3</span> &lt;-  <span class="number">4</span></span><br></pre></td></tr></table></figure>
 <p>当然，按照前面几道题的思路来看，这两步是可以用<span class="span-important">一次</span>循环来完成的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span></span><br><span class="line">[</span><br><span class="line">    <span class="keyword">public</span> Node next;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">reverseList</span><span class="params">(Node head)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">         Node pre = <span class="keyword">null</span>;</span><br><span class="line">         Node next = <span class="keyword">null</span>;</span><br><span class="line">         Node cur = head;</span><br><span class="line">         <span class="keyword">while</span>(cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//  1. 先缓存当前的下一个节点到next</span></span><br><span class="line">            next = cur.next;</span><br><span class="line">            <span class="comment">//  2. 很自然地，把当前节点指向前一个节点</span></span><br><span class="line">            cur.next = pre;</span><br><span class="line">            <span class="comment">// 3. 移动上一个节点到当前（也就是移动一位）</span></span><br><span class="line">            pre = cur;</span><br><span class="line">            <span class="comment">// 4. 当前节点往后移一位，由于原本链表的下一位已经被next缓存起来，所以直接用next赋值</span></span><br><span class="line">            cur = next;</span><br><span class="line">         &#125;</span><br><span class="line">        <span class="comment">//  5. 最后返回的是pre，为最后一个节点，cur已经是null了</span></span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="判断单链表是否为回文结构"><a href="#判断单链表是否为回文结构" class="headerlink" title="判断单链表是否为回文结构"></a>判断单链表是否为回文结构</h2><h3 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h3><p>原理：</p>
+<ol>
+<li>栈是先进后出的。</li>
+<li>回文结构就是把链表倒过来倒过去，都是相等的</li>
+</ol>
+<p>使用栈进行逆序，一一比较。</p>
+<p>遍历第一遍，把所有的节点加入到某个空栈中，然后遍历一次链表，同时一一出栈节点，进行两两比较。</p>
+<h3 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h3><p>原理：</p>
+<ol>
+<li>栈是先进后出的</li>
+<li>回文结构意味着链表是沿中间结点对称的</li>
+</ol>
+<p>这次只需要遍历一次。入栈一半的节点，然后一一出栈，和链表的后半段做比较。</p>
+<p>如何知道中间结点在哪里？这要参考上面的<a href="#problem-delete-middle-node">删除链表的中间结点</a>。弄两个指针，一个一次走两步，一个一次走一步，等第一个指针走到末的时候，第二个指针就停留在中间结点的位置。这次做个小改进，第二个节点在走的时候，顺便把节点的内容入栈。</p>
+<h3 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h3><p>原理：</p>
+<p>从链表的头和尾分别往中间结点方向遍历，比较两个节点是否相等。首先要反转链表的后半部分，然后分别从头结点和尾结点往中间遍历。</p>
+<p>步骤：</p>
+<ol>
+<li>首先把head赋值给leftStart</li>
+<li>启用两个节点，一次遍历，使其中一个节点走到中间结点middle，一个走到尾结点。把尾结点赋值给rightStart。</li>
+<li>从中间结点往rightStart遍历，并调转每个节点的next方向，以反转后半部分的链表</li>
+<li>开始一个循环，分别从leftStart和rightStart开始遍历链表，并逐一比较取得的节点</li>
+<li>恢复反转链表</li>
+</ol>
+<p>这里涉及了上面题目提到的两个重要技术：</p>
+<ol>
+<li>寻找中间结点</li>
+<li>反转链表</li>
+</ol>
+<h2 id="根据一个pivot，将链表分为三部分"><a href="#根据一个pivot，将链表分为三部分" class="headerlink" title="根据一个pivot，将链表分为三部分"></a>根据一个pivot，将链表分为三部分</h2><p>给定一个pivot的值，要求将链表分为小于pivot，等于pivot，大于pivot的排序。</p>
+<p>这也太简单了，直接比较，生成三个链表，最后串起来就好。</p>
 
       
     </div>
@@ -665,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在单链表和双链表中删除倒数第k个节点"><span class="nav-number">1.</span> <span class="nav-text">在单链表和双链表中删除倒数第k个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除链表的中间结点"><span class="nav-number">2.</span> <span class="nav-text">删除链表的中间结点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最蠢方法"><span class="nav-number">2.1.</span> <span class="nav-text">最蠢方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心思想"><span class="nav-number">2.3.</span> <span class="nav-text">核心思想</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倒序一个单向链表"><span class="nav-number">3.</span> <span class="nav-text">倒序一个单向链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#愚蠢想法及其错误之处"><span class="nav-number">3.1.</span> <span class="nav-text">愚蠢想法及其错误之处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智者的思路"><span class="nav-number">3.2.</span> <span class="nav-text">智者的思路</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在单链表和双链表中删除倒数第k个节点"><span class="nav-number">1.</span> <span class="nav-text">在单链表和双链表中删除倒数第k个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除链表的中间结点"><span class="nav-number">2.</span> <span class="nav-text">删除链表的中间结点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最蠢方法"><span class="nav-number">2.1.</span> <span class="nav-text">最蠢方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心思想"><span class="nav-number">2.3.</span> <span class="nav-text">核心思想</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倒序一个单向链表"><span class="nav-number">3.</span> <span class="nav-text">倒序一个单向链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#愚蠢想法及其错误之处"><span class="nav-number">3.1.</span> <span class="nav-text">愚蠢想法及其错误之处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智者的思路"><span class="nav-number">3.2.</span> <span class="nav-text">智者的思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断单链表是否为回文结构"><span class="nav-number">4.</span> <span class="nav-text">判断单链表是否为回文结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一"><span class="nav-number">4.1.</span> <span class="nav-text">解法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二"><span class="nav-number">4.2.</span> <span class="nav-text">解法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法三"><span class="nav-number">4.3.</span> <span class="nav-text">解法三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据一个pivot，将链表分为三部分"><span class="nav-number">5.</span> <span class="nav-text">根据一个pivot，将链表分为三部分</span></a></li></ol></div>
             
 
           </div>
