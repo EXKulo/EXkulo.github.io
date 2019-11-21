@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="在单链表和双链表中删除倒数第k个节点分别实现两个函数，一个可以删除单链表中倒数第k个节点，另一个可以删除双链表中倒数第k个节点。 要求： 如果链表长度为N，时间复杂度达到O(N)，额外空间复杂度达到O(1)。 步骤： 从链表头开始遍历链表，每走一步，k自加-1 遍历完单链表时，查看k的情况： 123456789k = k - 1;if k == 0 then    return head;else">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-21T05:12:05.196Z">
+<meta property="og:updated_time" content="2019-11-21T05:17:32.702Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Coding-Interview-Guide-03-list-problems">
 <meta name="twitter:description" content="在单链表和双链表中删除倒数第k个节点分别实现两个函数，一个可以删除单链表中倒数第k个节点，另一个可以删除双链表中倒数第k个节点。 要求： 如果链表长度为N，时间复杂度达到O(N)，额外空间复杂度达到O(1)。 步骤： 从链表头开始遍历链表，每走一步，k自加-1 遍历完单链表时，查看k的情况： 123456789k = k - 1;if k == 0 then    return head;else">
@@ -489,6 +489,9 @@
 </ol>
 <p>本质上和第一种解法是一样的，就是第二次遍历的时候根据原链表节点找到的rand和next，要能够很方便的找到对应的rand’和next’。第一种解法是用键值对来匹配，第二种解法由于已经确定了每个rand节点的下一个节点就是rand’，每个next的下一个节点就是next’，也能够实现找到对应节点的需求，所以也是可以的。</p>
 <p>解题的关键就是第二次遍历的时候要知道怎么找到rand和next所对应的rand’和next’。</p>
+<h2 id="两个链表相加生成相加链表"><a href="#两个链表相加生成相加链表" class="headerlink" title="两个链表相加生成相加链表"></a>两个链表相加生成相加链表</h2><p>给定两个链表，它们从头到尾分别表示一个数字，把它们加起来，然后得到另一个链表。</p>
+<p>比如<code>1-2-3-4-5</code> + <code>1-2-3-4-5</code>得到链表<code>2-4-6-9-0</code>。</p>
+<p>最简单的解法就是调转两个链表，然后从头开始相加，当需要进一位的时候就往下一个节点的计算加一。最后把结果链表和两个加数链表调转回来。</p>
 
       
     </div>
@@ -549,6 +552,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/21/backend-computer-system-01/" rel="prev" title="后端学习系列——计算机操作系统01 异常">
+                后端学习系列——计算机操作系统01 异常 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -651,7 +658,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -662,7 +669,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -716,7 +723,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在单链表和双链表中删除倒数第k个节点"><span class="nav-number">1.</span> <span class="nav-text">在单链表和双链表中删除倒数第k个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除链表的中间结点"><span class="nav-number">2.</span> <span class="nav-text">删除链表的中间结点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最蠢方法"><span class="nav-number">2.1.</span> <span class="nav-text">最蠢方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心思想"><span class="nav-number">2.3.</span> <span class="nav-text">核心思想</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倒序一个单向链表"><span class="nav-number">3.</span> <span class="nav-text">倒序一个单向链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#愚蠢想法及其错误之处"><span class="nav-number">3.1.</span> <span class="nav-text">愚蠢想法及其错误之处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智者的思路"><span class="nav-number">3.2.</span> <span class="nav-text">智者的思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断单链表是否为回文结构"><span class="nav-number">4.</span> <span class="nav-text">判断单链表是否为回文结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一"><span class="nav-number">4.1.</span> <span class="nav-text">解法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二"><span class="nav-number">4.2.</span> <span class="nav-text">解法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法三"><span class="nav-number">4.3.</span> <span class="nav-text">解法三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据一个pivot，将链表分为三部分"><span class="nav-number">5.</span> <span class="nav-text">根据一个pivot，将链表分为三部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制含有随机指针节点的链表"><span class="nav-number">6.</span> <span class="nav-text">复制含有随机指针节点的链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#叨叨几句"><span class="nav-number">6.1.</span> <span class="nav-text">叨叨几句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种解法"><span class="nav-number">6.2.</span> <span class="nav-text">第一种解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种解法"><span class="nav-number">6.3.</span> <span class="nav-text">第二种解法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在单链表和双链表中删除倒数第k个节点"><span class="nav-number">1.</span> <span class="nav-text">在单链表和双链表中删除倒数第k个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除链表的中间结点"><span class="nav-number">2.</span> <span class="nav-text">删除链表的中间结点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最蠢方法"><span class="nav-number">2.1.</span> <span class="nav-text">最蠢方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心思想"><span class="nav-number">2.3.</span> <span class="nav-text">核心思想</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倒序一个单向链表"><span class="nav-number">3.</span> <span class="nav-text">倒序一个单向链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#愚蠢想法及其错误之处"><span class="nav-number">3.1.</span> <span class="nav-text">愚蠢想法及其错误之处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智者的思路"><span class="nav-number">3.2.</span> <span class="nav-text">智者的思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断单链表是否为回文结构"><span class="nav-number">4.</span> <span class="nav-text">判断单链表是否为回文结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法一"><span class="nav-number">4.1.</span> <span class="nav-text">解法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法二"><span class="nav-number">4.2.</span> <span class="nav-text">解法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法三"><span class="nav-number">4.3.</span> <span class="nav-text">解法三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据一个pivot，将链表分为三部分"><span class="nav-number">5.</span> <span class="nav-text">根据一个pivot，将链表分为三部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制含有随机指针节点的链表"><span class="nav-number">6.</span> <span class="nav-text">复制含有随机指针节点的链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#叨叨几句"><span class="nav-number">6.1.</span> <span class="nav-text">叨叨几句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种解法"><span class="nav-number">6.2.</span> <span class="nav-text">第一种解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种解法"><span class="nav-number">6.3.</span> <span class="nav-text">第二种解法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两个链表相加生成相加链表"><span class="nav-number">7.</span> <span class="nav-text">两个链表相加生成相加链表</span></a></li></ol></div>
             
 
           </div>
