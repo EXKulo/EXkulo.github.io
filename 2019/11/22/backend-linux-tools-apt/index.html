@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。 简介创建索引： 1db.data.ensureIndex(&amp;#123;&apos;field&apos;: 1&amp;#125;) 为啥要有索引捏 自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个">
+<meta name="description" content="Advanced Packaging Tool（apt）是Linux下的一款安装包管理工具。apt是我们在Linux中最常见的工具之一，用于在仓库中快速地下载软件并自动安装，可以理解为一个命令行的app store。 在apt中，我们经常使用的命令可能包括了：  apt-get install xxx 安装某个软件包 apt-get update 从仓库中更新软件包列表 apt-cache sea">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【MongoDB权威指南】三">
-<meta property="og:url" content="https://exkulo.github.io/2019/01/16/【MongoDB权威指南】三/index.html">
+<meta property="og:title" content="后端学习系列——Linux工具链 apt">
+<meta property="og:url" content="https://exkulo.github.io/2019/11/22/backend-linux-tools-apt/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。 简介创建索引： 1db.data.ensureIndex(&amp;#123;&apos;field&apos;: 1&amp;#125;) 为啥要有索引捏 自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个">
+<meta property="og:description" content="Advanced Packaging Tool（apt）是Linux下的一款安装包管理工具。apt是我们在Linux中最常见的工具之一，用于在仓库中快速地下载软件并自动安装，可以理解为一个命令行的app store。 在apt中，我们经常使用的命令可能包括了：  apt-get install xxx 安装某个软件包 apt-get update 从仓库中更新软件包列表 apt-cache sea">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-23T07:46:00.577Z">
+<meta property="og:updated_time" content="2019-11-22T07:41:38.164Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【MongoDB权威指南】三">
-<meta name="twitter:description" content="三 索引前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。 简介创建索引： 1db.data.ensureIndex(&amp;#123;&apos;field&apos;: 1&amp;#125;) 为啥要有索引捏 自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个">
+<meta name="twitter:title" content="后端学习系列——Linux工具链 apt">
+<meta name="twitter:description" content="Advanced Packaging Tool（apt）是Linux下的一款安装包管理工具。apt是我们在Linux中最常见的工具之一，用于在仓库中快速地下载软件并自动安装，可以理解为一个命令行的app store。 在apt中，我们经常使用的命令可能包括了：  apt-get install xxx 安装某个软件包 apt-get update 从仓库中更新软件包列表 apt-cache sea">
 
 
 
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://exkulo.github.io/2019/01/16/【MongoDB权威指南】三/">
+  <link rel="canonical" href="https://exkulo.github.io/2019/11/22/backend-linux-tools-apt/">
 
 
 
 
 
-  <title>【MongoDB权威指南】三 | 左未的笔记本</title>
+  <title>后端学习系列——Linux工具链 apt | 左未的笔记本</title>
   
 
 
@@ -281,7 +281,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://exkulo.github.io/2019/01/16/【MongoDB权威指南】三/" title="【MongoDB权威指南】三">https://exkulo.github.io/2019/01/16/【MongoDB权威指南】三/</a>
+    <a href="https://exkulo.github.io/2019/11/22/backend-linux-tools-apt/" title="后端学习系列——Linux工具链 apt">https://exkulo.github.io/2019/11/22/backend-linux-tools-apt/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -294,7 +294,7 @@
     <br>
     <br>
 
-    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/01/16/【MongoDB权威指南】三/">
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/11/22/backend-linux-tools-apt/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -311,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【MongoDB权威指南】三</h1>
+          <h1 class="post-title" itemprop="name headline">后端学习系列——Linux工具链 apt</h1>
         
 
         <div class="post-meta">
@@ -323,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T16:03:20+08:00">
-                2019-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-22T14:51:14+08:00">
+                2019-11-22
               </time>
             
 
@@ -346,8 +346,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/后端技术/" itemprop="url" rel="index">
-                    <span itemprop="name">后端技术</span>
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
                   </a>
                 </span>
 
@@ -363,7 +363,7 @@
 
           
           
-             <span id="/2019/01/16/【MongoDB权威指南】三/" class="leancloud_visitors" data-flag-title="【MongoDB权威指南】三">
+             <span id="/2019/11/22/backend-linux-tools-apt/" class="leancloud_visitors" data-flag-title="后端学习系列——Linux工具链 apt">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -394,78 +394,60 @@
       
 
       
-        <h1 id="三-索引"><a href="#三-索引" class="headerlink" title="三 索引"></a>三 索引</h1><p>前一篇讲了一些查询的一些基础操作和一些骚操作。本篇讲索引。由于笔者未曾好好地学习过一次数据库，所以对索引这一概念其实知之甚少，在本篇会比较细致地学习一遍索引这一概念。</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>创建索引：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field'</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="为啥要有索引捏"><a href="#为啥要有索引捏" class="headerlink" title="为啥要有索引捏"></a>为啥要有索引捏</h3><blockquote>
-<p>自我理解是使用索引地键对所有文档进行一次排序。这要求数据库维护一个已排序的列表，其中的元素应该包括两个：indexValue, _id。当进行查询的时候数据库可以用各种简单的方法快速定位到索引元素，找到它的_id。</p>
-</blockquote>
-<p>同一个集合，同样的索引只能创建一次，重复尝试创建也没用。</p>
-<p>对某个键创建了索引，譬如对x键创建了索引，只会对查询条件里只有x的查询有用，若查询条件中包括了其他条件，比如{‘x’: xx, ‘y’: yy}，那么这索引在此次查询便是无用的。</p>
-<p>当做一个没有索引的查询的时候，数据需要做一次扫描全表的操作，在集合非常大的时候这个操作会非常耗时。建立索引带来的速度提升不言而喻，然而索引也不是越多越好。创建索引的缺点就是每次增删改的时候都会产生额外的开销，那是因为可能要更改索引列表中的排序。</p>
-<p>除了有益于快速查询之外，索引对大剂量排序也有好处。设想如果没有索引，那么对数据排序就需要先把数据都提取到内存中，再排序输出到客户端。当数据很多的时候，就有爆内存的风险了。但是如果有索引，数据库就可以按顺序提取数据。</p>
-<blockquote>
-<p>每个集合默认最多能有64个索引。</p>
-</blockquote>
-<p>另外，不一定使用索引查询就一定快过表扫描。当要返回的结果数量超过集合中文档数量的一半的时候，表扫描是要比索引查询快的。所以查询某个键是否存在，或者某个布尔值真假的时候，没有必要使用索引。</p>
-<h3 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h3><p>创建索引有可能需要数分钟，如果调用ensureIndex之后没有立即返回，可以在另一个shell中执行db.currentOp()来看当前进度。</p>
-<h3 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h3><p>可以指定多个索引，比如<code>{&#39;x&#39;: 1, &#39;y&#39;: -1}</code>。有三种情况可以使用这个索引。很好理解，毕竟索引是按照x和y一起来排序的。</p>
+        <p>Advanced Packaging Tool（apt）是Linux下的一款安装包管理工具。apt是我们在Linux中最常见的工具之一，用于在仓库中快速地下载软件并自动安装，可以理解为一个命令行的app store。</p>
+<p>在apt中，我们经常使用的命令可能包括了：</p>
 <ul>
-<li><code>db.user.find({&#39;x&#39;: 2}).sort({&#39;y&#39;: -1})</code><br>找出x为2这个操作非常高效，而对于所有同为一个x的文档来说，y也是排好序的，所以不需要另外排序，不需要多余操作，也非常高效。</li>
-<li><code>db.user.find({&#39;x&#39;: {&#39;lte&#39;: 10, &#39;gte&#39;: 5}})</code></li>
-<li><code>db.user.find({&#39;x&#39;: {&#39;lte&#39;: 10, &#39;gte&#39;: 5}}).sort({&#39;y&#39;: 1})</code><br>这个操作分为两步。第一步先筛选出按照x大小排序的符合条件的文档。但是这些文档是按照x来排序的，并没有根据y的大小来排序，所以还需要第二步，先把文档提取到内存，再进行一次排序。<br>cautious： 如果索引是<code>{&#39;y&#39;: 1, &#39;x&#39;: -1}</code>的话，可以想象得出这个操作就只需要做find操作，而不需要后面的sort操作了。</li>
+<li><code>apt-get install xxx</code> 安装某个软件包</li>
+<li><code>apt-get update</code> 从仓库中更新软件包列表</li>
+<li><code>apt-cache search xxx</code> 从已缓存到本地的软件包列表中寻找某个软件</li>
+<li><code>apt-get remove xxx</code> 卸载某个软件</li>
 </ul>
-<p>总的来说就是加入索引是一个复合索引，那么只对第一个键进行单纯的查询操作是很快的，但是如果查询完还要再根据<strong>这个键之外</strong>的键进行排序，那么就还需要花费时间来做排序操作。</p>
-<p>想要提高操作的效率，就要尽量避免sort（我的意思就是尽量把经常要sort的键拿来当索引中的第一个键），而多做find。毕竟find的时间复杂度是$n$，而排序的时间复杂度就不好说了。</p>
-<p>注意，相互反转的索引是等价的。相互反转的定义是每个方向都乘以-1.</p>
-<h4 id="隐式索引"><a href="#隐式索引" class="headerlink" title="隐式索引"></a>隐式索引</h4><p>很容易得出结论创建索引<code>{&#39;a&#39;: 1, &#39;b&#39;: 1, ... , &#39;z&#39;}</code>也就相当于创建了<code>{&#39;a&#39;: 1}</code>、<code>{&#39;a&#39;: 1, &#39;b&#39;: 1}</code>等一系列索引。</p>
-<h3 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h3><p>索引的数据结构大概是树，最小的元素是最左边的叶子，最大的元素是最右边的叶子。</p>
-<h3 id="如何优化索引"><a href="#如何优化索引" class="headerlink" title="如何优化索引"></a>如何优化索引</h3><p>如果索引里面只包含一个键，那么升序降序是无所谓的。但是如果包含多个键，就要考虑每个键的升序降序问题。数据库会有限对先点定义的键进行排序。如</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>数据库会先根据field1进行升序排序，然后对每个field1相同的子集根据field2进行降序排序。</p>
-<p>针对那种包含几个键的索引，尽可能地把经常新增地作为第一个排序依据。</p>
-<p>例如一个记录朋友圈的数据库有<code>user</code>、<code>date</code>二键，前者为用户id，后者为朋友圈发布日期。由于发布朋友圈这个操作非常频繁，所以理应把索引设置成<code>{&#39;date&#39;: -1, &#39;user&#39;: 1}</code>而非<code>{&#39;user&#39;: 1, &#39;date&#39;: -1}</code>。当设置成<code>{&#39;date&#39;: -1, &#39;user&#39;: 1}</code>之后，每次插入新的记录（<strong>时间永远都是往前走</strong>），就无需在索引中间插入数据(which is a waste)，而是在索引的两端插入了。</p>
-<p>假设操作先要find出x，再用y做范围筛选，那么索引应该先设定x，再设定y。</p>
-<h3 id="操作是怎么使用索引的"><a href="#操作是怎么使用索引的" class="headerlink" title="$操作是怎么使用索引的"></a>$操作是怎么使用索引的</h3><p>有几个操作是根本不能使用索引的，比如<code>$where</code>和<code>$exsit</code>。</p>
-<p><code>$ne</code>操作对索引的使用也不是那么高效率。毕竟想要找出<strong>不等于</strong>的，总得遍历全集才能确认不是？</p>
-<p>一般而言，MongoDB一次查询只会使用一个索引。假设建立了两个索引<code>{&#39;x&#39;: 1}</code>和<code>{&#39;y&#39;: 1}</code>，那么执行查询条件<code>{&#39;x&#39;: 123, &#39;y&#39;: 456}</code>的时候，很有可能是先用x索引找出一个子集，再在这个子集上找符合y条件的结果。但是如果用的是or查询，由于or查询实际上是把多个查询条件查出来的结果做一次并集，所以or会执行和查询条件一样多次的查询。比如如果条件为<code>{&#39;$or&#39;: [&#39;x&#39;: 123, &#39;y&#39;: 456]}</code>，那么实际上是以x为索引搜出结果，再以y为索引搜出结果，再合并。</p>
-<h3 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h3><p>索引可以是内嵌文档中的键，比如<code>{&#39;comment.date&#39;: 1}</code>。</p>
-<p>在建立索引的时候可以给它起个可爱又帅气的名称，如果执意不肯给它起名字，数据库就会把键连起来作为它的名称（比如<code>field1_field2_fieldk</code>），<strong>如果这个名字太长超过了限制，就会创建索引失败</strong>。执行创建索引的操作之后最好用getLastError来看是否成功创建了索引。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.data.ensureIndex(&#123;<span class="string">'field1'</span>: <span class="number">1</span>, <span class="string">'field2'</span>: <span class="number">-1</span>&#125;, &#123;<span class="string">'name'</span>: <span class="string">'屎蛋'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h3><p>使用哪个索引？</p>
-<p>当有一个索引能精确匹配搜索的时候，查询优化器会有限用它。如果有几个同时匹配，MongoDB会并行这些查询，哪个先返回100个结果就会被保留并缓存下来再接下来的查询中使用，其他的查询计划会被中止。</p>
-<p>被缓存的查询计划在接下来都会被使用，直到集合数据发生了比较大的变化或者查询超过1000次之后，或者建立了新的索引之后，查询优化其会重新评估。</p>
-<p>explain中的allPlans字段显示了本次查询尝试过的所有查询计划。</p>
-<h3 id="不适用索引的场合"><a href="#不适用索引的场合" class="headerlink" title="不适用索引的场合"></a>不适用索引的场合</h3><p>使用索引需要进行两次查找：</p>
+<p>在使用apt之前，我们需要先配置好远端仓库。配置好仓库之后，执行<code>apt-get update</code>可以从所有已配置的远端仓库中拉取所有的软件包列表，缓存到本地。软件包列表缓存到本地之后，我们可以用<code>apt-cache search</code>在这个缓存中找某个软件。一旦确定要下载某个软件了，就可以执行<code>apt-get install xx</code>来下载并安装软件。</p>
+<h2 id="添加新的仓库"><a href="#添加新的仓库" class="headerlink" title="添加新的仓库"></a>添加新的仓库</h2><p>这里以安装docker为例。</p>
 <ol>
-<li>查找索引条目</li>
-<li>根据索引指针查找相应文档</li>
+<li>安装任何软件之前，我们最好都更新一下索引<code>apt-get update</code></li>
+<li><p>由于docker所在的仓库是HTTPS协议的，所以我们要让apt支持HTTPS协议。并且，由于下面的流程需要从网上拿到docker官方的GPG密钥，所以还需要安装一个curl(模拟http发起请求的工具)</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install \</span><br><span class="line">apt-transport-https \</span><br><span class="line">ca-certificates \</span><br><span class="line">curl \</span><br><span class="line">gnupg2 \</span><br><span class="line">software-properties-common</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加GPG公钥</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看公钥是否添加成功</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-key fingerprint 0EBFCD88</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加仓库</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ add-apt-repository \</span><br><span class="line"><span class="string">"deb [arch=amd64] https://download.docker.com/linux/debian \</span></span><br><span class="line"><span class="string"><span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">stable"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新的仓库已经被添加，接下来再次更新索引<code>apt-get update</code></p>
+</li>
+<li>搜索docker相关的软件<code>apt-cache search docker-ce</code></li>
+<li>安装docker<code>apt-get install docker-ce</code></li>
 </ol>
-<p>当结果集合在原集合中占的比例越大，就越不适合用索引。最极端的情况是要求返回整份文档，此时使用索引所需要的操作会比表扫描多一倍。</p>
-<p>索引通常适合在集合比较大、文档比较大或者选择性查询的时候使用。</p>
-<h2 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h2><h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><p>建立这个索引的目的是防止插入相同的数据。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.users.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尝试这么插入文档会报错</span></span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br><span class="line">db.users.insert(&#123;<span class="string">'username'</span>: <span class="string">'mob'</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>插入重复键的时候会抛异常，这会影响效率。所以不能用这个功能来过滤，它只能应对偶现的不太能解决的问题。</p>
-<p>_id是一个默认的、不可删除的唯一索引。</p>
-<blockquote>
-<p>注意<br>MongoDB有一个特性：超过1024字节的字段不会被加入到索引库中。这意味着即使某个键被设置为唯一索引，只要值超过了8KB，那么即使插入多次也没问题。</p>
-</blockquote>
-<h4 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h4><p>如果集合里面对某个键已经有重复的文档，那么对这个键创建唯一索引会失败。如果还是想创建的话，可以暴力一点把他们去重了。注意，这个操作<strong>很暴力</strong>，别乱用。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.people.ensureIndex(&#123;<span class="string">'username'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'dropDups'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="稀疏索引"><a href="#稀疏索引" class="headerlink" title="稀疏索引"></a>稀疏索引</h3><p>说实话光看这个名词我真的不知道他想表达啥，这tm谁起的名字！</p>
-<p>起因是这样的：当把某个键设置为唯一索引之后，如果插入文档的时候没有这个键，那么对应的值会被设置成null。当下次再次插入这种文档的时候，就会出现<code>null == null</code>的判断，导致无法插入。</p>
-<p>如果想要MongoDB不把空当作null来看带，希望唯一索引支队包含对应键的文档生效，使得当字段存在的时候才需要唯一，那么就使用稀疏索引吧。</p>
-<p>使用sparse选项就可以创建稀疏索引。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.ensureIndex(&#123;<span class="string">'email'</span>: <span class="number">1</span>&#125;, &#123;<span class="string">'unique'</span>: <span class="literal">true</span>, <span class="string">'sparse'</span>: <span class="literal">true</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>A sprase index doesn’t have to be unique.</p>
-<p>稀疏索引对查询的结果可能会有影响。影响就是不把不存在当作是null。如果不使用稀疏索引，当使用$ne不等于某个非null值的时候，会包括没这个字段的文档。</p>
-<h3 id="强制不使用索引"><a href="#强制不使用索引" class="headerlink" title="强制不使用索引"></a>强制不使用索引</h3><p>使用<code>hint()</code>来表示不使用任何索引。</p>
-<h2 id="索引管理"><a href="#索引管理" class="headerlink" title="索引管理"></a>索引管理</h2><p>所有的索引存储在MongoDB保留集合system.indexes中，可以执行<code>db.collectionName.getIndexes()</code>来查看集合上的所有索引信息。</p>
-<h3 id="舍弃索引"><a href="#舍弃索引" class="headerlink" title="舍弃索引"></a>舍弃索引</h3><p>dropIndex接受两种参数：</p>
+<p>这里有几个知识点，包括了</p>
 <ul>
-<li>db.test.drop(‘index_name’) 名字字符串</li>
-<li>db.test.drop({‘key’: value}) 索引本身</li>
+<li>更新索引文件</li>
+<li>curl的使用</li>
+<li>GPG密钥于apt的作用</li>
+<li><code>apt-key</code>的功能</li>
+<li>如何添加新的仓库</li>
 </ul>
+<h3 id="更新索引文件"><a href="#更新索引文件" class="headerlink" title="更新索引文件"></a>更新索引文件</h3><p>执行<code>apt-get update</code>的目的是为了更新索引文件，这个文件是<code>/var/state/apt/lists</code>。</p>
+<h3 id="GPG密钥于apt的作用"><a href="#GPG密钥于apt的作用" class="headerlink" title="GPG密钥于apt的作用"></a>GPG密钥于apt的作用</h3><p>主要还是看<a href="https://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">阮一峰的网络日志–GPG入门教程</a>。</p>
+<p>GPG全称GnuPG，是一个加密软件，支持非对称加密，密钥还会用RSA之类的对称加密算法加密起来。</p>
+<p>后面要用docker的公钥来验证软件包是否ok。所以还会用<code>apt-key</code>来添加docker的公钥。</p>
+<h3 id="添加新的仓库-1"><a href="#添加新的仓库-1" class="headerlink" title="添加新的仓库"></a>添加新的仓库</h3><p>仓库的添加在上面的例子中是使用了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ add-apt-repository <span class="string">"xxx"</span></span><br></pre></td></tr></table></figure>
+<p>这条命令。</p>
+<p>这个仓库最终会被添加到<code>/etc/apt/source.list</code>文件中。</p>
+<p>sources.list文件的每一行就是一个软件源。它的格式分成四个部分，摘自<a href="https://linhaorong.top/blog/linux/basic/debian/" target="_blank" rel="noopener">阮一峰的网络日志</a>：</p>
+<blockquote>
+<ol>
+<li>deb或者deb-src（表示deb包或者源代码）。</li>
+<li>debian镜像的地址，标准的结构下这个地址目录下有dists、pool等子目录。</li>
+<li>第三部分为版本目录，即<a href="http://mirrors.163.com/debian/dists/下的子目录，我们要选择想要使用的版本，比如&gt;" target="_blank" rel="noopener">http://mirrors.163.com/debian/dists/下的子目录，我们要选择想要使用的版本，比如&gt;</a> 我们要用testing，则此部分为testing。注意Unstable和Sid是相同的，目前来说，Testing和Wheezy是相同的， Stable和Squeeze是相同的。</li>
+<li>第四部分为第三部分目录下的子文件夹，通常是main、contrib、non-free三个文件夹（ubuntu的命名与此不同），分别代表自由软件，半自由软件和非自由软件。通常我们将这三个都写上，以空格分开。</li>
+</ol>
+</blockquote>
 
       
     </div>
@@ -517,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/15/【MongoDB权威指南】二/" rel="next" title="【MongoDB权威指南】二">
-                <i class="fa fa-chevron-left"></i> 【MongoDB权威指南】二
+              <a href="/2019/11/21/backend-overview/" rel="next" title="后端学习系列开篇">
+                <i class="fa fa-chevron-left"></i> 后端学习系列开篇
               </a>
             
           </div>
@@ -526,10 +508,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/23/【MongoDB权威指南】四/" rel="prev" title="【MongoDB权威指南】四">
-                【MongoDB权威指南】四 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -697,7 +675,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三-索引"><span class="nav-number">1.</span> <span class="nav-text">三 索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为啥要有索引捏"><span class="nav-number">1.1.1.</span> <span class="nav-text">为啥要有索引捏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建索引"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合索引"><span class="nav-number">1.1.3.</span> <span class="nav-text">复合索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐式索引"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">隐式索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引的数据结构"><span class="nav-number">1.1.4.</span> <span class="nav-text">索引的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何优化索引"><span class="nav-number">1.1.5.</span> <span class="nav-text">如何优化索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作是怎么使用索引的"><span class="nav-number">1.1.6.</span> <span class="nav-text">$操作是怎么使用索引的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他特性"><span class="nav-number">1.1.7.</span> <span class="nav-text">其他特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询优化器"><span class="nav-number">1.1.8.</span> <span class="nav-text">查询优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不适用索引的场合"><span class="nav-number">1.1.9.</span> <span class="nav-text">不适用索引的场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引类型"><span class="nav-number">1.2.</span> <span class="nav-text">索引类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引"><span class="nav-number">1.2.1.</span> <span class="nav-text">唯一索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#去重"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">去重</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稀疏索引"><span class="nav-number">1.2.2.</span> <span class="nav-text">稀疏索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制不使用索引"><span class="nav-number">1.2.3.</span> <span class="nav-text">强制不使用索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引管理"><span class="nav-number">1.3.</span> <span class="nav-text">索引管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#舍弃索引"><span class="nav-number">1.3.1.</span> <span class="nav-text">舍弃索引</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加新的仓库"><span class="nav-number">1.</span> <span class="nav-text">添加新的仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新索引文件"><span class="nav-number">1.1.</span> <span class="nav-text">更新索引文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPG密钥于apt的作用"><span class="nav-number">1.2.</span> <span class="nav-text">GPG密钥于apt的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加新的仓库-1"><span class="nav-number">1.3.</span> <span class="nav-text">添加新的仓库</span></a></li></ol></li></ol></div>
             
 
           </div>
