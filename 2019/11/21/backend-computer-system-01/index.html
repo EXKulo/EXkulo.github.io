@@ -99,7 +99,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://exkulo.github.io/2019/11/21/backend-computer-system-01/1.png">
 <meta property="og:image" content="https://exkulo.github.io/2019/11/21/backend-computer-system-01/2.png">
-<meta property="og:updated_time" content="2019-11-22T06:50:46.079Z">
+<meta property="og:updated_time" content="2019-11-27T12:02:34.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="后端学习系列——计算机操作系统01 异常">
 <meta name="twitter:description" content="从给处理器加电开始，直到断点为止，程序计数器假设一个值的序列$$a_0, a_1, …,a_{n-1}$$其中，每个$a_k$是某个相应的指令$I_k$的地址。每次从$a_k$到$a_{k+1}$的过渡称为 控制转移。这样的控制转移序列叫做处理器的 控制流 。最常见的控制流就是按序执行指令，当然，也有因为if逻辑判断或者while循环而实现的跳转。 除了这些程序本身的代码导致的正常控制流以外，系统">
@@ -492,6 +492,28 @@
 </tr>
 </tbody>
 </table>
+<h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4><p>中断是异步发生的，来自 <span class="span-important">处理器外部</span> 的I/O设备的信号的结果。由于不是由任何一条指令造成的，所以是异步的。</p>
+<p>硬件终端的异常处理程序称为 <span class="span-important">中断处理程序</span> (interrupt handler)。</p>
+<p>在当前指令完成执行之后，处理器会检查中断引脚，如果中断引脚 <span class="span-important">电压变高</span> 了，就从系统总线读取异常号，然后调用适当的中断处理程序。当处理程序返回之后，处理器会把控制返回给下一条指令，程序继续执行，就好像什么也没发生过一样。</p>
+<h4 id="陷阱和系统调用"><a href="#陷阱和系统调用" class="headerlink" title="陷阱和系统调用"></a>陷阱和系统调用</h4><p>陷阱是 <span class="span-important">有意的</span> 异常，它最重要的 <span class="span-important">用途是</span> 在用户程序和内核之间提供一个像过程一样的接口，叫做 <span class="span-important">系统调用</span>。</p>
+<p>系统调用可能会是：</p>
+<ul>
+<li>读取一个文件(read)</li>
+<li>创建一个新的进程(fork)</li>
+<li>加载一个新的程序(execve)</li>
+<li>终止当前进程(exit)</li>
+</ul>
+<p>为了能够让用于程序访问内核的这些服务，处理器提供了一条特殊的<code>syscall n</code>指令（n为某个服务）。用户程序想要某个服务的时候就执行这个指令，抛出一个 <span class="span-important">陷阱</span> 到异常处理程序，这个程序会 <span class="span-important">解析参数</span> （比如read服务读取文件名），并调用适当的内核程序。当服务执行完之后，控制仍是会返回到下一条指令。所以这是一个同步调用，在read服务执行期间，用户程序会被挂起。</p>
+<p>系统调用发生在<strong>内核模式</strong>中，而普通的函数调用在<strong>用户模式</strong>中。</p>
+<p>C程序用<code>syscall</code>函数可以直接调用任何系统调用，但是标准C库提供了一组方便的包装函数，所以鲜有人会直接用<code>syscall</code>。本书中把这些包装函数叫做 <span class="span-important">系统级函数</span> 。</p>
+<p>在x86-64架构中，所有到Linux系统调用的参数都是通过 <span class="span-important">寄存器</span> 而不是栈来传递的。一般来说，寄存器%rax包含 <span class="span-important">系统调用号</span>，%rdi, %rsi, %rdx, %r10, %r8, %r9包含最多6个参数。</p>
+<p>看一下我们常见的helloworld，使用系统级函数<code>write</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    write(<span class="number">1</span>, <span class="string">"hello world\n"</span>, <span class="number">13</span>);</span><br><span class="line">    _exit(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>write</code>的第一个参数将输出发送到<code>stdout</code>，第三个参数是要写的字节数。</p>
+<p>逆向工程可以得到汇编代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.section .data</span><br><span class="line">string:</span><br><span class="line">    .ascii &quot;hello world\n&quot;</span><br><span class="line">string_end:</span><br><span class="line">    .equ len, string_end - string</span><br><span class="line">.section .text</span><br><span class="line">.globl main</span><br><span class="line">main:</span><br><span class="line">    movq $1, %rax; // write的系统调用号是1</span><br><span class="line">    movq $1, %rdi; // 第一个参数是1</span><br><span class="line">    movq $string, %rsi; // 第二个参数是字符串</span><br><span class="line">    movq $len, %rdx; // 字符串长度</span><br><span class="line">    syscall; // 调用syscall</span><br><span class="line"></span><br><span class="line">    movq $60, %rax; // _exit的系统调用号60</span><br><span class="line">    movq $0, %rdi; // 第一个参数0</span><br><span class="line">    syscall;</span><br></pre></td></tr></table></figure>
+<h4 id="故障"><a href="#故障" class="headerlink" title="故障"></a>故障</h4><p>故障是由某种错误引起的，他有可能被 <span class="span-important">故障处理程序</span> 修正。如果被修正了，处理器会把控制返回给 <span class="span-important">引起故障的指令</span>（不是下一条指令了），重新执行它；如果修复直白，就执行内核中的<code>abort</code>例程，从而终止引起故障的应用程序。</p>
+<h4 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h4><p>终止是发生了不可修复的致命错误(fatal)时导致的，通常是一些硬件错误。终止处理程序（没错虽然是致命错误，但还会有这个程序）不会把控制返回给应用程序，而是把控制返回给一个<code>abort</code>例程，终止这个应用程序。</p>
 
       
     </div>
@@ -723,7 +745,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.</span> <span class="nav-text">异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">1.1.</span> <span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常的分类"><span class="nav-number">1.2.</span> <span class="nav-text">异常的分类</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.</span> <span class="nav-text">异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">1.1.</span> <span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常的分类"><span class="nav-number">1.2.</span> <span class="nav-text">异常的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中断"><span class="nav-number">1.2.1.</span> <span class="nav-text">中断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陷阱和系统调用"><span class="nav-number">1.2.2.</span> <span class="nav-text">陷阱和系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#故障"><span class="nav-number">1.2.3.</span> <span class="nav-text">故障</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#终止"><span class="nav-number">1.2.4.</span> <span class="nav-text">终止</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
