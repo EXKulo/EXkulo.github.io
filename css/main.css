@@ -1963,7 +1963,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #373d04;
+  background: #7cfffc;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2913,7 +2913,7 @@ body {
   background-repeat: repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
-  color: #000;
+  color: #333;
 }
 p {
   margin: 0 0 10px 0;
@@ -2939,7 +2939,7 @@ h3 {
 }
 .site-subtitle {
   color: #fff;
-  text-shadow: 1px 2px 3px #000;
+  text-shadow: 2px 2px 3px #000;
   text-align: center;
   font-size: 16px;
 }
@@ -2964,11 +2964,9 @@ h3 {
   font-size: 14px;
 }
 .site-description {
-  text-shadow: 1px 2px 2px #808080;
   color: #000;
 }
 .site-author-name {
-  text-shadow: 1px 2px 2px #808080;
   color: #000;
 }
 .main-inner {
@@ -2983,8 +2981,8 @@ h3 {
   padding: 80px 60px 80px 0px;
 }
 .btn {
-  background: #42b983;
-  border: 2px solid #42b983;
+  background: #3867d6;
+  border: 0px solid #42b983;
 }
 .posts-collapse {
   padding: 50px 0 0 0;
@@ -2996,13 +2994,17 @@ h3 {
 .sidebar {
   background: #fff;
   background-size: cover;
+  box-shadow: inset 0 0 0 #fff;
+  border-left: solid 1px #000;
 }
 .sidebar a {
   color: #111;
 }
 .post-toc ol a {
   color: #000;
-  text-shadow: 1px 1px 1px #888;
+}
+.post-toc ol a:hover {
+  color: #fa8231;
 }
 @media (max-width: 767px) {
   .site-nav {
@@ -3039,4 +3041,44 @@ h3 {
 .span-important {
   font-size: 20px;
   font-weight: 600;
+}
+.post-toc .nav .active-current > a {
+  color: #3867d6;
+}
+.post-toc .nav .active-current > a:hover {
+  color: #fa8231;
+}
+.sidebar-nav .sidebar-nav-active {
+  color: #3867d6;
+  border-bottom-color: #3867d6;
+}
+.sidebar-nav .sidebar-nav-active:hover {
+  color: #fa8231;
+}
+.page-post-detail .sidebar-nav-overview {
+  color: #333;
+}
+.page-post-detail .sidebar-nav-overview:hover {
+  color: #fa8231;
+}
+.page-post-detail .sidebar-nav-toc {
+  color: #333;
+}
+.page-post-detail .sidebar-nav-toc:hover {
+  color: #fa8231;
+}
+.headband {
+  height: 0px;
+}
+.posts-expand .post-title-link {
+  color: #3867d6;
+}
+.post-toc .nav .active > a {
+  color: #3867d6;
+}
+.site-author-image {
+  border: 2px solid #eb3b5a;
+}
+.homepage-post-categroy {
+  color: #eb3b5a;
 }

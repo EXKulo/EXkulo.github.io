@@ -22,7 +22,7 @@ function hexoChangeBanner() {
         }
         if(nResponceCount >= listPostUrl.length && nSuccessCount <= 0){
             // 使用默认图
-            document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.jpg)";
+            document.getElementById("id-header-inner").style.backgroundImage = "url(/images/background.png)";
         }
     }
 
