@@ -1963,7 +1963,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #e2fffb;
+  background: #ff09ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3013,13 +3013,21 @@ h3 {
 }
 .exkulo-share-btn {
   text-align: center;
-  background: #f44336;
+  background: #eb3b5a;
   color: #fff;
   border-radius: 5px;
-  width: 80px;
-  height: 50px;
-  line-height: 50px;
+  width: 128px;
+  height: 96px;
+  padding: 8px 24px;
   font-size: 18px;
+  cursor: pointer;
+}
+.-mob-share-list {
+  text-align: center;
+}
+.exkulo-share-div {
+  text-align: center;
+  height: 128px;
 }
 .title-welcome {
   width: 100%;
@@ -3081,4 +3089,10 @@ h3 {
 }
 .homepage-post-categroy {
   color: #eb3b5a;
+}
+.post-copyright {
+  border-left: 3px solid #eb3b5a;
+}
+#rewardButton span {
+  background: #eb3b5a;
 }
