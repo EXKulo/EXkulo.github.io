@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d6cb46a8.js","daovoice")
+  daovoice('init', {
+      app_id: "d6cb46a8"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述本文章通过一个制作Toast弹窗的例子，详细讲解如何使用Animator和它的trigger参数来创建简单的UI动画。 Toast弹窗会从屏幕底部下降，停留3秒，然后上升到屏幕上面消失。 最终的效果如下：  原理Unity帮我们做每帧插值，改变我们设定的属性。 Toast组件构成 首先根节点是一个空的GameObject，名字ToastRoot，对齐屏幕顶端，没有Height：  接下来是背景">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity中使用Animator和trigger参数做简单的UI动画">
+<meta property="og:url" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/index.html">
+<meta property="og:site_name" content="左未的笔记本">
+<meta property="og:description" content="概述本文章通过一个制作Toast弹窗的例子，详细讲解如何使用Animator和它的trigger参数来创建简单的UI动画。 Toast弹窗会从屏幕底部下降，停留3秒，然后上升到屏幕上面消失。 最终的效果如下：  原理Unity帮我们做每帧插值，改变我们设定的属性。 Toast组件构成 首先根节点是一个空的GameObject，名字ToastRoot，对齐屏幕顶端，没有Height：  接下来是背景">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/final.gif">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/widget-overview.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/widget-toast-root.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/widget-bg-root.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/widget-text-content.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/inspector-animator.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/state-1.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/state-2.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/record.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/default-param.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/default-animation-keys-to-be-del.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/record.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/default-param.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/show-3second.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/show-3second.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/default-param.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/cancel-loop-time.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/add-param.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/01.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/02.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/03.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/04.png">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/05.png">
+<meta property="og:updated_time" content="2019-12-03T04:17:17.893Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity中使用Animator和trigger参数做简单的UI动画">
+<meta name="twitter:description" content="概述本文章通过一个制作Toast弹窗的例子，详细讲解如何使用Animator和它的trigger参数来创建简单的UI动画。 Toast弹窗会从屏幕底部下降，停留3秒，然后上升到屏幕上面消失。 最终的效果如下：  原理Unity帮我们做每帧插值，改变我们设定的属性。 Toast组件构成 首先根节点是一个空的GameObject，名字ToastRoot，对齐屏幕顶端，没有Height：  接下来是背景">
+<meta name="twitter:image" content="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/final.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/">
+
+
+
+
+
+  <title>Unity中使用Animator和trigger参数做简单的UI动画 | 左未的笔记本</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+<!--
+  <div v-bind:class="[VueTestClass]" id="vue-test">
+    <p class="title-welcome-text">${ welcomeStr }</p>
+  </div>
+-->
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+  <div class="headband"></div>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <!-- 添加了id，后面改变css样式用 -->
+      <div id="id-header-inner" class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">左未的笔记本</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年寿有时而尽，荣乐止乎其身。<br>二者必至之期，未若文章之无穷。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-spinner"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/aboutme" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <!-- 改变css样式 -->
+    <script type="text/javascript" src="/js/src/bg-beautifier.js"></script>
+    <script>hexoChangeBanner();</script>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    左未
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/" title="Unity中使用Animator和trigger参数做简单的UI动画">https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+    <br>
+    <br>
+
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/12/03/unity-use-animator-to-make-ui-animation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Unity中使用Animator和trigger参数做简单的UI动画</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-03T12:12:42+08:00">
+                2019-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">Unity3d</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/12/03/unity-use-animator-to-make-ui-animation/" class="leancloud_visitors" data-flag-title="Unity中使用Animator和trigger参数做简单的UI动画">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本文章通过一个制作Toast弹窗的例子，详细讲解如何使用Animator和它的trigger参数来创建简单的UI动画。</p>
+<p>Toast弹窗会从屏幕底部下降，停留3秒，然后上升到屏幕上面消失。</p>
+<p>最终的效果如下：</p>
+<p><img src="final.gif" style="width: 360px"></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Unity帮我们做每帧插值，改变我们设定的属性。</p>
+<h2 id="Toast组件构成"><a href="#Toast组件构成" class="headerlink" title="Toast组件构成"></a>Toast组件构成</h2><p><img src="widget-overview.png"></p>
+<p>首先根节点是一个空的GameObject，名字<code>ToastRoot</code>，对齐屏幕顶端，没有Height：</p>
+<p><img src="widget-toast-root.png"></p>
+<p>接下来是背景图节点<code>BgRoot</code>，同样向上对其，高度96像素：</p>
+<p><img src="widget-bg-root.png"></p>
+<p>最后是Toast的内容，这一部分任君发挥了，我这里只放了一个文本框<code>TextContent</code>：</p>
+<p><img src="widget-text-content.png"></p>
+<h2 id="添加Animator组件"><a href="#添加Animator组件" class="headerlink" title="添加Animator组件"></a>添加Animator组件</h2><p>我们的目的是让Toast弹窗动起来，所以我们的动画操作对象应该是<code>BgRoot</code>这张图片。</p>
+<p>我们往<code>BgRoot</code>上添加一个<code>Animator</code>组件。添加之后可以发现<code>Controller</code>字段是空的，所以我们还得手动创建一个<code>AnimationController</code>。在合适的路径下，我们右键Project视图下的空白处，选择<code>Create -&gt; AnimationController</code>，给新文件取名为<code>ToastAnimController</code>。然后我们回到<code>BgRoot</code>，把controller文件拽拖到<code>Controller</code>字段上。</p>
+<p><img src="inspector-animator.png"></p>
+<h2 id="创建default状态动画"><a href="#创建default状态动画" class="headerlink" title="创建default状态动画"></a>创建default状态动画</h2><p>Toast弹窗的初始状态当然是隐藏在屏幕上方，当有需要时才会从上面跌落下来。所以我们现在需要先给它设置一个初始状态。我们双击刚才的controller，打开<code>Animator</code>视图。</p>
+<p>空白处右键，选择<code>Create State -&gt; Empty</code>来创建一个状态，创建之后将它命名为<code>Default</code>。Unity会自动将<code>Entry</code>连到<code>Default</code>上，这意味着默认播放状态就会是<code>Default</code>。</p>
+<p>上面说了，默认情况下Toast应该在屏幕上方，那么我们先来设置它的状态。</p>
+<p>说是设置状态，其实就是创建一个只有一帧的动画，让节点去执行。我们接下来创建一个默认动画，还是任意路径，右键Project视图空白处，选择<code>Create -&gt; Animation</code>，创建一个动画，就叫做<code>ToastDefault</code>吧。</p>
+<p>回到Animator视图，选择<code>Default</code>状态，然后把<code>ToastDefault</code>拽进去<code>Default</code>状态的<code>Motion</code>字段。</p>
+<p><img src="state-1.png"><br><img src="state-2.png"></p>
+<p>最后我们来设置一下这个animation本身。首先点击<code>Window -&gt; Animation</code>来打开Animation视图。然后我们选择Hierachy视图中的<code>BgRoot</code>节点，就可以看到下面出现了对应的动画编辑器。</p>
+<p>Toast窗口的初始状态应该是：Toast窗口的下边缘对齐屏幕的上边缘。</p>
+<p>点击<code>Add Property</code>添加四个属性：RectTransform.AnchorMax, RectTransform.AnchorMin, RectTransform.Pivot, RectTransform.AnchoredPosition。</p>
+<p>然后点击左上角的录制按钮<img src="record.png">。</p>
+<p>修改<code>BgRoot</code>参数（修改红框的两个）：</p>
+<p><img src="default-param.png"></p>
+<p>查看Animation视图，可以看见unity自动给我们在第1.00秒还添加了另一个关键战，我们选中这一帧（最上面一个点可以全选当前帧所有的属性）的节点，右键<code>delete keys</code>删除掉。</p>
+<p><img src="default-animation-keys-to-be-del.png"></p>
+<p><code>Ctrl + S</code>保存一下这个动画。</p>
+<p><span>取消录制按钮的选中状态，防止误操作<img src="record.png">。</span></p>
+<h2 id="录制hide和show动画"><a href="#录制hide和show动画" class="headerlink" title="录制hide和show动画"></a>录制hide和show动画</h2><p>接下来我们创建show动作，让窗口从屏幕上方下沉。</p>
+<p>按照上面的方法，在Animator视图创建一个<code>Show</code>状态，再在project视图创建一个<code>ToastShow</code>动画，然后拖动到<code>Show</code>状态的motion字段上。</p>
+<p>接下来编辑<code>Show</code>动画。初始状态，在第1帧设置成和前面的default状态一致就可以了：</p>
+<p><img src="default-param.png"></p>
+<p>然后我们选中第0.3秒，点击录制按钮，然后更改<code>BgRoot</code>的状态如下：</p>
+<p><img src="show-3second.png"></p>
+<p>创建完show之后再创建hide，我们创建一个<code>Hide</code>状态以及一个<code>ToastHide</code>动画，然后拽托引用。</p>
+<p>由于hide就是show的逆序，所以这里不再赘述动画要怎么制作，简单来说，第一帧是</p>
+<p><img src="show-3second.png"></p>
+<p>反过来0.3秒那一帧是</p>
+<p><img src="default-param.png"></p>
+<h2 id="设置loopTime"><a href="#设置loopTime" class="headerlink" title="设置loopTime"></a>设置loopTime</h2><p>当然，我们的show和hide动画只需要播放一次，不需要循环播放。所以我们分别点击Show和Hide状态对应的动画，把LoopTime框取消选中：</p>
+<p><img src="cancel-loop-time.png"></p>
+<h2 id="调整各状态的关系"><a href="#调整各状态的关系" class="headerlink" title="调整各状态的关系"></a>调整各状态的关系</h2><p>接下来我们要为各个状态的跳转设定条件。首先从外面进来肯定是<code>Entry</code>，它会自动跳转到<code>Default</code>状态。</p>
+<p>先添加两个跳转条件，点击<code>Parameters</code>选项卡，点击加号添加两个Trigger，分别命名为<code>show</code>和<code>hide</code>。</p>
+<p><img src="add-param.png"></p>
+<p>当我们要显示Toast的时候，应该是从Default状态进入Show状态，于是我们新建一个联系，右键<code>Default</code>状态，选择<code>Make Transition</code>，连接到<code>Show</code>状态上。然后选中这个联系，在inspector中：</p>
+<ul>
+<li>取消<code>Has Exit Time</code>选中状态（当这个选项被选中的时候，代表上一个状态的动画播放完成后，会自动跳转到上一个动画，也就是<code>Default</code>状态会自动跳转到<code>Show</code>，这并不是我们要的）</li>
+<li>新增一个Condition，新增为刚才新建的<code>show</code> ，代表着当这个trigger被设置的时候，会从<code>Default</code>状态进入<code>Show</code>状态。</li>
+</ul>
+<p><img src="01.png"></p>
+<p>Toast显示出来若干秒之后需要隐藏，所以我们还需要一个从<code>Show</code>到<code>Hide</code>状态的联系。创建之后，我们添加condition为<code>hide</code>。同样需要取消选中<code>Has Exit Time</code>。</p>
+<p><img src="02.png"></p>
+<p>结束<code>Hide</code>状态之后，我们再让窗口回到<code>Default</code>的状态，以隐藏在屏幕外。新建一个联系<code>Hide -&gt; Default</code>。这次要勾选<code>Has Exit Time</code>，不需要添加任何condition。</p>
+<p><img src="03.png"></p>
+<p>最后，我们得到这么一个Animation Controller:</p>
+<p><img src="04.png"></p>
+<h2 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a>编写脚本</h2><p>编写一个动画驱动脚本。创建脚本<code>Toast.cs</code>。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.UI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Toast</span> : <span class="title">MonoBehaviour</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">string</span> ANIMATOR_TRIGGER_SHOW = <span class="string">"show"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">string</span> ANIMATOR_TRIGGER_HIDE = <span class="string">"hide"</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">SerializeField</span>]</span><br><span class="line">    <span class="keyword">private</span> Animator _animator;</span><br><span class="line">    [<span class="meta">SerializeField</span>]</span><br><span class="line">    <span class="keyword">private</span> Text _textContent;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowToast</span>(<span class="params"><span class="keyword">string</span> content</span>)</span></span><br><span class="line"><span class="function"></span>	&#123;</span><br><span class="line">        _textContent.text = content;</span><br><span class="line">		_animator.SetTrigger(ANIMATOR_TRIGGER_SHOW);</span><br><span class="line">        StartCoroutine(Co_AutoHide());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Hide</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>	&#123;</span><br><span class="line">        _animator.SetTrigger(ANIMATOR_TRIGGER_HIDE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> IEnumerator <span class="title">Co_AutoHide</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>	&#123;</span><br><span class="line">        <span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForSeconds</span>(<span class="params"><span class="number">2.0f</span></span>)</span>;</span><br><span class="line">        Hide();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>挂载到<code>ToastRoot</code>上，拖入引用。</p>
+<p><img src="05.png"></p>
+<p>然后新建一个按钮，新建脚本<code>ShowToastButton.cs</code></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ShowToastButton</span> : <span class="title">MonoBehaviour</span> &#123;</span><br><span class="line">    [<span class="meta">SerializeField</span>]</span><br><span class="line">    <span class="keyword">private</span> Toast _toast;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClick</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>	&#123;</span><br><span class="line">        _toast.ShowToast(<span class="string">"Hello World!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后把按钮的点击响应设置成<code>OnClick</code>。</p>
+<p>现在启动游戏，点击按钮，可以看到Toast显示两秒钟之后，自动消失了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy Me A Coffee / 捐一杯咖啡的钱</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="左未 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="左未 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/02/Coding-Interview-Guide-04-binary-tree/" rel="next" title="【程序员代码面试指南】四 二叉树问题">
+                <i class="fa fa-chevron-left"></i> 【程序员代码面试指南】四 二叉树问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          <!-- 添加分享sdk -->
+          
+<div class="exkulo-share-div">
+    <span class="-mob-share-ui-text -mob-share-open exkulo-share-btn">分享这篇文章~</span>
+</div>
+<div class="-mob-share-ui -mob-share-ui-theme-slide-bottom" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2bd548c2dd68c"></script>
+ 
+
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/default-avatar.jpg" alt="左未">
+            
+              <p class="site-author-name" itemprop="name">左未</p>
+              <p class="site-description motion-element" itemprop="description">其实只是一本笔记本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:exkulo@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Toast组件构成"><span class="nav-number">3.</span> <span class="nav-text">Toast组件构成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Animator组件"><span class="nav-number">4.</span> <span class="nav-text">添加Animator组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建default状态动画"><span class="nav-number">5.</span> <span class="nav-text">创建default状态动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#录制hide和show动画"><span class="nav-number">6.</span> <span class="nav-text">录制hide和show动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置loopTime"><span class="nav-number">7.</span> <span class="nav-text">设置loopTime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整各状态的关系"><span class="nav-number">8.</span> <span class="nav-text">调整各状态的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写脚本"><span class="nav-number">9.</span> <span class="nav-text">编写脚本</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左未</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kity.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/bg-beautifier.js?v=5.1.4"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/vue.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/vue-script/main.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7CaWPI6HXpR1CiqpYnyY0JdE-gzGzoHsz", "rB1Vxs2fw7BXYUN9iyRcwfM3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

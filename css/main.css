@@ -1963,7 +1963,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #6f859c;
+  background: #1c4b9d;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3101,4 +3101,10 @@ h3 {
   background: rgba(238,238,238,0.867);
   color: #eb3b5a;
   text-shadow: 1px 1px 1px #fd9644;
+}
+.sidebar-toggle {
+  background: #eb3b5a;
+}
+.back-to-top {
+  background: #eb3b5a;
 }
