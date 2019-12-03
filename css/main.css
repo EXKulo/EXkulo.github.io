@@ -1963,7 +1963,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #931694;
+  background: #ff2a39;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3041,7 +3041,7 @@ h3 {
 }
 .span-important {
   font-size: 20px;
-  font-weight: 600;
+  color: #fc5c65;
 }
 .post-toc .nav .active-current > a {
   color: #3867d6;
