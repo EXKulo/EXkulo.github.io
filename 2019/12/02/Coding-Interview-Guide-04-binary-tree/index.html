@@ -97,10 +97,12 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="遍历二叉树分别用前序遍历、中序遍历和后序遍历来遍历一棵二叉树。其中：  前序遍历 中-&amp;gt;左-&amp;gt;右 中序遍历 左-&amp;gt;中-&amp;gt;右 后序遍历 左-&amp;gt;右-&amp;gt;中  分别使用递归和非递归的方法来实现。 前序遍历递归方法： 12345678910public void PreOrderTraversal(Node root)&amp;#123;    if(root == null)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-05T01:58:05.338Z">
+<meta property="og:image" content="https://exkulo.github.io/2019/12/02/Coding-Interview-Guide-04-binary-tree/1.png">
+<meta property="og:updated_time" content="2019-12-06T02:09:57.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【程序员代码面试指南】四 二叉树问题">
 <meta name="twitter:description" content="遍历二叉树分别用前序遍历、中序遍历和后序遍历来遍历一棵二叉树。其中：  前序遍历 中-&amp;gt;左-&amp;gt;右 中序遍历 左-&amp;gt;中-&amp;gt;右 后序遍历 左-&amp;gt;右-&amp;gt;中  分别使用递归和非递归的方法来实现。 前序遍历递归方法： 12345678910public void PreOrderTraversal(Node root)&amp;#123;    if(root == null)">
+<meta name="twitter:image" content="https://exkulo.github.io/2019/12/02/Coding-Interview-Guide-04-binary-tree/1.png">
 
 
 
@@ -421,6 +423,79 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">PushAllLeftNode</span><span class="params">(Stack&lt;Node&gt; stack, Node root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node cur = root;</span><br><span class="line">    <span class="keyword">while</span>(cur != <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        stack.push(cur);</span><br><span class="line">        cur = cur.left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">InOrderTraversal</span><span class="params">(Node root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Stack&lt;Node&gt; stack = <span class="keyword">new</span> Stack&lt;Node&gt;();</span><br><span class="line">    PushAllLeftNode(stack, root);</span><br><span class="line">    <span class="keyword">while</span>((cur = stack.pop()) != <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(cur.value);</span><br><span class="line">        PushAllLeftNode(stack, cur.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">posOrderTraversal</span><span class="params">(Node root)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    posOrderTraversal(root.left);</span><br><span class="line">    posOrderTraversal(root.right);</span><br><span class="line">    System.out.println(root.value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="打印二叉树的边界节点"><a href="#打印二叉树的边界节点" class="headerlink" title="打印二叉树的边界节点"></a>打印二叉树的边界节点</h2><p>给定一棵二叉树头结点head，实现二叉树边界节点的逆时针打印。</p>
+<p>要求：</p>
+<ol>
+<li>头结点为边界节点之一</li>
+<li>叶节点为边界节点</li>
+<li>节点在其所在的层中是最左或最右的，也是边界节点</li>
+<li>逆时针打印，不重复打印节点</li>
+</ol>
+<p>例如：</p>
+<img src="/2019/12/02/Coding-Interview-Guide-04-binary-tree/1.png" class="边界节点例子">
+<p>打印结果：1 2 4 7 11 13 14 15 16 12 10 6 3</p>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>先用人话说一次。把树看成一个 <span class="span-important">三角形</span> ，逆时针打印，先从上往下打印最左边的节点们，也就是左边，然后打印非左边缘又非右边缘的叶节点们，也就是 <span class="span-important">底边</span> ，然后从下往上打印右边缘的节点们。</p>
+<p>所以问题转化成了：首先我们要先遍历出所有的左边缘和右边缘并存储起来，这是由于</p>
+<ol>
+<li>我们底边的寻找条件是 <span class="span-important">非左非右</span> 的叶节点，也就是必须先知道左边缘和右边缘</li>
+<li>右边缘的打印顺序是从下到上的，和树的遍历顺序相反，所以必须先从上往下遍历，存储起来再逆序遍历</li>
+</ol>
+<p>得到左边缘和右边缘的所有节点之后，接下来就找到所有的叶节点，并且只要判断它是否存在于边缘之中，不存在就可以打印了。</p>
+<p>打印的过程中要判断是否已经打印过，如果已经打印过就不再打印。</p>
+<p>具体步骤</p>
+<ol>
+<li>得到二叉树每一层上最左和最右的节点，存到一个数组中</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>最左节点</th>
+<th>最右节点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一层</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>第二层</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>第三层</td>
+<td>4</td>
+<td>6</td>
+</tr>
+<tr>
+<td>第四层</td>
+<td>7</td>
+<td>10</td>
+</tr>
+<tr>
+<td>第五层</td>
+<td>11</td>
+<td>12</td>
+</tr>
+<tr>
+<td>第六层</td>
+<td>13</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>从上到下打印最左节点</li>
+<li>先序遍历二叉树，打印底边<code>(叶节点 &amp;&amp; 不属于最左节点 &amp;&amp; 不属于最右节点)</code></li>
+<li>从下到上打印最右节点，注意如果节点同时存在于同层的最左节点之中，就不打印</li>
+</ol>
+<p>在真正地写代码之前，我们先科普一下关于二叉树的几个常见操作：</p>
+<p>获得二叉树的高度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">(Node h, <span class="keyword">int</span> l)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(h == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Math.max(getHeight(h.left, l + <span class="number">1</span>), getHeight(h.right, l + <span class="number">1</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -588,7 +663,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +674,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -653,7 +728,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历二叉树"><span class="nav-number">1.</span> <span class="nav-text">遍历二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前序遍历"><span class="nav-number">1.1.</span> <span class="nav-text">前序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中序遍历"><span class="nav-number">1.2.</span> <span class="nav-text">中序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后序遍历"><span class="nav-number">1.3.</span> <span class="nav-text">后序遍历</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历二叉树"><span class="nav-number">1.</span> <span class="nav-text">遍历二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前序遍历"><span class="nav-number">1.1.</span> <span class="nav-text">前序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中序遍历"><span class="nav-number">1.2.</span> <span class="nav-text">中序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后序遍历"><span class="nav-number">1.3.</span> <span class="nav-text">后序遍历</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打印二叉树的边界节点"><span class="nav-number">2.</span> <span class="nav-text">打印二叉树的边界节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现思路"><span class="nav-number">2.1.</span> <span class="nav-text">实现思路</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="CPU内核、用户模式本文由是阅读该文章做下的笔记。 CPU分内核与用户模式。 三言蔽之内核模式下，应用可以直接存取内存，能够执行任何CPU指令。一般来说驱动运行在该模式下。内核模式的应用一旦崩溃，整个操作系统都会崩溃。（所以驱动必须要非常稳定，否则蓝屏常在你身边） 用户模式就是我们一般应用所在的模式。用户模式下，应用想要存取硬件或者内存，必须通过系统API。由于与底层被隔离开来，所以用户模式下的应">
+<meta name="description" content="electron-vue去掉讨厌的eslint找到.\electron-vue文件夹下的三个文件：  webpack.main.config.js webpack.renderer.config.js webpack.web.config.js  搜索eslint，并删除或者注释这一段： 1234567891011&amp;#123;    test: /\.(js)$/,    enforce: &apos;pr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CPU内核、用户模式">
-<meta property="og:url" content="https://exkulo.github.io/2019/02/13/CPU内核、用户模式/index.html">
+<meta property="og:title" content="electron-vue notebook 01">
+<meta property="og:url" content="https://exkulo.github.io/2019/11/06/electron-vue-notebook-01/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="CPU内核、用户模式本文由是阅读该文章做下的笔记。 CPU分内核与用户模式。 三言蔽之内核模式下，应用可以直接存取内存，能够执行任何CPU指令。一般来说驱动运行在该模式下。内核模式的应用一旦崩溃，整个操作系统都会崩溃。（所以驱动必须要非常稳定，否则蓝屏常在你身边） 用户模式就是我们一般应用所在的模式。用户模式下，应用想要存取硬件或者内存，必须通过系统API。由于与底层被隔离开来，所以用户模式下的应">
+<meta property="og:description" content="electron-vue去掉讨厌的eslint找到.\electron-vue文件夹下的三个文件：  webpack.main.config.js webpack.renderer.config.js webpack.web.config.js  搜索eslint，并删除或者注释这一段： 1234567891011&amp;#123;    test: /\.(js)$/,    enforce: &apos;pr">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-13T02:15:26.765Z">
+<meta property="og:updated_time" content="2019-12-06T01:29:25.488Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CPU内核、用户模式">
-<meta name="twitter:description" content="CPU内核、用户模式本文由是阅读该文章做下的笔记。 CPU分内核与用户模式。 三言蔽之内核模式下，应用可以直接存取内存，能够执行任何CPU指令。一般来说驱动运行在该模式下。内核模式的应用一旦崩溃，整个操作系统都会崩溃。（所以驱动必须要非常稳定，否则蓝屏常在你身边） 用户模式就是我们一般应用所在的模式。用户模式下，应用想要存取硬件或者内存，必须通过系统API。由于与底层被隔离开来，所以用户模式下的应">
+<meta name="twitter:title" content="electron-vue notebook 01">
+<meta name="twitter:description" content="electron-vue去掉讨厌的eslint找到.\electron-vue文件夹下的三个文件：  webpack.main.config.js webpack.renderer.config.js webpack.web.config.js  搜索eslint，并删除或者注释这一段： 1234567891011&amp;#123;    test: /\.(js)$/,    enforce: &apos;pr">
 
 
 
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://exkulo.github.io/2019/02/13/CPU内核、用户模式/">
+  <link rel="canonical" href="https://exkulo.github.io/2019/11/06/electron-vue-notebook-01/">
 
 
 
 
 
-  <title>CPU内核、用户模式 | 左未的笔记本</title>
+  <title>electron-vue notebook 01 | 左未的笔记本</title>
   
 
 
@@ -283,7 +283,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://exkulo.github.io/2019/02/13/CPU内核、用户模式/" title="CPU内核、用户模式">https://exkulo.github.io/2019/02/13/CPU内核、用户模式/</a>
+    <a href="https://exkulo.github.io/2019/11/06/electron-vue-notebook-01/" title="electron-vue notebook 01">https://exkulo.github.io/2019/11/06/electron-vue-notebook-01/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -296,7 +296,7 @@
     <br>
     <br>
 
-    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/02/13/CPU内核、用户模式/">
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/11/06/electron-vue-notebook-01/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -313,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CPU内核、用户模式</h1>
+          <h1 class="post-title" itemprop="name headline">electron-vue notebook 01</h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T09:54:19+08:00">
-                2019-02-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-06T19:33:15+08:00">
+                2019-11-06
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index" class="homepage-post-categroy">
-                    <span itemprop="name">计算机图形学</span>
+                  <a href="/categories/web/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">web</span>
                   </a>
                 </span>
 
@@ -365,7 +365,7 @@
 
           
           
-             <span id="/2019/02/13/CPU内核、用户模式/" class="leancloud_visitors" data-flag-title="CPU内核、用户模式">
+             <span id="/2019/11/06/electron-vue-notebook-01/" class="leancloud_visitors" data-flag-title="electron-vue notebook 01">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -396,17 +396,31 @@
       
 
       
-        <h1 id="CPU内核、用户模式"><a href="#CPU内核、用户模式" class="headerlink" title="CPU内核、用户模式"></a>CPU内核、用户模式</h1><p>本文由是阅读<a href="https://blog.codinghorror.com/understanding-user-and-kernel-mode/" target="_blank" rel="noopener">该文章</a>做下的笔记。</p>
-<p>CPU分内核与用户模式。</p>
-<h2 id="三言蔽之"><a href="#三言蔽之" class="headerlink" title="三言蔽之"></a>三言蔽之</h2><p>内核模式下，应用可以直接存取内存，能够执行任何CPU指令。一般来说驱动运行在该模式下。<br>内核模式的应用一旦崩溃，整个操作系统都会崩溃。（所以驱动必须要非常稳定，否则蓝屏常在你身边）</p>
-<p>用户模式就是我们一般应用所在的模式。用户模式下，应用想要存取硬件或者内存，必须通过系统API。由于与底层被隔离开来，所以用户模式下的应用崩溃通常不会影响到系统正常运行。</p>
-<h2 id="硬件决定"><a href="#硬件决定" class="headerlink" title="硬件决定"></a>硬件决定</h2><p>内核模式和用户模式不是我们定义出来的在软件层面的一个概念，而是由CPU架构所决定的。</p>
-<p>通常CPU分为0~3总共四个层。其中我们一般用的是0层内核模式以及3层用户模式。1和2一般少用。</p>
-<p>其中，又有人提出-1层，这就是我们平常说的x86硬件下的CPU虚拟化（手机模拟器一般都要开这个）。</p>
-<h2 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h2><p>驱动一般会运行在内核模式<strong>以及</strong>用户模式下。</p>
-<p>以下为猜测：</p>
-<p>在OpenGL渲染过程中，会在用户模式下维护一个命令队列，切换到内核模式后再一次性发送到驱动，由驱动发送给显卡。</p>
-<h2 id="切换代价"><a href="#切换代价" class="headerlink" title="切换代价"></a>切换代价</h2><p>在用户模式和内核模式之间切换，是有代价的，而且代价十分大。</p>
+        <h2 id="electron-vue去掉讨厌的eslint"><a href="#electron-vue去掉讨厌的eslint" class="headerlink" title="electron-vue去掉讨厌的eslint"></a>electron-vue去掉讨厌的eslint</h2><p>找到<code>.\electron-vue</code>文件夹下的三个文件：</p>
+<ul>
+<li>webpack.main.config.js</li>
+<li>webpack.renderer.config.js</li>
+<li>webpack.web.config.js</li>
+</ul>
+<p>搜索eslint，并删除或者注释这一段：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: <span class="regexp">/\.(js)$/</span>,</span><br><span class="line">    enforce: <span class="string">'pre'</span>,</span><br><span class="line">    exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">    use: &#123;</span><br><span class="line">        loader: <span class="string">'eslint-loader'</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">        formatter: <span class="built_in">require</span>(<span class="string">'eslint-friendly-formatter'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="vue组件"><a href="#vue组件" class="headerlink" title="vue组件"></a>vue组件</h2><p>下面这种<code>Vue.component()</code>的写法是注册到全局的，任何<code>new Vue()</code>实例都可以使用该组件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'component-name'</span>, &#123;</span><br><span class="line">    <span class="comment">// 数据。最好是一个function，才会每个模板实例都有自己的数据。如果返回的是</span></span><br><span class="line">    <span class="comment">// 一个字典，就会所有模板实例共用数据(然而vue并不会给你这么做，这是无效的)。</span></span><br><span class="line">    data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            count: <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 模板内容</span></span><br><span class="line">    template: <span class="string">'&lt;button v-on:click="count++"&gt;You clicked me &#123;&#123; count &#125;&#125; times.&lt;/button&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不管如何还是要执行一次new Vue</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#component-test'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"component-test"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">component-name</span>&gt;</span><span class="tag">&lt;/<span class="name">component-name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>由此看来，组件应该就是控件设计了。做得好的话应该弄个组件库的文件夹，专门写组件。把写组件给专业化。</p>
+<h3 id="给组件添加属性"><a href="#给组件添加属性" class="headerlink" title="给组件添加属性"></a>给组件添加属性</h3><p>所谓属性，比如超链接中的<code>href</code>或者图片中的<code>src</code>。</p>
+<p>我们可以定义<code>props</code>字段来添加属性：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'blog-post'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'title'</span>],</span><br><span class="line">  template: <span class="string">'&lt;h3&gt;&#123;&#123; title &#125;&#125;&lt;/h3&gt;'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">blog-post</span> <span class="attr">title</span>=<span class="string">"My journey with Vue"</span>&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>另外，还可以使用数组，先在vue实例中定义一个数组，然后用<code>v-for</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#blog-post-demo'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        posts: [</span><br><span class="line">            &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">title</span>: <span class="string">'title 1'</span>&#125;,</span><br><span class="line">            &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">title</span>: <span class="string">'title 2'</span>&#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">blog-post</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-for</span>=<span class="string">"post in posts"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-bind:key</span>=<span class="string">"post.id"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-bind:title</span>=<span class="string">"post.title"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="模板的根元素应当唯一"><a href="#模板的根元素应当唯一" class="headerlink" title="模板的根元素应当唯一"></a>模板的根元素应当唯一</h3><p>如果组件中的template这么写，会报<strong>every component musthave a single root element</strong>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这意味着我们如果要定义一个模板，必须只能有单一的根元素，所以我们可以选择用一个div作为根元素包裹起来：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"blog-post"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="props设置动态字段"><a href="#props设置动态字段" class="headerlink" title="props设置动态字段"></a>props设置动态字段</h3><p>假设定义了一个props为<code>title</code>，如果我们直接在html中写<code>title=&quot;false&quot;</code>，那么title的值会变成字符串<code>&quot;false&quot;</code>，但是如果我们在<code>title</code>前加一个<code>v-bind</code>，变成<code>v-bind:title=&quot;false&quot;</code>，那么title的值就会变成真正的布尔值<code>false</code>。</p>
 
       
     </div>
@@ -458,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/31/Hexo博客增加live2d看板娘/" rel="next" title="Hexo博客增加live2d看板娘">
-                <i class="fa fa-chevron-left"></i> Hexo博客增加live2d看板娘
+              <a href="/2019/11/04/CLR-via-CSharp-08/" rel="next" title="CLR via CSharp 08 接口">
+                <i class="fa fa-chevron-left"></i> CLR via CSharp 08 接口
               </a>
             
           </div>
@@ -468,8 +482,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/13/【计算机图形学基础】1光栅图像/" rel="prev" title="【计算机图形学基础】一 光栅图像">
-                【计算机图形学基础】一 光栅图像 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/11/12/Coding-Interview-Guide-03-list-problems/" rel="prev" title="【程序员代码面试指南】三 链表问题">
+                【程序员代码面试指南】三 链表问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -640,7 +654,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CPU内核、用户模式"><span class="nav-number">1.</span> <span class="nav-text">CPU内核、用户模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三言蔽之"><span class="nav-number">1.1.</span> <span class="nav-text">三言蔽之</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件决定"><span class="nav-number">1.2.</span> <span class="nav-text">硬件决定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#驱动"><span class="nav-number">1.3.</span> <span class="nav-text">驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切换代价"><span class="nav-number">1.4.</span> <span class="nav-text">切换代价</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#electron-vue去掉讨厌的eslint"><span class="nav-number">1.</span> <span class="nav-text">electron-vue去掉讨厌的eslint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue组件"><span class="nav-number">2.</span> <span class="nav-text">vue组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#给组件添加属性"><span class="nav-number">2.1.</span> <span class="nav-text">给组件添加属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板的根元素应当唯一"><span class="nav-number">2.2.</span> <span class="nav-text">模板的根元素应当唯一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props设置动态字段"><span class="nav-number">2.3.</span> <span class="nav-text">props设置动态字段</span></a></li></ol></li></ol></div>
             
 
           </div>
