@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="左未的笔记本">
 <meta property="og:description" content="01 前言这又是一个新的系列，为阅读「程序员代码面试指南」所做之笔记。尽量以一个小白能看懂的话讲。 每个问题分为几个部分：  题目 具体解决方案 思路重点 最后尝试用一句话来说完整个思路  只用2GB在20亿个整数中找到出现次数最多的数题目内存限制2GB，有一个包含20亿个全是32bit整数的大文件，找到出现次数最多的数。 具体方案首先考虑所有数字都一样的情况，同一个数字的出现次数将达到20亿，我">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-03T04:10:15.392Z">
+<meta property="og:updated_time" content="2020-01-07T05:23:28.964Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【程序员代码面试指南】一 大数据">
 <meta name="twitter:description" content="01 前言这又是一个新的系列，为阅读「程序员代码面试指南」所做之笔记。尽量以一个小白能看懂的话讲。 每个问题分为几个部分：  题目 具体解决方案 思路重点 最后尝试用一句话来说完整个思路  只用2GB在20亿个整数中找到出现次数最多的数题目内存限制2GB，有一个包含20亿个全是32bit整数的大文件，找到出现次数最多的数。 具体方案首先考虑所有数字都一样的情况，同一个数字的出现次数将达到20亿，我">
@@ -408,11 +408,32 @@
 <h3 id="具体方案"><a href="#具体方案" class="headerlink" title="具体方案"></a>具体方案</h3><p>首先考虑所有数字都一样的情况，同一个数字的出现次数将达到20亿，我们使用一个32bit的整数足够记录。</p>
 <p>假设我们使用哈希表，key为整数，value为出现次数，一个键值对共占用8Byte。由于当出现2亿个数的时候，内存占用为1.6G，在此我们假定每次能够比较的最大数字个数就为2亿个。</p>
 <p>那么我们的下一步希望能够把大文件根据某种条件分散到n个文件中，每个文件中的数字个数最多为2亿。</p>
-<p>考虑先根据哈希函数把整数分散到16个不同的文件中，这里假设我们的<strong>分类哈希函数</strong>足够秀，不会让其中某个文件的数字个数超过2亿。注意：由于同样的数字哈希值是一样的，所以会被分到同一个文件中。</p>
+<p>考虑先根据哈希函数把整数分散到16个不同的文件中，这里假设我们的<strong>分类哈希函数</strong>足够秀，不会让其中某个文件的数字个数超过2亿。</p>
+<p><span id="hash-function"></span></p>
+<p>这里需要一个 <span class="span-important">注意</span> 点，就是不要混淆哈希函数跟哈希表的区别。</p>
+<p>哈希函数实际上是对一堆信息的抽样，把任意的数据变成固定长度的信息。</p>
+<p>灵魂拷问：</p>
+<ul>
+<li>为什么我们需要哈希函数？这是为了把不同大小的文件都缩减称为同等长度的哈希值，便于接下来的计算。</li>
+<li>为什么我们需要为什么上面说到哈希函数要足够 <span class="span-important">优秀</span>？这是为了尽量保证每个数据算出来的哈希值要不一样。（极端情况下，所有文件的哈希值一样，肯定会被分到同一个文件）。</li>
+<li>用哈希值怎么分成十六个文件？用公式 $hash(data)$ % 16 就可以。</li>
+</ul>
 <p>最后，我们分别统计16个文件中出现次数最多的数字（可以同一台计算机统计16次，或者直接分发到16台计算机中分别统计）。得到了每个文件中出现次数最多的数之后，我们再找出这16个数字中出现次数最多者，即可得到答案。</p>
 <h3 id="思路重点"><a href="#思路重点" class="headerlink" title="思路重点"></a>思路重点</h3><p>如何把大文件分为若干个小文件，条件是什么。</p>
 <h3 id="一句话"><a href="#一句话" class="headerlink" title="一句话"></a>一句话</h3><p>把大文件中的数字按照某种条件分类成若干小文件，保证同一个数字只会出现在一个小文件中，再分别统计小文件中出现个数最多者。</p>
-
+<h2 id="bit-map的应用"><a href="#bit-map的应用" class="headerlink" title="bit map的应用"></a>bit map的应用</h2><p>bit map，key是data，value是bit类型或者bit数组。</p>
+<p>常用于检测大数据中某个数据是否存在。</p>
+<h3 id="找出数组中未出现的数"><a href="#找出数组中未出现的数" class="headerlink" title="找出数组中未出现的数"></a>找出数组中未出现的数</h3><p>给定无序的海量数据数组长度为40亿，类型是unsigned int，范围是0 ~ 4 294 967 295。找出数组中，范围0 ~ 4 294 967 295内没出现过的数。</p>
+<p>解决方案：</p>
+<p>新建一个bit map，类型<code>&lt;unsigned int, bit&gt;</code>，遍历数组，只要数字出现过，就把对应的bit map位设置为1。</p>
+<p>遍历完数组之后遍历bit map，找到所有value为0的条目，即为没有出现过的数字。</p>
+<h3 id="找出数组中出现过两次的数"><a href="#找出数组中出现过两次的数" class="headerlink" title="找出数组中出现过两次的数"></a>找出数组中出现过两次的数</h3><p>只需要计算两次，所以只需要两个bit来记录出现的次数就够了。建立map<code>HashMap&lt;unsigned int, bit*&gt;</code>。当数字出现了一次，把value设置为01，出现过两次，设置为10。</p>
+<p>最后遍历bit map，找到所有value为10的key。</p>
+<h2 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h2><p>服务器有时候需要把用户的id做哈希，然后分配到不同服务器做处理，来做 <span class="span-important">负载均衡</span> 。如果采用上面提到的<a href="#hash-function">哈希函数分割法</a>，每个用户确实可以顺利被分散到不同服务器上，但是如果增加或者减少了服务器的数量，所有用户的数据都需要全部重新分配（ <span class="span-important">因为</span> 被除数变了，余数会发生变化）。</p>
+<p>为了解决这个问题，我们避免采用对哈希值求余的方法来求得其应所在的服务器序号。</p>
+<p>取而代之地，我们设想哈希值的范围，假设在[0, 2<sup>32</sup> - 1]内，我们把这个范围绕成一个环，然后把服务器均匀分布在上面。求得数据的哈希值之后，把数据交给环上顺时针的下一个服务器处理。</p>
+<p>这样，当增加一个服务器的时候，只需要移动 <span class="span-important">一部分</span> 数据到新服务器上。</p>
+<h2 id="岛问题"><a href="#岛问题" class="headerlink" title="岛问题"></a>岛问题</h2>
       
     </div>
     
@@ -580,7 +601,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-count">86</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -645,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-前言"><span class="nav-number">1.</span> <span class="nav-text">01 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只用2GB在20亿个整数中找到出现次数最多的数"><span class="nav-number">2.</span> <span class="nav-text">只用2GB在20亿个整数中找到出现次数最多的数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体方案"><span class="nav-number">2.2.</span> <span class="nav-text">具体方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路重点"><span class="nav-number">2.3.</span> <span class="nav-text">思路重点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一句话"><span class="nav-number">2.4.</span> <span class="nav-text">一句话</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-前言"><span class="nav-number">1.</span> <span class="nav-text">01 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只用2GB在20亿个整数中找到出现次数最多的数"><span class="nav-number">2.</span> <span class="nav-text">只用2GB在20亿个整数中找到出现次数最多的数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体方案"><span class="nav-number">2.2.</span> <span class="nav-text">具体方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路重点"><span class="nav-number">2.3.</span> <span class="nav-text">思路重点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一句话"><span class="nav-number">2.4.</span> <span class="nav-text">一句话</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bit-map的应用"><span class="nav-number">3.</span> <span class="nav-text">bit map的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#找出数组中未出现的数"><span class="nav-number">3.1.</span> <span class="nav-text">找出数组中未出现的数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找出数组中出现过两次的数"><span class="nav-number">3.2.</span> <span class="nav-text">找出数组中出现过两次的数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一致性哈希算法"><span class="nav-number">4.</span> <span class="nav-text">一致性哈希算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#岛问题"><span class="nav-number">5.</span> <span class="nav-text">岛问题</span></a></li></ol></div>
             
 
           </div>
@@ -665,7 +686,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

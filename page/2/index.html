@@ -278,6 +278,345 @@
     <br>
     <br>
 
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/11/04/CLR-via-CSharp-08/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/04/CLR-via-CSharp-08/" itemprop="url">CLR via CSharp 08 接口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T19:38:43+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机语言/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">计算机语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/04/CLR-via-CSharp-08/" class="leancloud_visitors" data-flag-title="CLR via CSharp 08 接口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          接口CLR并不支持多继承，所以所有的托管编程语言也支持不能。
+类和接口继承CLR只支持类的单继承，而且最终肯定是从Object派生。
+所谓接口，是对一组方法签名进行的同一命名（这就是实质了）。
+定义接口CLR中的接口相对于Java中的接口而言，还能够定义：
+
+事件
+无参属性
+有参数性（C#的索引器）
+
+当然以上说的三种，本质上也是方法。
+在CLR看来，接口定义就是类定义。CLR会为接口类型对象定义内部数据结构，同时可通过反射机制来查询接口类型的功能。接口本身可以是public, protected, internal的，但是其所定义的成员必须是public的。
+实现接口的方法必须是public
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/04/CLR-via-CSharp-08/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+    <br>
+    <br>
+
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/09/27/hexo-next-vue/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/27/hexo-next-vue/" itemprop="url">在hexo的next主题中使用vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-27T19:25:58+08:00">
+                2019-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo技术/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">Hexo技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/27/hexo-next-vue/" class="leancloud_visitors" data-flag-title="在hexo的next主题中使用vue">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          最近在学vue，突然突发奇想能不能用vue框架对博客做一个改造，说开工就开工。
+下载vue.js并载入直接搜索引擎搜索vue，在官网下载得到vue.js文件，放到我们博客这个目录下：themes\next\source\js\src\vue.js。
+然后我们再建立一个测试用的js文件，称为main，放在themes\next\source\js\src\vue-script\main.js（文件夹需另建）。
+新建完js文件之后，需要引入js。打开themes\next\layout\_scripts\commons.swig文件，加入代码：
+12345678910&#123;%set js_v
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/27/hexo-next-vue/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+    <br>
+    <br>
+
     <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/09/20/Electron-install-electron-vue/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1499,350 +1838,6 @@ Roslyn一般使用两个核心功能：Analyzers和code fixes。前者用来分�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    
-    <br>
-    <br>
-
-    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/09/03/Unity-content-size-fitter/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的笔记本">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/03/Unity-content-size-fitter/" itemprop="url">Unity中ContentSizeFitter的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-03T15:51:26+08:00">
-                2019-09-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity3d/" itemprop="url" rel="index" class="homepage-post-categroy">
-                    <span itemprop="name">Unity3d</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/09/03/Unity-content-size-fitter/" class="leancloud_visitors" data-flag-title="Unity中ContentSizeFitter的使用">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          众所周知，在Text上装一个ContentSizeFitter，可以让RectTransform的的宽度自适应文本的长度。
-但是更新了Text组件上的文字之后，默认的行为是下一帧才会自动更新RectTransform的大小。
-如果想要在本帧就更新RectTransform的宽度，可以这么写：
-1text_xxx.gameObject.GetComponent&lt;ContentSizeFitter&gt;().SetLayoutHorizontal();
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/03/Unity-content-size-fitter/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    
-    <br>
-    <br>
-
-    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/08/20/CLR-via-CSharp-04/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的笔记本">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/20/CLR-via-CSharp-04/" itemprop="url">CLR-via-CSharp-04 第6章 类型和成员基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T19:56:41+08:00">
-                2019-08-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机语言/" itemprop="url" rel="index" class="homepage-post-categroy">
-                    <span itemprop="name">计算机语言</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/08/20/CLR-via-CSharp-04/" class="leancloud_visitors" data-flag-title="CLR-via-CSharp-04 第6章 类型和成员基础">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          类型的各种成员包括了：
-
-常量
-字段
-实例构造器
-类型构造器
-方法
-操作符重载
-转换操作符
-属性
-事件
-嵌套类型
-
-类型可见性我们定义一个类型的时候经常在前面用public修饰，这代表了这个类型可以被该程序集以及其他程序集的代码都可见。实际上除了public以外，还有一个internal修饰符，代表着某个类型只可以被当前程序集使用。
-当没有指定为public的时候，会被默认指定为internal。
-友元程序集使用System.Runtime.CompilerServices命名空间中的InternalsVisibleTo特性表明友元程序集。
-123456using System;using S
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/20/CLR-via-CSharp-04/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1899,7 +1894,7 @@ Roslyn一般使用两个核心功能：Analyzers和code fixes。前者用来分�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-count">86</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1968,7 +1963,7 @@ Roslyn一般使用两个核心功能：Analyzers和code fixes。前者用来分�
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
