@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d6cb46a8.js","daovoice")
+  daovoice('init', {
+      app_id: "d6cb46a8"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言参照官方教程，记录一些值得注意的点。 Actor可以被放到关卡中的对象。 联网时可以被复制的基本类型。 生成Actor的方法123456789101112131415AActor* UWorld::SpawnActor(    UClass*         Class,    FName           InName,    FVector const*  Location,    FR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【UE4学习】20200824 UC++ 基础">
+<meta property="og:url" content="https://exkulo.github.io/2020/08/27/20200824-UE4-UC-Basic/index.html">
+<meta property="og:site_name" content="左未的笔记本">
+<meta property="og:description" content="前言参照官方教程，记录一些值得注意的点。 Actor可以被放到关卡中的对象。 联网时可以被复制的基本类型。 生成Actor的方法123456789101112131415AActor* UWorld::SpawnActor(    UClass*         Class,    FName           InName,    FVector const*  Location,    FR">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-27T11:17:03.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【UE4学习】20200824 UC++ 基础">
+<meta name="twitter:description" content="前言参照官方教程，记录一些值得注意的点。 Actor可以被放到关卡中的对象。 联网时可以被复制的基本类型。 生成Actor的方法123456789101112131415AActor* UWorld::SpawnActor(    UClass*         Class,    FName           InName,    FVector const*  Location,    FR">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://exkulo.github.io/2020/08/27/20200824-UE4-UC-Basic/">
+
+
+
+
+
+  <title>【UE4学习】20200824 UC++ 基础 | 左未的笔记本</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+<!--
+  <div v-bind:class="[VueTestClass]" id="vue-test">
+    <p class="title-welcome-text">${ welcomeStr }</p>
+  </div>
+-->
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+  <div class="headband"></div>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <!-- 添加了id，后面改变css样式用 -->
+      <div id="id-header-inner" class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">左未的笔记本</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年寿有时而尽，荣乐止乎其身。<br>二者必至之期，未若文章之无穷。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-spinner"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/aboutme" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <!-- 改变css样式 -->
+    <script type="text/javascript" src="/js/src/bg-beautifier.js"></script>
+    <script>hexoChangeBanner();</script>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    左未
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://exkulo.github.io/2020/08/27/20200824-UE4-UC-Basic/" title="【UE4学习】20200824 UC++ 基础">https://exkulo.github.io/2020/08/27/20200824-UE4-UC-Basic/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+    <br>
+    <br>
+
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/08/27/20200824-UE4-UC-Basic/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【UE4学习】20200824 UC++ 基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-27T19:08:40+08:00">
+                2020-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/08/27/20200824-UE4-UC-Basic/" class="leancloud_visitors" data-flag-title="【UE4学习】20200824 UC++ 基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>参照<a href="https://docs.unrealengine.com/zh-CN/Programming/Introduction/index.html" target="_blank" rel="noopener">官方教程</a>，记录一些值得注意的点。</p>
+<h2 id="Actor"><a href="#Actor" class="headerlink" title="Actor"></a>Actor</h2><p>可以被放到关卡中的对象。</p>
+<p>联网时可以被复制的<strong>基本类型</strong>。</p>
+<h3 id="生成Actor的方法"><a href="#生成Actor的方法" class="headerlink" title="生成Actor的方法"></a>生成Actor的方法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">AActor* UWorld::SpawnActor</span><br><span class="line">(</span><br><span class="line">    UClass*         Class,</span><br><span class="line">    FName           InName,</span><br><span class="line">    FVector <span class="keyword">const</span>*  Location,</span><br><span class="line">    FRotator <span class="keyword">const</span>* Rotation,</span><br><span class="line">    AActor*         Template,</span><br><span class="line">    <span class="keyword">bool</span>            bNoCollisionFail,</span><br><span class="line">    <span class="keyword">bool</span>            bRemoteOwned,</span><br><span class="line">    AActor*         Owner,</span><br><span class="line">    APawn*          Instigator,</span><br><span class="line">    <span class="keyword">bool</span>            bNoFail,</span><br><span class="line">    ULevel*         OverrideLevel,</span><br><span class="line">    <span class="keyword">bool</span>            bDeferConstruction</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>其中，<code>UClass</code>大概是</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UClass <span class="class"><span class="keyword">class</span> = <span class="title">XXXClass</span>:</span>:StaticClass();</span><br></pre></td></tr></table></figure>
+<p>更简便的方法是通过模板类实现的。下面这段代码的第一个参数是<code>Owner</code>，第二个是<code>Instigator</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyHUD = SpawnActor&lt;AHUD&gt;(<span class="keyword">this</span>, Instigator);</span><br></pre></td></tr></table></figure>
+<h3 id="销毁方法"><a href="#销毁方法" class="headerlink" title="销毁方法"></a>销毁方法</h3><p><code>Actor</code>继承自<code>UObject</code>，使用Destroy销毁即可。</p>
+<h2 id="反射系统"><a href="#反射系统" class="headerlink" title="反射系统"></a>反射系统</h2><ul>
+<li><code>GENERATE_BODY()</code>实际上是插入一些必要的模板<ul>
+<li>[  ] 具体插入了啥，还需要有时间的时候再研究下</li>
+</ul>
+</li>
+<li>[  ] 反射头文件，也不知道插入了啥，查看一些博客研究下</li>
+</ul>
+<h3 id="常用说明符"><a href="#常用说明符" class="headerlink" title="常用说明符"></a>常用说明符</h3><h3 id="UCLASS"><a href="#UCLASS" class="headerlink" title="UCLASS"></a>UCLASS</h3><ul>
+<li><code>Blueprintable</code> 该类可以由蓝图扩展</li>
+<li><code>NotBlueprintable</code> 与上一条相反</li>
+<li><code>Abstract</code> 防止该类被实例化</li>
+</ul>
+<h4 id="构造函数生成CDO"><a href="#构造函数生成CDO" class="headerlink" title="构造函数生成CDO"></a>构造函数生成CDO</h4><p>构造函数中初始化的变量值，会形成类默认对象(CDO)。</p>
+<h3 id="UFUNCTION"><a href="#UFUNCTION" class="headerlink" title="UFUNCTION"></a>UFUNCTION</h3><p>说几个值得一提的函数说明符和元数据。</p>
+<h4 id="蓝图相关"><a href="#蓝图相关" class="headerlink" title="蓝图相关"></a>蓝图相关</h4><ul>
+<li><code>BlueprintImplementablEvent</code> 此函数可以在蓝图中实现</li>
+<li><code>BlueprintNativeEvent</code> 有原生的默认实现，但是可以在蓝图中覆盖实现</li>
+</ul>
+<p>元数据：</p>
+<ul>
+<li><code>DisplayName=&quot;Blueprint Node Name&quot;</code> 在蓝图中显示的名字</li>
+<li><code>HidePin=&quot;Parameter&quot;</code> 在蓝图中隐藏引脚，只能隐藏一个</li>
+<li><code>HideSelfPin</code> 在蓝图中隐藏self引脚</li>
+<li><code>ShortToolTip=&quot;Short tooltip&quot;</code> 提示</li>
+<li><code>ToolTip=&quot;Hand-written tooltip&quot;</code> 提示</li>
+</ul>
+<h4 id="参数说明符"><a href="#参数说明符" class="headerlink" title="参数说明符"></a>参数说明符</h4><ul>
+<li><code>Out</code> 传入引用给函数，函数可以对其进行更改</li>
+</ul>
+<blockquote>
+<p>Tips</p>
+<p>C++中定义了一个函数，传入了一个引用类型。如果多加点什么的话，到了蓝图层会发现参数变成了输出。为了避免这种情况，需要加<code>UPARAM(ref)</code>，比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;  UFUNCTION(BlueprintCallable)</span><br><span class="line">&gt;  void ModifyVector(UPARAM(ref) FVector&amp; Vector);</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="用以实现工具"><a href="#用以实现工具" class="headerlink" title="用以实现工具"></a>用以实现工具</h4><ul>
+<li>‘CallInEditor’ 可以在details中调用，一般拿来做工具啥的，挺有意思的</li>
+<li><code>Exec</code> 此函数可从游戏内控制台执行。仅在特定类中声明时，Exec命令才有效。</li>
+</ul>
+<h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><ul>
+<li><code>ServiceRequest</code> 此函数为RPC（远程过程调用）服务请求。这意味着 NetMulticast 和 Reliable。</li>
+<li><code>ServiceResponse</code> 此函数为RPC服务响应。这意味着 NetMulticast 和 Reliable。</li>
+<li><code>Server</code> 仅在服务器上运行</li>
+<li><code>Unreliable</code> 此函数将通过网络复制，但是可能会因带宽限制或网络错误而失败</li>
+</ul>
+<h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><ul>
+<li><code>DevelopmentOnly</code> 只有在开发时会被执行</li>
+</ul>
+<h3 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h3><h4 id="位掩码"><a href="#位掩码" class="headerlink" title="位掩码"></a>位掩码</h4><p>参考<a href="https://docs.unrealengine.com/zh-CN/Programming/UnrealArchitecture/Reference/Properties/index.html" target="_blank" rel="noopener">Property</a>。</p>
+<p>可以在Details面板中显示多选项。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">UENUM(Meta = (Bitflags))</span><br><span class="line"><span class="keyword">enum</span> <span class="class"><span class="keyword">class</span> <span class="title">EColorBits</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ECB_Red,</span><br><span class="line">    ECB_Green,</span><br><span class="line">    ECB_Blue</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">UCLASS()</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyActor</span> :</span> <span class="keyword">public</span> Actor</span><br><span class="line">&#123;</span><br><span class="line">    GENERATE_BODY()</span><br><span class="line"></span><br><span class="line">    UPROPERTY(EditAnywhere, Meta=(Bitmask, BitmaskEnum=<span class="string">"EColorBits"</span>));</span><br><span class="line">    int32 ColorFlags;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Event相关"><a href="#Event相关" class="headerlink" title="Event相关"></a>Event相关</h4><p>对于<code>DYNAMIC_MULTICAST_DELEGATE</code>类型的Event，可以定义<code>BlueprintCallable</code>，从蓝图发送事件。 </p>
+<p>对于delegate来说，如果定义为<code>BlueprintAssignable</code>，可以在蓝图绑定事件。</p>
+<h3 id="USTRUCT"><a href="#USTRUCT" class="headerlink" title="USTRUCT"></a>USTRUCT</h3><p>参考<a href="https://docs.unrealengine.com/zh-CN/Programming/UnrealArchitecture/Reference/Structs/index.html" target="_blank" rel="noopener">结构体</a>。</p>
+<p>属于反射系统，但是不属于<code>UObject</code>生态圈，无法垃圾回收系统处理。但是，快。</p>
+<p>支持<code>UPROPERTY</code>，但是不支持<code>UFUNCTION</code>（虽然原生c++ struct支持定义函数）。</p>
+<h4 id="蓝图split的支持"><a href="#蓝图split的支持" class="headerlink" title="蓝图split的支持"></a>蓝图split的支持</h4><p>如果想要让结构体在蓝图中可以执行<code>split</code>，那么必须定义为<code>Blueprintable</code>。</p>
+<h4 id="蓝图中break和make"><a href="#蓝图中break和make" class="headerlink" title="蓝图中break和make"></a>蓝图中break和make</h4><ul>
+<li>make：<code>HasNativeBreak=&quot;Module.Class.Function&quot;</code></li>
+<li>break: <code>HasNativeMake=&quot;Module.Class.Function&quot;</code></li>
+</ul>
+<h3 id="UINTERFACE"><a href="#UINTERFACE" class="headerlink" title="UINTERFACE"></a>UINTERFACE</h3><p>UE4里面的接口比较古怪。要定义一个接口，总共要定义两个类。其中，第一个类只是给反射系统用，<strong>是个空类</strong>，必须以U开头并继承于<code>UInterface</code>。第二个类才是真正的接口所在，名字以<code>I</code>开头，其余部分与前者相同，且不需要继承于任何类。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"ReactToTriggerInterface.generated.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 这个只是给反射系统看的，是个空类 */</span></span><br><span class="line">UINTERFACE(MinimalAPI, Blueprintable)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UReactToTriggerInterface</span> :</span> <span class="keyword">public</span> UInterface</span><br><span class="line">&#123;</span><br><span class="line">    GENERATED_BODY()</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 这个才是真正的接口内容，注意名字要和前面那个U开头的相同，C++类要实现的是这个类 */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IReactToTriggerInterface</span></span></span><br><span class="line"><span class="class">&#123;</span>    </span><br><span class="line">    GENERATED_BODY()</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/** 在此处添加接口函数声明 */</span></span><br><span class="line">    UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>如果接口既想要被蓝图实现，又想在C++先有个默认实现，那么需要做几件事：</p>
+<ol>
+<li>接口中的函数需要被定义为<code>BlueprintCallable, BlueprintNativeEvent</code></li>
+<li>C++实现接口，要实现接口的方法，但是不是直接实现，而是要在方法名后面加上<code>_Implementation</code></li>
+</ol>
+<p>猜测当<code>UFUCTION</code>定义了<code>BlueprintNativeEvent</code>之后，UE4发现某某类实现了该接口，那么<code>GENERATED_BODY()</code>里会做两件事：</p>
+<ol>
+<li>接口类中会因为<code>GENERATED_BODY()</code>出现一个<code>xxx_Implementation()</code>的函数</li>
+<li>实现类再去override这个函数，刚好</li>
+</ol>
+<p>举个完整的例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">UINTERFACE(MinimalAPI, Blueprintable)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UTestable</span> :</span> <span class="keyword">public</span> UInterface</span><br><span class="line">&#123;</span><br><span class="line">    GENERATED_BODY()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ITestable</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    GENERATED_BODY()</span><br><span class="line"></span><br><span class="line">    UFUNCTION(BlueprintCallable, BlueprintNativeEvent)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Test</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">UCLASS()</span><br><span class="line">class MyTest() : public Actor, public ITestable</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/** 此处用override关键字不会打包报错 */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Test_Implementation</span><span class="params">()</span> override</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> MyTest::Test_Implementation()</span><br><span class="line">&#123;</span><br><span class="line">    UE_LOG(LogTemp, Warning, TEXT(<span class="string">"Print From Test_Implementation()"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="判断类是否实现了接口"><a href="#判断类是否实现了接口" class="headerlink" title="判断类是否实现了接口"></a>判断类是否实现了接口</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> bIsImplemented = OriginalObject-&gt;GetClass()-&gt;ImplementsInterface(UReactToTriggerInterface::StaticClass()); <span class="comment">// bIsImplemented will be true if OriginalObject implements UReactToTriggerInterface.</span></span><br><span class="line"></span><br><span class="line">bIsImplemented = OriginalObject-&gt;Implements&lt;UReactToTriggerInterface&gt;(); <span class="comment">// bIsImplemented will be true if OriginalObject implements UReactToTriggerInterfacce.</span></span><br><span class="line"></span><br><span class="line">IReactToTriggerInterface* ReactingObjectA = Cast&lt;IReactToTriggerInterface&gt;(OriginalObject); <span class="comment">// ReactingObject will be non-null if OriginalObject implements UReactToTriggerInterface.</span></span><br></pre></td></tr></table></figure>
+<h2 id="UObject-Actor迭代器"><a href="#UObject-Actor迭代器" class="headerlink" title="UObject/Actor迭代器"></a>UObject/Actor迭代器</h2><p>构造完了就可以用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TObjectIterator&lt;UObject&gt; it()</span><br></pre></td></tr></table></figure>
+<p>拿到value的方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UObject *value = *it;</span><br></pre></td></tr></table></figure>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><p>狭义来说，只针对UObject。</p>
+<p>广义上来说，还可以通过：</p>
+<ul>
+<li>定义类继承自<code>FGCObject</code>并重写必要的方法<code>AddReferencedObjects()</code></li>
+<li>智能指针</li>
+</ul>
+<p><code>USTRUCT</code>是不会被自动回收的，如果真的希望<code>USTRUCT</code>被内存管理，那么使用智能指针便是。</p>
+<h3 id="回收时机"><a href="#回收时机" class="headerlink" title="回收时机"></a>回收时机</h3><p><code>Destroy</code>只是做了个标志位，真正回收的时间还要等系统决定。</p>
+<p>标记了<code>Destroy</code>和真正被回收之间的这个状态，称为一条腿踏进了鬼门关，简称等死，可以用<code>IsPendingKill()</code>函数来判定。</p>
+<h2 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h2><p>不照着命名规范走，有可能就直接编译错误了。</p>
+<ul>
+<li>派生自 Actor 的类带有 A 前缀，如 AController。</li>
+<li>派生自 Object 的类带有 U 前缀，如 UComponent。</li>
+<li>Enums 的前缀是 E，如 EFortificationType。</li>
+<li>Interface 的前缀通常是 I，如 IAbilitySystemInterface。</li>
+<li><strong>Template 的前缀是 T，如 TArray。</strong></li>
+<li>派生自 SWidget 的类（Slate UI）带有前缀 S，如 SButton。</li>
+<li><strong>其他类</strong>的前缀为字母F ，如 FVector。</li>
+</ul>
+<h2 id="数字类型"><a href="#数字类型" class="headerlink" title="数字类型"></a>数字类型</h2><ul>
+<li>int8/uint8</li>
+<li>int16/uint16</li>
+<li>int32/uint32</li>
+<li>int64/uint64</li>
+<li>float (32 bit)</li>
+<li>double (64 bit)</li>
+</ul>
+<h2 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h2><h3 id="FString"><a href="#FString" class="headerlink" title="FString"></a>FString</h3><p>是一个<strong>可变</strong>字符串。</p>
+<p><strong>创建</strong>使用<code>TEXT</code>。</p>
+<blockquote>
+<p><strong>多说一句</strong></p>
+<p><code>TEXT()</code>返回的其实是<code>WCHAR</code>数组，只不过被隐式转换了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="function">FORCEINLINE <span class="title">FString</span><span class="params">(<span class="keyword">const</span> CharType* Src)</span></span></span><br><span class="line">&gt; 	&#123;</span><br><span class="line">&gt; 		<span class="keyword">if</span> (Src &amp;&amp; *Src)</span><br><span class="line">&gt; 		&#123;</span><br><span class="line">&gt; 			int32 SrcLen  = TCString&lt;CharType&gt;::Strlen(Src) + <span class="number">1</span>;</span><br><span class="line">&gt; 			int32 DestLen = FPlatformString::ConvertedLength&lt;TCHAR&gt;(Src, SrcLen);</span><br><span class="line">&gt; 			Data.AddUninitialized(DestLen);</span><br><span class="line">&gt; </span><br><span class="line">&gt; 			FPlatformString::Convert(Data.GetData(), DestLen, Src, SrcLen);</span><br><span class="line">&gt; 		&#125;</span><br><span class="line">&gt; 	&#125;</span><br><span class="line">&gt; <span class="string">'''</span></span><br><span class="line"></span><br><span class="line">转换成数字：</span><br><span class="line"></span><br><span class="line">```cpp</span><br><span class="line">int32 TestInt = FCString::Atoi(*MyFString);</span><br><span class="line"><span class="keyword">float</span> TestFloat = FCString::Atof(*MyFString);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>数字转换成string：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FString TestString = FString::FromInt(MyInt);</span><br><span class="line">FString TestString = FString::SanitizeFloat(MyFloat);</span><br></pre></td></tr></table></figure>
+<h3 id="FText"><a href="#FText" class="headerlink" title="FText"></a>FText</h3><p>跟FString差不多，主要是多了个本地化的功能。</p>
+<p>创建：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FText MyText = NSLOCTEXT(<span class="string">"Game UI"</span>, <span class="string">"Health Warning Message"</span>, <span class="string">"Low Health!"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="FName"><a href="#FName" class="headerlink" title="FName"></a>FName</h3><p>一个字「<strong>快</strong>」。</p>
+<p>其实也是字符串。</p>
+<p>一般用作常出现的字符串，在内存中只出现一份拷贝。<strong>不区分大小写</strong>，也不可变，无法被操作。</p>
+<p><strong>可以提高性能</strong>。用作字符串匹配时（例如依名寻物时），可以直接用索引值来匹配，而不需要每个字符分别对比。</p>
+<h3 id="TCHAR"><a href="#TCHAR" class="headerlink" title="TCHAR"></a>TCHAR</h3><p>字符串的真实载体。</p>
+<p>一般啥时候用到呢？比如<code>FString::Printf(TEXT(&quot;%S&quot;))</code>中的<code>%s</code>，其实需要的就是一个<code>TCHAR</code>数组。</p>
+<p><code>FString</code>重写过其<code>*</code>操作符，用以返回其指向的<code>WCHAR</code>数组的地址。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// File: UnrealString.h</span></span><br><span class="line">FORCEINLINE <span class="keyword">const</span> TCHAR* <span class="keyword">operator</span>*() <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> Data.Num() ? Data.GetData() : TEXT(<span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="新建"><a href="#新建" class="headerlink" title="新建"></a>新建</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TCHAR* message = TEXT(<span class="string">"Hello world."</span>);</span><br></pre></td></tr></table></figure>
+<p><code>TEXT</code>的本质是给字符串前面加了个<code>L</code>，也就是说前面的处理后，会变成<code>L&quot;Hello world.&quot;</code>。</p>
+<h4 id="TCHAR的处理"><a href="#TCHAR的处理" class="headerlink" title="TCHAR的处理"></a><code>TCHAR</code>的处理</h4><p>UE4在<code>FChar</code>类中封装了一些静态函数，可以处理<code>WCHAR</code>数组。</p>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><h3 id="TArray"><a href="#TArray" class="headerlink" title="TArray"></a>TArray</h3><p>获取array长度：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int32 ArraySize = Array.Num();</span><br></pre></td></tr></table></figure>
+<p>直接取值（说明重写了<code>[]</code>）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int32 Index = <span class="number">0</span>;</span><br><span class="line">AActor* FirstActor = ActorArray[Index];</span><br></pre></td></tr></table></figure>
+<p>添加新元素</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActorArray.Add(NewActor)</span><br></pre></td></tr></table></figure>
+<p>如果数组中不存在新元素，那么添加新元素</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActorArray.AddUnique(NewActor);</span><br></pre></td></tr></table></figure>
+<p>移除元素：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ActorArray.Remove(NewActor);</span><br><span class="line"></span><br><span class="line">ActorArray.RemoveAt(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 高效，但是可能会打乱顺序 */</span></span><br><span class="line">ActorArray.RemoveAtSwap(Index);</span><br><span class="line"><span class="comment">/* 直接清除所有 */</span></span><br><span class="line">ActorArray.Empty();</span><br></pre></td></tr></table></figure>
+<p>TArray是支持垃圾回收的，前提是元素必须都继承于<code>UObject</code>。</p>
+<h3 id="TMap"><a href="#TMap" class="headerlink" title="TMap"></a>TMap</h3><p>字典。</p>
+<h3 id="TSet"><a href="#TSet" class="headerlink" title="TSet"></a>TSet</h3><p>集合。</p>
+<h3 id="容器迭代器"><a href="#容器迭代器" class="headerlink" title="容器迭代器"></a>容器迭代器</h3><p>创建迭代器</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> Iterator = xxxSet.CreateIterator();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(; Iterator; ++Iterator)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> Element = *Iterator;</span><br><span class="line">    <span class="keyword">if</span> (Element.Invalid())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 移除当前元素</span></span><br><span class="line">        Iterator.RemoveCurrent();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取迭代器索引</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int32 Index = Iterator.GetIndex();</span><br></pre></td></tr></table></figure>
+<p>复位到第一个元素</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Iterator.Reset();</span><br></pre></td></tr></table></figure>
+<h3 id="for-each"><a href="#for-each" class="headerlink" title="for-each"></a>for-each</h3><p>除了map以外都是普通的for-each，无须赘述。</p>
+<p>map的话for-each返回的是一个键值对，用的时候可以这么用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span>&amp; KeyValuePair : XXXMap)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> Key = KeyValuePair.Key;</span><br><span class="line">    <span class="keyword">auto</span> Value = KeyValuePair.Value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义散列函数"><a href="#自定义散列函数" class="headerlink" title="自定义散列函数"></a>自定义散列函数</h3><p>Set和Map的键是需要能够转换成哈希值的。</p>
+<p>UE4提供的能够作为键的类型，都是实现了<code>GetTypeHash()</code>函数的，能够返回唯一的一个哈希值。</p>
+<p>如果我们要实现自己的类，并且让它能够作为键，那么需要实现：</p>
+<ul>
+<li><code>GetTypeHash()</code></li>
+<li><code>operator==</code></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FMyClass</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    uint32 ExampleProperty1;</span><br><span class="line">    uint32 ExampleProperty2;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 散列函数</span></span><br><span class="line">    <span class="function"><span class="keyword">friend</span> uint32 <span class="title">GetTypeHash</span><span class="params">(<span class="keyword">const</span> FMyClass&amp; MyClass)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// HashCombine是将两个散列值合并的效用函数。</span></span><br><span class="line">        uint32 HashCode = HashCombine(MyClass.ExampleProperty1, MyClass.ExampleProperty2);</span><br><span class="line">        <span class="keyword">return</span> HashCode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为了演示目的，两个相同的对象</span></span><br><span class="line">    <span class="comment">// 应该始终返回相同的散列代码。</span></span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>==(<span class="keyword">const</span> FMyClass&amp; LHS, <span class="keyword">const</span> FMyClass&amp; RHS)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> LHS.ExampleProperty1 == RHS.ExampleProperty1</span><br><span class="line">            &amp;&amp; LHS.ExampleProperty2 == RHS.ExampleProperty2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy Me A Coffee / 捐一杯咖啡的钱</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="左未 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="左未 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/02/leetcode-basic-thought-01/" rel="next" title="leetcode基础思想特辑 01">
+                <i class="fa fa-chevron-left"></i> leetcode基础思想特辑 01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/27/20200825-UE4-SmartPointers-and-Refection/" rel="prev" title="【UE4学习】20200825 智能指针和反射">
+                【UE4学习】20200825 智能指针和反射 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          <!-- 添加分享sdk -->
+          
+<div class="exkulo-share-div">
+    <span class="-mob-share-ui-text -mob-share-open exkulo-share-btn">分享这篇文章~</span>
+</div>
+<div class="-mob-share-ui -mob-share-ui-theme-slide-bottom" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2bd548c2dd68c"></script>
+ 
+
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/default-avatar.jpg" alt="左未">
+            
+              <p class="site-author-name" itemprop="name">左未</p>
+              <p class="site-description motion-element" itemprop="description">其实只是一本笔记本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:exkulo@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Actor"><span class="nav-number">2.</span> <span class="nav-text">Actor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成Actor的方法"><span class="nav-number">2.1.</span> <span class="nav-text">生成Actor的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#销毁方法"><span class="nav-number">2.2.</span> <span class="nav-text">销毁方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射系统"><span class="nav-number">3.</span> <span class="nav-text">反射系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用说明符"><span class="nav-number">3.1.</span> <span class="nav-text">常用说明符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UCLASS"><span class="nav-number">3.2.</span> <span class="nav-text">UCLASS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数生成CDO"><span class="nav-number">3.2.1.</span> <span class="nav-text">构造函数生成CDO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UFUNCTION"><span class="nav-number">3.3.</span> <span class="nav-text">UFUNCTION</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#蓝图相关"><span class="nav-number">3.3.1.</span> <span class="nav-text">蓝图相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数说明符"><span class="nav-number">3.3.2.</span> <span class="nav-text">参数说明符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用以实现工具"><span class="nav-number">3.3.3.</span> <span class="nav-text">用以实现工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络"><span class="nav-number">3.3.4.</span> <span class="nav-text">网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调试"><span class="nav-number">3.3.5.</span> <span class="nav-text">调试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Property"><span class="nav-number">3.4.</span> <span class="nav-text">Property</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#位掩码"><span class="nav-number">3.4.1.</span> <span class="nav-text">位掩码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Event相关"><span class="nav-number">3.4.2.</span> <span class="nav-text">Event相关</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#USTRUCT"><span class="nav-number">3.5.</span> <span class="nav-text">USTRUCT</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#蓝图split的支持"><span class="nav-number">3.5.1.</span> <span class="nav-text">蓝图split的支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#蓝图中break和make"><span class="nav-number">3.5.2.</span> <span class="nav-text">蓝图中break和make</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UINTERFACE"><span class="nav-number">3.6.</span> <span class="nav-text">UINTERFACE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#判断类是否实现了接口"><span class="nav-number">3.6.1.</span> <span class="nav-text">判断类是否实现了接口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UObject-Actor迭代器"><span class="nav-number">4.</span> <span class="nav-text">UObject/Actor迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收"><span class="nav-number">5.</span> <span class="nav-text">垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回收时机"><span class="nav-number">5.1.</span> <span class="nav-text">回收时机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名规范"><span class="nav-number">6.</span> <span class="nav-text">命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字类型"><span class="nav-number">7.</span> <span class="nav-text">数字类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串处理"><span class="nav-number">8.</span> <span class="nav-text">字符串处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FString"><span class="nav-number">8.1.</span> <span class="nav-text">FString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FText"><span class="nav-number">8.2.</span> <span class="nav-text">FText</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FName"><span class="nav-number">8.3.</span> <span class="nav-text">FName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCHAR"><span class="nav-number">8.4.</span> <span class="nav-text">TCHAR</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建"><span class="nav-number">8.4.1.</span> <span class="nav-text">新建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCHAR的处理"><span class="nav-number">8.4.2.</span> <span class="nav-text">TCHAR的处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">9.</span> <span class="nav-text">容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TArray"><span class="nav-number">9.1.</span> <span class="nav-text">TArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TMap"><span class="nav-number">9.2.</span> <span class="nav-text">TMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TSet"><span class="nav-number">9.3.</span> <span class="nav-text">TSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器迭代器"><span class="nav-number">9.4.</span> <span class="nav-text">容器迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-each"><span class="nav-number">9.5.</span> <span class="nav-text">for-each</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义散列函数"><span class="nav-number">9.6.</span> <span class="nav-text">自定义散列函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左未</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kity.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/bg-beautifier.js?v=5.1.4"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/vue.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/vue-script/main.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7CaWPI6HXpR1CiqpYnyY0JdE-gzGzoHsz", "rB1Vxs2fw7BXYUN9iyRcwfM3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

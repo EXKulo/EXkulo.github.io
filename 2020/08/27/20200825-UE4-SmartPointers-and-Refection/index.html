@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/d6cb46a8.js","daovoice")
+  daovoice('init', {
+      app_id: "d6cb46a8"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言今天研究下智能指针的垃圾回收，以及反射的基础知识。 智能指针参考文献 虚幻4：智能指针基础 UE4智能指针  为啥要用UE4提供的智能指针最主要的原因：不是啥类都是继承于UObject的，这部分类本是无法被UE4垃圾回收的，同样，USTRUCT也是没办法被垃圾回收的。如果想要让UE4的垃圾回收管理这部分的内存，那么使用UE4提供的智能指针就好了。 另外：  std::shared_ptr不是在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【UE4学习】20200825 智能指针和反射">
+<meta property="og:url" content="https://exkulo.github.io/2020/08/27/20200825-UE4-SmartPointers-and-Refection/index.html">
+<meta property="og:site_name" content="左未的笔记本">
+<meta property="og:description" content="前言今天研究下智能指针的垃圾回收，以及反射的基础知识。 智能指针参考文献 虚幻4：智能指针基础 UE4智能指针  为啥要用UE4提供的智能指针最主要的原因：不是啥类都是继承于UObject的，这部分类本是无法被UE4垃圾回收的，同样，USTRUCT也是没办法被垃圾回收的。如果想要让UE4的垃圾回收管理这部分的内存，那么使用UE4提供的智能指针就好了。 另外：  std::shared_ptr不是在">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-27T11:16:55.116Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【UE4学习】20200825 智能指针和反射">
+<meta name="twitter:description" content="前言今天研究下智能指针的垃圾回收，以及反射的基础知识。 智能指针参考文献 虚幻4：智能指针基础 UE4智能指针  为啥要用UE4提供的智能指针最主要的原因：不是啥类都是继承于UObject的，这部分类本是无法被UE4垃圾回收的，同样，USTRUCT也是没办法被垃圾回收的。如果想要让UE4的垃圾回收管理这部分的内存，那么使用UE4提供的智能指针就好了。 另外：  std::shared_ptr不是在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://exkulo.github.io/2020/08/27/20200825-UE4-SmartPointers-and-Refection/">
+
+
+
+
+
+  <title>【UE4学习】20200825 智能指针和反射 | 左未的笔记本</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+<!--
+  <div v-bind:class="[VueTestClass]" id="vue-test">
+    <p class="title-welcome-text">${ welcomeStr }</p>
+  </div>
+-->
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+  <div class="headband"></div>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <!-- 添加了id，后面改变css样式用 -->
+      <div id="id-header-inner" class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">左未的笔记本</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年寿有时而尽，荣乐止乎其身。<br>二者必至之期，未若文章之无穷。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-spinner"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/aboutme" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <!-- 改变css样式 -->
+    <script type="text/javascript" src="/js/src/bg-beautifier.js"></script>
+    <script>hexoChangeBanner();</script>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    左未
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://exkulo.github.io/2020/08/27/20200825-UE4-SmartPointers-and-Refection/" title="【UE4学习】20200825 智能指针和反射">https://exkulo.github.io/2020/08/27/20200825-UE4-SmartPointers-and-Refection/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+    <br>
+    <br>
+
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/08/27/20200825-UE4-SmartPointers-and-Refection/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【UE4学习】20200825 智能指针和反射</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-27T19:10:26+08:00">
+                2020-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/08/27/20200825-UE4-SmartPointers-and-Refection/" class="leancloud_visitors" data-flag-title="【UE4学习】20200825 智能指针和反射">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天研究下智能指针的垃圾回收，以及反射的基础知识。</p>
+<h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/94198883" target="_blank" rel="noopener">虚幻4：智能指针基础</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1374075" target="_blank" rel="noopener">UE4智能指针</a></li>
+</ul>
+<h3 id="为啥要用UE4提供的智能指针"><a href="#为啥要用UE4提供的智能指针" class="headerlink" title="为啥要用UE4提供的智能指针"></a>为啥要用UE4提供的智能指针</h3><p>最主要的原因：不是啥类都是继承于UObject的，这部分类本是无法被UE4垃圾回收的，同样，USTRUCT也是没办法被垃圾回收的。如果想要让UE4的垃圾回收管理这部分的内存，那么使用UE4提供的智能指针就好了。</p>
+<p>另外：</p>
+<ul>
+<li>std::shared_ptr不是在所有的平台都能用的</li>
+<li>配合UE4的容器类使用，酸爽</li>
+</ul>
+<p>然而，还是有一些性能上的缺陷，例如：</p>
+<ul>
+<li><strong>创建和复制</strong>智能指针比创建和复制原始C++指针需要<strong>更多开销</strong>。</li>
+<li><strong>保持引用计数</strong>增加基本运算的周期。</li>
+<li>部分智能指针<strong>占用的内存</strong>比原始的C++更多。</li>
+<li>引用控制器有两个堆分配。使用 MakeShared 代替 MakeShareable 可避免二次分配，并可提高性能。</li>
+</ul>
+<h3 id="都有哪些智能指针"><a href="#都有哪些智能指针" class="headerlink" title="都有哪些智能指针"></a>都有哪些智能指针</h3><ul>
+<li><code>TSharedPtr</code></li>
+<li><code>TSharedRef</code></li>
+<li><code>TWeakPtr</code></li>
+<li><code>TUniquePtr</code></li>
+</ul>
+<p>几个的区别</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>解释</th>
+<th>内存占用</th>
+<th>性能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TSharedPtr</td>
+<td>引用计数的非侵入式的权威智能指针</td>
+<td>默认是裸指针两倍，但是多出了控制块的内存</td>
+<td>有一定的内存消耗，大约是两倍</td>
+</tr>
+<tr>
+<td>TSharedRef</td>
+<td>引用计数的非侵入式的权威智能引用（只是不能为null）</td>
+<td>同上</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>TWeakPtr</td>
+<td>引用计数的、非侵入式弱指针引用</td>
+<td>两倍的裸指针大小，有一个指针指向控制块</td>
+<td>比Tsharedptr略慢</td>
+</tr>
+<tr>
+<td>TUniquePtr</td>
+<td>专属所有权智能指针，只能转移，不能复制</td>
+<td>默认和裸指针相同，有状态的删除其和采用函数指针实现的删除器会增加尺寸</td>
+<td>基本裸指针相同</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TSharedPtr"><a href="#TSharedPtr" class="headerlink" title="TSharedPtr"></a>TSharedPtr</h3><p>使用方法如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NativeClass</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    int32 Value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TestSharedPtr</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 声明并定义</span></span><br><span class="line">    TSharedPtr&lt;NativeClass&gt; MyNativeClass = MakeSharable(<span class="keyword">new</span> NativeClass());</span><br><span class="line">    <span class="comment">// 判空</span></span><br><span class="line">    <span class="keyword">if</span>( MyNativeClass.IsValid() || MyNativeClass.Get() )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 直接访问成员变量，这里有点匪夷所思</span></span><br><span class="line">        int32 Value = MyNativeClass-&gt;Value;</span><br><span class="line">        <span class="comment">// 使用复制构造函数来复制指针，经试验，复制完会把引用计数 +1</span></span><br><span class="line">        TShared&lt;NativeClass&gt; MyNativeClass2 = MyNativeClass;</span><br><span class="line">        <span class="comment">// 获取引用计数</span></span><br><span class="line">        int32 RefCount = MyNativeClass.GetSharedReferenceCount();</span><br><span class="line">        <span class="comment">// 销毁</span></span><br><span class="line">        MyNativeClass.Reset();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以直接通过共享指针来获取成员变量，这是因为<code>TSharedPtr</code>重写了<code>-&gt;</code>符号，返回的就是「被包裹的」实例本身：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// File: SharedPointer.h</span></span><br><span class="line">FORCEINLINE ObjectType* <span class="keyword">operator</span>-&gt;() <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">    check( IsValid() );</span><br><span class="line">    <span class="keyword">return</span> Object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>所谓<code>a-&gt;b</code>，本质也就是<code>(*a).b</code>，所以重写<code>-&gt;</code>，要返回的是<code>*a</code>的结果。在重写之前，<code>-&gt;</code>肯定返回的是<code>*a</code>。</p>
+</blockquote>
+<p>超出定义域之后，引用计数会自动减一。有时间再看源码吧，估计又是Cocos2dx的Ref那一套。</p>
+<h3 id="易法"><a href="#易法" class="headerlink" title="易法"></a>易法</h3><h3 id="派生类-Longrightarrow-基类"><a href="#派生类-Longrightarrow-基类" class="headerlink" title="派生类 $\Longrightarrow$ 基类"></a>派生类 $\Longrightarrow$ 基类</h3><p>支持隐式转换，直接等于即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TSharedPtr&lt;Base&gt; pBase;</span><br><span class="line">TSharedPtr&lt;Derived&gt; pDerived = MakeSharable(<span class="keyword">new</span> Derived());</span><br><span class="line">pBase = pDerived;</span><br></pre></td></tr></table></figure>
+<h3 id="基类-Longrightarrow-派生类"><a href="#基类-Longrightarrow-派生类" class="headerlink" title="基类 $\Longrightarrow$ 派生类"></a>基类 $\Longrightarrow$ 派生类</h3><p>需要用到<code>StaticCastSharedPtr&lt;T&gt;()</code>函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TSharedPtr&lt;Derived&gt;pDerived = StaticCastSharedPtr&lt;Derived&gt;(pBase);</span><br><span class="line"><span class="comment">// 判空</span></span><br><span class="line"><span class="keyword">bool</span> valid = pDerived.IsValid();</span><br></pre></td></tr></table></figure>
+<h3 id="const-Longrightarrow-mutable"><a href="#const-Longrightarrow-mutable" class="headerlink" title="const $\Longrightarrow$ mutable"></a>const $\Longrightarrow$ mutable</h3><p>使用<code>ConstCastSharedRef</code>和<code>ConstCastSharedPtr</code>将常量智能指针转换成可变智能指针。</p>
+<h3 id="TSharedFromThis"><a href="#TSharedFromThis" class="headerlink" title="TSharedFromThis"></a>TSharedFromThis</h3><p>继承于该类，会提供一个<code>AsShared()</code>，可以方便的从原始指针转换为一个共享指针。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>:</span> <span class="keyword">public</span> TSharedFromThis&lt;Test&gt;</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TestSharedFromThis</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TSharedPtr&lt;Test&gt; a = MakeSharable(<span class="keyword">new</span> Test());</span><br><span class="line">    Test* InnerPointer = a.Get();</span><br><span class="line">    TSharedPtr&lt;Test&gt; b = InnerPointer.AsShared();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><h3 id="参考文献-1"><a href="#参考文献-1" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/60622181" target="_blank" rel="noopener">UE4反射机制</a></li>
+</ul>
+<h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3><blockquote>
+<p>反射系统是选择加入的，只有<strong>主动标记的</strong>类型、属性、方法会被反射系统追踪，UnrealHeaderTool会收集这些信息，生成用于支持反射机制的C++代码，然后再编译工程。</p>
+</blockquote>
+<h3 id="头文件与GENERATED-BODY"><a href="#头文件与GENERATED-BODY" class="headerlink" title="头文件与GENERATED_BODY()"></a>头文件与GENERATED_BODY()</h3><p><code>GENERATED_BODY()</code>的内容是被定义在UHT生成的头文件中的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy Me A Coffee / 捐一杯咖啡的钱</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="左未 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="左未 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/27/20200824-UE4-UC-Basic/" rel="next" title="【UE4学习】20200824 UC++ 基础">
+                <i class="fa fa-chevron-left"></i> 【UE4学习】20200824 UC++ 基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/27/20200826-UE4-Coding-Standard/" rel="prev" title="【UE4学习】20200826 UE4 编码规范">
+                【UE4学习】20200826 UE4 编码规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          <!-- 添加分享sdk -->
+          
+<div class="exkulo-share-div">
+    <span class="-mob-share-ui-text -mob-share-open exkulo-share-btn">分享这篇文章~</span>
+</div>
+<div class="-mob-share-ui -mob-share-ui-theme-slide-bottom" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2bd548c2dd68c"></script>
+ 
+
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/default-avatar.jpg" alt="左未">
+            
+              <p class="site-author-name" itemprop="name">左未</p>
+              <p class="site-description motion-element" itemprop="description">其实只是一本笔记本</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:exkulo@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#智能指针"><span class="nav-number">2.</span> <span class="nav-text">智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">2.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为啥要用UE4提供的智能指针"><span class="nav-number">2.2.</span> <span class="nav-text">为啥要用UE4提供的智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#都有哪些智能指针"><span class="nav-number">2.3.</span> <span class="nav-text">都有哪些智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TSharedPtr"><span class="nav-number">2.4.</span> <span class="nav-text">TSharedPtr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易法"><span class="nav-number">2.5.</span> <span class="nav-text">易法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#派生类-Longrightarrow-基类"><span class="nav-number">2.6.</span> <span class="nav-text">派生类 $\Longrightarrow$ 基类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基类-Longrightarrow-派生类"><span class="nav-number">2.7.</span> <span class="nav-text">基类 $\Longrightarrow$ 派生类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-Longrightarrow-mutable"><span class="nav-number">2.8.</span> <span class="nav-text">const $\Longrightarrow$ mutable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TSharedFromThis"><span class="nav-number">2.9.</span> <span class="nav-text">TSharedFromThis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射"><span class="nav-number">3.</span> <span class="nav-text">反射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献-1"><span class="nav-number">3.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总览"><span class="nav-number">3.2.</span> <span class="nav-text">总览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#头文件与GENERATED-BODY"><span class="nav-number">3.3.</span> <span class="nav-text">头文件与GENERATED_BODY()</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">左未</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kity.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/kityminder.core.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/mindmap.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/bg-beautifier.js?v=5.1.4"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/vue.min.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/vue-script/main.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+// 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '398701464d7260648966',
+          clientSecret: '205691d0d0a5afc9bd89d377ba5cc09efc85fc8d',
+          repo: 'EXkulo.github.io',
+          owner: 'EXKulo',
+          admin: ['EXKulo'],
+          id: md5(location.pathname),
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7CaWPI6HXpR1CiqpYnyY0JdE-gzGzoHsz", "rB1Vxs2fw7BXYUN9iyRcwfM3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
