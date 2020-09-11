@@ -90,22 +90,17 @@
 
 
 
-<meta name="description" content="【计算机图形学基础】7 纹理映射该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十一章 Texture Mapping。 对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。 这里">
+<meta name="description" content="导读最近做项目，深感自己C++功底不足。故开始看Effective C++。 该【Effective C++】系列为笔记。 少用define现在我们用#define，主要是两种用途：  定义常量 定义函数  对于第一种，书中推荐使用const，如果是类常量，那么使用static const。这是因为#define其实是一个预处理，在编译期间就会被替换掉，不会进入符号表。 这里需要注意：  常量字符">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【计算机图形学基础】7 纹理映射">
-<meta property="og:url" content="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/index.html">
+<meta property="og:title" content="20200911 【Effective C++】 01">
+<meta property="og:url" content="https://exkulo.github.io/2020/09/11/20200911-effective-cpp-01/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="【计算机图形学基础】7 纹理映射该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十一章 Texture Mapping。 对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。 这里">
+<meta property="og:description" content="导读最近做项目，深感自己C++功底不足。故开始看Effective C++。 该【Effective C++】系列为笔记。 少用define现在我们用#define，主要是两种用途：  定义常量 定义函数  对于第一种，书中推荐使用const，如果是类常量，那么使用static const。这是因为#define其实是一个预处理，在编译期间就会被替换掉，不会进入符号表。 这里需要注意：  常量字符">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/1.png">
-<meta property="og:image" content="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/2.png">
-<meta property="og:image" content="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/3.png">
-<meta property="og:image" content="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/4.png">
-<meta property="og:updated_time" content="2019-02-28T07:05:08.413Z">
+<meta property="og:updated_time" content="2020-09-11T05:29:48.833Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【计算机图形学基础】7 纹理映射">
-<meta name="twitter:description" content="【计算机图形学基础】7 纹理映射该系列为阅读书籍Fundamentals Of Computer Graphics所做的笔记。 本篇对应书中第十一章 Texture Mapping。 对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。 这里">
-<meta name="twitter:image" content="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/1.png">
+<meta name="twitter:title" content="20200911 【Effective C++】 01">
+<meta name="twitter:description" content="导读最近做项目，深感自己C++功底不足。故开始看Effective C++。 该【Effective C++】系列为笔记。 少用define现在我们用#define，主要是两种用途：  定义常量 定义函数  对于第一种，书中推荐使用const，如果是类常量，那么使用static const。这是因为#define其实是一个预处理，在编译期间就会被替换掉，不会进入符号表。 这里需要注意：  常量字符">
 
 
 
@@ -135,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/">
+  <link rel="canonical" href="https://exkulo.github.io/2020/09/11/20200911-effective-cpp-01/">
 
 
 
 
 
-  <title>【计算机图形学基础】7 纹理映射 | 左未的笔记本</title>
+  <title>20200911 【Effective C++】 01 | 左未的笔记本</title>
   
 
 
@@ -288,7 +283,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/" title="【计算机图形学基础】7 纹理映射">https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/</a>
+    <a href="https://exkulo.github.io/2020/09/11/20200911-effective-cpp-01/" title="20200911 【Effective C++】 01">https://exkulo.github.io/2020/09/11/20200911-effective-cpp-01/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -301,7 +296,7 @@
     <br>
     <br>
 
-    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/02/26/【计算机图形学基础】7纹理映射/">
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/09/11/20200911-effective-cpp-01/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左未">
@@ -318,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【计算机图形学基础】7 纹理映射</h1>
+          <h1 class="post-title" itemprop="name headline">20200911 【Effective C++】 01</h1>
         
 
         <div class="post-meta">
@@ -330,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T17:53:28+08:00">
-                2019-02-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-11T12:44:54+08:00">
+                2020-09-11
               </time>
             
 
@@ -353,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机图形学/" itemprop="url" rel="index" class="homepage-post-categroy">
-                    <span itemprop="name">计算机图形学</span>
+                  <a href="/categories/C/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -370,7 +365,7 @@
 
           
           
-             <span id="/2019/02/26/【计算机图形学基础】7纹理映射/" class="leancloud_visitors" data-flag-title="【计算机图形学基础】7 纹理映射">
+             <span id="/2020/09/11/20200911-effective-cpp-01/" class="leancloud_visitors" data-flag-title="20200911 【Effective C++】 01">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -401,80 +396,43 @@
       
 
       
-        <h1 id="【计算机图形学基础】7-纹理映射"><a href="#【计算机图形学基础】7-纹理映射" class="headerlink" title="【计算机图形学基础】7 纹理映射"></a>【计算机图形学基础】7 纹理映射</h1><p>该系列为阅读书籍<a href="https://book.douban.com/subject/3829906/" target="_blank" rel="noopener">Fundamentals Of Computer Graphics</a>所做的笔记。</p>
-<p>本篇对应书中第十一章 <strong>Texture Mapping</strong>。</p>
-<p>对于无图案的表面，漫反射只需一个$c_r$，而对于一个有着复杂图案的表面，光一个单一值得$c_r$是无法满足需求的。为了能够显示出图案来，我们把反射信息储存在图像中，然后把它映射到表面。这个技术就叫做纹理映射。</p>
-<p>这里会先讲3D纹理，也叫solid textures或volumn textures。再讲2d纹理，也叫image textures。不过如果我们纹理一词没有加上个2d或者3d的前缀，那一般指的就是2d的纹理。</p>
-<blockquote>
-<p><a href="https://gamedev.stackexchange.com/questions/9668/what-are-3d-textures" target="_blank" rel="noopener">2d纹理和3d纹理的区别</a></p>
-<p>3D texture works like regular texture. But it is truly 3D. 2D textures has UV coords, 3D has UVW (you had to use them propably). Texture coords are unit cube (0 - 1, 0 - 1, 0 - 1).</p>
-<p>Possible usage:</p>
-<p>volumetric effects in games (fire, smoke, light rays, realistic fog)<br>caching light for realtime global illumination (CryEngine for example)<br>scientific (MRI, CT scans are saved into volumes)<br>Performance:<br>Same as regular texture - super fast (fastest memory access in gpu). Cached for threads and optimized for the situation when near threads (pixel shaders) are looking for near values.</p>
-<p>Can be read as point or used linear sampling (native tri-linear interpolation. Eq bi-linear interpolation in 2D texture).</p>
-<p>They are stored in memory like a array of 2D textures.</p>
-<p>另可见<a href="https://docs.microsoft.com/zh-cn/windows/desktop/direct3d11/overviews-direct3d-11-resources-textures-intro" target="_blank" rel="noopener">Introduction To Textures in Direct3D 11</a>。</p>
-<p>说了这么多，其实下面说的3d texture mapping<strong>并不是在讲3d纹理</strong>，是在讲怎么给3d物体做纹理映射（摔(′д｀ )…彡…彡 我特码…）</p>
-</blockquote>
-<h2 id="3D上的纹理映射"><a href="#3D上的纹理映射" class="headerlink" title="3D上的纹理映射"></a>3D上的纹理映射</h2><p>3D纹理的一般作用：</p>
+        <h2 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h2><p>最近做项目，深感自己C++功底不足。故开始看Effective C++。</p>
+<p>该<span class="span-important">【Effective C++】</span>系列为笔记。</p>
+<h2 id="少用define"><a href="#少用define" class="headerlink" title="少用define"></a>少用define</h2><p>现在我们用<code>#define</code>，主要是两种用途：</p>
+<ol>
+<li>定义常量</li>
+<li>定义函数</li>
+</ol>
+<p>对于第一种，书中推荐使用<code>const</code>，如果是类常量，那么使用<code>static const</code>。这是因为#define其实是一个预处理，在编译期间就会被替换掉，不会进入符号表。</p>
+<p>这里需要注意：</p>
+<ol>
+<li>常量字符串需要「两个const」，比如<code>const char* const MESSAGE = &quot;HelloWorld&quot;;</code>，才能同时保证指针和对象本身都是常量</li>
+<li>类常量为了保证一个类只有一个，所以需要是static的。类常量除了在类内声明外，还需要在实现文件中定义。.</li>
+</ol>
+<p>而对于想用define来实现功能函数的，同样不建议。原因有是这样的假函数没有自己的定义域，从而：</p>
 <ul>
-<li>CT扫描出来的立体图像</li>
-<li>游戏中的火焰或者烟雾</li>
-<li>游戏中的草地</li>
+<li><p>可以改变参数本身的值</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Foo(Value)\</span></span><br><span class="line">    <span class="keyword">return</span> ++Value;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    Foo(a);</span><br><span class="line">    Foo(a); <span class="comment">// a = 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果定义了新的变量，无法在同一个定义域里调用多次该宏，比如：</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Foo()\</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Bar()</span><br><span class="line">&#123;</span><br><span class="line">Foo();</span><br><span class="line">Foo(); <span class="comment">// compile error 定义了两个同名变量a</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>上集节目中我们提到我们用$c_r$来代表表面的颜色。而拥有复杂图案的表面，其上的颜色肯定不止一种。为了表示表面的颜色，我们使用关于p点的函数$c_r(\textbf{p})$。</p>
-<h3 id="3d条纹纹理"><a href="#3d条纹纹理" class="headerlink" title="3d条纹纹理"></a>3d条纹纹理</h3><p>有很多种方法可以弄出一个条纹纹理。假设我们有两种颜色$c_0$和$c_1$要来组成条纹纹理。我们可以使用sin的方法来生成纹理：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">sin</span>(p.positionX) <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> c0</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c1</span><br></pre></td></tr></table></figure>
-<p>为了调节条纹的宽度，我们可以控制一下sin的频率，加入因子$\omega$：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p, omega)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">sin</span>(<span class="built_in">pi</span> * p.positionX / omega) &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> c0</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> c1</span><br></pre></td></tr></table></figure>
-<p>如果我们想对条纹做模糊化，就要做插值，插值的算法如下：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripe</span><span class="params">(p, omega)</span></span></span><br><span class="line">    t = (<span class="number">1</span> + <span class="built_in">sin</span>(<span class="built_in">pi</span> * p.positionX / omega)) / <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="number">1</span> - t) * c0 + t * c1</span><br></pre></td></tr></table></figure>
-<p>我不知道这节有什么用。。真有人会去生成条纹嘛，做斑马？</p>
-<img src="/2019/02/26/【计算机图形学基础】7纹理映射/1.png" title="分别对应上面讲的三种算法">
-<h3 id="纹理数组"><a href="#纹理数组" class="headerlink" title="纹理数组"></a>纹理数组</h3><p>假设纹理的大小是$n_x \times n_y$，另有屏幕上对应像素点坐标ij的uv坐标。那么对于某个uv坐标，它的颜色是：<br>$$c(u, v) = c_{ij}$$</p>
-<p>, where</p>
-<p>$$i = \text{floor}(un_x)$$<br>$$j = \text{floor}(vn_y)$$</p>
-<p>为了有一个更smooth的效果，可以使用双线性插值，计算公式如下：</p>
-<p>$$c(u,v) = (1 - u’)(1 - v’)c_{ij} \\</p>
+<p>如果我们是因为难以确定参数的类型而苟且使用泛型，完全可以用 <span class="span-important">Inline Template Function</span> 来实现。更高更快更强，更优雅。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这么写的原因是Callback可能是各种各样的类型，无法确定</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> AddListener(TargetObject, Callback)\</span></span><br><span class="line">GameManager()-&gt;GetDispatcher()-&gt;AddListener(TargetObject, Callback)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    AddListener(<span class="keyword">this</span>, &amp;AThisObject::MyFunc);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>换成Inline Template Function的形式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">FORCEINLINE</span> <span class="title">void</span> <span class="title">AddListener</span>(<span class="title">UObject</span>* <span class="title">TargetObject</span>, <span class="title">T</span> <span class="title">Callback</span>)</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    GameManager()-&gt;GetDispatcher()-&gt;AddListener(TargetObject, Callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    AddListener(<span class="keyword">this</span>, &amp;AThisObject::MyFunc);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="多用const"><a href="#多用const" class="headerlink" title="多用const"></a>多用const</h2><h3 id="指向常量的指针-vs-常指针"><a href="#指向常量的指针-vs-常指针" class="headerlink" title="指向常量的指针 vs 常指针"></a>指向常量的指针 vs 常指针</h3><p>指向常量的指针：指向的对象是常量，不可改变。const在星号的前面，如<code>const AActor* MyActor;</code>。</p>
+<p>常指针：指针本身是常量，不可以指向别的对象。const在星号的后面,如<code>AActor* const MyActor;</code>。举例：</p>
 <ul>
-<li>u’(1 - v’)c_{(i + 1)j} \\</li>
-<li>(1 - u’)v’c_{i(j + 1)} \\</li>
-<li>u’v’c_{(i + 1)(j + 1)}$$</li>
+<li>用于STL容器返回的迭代器，返回一个<code>T* const</code>指针，不可以指向别的对象；</li>
 </ul>
-<p>where</p>
-<p>$$u’ = n_xu - \text{floor}(n_xu)$$<br>$$v’ = n_xv - \text{floor}(n_yv)$$</p>
-<p>好了，细节就不用懂了，skip，skip。</p>
-<p>另外还有一种叫hermite插值的，也不讲了，感觉以后也没啥机会写这个…</p>
-<h3 id="生成噪点"><a href="#生成噪点" class="headerlink" title="生成噪点"></a>生成噪点</h3><p>这节讲怎么生成能看的随即图，也不看。</p>
-<h2 id="2D纹理映射"><a href="#2D纹理映射" class="headerlink" title="2D纹理映射"></a>2D纹理映射</h2><p>怎么得出一个球的uv坐标呢（所以本节为什么考虑个球呢？）？首先要给出球面上xyz点的表达式，进而推导出它的极坐标，再由极坐标计算出uv（为什么呢？）</p>
-<p>首先，xyz：</p>
-<p>$$x = x_c + R\cos\phi\sin\theta$$<br>$$y = y_c + R\cos\phi\sin\theta$$<br>$$z = z_c + R\cos\theta$$</p>
-<p>从而得到极坐标$(\theta, \phi)$：</p>
-<p>$$\theta = \arccos(\frac{z - z_c}{R})$$<br>$$\phi = \arctan2(y - y_c, x - x_c)$$</p>
-<p>由于$(\theta, \phi) \in [0, \pi] \times [-\pi, \pi]$，所以我们要把它转化到$[0, 1]^2$域，从而得到uv。</p>
-<p>$$u = \frac{\phi}{2\pi}$$<br>$$v = \frac{\pi - \theta}{\pi}$$</p>
-<p>看到这里，结合前文，明白了两个道理：</p>
-<ul>
-<li>为什么说给3d纹理映射更简单呢，这是建立在3d纹理由一个一个小平面组成的基础上</li>
-<li>2d纹理映射的意思是映射到一个<strong>曲面</strong>上</li>
-</ul>
-<h2 id="对三角形的纹理映射"><a href="#对三角形的纹理映射" class="headerlink" title="对三角形的纹理映射"></a>对三角形的纹理映射</h2><p>回忆起三角形中一个点<strong>p</strong>的重心坐标$(\beta, \gamma)$：</p>
-<p>$$\textbf{p}(\beta, \gamma) = \textbf{a} + \beta(\textbf{b} - \textbf{a}) + \gamma(\textbf{c} - \textbf{a})$$</p>
-<p>根据以前某个篇章的推论，我们可以由重心坐标和三个点的uv得到<strong>p</strong>点的uv。</p>
-<p>$$u(\beta, \gamma) = u_a + \beta(u_b - u_a) + \gamma(u_c - u_a)$$<br>$$v(\beta, \gamma) = v_a + \beta(v_b - v_a) + \gamma(v_c - v_a)$$</p>
-<p>其实这个操作我们写shader的人根本不需要关心，三角形各种属性（包括颜色，uv，法向量等等）的插值都是在光栅化阶段做的事情，传输到fragment shader的uv已经是被插♂值的了。</p>
-<h3 id="透视下的纹理映射"><a href="#透视下的纹理映射" class="headerlink" title="透视下的纹理映射"></a>透视下的纹理映射</h3><img src="/2019/02/26/【计算机图形学基础】7纹理映射/2.png" title="透视下的纹理映射">
-<p>太复杂了有空再看，TODO一下。</p>
-<h2 id="生成隆♂起"><a href="#生成隆♂起" class="headerlink" title="生成隆♂起"></a>生成隆♂起</h2><p>这节讲的是怎么生成星球表面那种隆起。</p>
-<p>怎么办呢？我不想看，跳过。</p>
-<img src="/2019/02/26/【计算机图形学基础】7纹理映射/3.png" title="凹凸表面">
-<h2 id="位移映射"><a href="#位移映射" class="headerlink" title="位移映射"></a>位移映射</h2><p>上一节生成的隆起既不能产生阴影，又不能改变物体的轮廓，因为我们根本就没有改变这个几何体，只是生成了纹理。</p>
-<p>其实就是生成新的p’。</p>
-<p>$$\textbf{p}’ = \textbf{p} + f(\textbf{p})n$$</p>
-<p>就是说让点p沿着它的法向量的方向位移一定距离，这样子就真的可以形成一个隆起。</p>
-<img src="/2019/02/26/【计算机图形学基础】7纹理映射/4.png" title="隆♂起">
-<h2 id="环境映射"><a href="#环境映射" class="headerlink" title="环境映射"></a>环境映射</h2><p>这节讲的是cube map。</p>
-<p>最基础的想法就是立方体贴图的是一个无限大的cube，每个面都有纹理。因为立方体很大，所以从每个角度看到的景色都是一样的。所以给定一个方向<strong>b</strong>，就可以决定它所对应的uv是什么。</p>
-<p>具体的方法就不看了，有空再去查<strong>天空盒</strong>相关的知识吧。</p>
+<p>常指针常量：指针和对象都是常量，需要两个const，如<code>const char* const MESSAGE = &quot;HELLO WORLD&quot;;</code>。</p>
+<h3 id="用于修饰函数返回值，避免函数返回值被修改"><a href="#用于修饰函数返回值，避免函数返回值被修改" class="headerlink" title="用于修饰函数返回值，避免函数返回值被修改"></a>用于修饰函数返回值，避免函数返回值被修改</h3><p>例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span> &#123;</span>...&#125;</span><br><span class="line">Rational::Rational(<span class="keyword">const</span> Rational&amp; Another);</span><br><span class="line"><span class="keyword">const</span> Rational <span class="keyword">operator</span>* (<span class="keyword">const</span> Rational &amp;lhs, <span class="keyword">const</span> Rational &amp;rhs);</span><br></pre></td></tr></table></figure>
+<p>设想如果返回的不是一个常量，那么我们就可以对其作出修改</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Rational a, b, c;</span><br><span class="line">(a * b) = c;</span><br></pre></td></tr></table></figure>
+<p>而如果返回的是一个const值，就可以避免这种情况。</p>
 
       
     </div>
@@ -526,8 +484,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/25/【计算机图形学基础】6表面渲染/" rel="next" title="【计算机图形学基础】6 表面渲染">
-                <i class="fa fa-chevron-left"></i> 【计算机图形学基础】6 表面渲染
+              <a href="/2020/09/09/20200907-UE4-container-with-non-ue4-type-element/" rel="next" title="20200907 UE4 容器类使用非UC++类型作为元素">
+                <i class="fa fa-chevron-left"></i> 20200907 UE4 容器类使用非UC++类型作为元素
               </a>
             
           </div>
@@ -535,10 +493,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/28/【计算机图形学基础】8数据结构/" rel="prev" title="【计算机图形学基础】8数据结构">
-                【计算机图形学基础】8数据结构 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -708,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【计算机图形学基础】7-纹理映射"><span class="nav-number">1.</span> <span class="nav-text">【计算机图形学基础】7 纹理映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3D上的纹理映射"><span class="nav-number">1.1.</span> <span class="nav-text">3D上的纹理映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3d条纹纹理"><span class="nav-number">1.1.1.</span> <span class="nav-text">3d条纹纹理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纹理数组"><span class="nav-number">1.1.2.</span> <span class="nav-text">纹理数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成噪点"><span class="nav-number">1.1.3.</span> <span class="nav-text">生成噪点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2D纹理映射"><span class="nav-number">1.2.</span> <span class="nav-text">2D纹理映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对三角形的纹理映射"><span class="nav-number">1.3.</span> <span class="nav-text">对三角形的纹理映射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#透视下的纹理映射"><span class="nav-number">1.3.1.</span> <span class="nav-text">透视下的纹理映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成隆♂起"><span class="nav-number">1.4.</span> <span class="nav-text">生成隆♂起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位移映射"><span class="nav-number">1.5.</span> <span class="nav-text">位移映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境映射"><span class="nav-number">1.6.</span> <span class="nav-text">环境映射</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导读"><span class="nav-number">1.</span> <span class="nav-text">导读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#少用define"><span class="nav-number">2.</span> <span class="nav-text">少用define</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多用const"><span class="nav-number">3.</span> <span class="nav-text">多用const</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指向常量的指针-vs-常指针"><span class="nav-number">3.1.</span> <span class="nav-text">指向常量的指针 vs 常指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用于修饰函数返回值，避免函数返回值被修改"><span class="nav-number">3.2.</span> <span class="nav-text">用于修饰函数返回值，避免函数返回值被修改</span></a></li></ol></li></ol></div>
             
 
           </div>
