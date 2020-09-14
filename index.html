@@ -278,6 +278,152 @@
     <br>
     <br>
 
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/09/14/20200914-forward-declarate-struct/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/14/20200914-forward-declarate-struct/" itemprop="url">20200914 struct无法向前声明</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-14T17:01:52+08:00">
+                2020-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/09/14/20200914-forward-declarate-struct/" class="leancloud_visitors" data-flag-title="20200914 struct无法向前声明">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Issue今天搞了一个多小时研究一个编译问题。
+在A头文件中定义的struct，想在B头文件中使用。
+一般对于这种在别的头文件里定义的类型，我们都是使用向前声明。比如
+1class Foo;
+然后就「基本」可以正常使用了，结果今天向前声明struct不生效。
+查了资料，得到 结论 如下：
+大多数情况下向前声明struct是无效的。因为向前声明只是告诉编译器有这个东西，但是具体这个东西是怎样的编译器暂时还未知。对于class，我们经常是用指针的形式使用的，所以并不需要知道class的具体内容，于是可以向前声明通过编译。但是对于struct来说，我们使用的时候通常不是通过引用的形式使用的，而是直接
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/09/14/20200914-forward-declarate-struct/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+    <br>
+    <br>
+
     <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/09/11/20200911-effective-cpp-01/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1751,159 +1897,6 @@ Actor可以被放到关卡中的对象。
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    
-    <br>
-    <br>
-
-    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/01/16/backend-things-about-mysql/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的笔记本">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/16/backend-things-about-mysql/" itemprop="url">关于MYSQL的知识若干</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-16T17:16:21+08:00">
-                2020-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2020/01/16/backend-things-about-mysql/" class="leancloud_visitors" data-flag-title="关于MYSQL的知识若干">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          What is InnoDB主要特点：
-
-必须要有主键，有了主键之后检索速度会得到很大提升
-支持外键（MyISAM就不支持）
-5.5.5之后成为MySQL的默认引擎
-锁行。（MyISAM锁表）
-支持事务。（MyISAM不支持）默认来说每条sql语句都会被 自动包装 成一条事务。所以多条SQL语句最好放在begin和commit之间，一起提交。
-
-Reference:
-
-为什么你要用 InnoDB, 而不是 MyISAM ？
-
-Optimizing SELECT statementsWhere语句优化下面这些查询都是很快的。
-123456789101112SELECT COUNT(*) FROM
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/01/16/backend-things-about-mysql/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1960,7 +1953,7 @@ Optimizing SELECT statementsWhere语句优化下面这些查询都是很快的�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
