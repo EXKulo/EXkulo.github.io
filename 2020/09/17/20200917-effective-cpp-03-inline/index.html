@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="其实只是一本笔记本">
+<meta name="description" content="Inline！一旦被Inline修饰了的函数，它就再也不是函数了！（如果它真的被编译器内联了的话，然而不一定修饰inline之后就会被内联） inline的位置我们知道inline会导致代码替换。 所以inline的函数一定要放在头文件里，别人include了这个头文件了，才可以被替换。 隐喻inline一旦函数被定义在类体内，就是隐喻inline。比如： 12345678class Person">
 <meta property="og:type" content="article">
 <meta property="og:title" content="20200917 effective cpp inline">
 <meta property="og:url" content="https://exkulo.github.io/2020/09/17/20200917-effective-cpp-03-inline/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="其实只是一本笔记本">
+<meta property="og:description" content="Inline！一旦被Inline修饰了的函数，它就再也不是函数了！（如果它真的被编译器内联了的话，然而不一定修饰inline之后就会被内联） inline的位置我们知道inline会导致代码替换。 所以inline的函数一定要放在头文件里，别人include了这个头文件了，才可以被替换。 隐喻inline一旦函数被定义在类体内，就是隐喻inline。比如： 12345678class Person">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-17T05:12:29.483Z">
+<meta property="og:updated_time" content="2020-09-22T12:19:13.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="20200917 effective cpp inline">
-<meta name="twitter:description" content="其实只是一本笔记本">
+<meta name="twitter:description" content="Inline！一旦被Inline修饰了的函数，它就再也不是函数了！（如果它真的被编译器内联了的话，然而不一定修饰inline之后就会被内联） inline的位置我们知道inline会导致代码替换。 所以inline的函数一定要放在头文件里，别人include了这个头文件了，才可以被替换。 隐喻inline一旦函数被定义在类体内，就是隐喻inline。比如： 12345678class Person">
 
 
 
@@ -396,7 +396,22 @@
       
 
       
-        
+        <p>Inline！一旦被Inline修饰了的函数，它就再也不是函数了！（如果它真的被编译器内联了的话，然而<span class="span-important">不一定</span>修饰inline之后就会被内联）</p>
+<h2 id="inline的位置"><a href="#inline的位置" class="headerlink" title="inline的位置"></a>inline的位置</h2><p>我们知道inline会导致代码替换。</p>
+<p>所以inline的函数一定要放在头文件里，别人include了这个头文件了，才可以被替换。</p>
+<h2 id="隐喻inline"><a href="#隐喻inline" class="headerlink" title="隐喻inline"></a>隐喻inline</h2><p>一旦函数被定义在类体内，就是隐喻inline。比如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Eat</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// Eat Something</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然上面的<code>Eat()</code>没有明写inline，但是被隐喻了。</p>
+<h2 id="inline的问题"><a href="#inline的问题" class="headerlink" title="inline的问题"></a>inline的问题</h2><ul>
+<li>内联函数可能导致代码膨胀</li>
+<li>内联函数一旦被改变，所有使用到它的目标文件都必须重新编译（因为inline的本质是替换代码）</li>
+</ul>
+<h2 id="什么时候编译器会忽视inline"><a href="#什么时候编译器会忽视inline" class="headerlink" title="什么时候编译器会忽视inline"></a>什么时候编译器会忽视inline</h2><p>并不是所有被inline修饰的函数都会变成内联函数。这些情况下编译器不会让它们成为内联函数：</p>
+<ol>
+<li>某个程序要取inline函数的地址时。因为编译器必须为此函数生成一个outlined函数本体</li>
+<li>构造和析构函数不能称为内联函数</li>
+</ol>
+
       
     </div>
     
@@ -537,8 +552,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -610,6 +634,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#inline的位置"><span class="nav-number">1.</span> <span class="nav-text">inline的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐喻inline"><span class="nav-number">2.</span> <span class="nav-text">隐喻inline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inline的问题"><span class="nav-number">3.</span> <span class="nav-text">inline的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候编译器会忽视inline"><span class="nav-number">4.</span> <span class="nav-text">什么时候编译器会忽视inline</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -389,8 +389,8 @@
 pimpl模式pimpl的核心思想就是把private变量和函数都抽离头文件。
 那么如何抽离呢？做这么几步：
 
-头文件的公开类中声明一个内置类，并持有一个指向该内置类实例的指针（由于只是声明，所以并不能使用类的内容，但是可以用指针引用）
-这个内置类的定
+头文件的公开类中 声明 一个内置类，并持有一个指向该内置类实例的 指针 （由于只是声明，所以并不能使用类的内容，但是可以用指针引用）
+这个内
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -552,8 +552,13 @@ pimpl模式pimpl的核心思想就是把private变量和函数都抽离头文件
       
         
           
-          
-          
+          Inline！一旦被Inline修饰了的函数，它就再也不是函数了！（如果它真的被编译器内联了的话，然而不一定修饰inline之后就会被内联）
+inline的位置我们知道inline会导致代码替换。
+所以inline的函数一定要放在头文件里，别人include了这个头文件了，才可以被替换。
+隐喻inline一旦函数被定义在类体内，就是隐喻inline。比如：
+12345678class Person&#123;public:    void Eat()    &#123;        // Eat Something    &#125;&#125;
+虽然上面的Eat()没有明写inline，但
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/09/17/20200917-effective-cpp-03-inline/#more" rel="contents">
