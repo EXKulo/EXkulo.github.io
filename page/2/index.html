@@ -278,6 +278,354 @@
     <br>
     <br>
 
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/08/27/20200826-UE4-Coding-Standard/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/27/20200826-UE4-Coding-Standard/" itemprop="url">【UE4学习】20200826 UE4 编码规范</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-27T19:12:04+08:00">
+                2020-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/08/27/20200826-UE4-Coding-Standard/" class="leancloud_visitors" data-flag-title="【UE4学习】20200826 UE4 编码规范">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          概述提几个C++中需要注意的规范。
+什么注释要写好，命名要清晰，这些比较基础的就不提了。说一些有意思和自己不知道的。
+一切都看这个文档就好。
+布尔值布尔值的b高于一切，只要是布尔值，第一个字母必须是小写b。
+const In Out
+函数的参数里，不会被改动到的一般是const，并且名字前面还要加In；如果有可能会被改动到内容，那么就引用+名字前加Out。
+如果函数不会改动到实例的内容，那么函数要标注为const函数
+for-each循环里，如果不会改动到元素，同样用const标注元素
+
+123456789101112131415void SomeMutatingOperation(FThin
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/08/27/20200826-UE4-Coding-Standard/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+    <br>
+    <br>
+
+    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/08/27/20200825-UE4-SmartPointers-and-Refection/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="左未">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="左未的笔记本">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/27/20200825-UE4-SmartPointers-and-Refection/" itemprop="url">【UE4学习】20200825 智能指针和反射</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-27T19:10:26+08:00">
+                2020-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/UE4/" itemprop="url" rel="index" class="homepage-post-categroy">
+                    <span itemprop="name">UE4</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/08/27/20200825-UE4-SmartPointers-and-Refection/" class="leancloud_visitors" data-flag-title="【UE4学习】20200825 智能指针和反射">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前言今天研究下智能指针的垃圾回收，以及反射的基础知识。
+智能指针参考文献
+虚幻4：智能指针基础
+UE4智能指针
+
+为啥要用UE4提供的智能指针最主要的原因：不是啥类都是继承于UObject的，这部分类本是无法被UE4垃圾回收的，同样，USTRUCT也是没办法被垃圾回收的。如果想要让UE4的垃圾回收管理这部分的内存，那么使用UE4提供的智能指针就好了。
+另外：
+
+std::shared_ptr不是在所有的平台都能用的
+配合UE4的容器类使用，酸爽
+
+然而，还是有一些性能上的缺陷，例如：
+
+创建和复制智能指针比创建和复制原始C++指针需要更多开销。
+保持引用计数增加基本运算的周期。
+部分智能指针占
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/08/27/20200825-UE4-SmartPointers-and-Refection/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    
+    <br>
+    <br>
+
     <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2020/08/27/20200824-UE4-UC-Basic/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1602,343 +1950,6 @@ memcached
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    
-    <br>
-    <br>
-
-    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/11/21/backend-computer-system-01/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的笔记本">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/21/backend-computer-system-01/" itemprop="url">后端学习系列——计算机操作系统01 异常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-21T18:56:14+08:00">
-                2019-11-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/后端/" itemprop="url" rel="index" class="homepage-post-categroy">
-                    <span itemprop="name">后端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/11/21/backend-computer-system-01/" class="leancloud_visitors" data-flag-title="后端学习系列——计算机操作系统01 异常">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          从给处理器加电开始，直到断点为止，程序计数器假设一个值的序列$$a_0, a_1, …,a_{n-1}$$其中，每个$a_k$是某个相应的指令$I_k$的地址。每次从$a_k$到$a_{k+1}$的过渡称为 控制转移。这样的控制转移序列叫做处理器的 控制流 。最常见的控制流就是按序执行指令，当然，也有因为if逻辑判断或者while循环而实现的跳转。
-除了这些程序本身的代码导致的正常控制流以外，系统也有某种机制可以打断控制流的正常执行，我们把这些突变叫做 异常。异常包括：
-
-硬件定时器定期产生的信号
-数据包到达网络适配器后被放在内存中
-程序向磁盘请求数据，然后休眠直到数据就绪
-子进程终止时通知创
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/11/21/backend-computer-system-01/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    
-    <br>
-    <br>
-
-    <link itemprop="mainEntityOfPage" href="https://exkulo.github.io/2019/11/12/Coding-Interview-Guide-03-list-problems/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="左未">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="左未的笔记本">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/12/Coding-Interview-Guide-03-list-problems/" itemprop="url">【程序员代码面试指南】三 链表问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T13:10:10+08:00">
-                2019-11-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/程序员代码面试指南-笔记/" itemprop="url" rel="index" class="homepage-post-categroy">
-                    <span itemprop="name">程序员代码面试指南 笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/11/12/Coding-Interview-Guide-03-list-problems/" class="leancloud_visitors" data-flag-title="【程序员代码面试指南】三 链表问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          在单链表和双链表中删除倒数第k个节点分别实现两个函数，一个可以删除单链表中倒数第k个节点，另一个可以删除双链表中倒数第k个节点。
-要求： 如果链表长度为N，时间复杂度达到O(N)，额外空间复杂度达到O(1)。
-步骤：
-从链表头开始遍历链表，每走一步，k自加-1
-遍历完单链表时，查看k的情况：
-123456789k = k - 1;if k == 0 then    return head;else if k &gt; 0 then    -- 说明k的大小大于length    return null;else if k &lt; 0 then    -- ...end
-
-如果k等于0，那么当
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/11/12/Coding-Interview-Guide-03-list-problems/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1995,7 +2006,7 @@ memcached
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
