@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="ReferenceUE4 – Declaring and using interfaces in C++">
+<meta name="description" content="ReferenceUE4 – Declaring and using interfaces in C++ In A Word 简而言之 When we declarate a interface, we need to declarate two C++ classes.  One extends from UInterface. It should be a empty class, named">
 <meta property="og:type" content="article">
 <meta property="og:title" content="20200924 UE4 在C++中声明和使用Interfaces">
 <meta property="og:url" content="https://exkulo.github.io/2020/09/24/20200924-UE4-declaring-and-using-interfaces-in-cpp/index.html">
 <meta property="og:site_name" content="左未的笔记本">
-<meta property="og:description" content="ReferenceUE4 – Declaring and using interfaces in C++">
+<meta property="og:description" content="ReferenceUE4 – Declaring and using interfaces in C++ In A Word 简而言之 When we declarate a interface, we need to declarate two C++ classes.  One extends from UInterface. It should be a empty class, named">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-24T03:37:39.385Z">
+<meta property="og:updated_time" content="2020-09-24T04:46:22.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="20200924 UE4 在C++中声明和使用Interfaces">
-<meta name="twitter:description" content="ReferenceUE4 – Declaring and using interfaces in C++">
+<meta name="twitter:description" content="ReferenceUE4 – Declaring and using interfaces in C++ In A Word 简而言之 When we declarate a interface, we need to declarate two C++ classes.  One extends from UInterface. It should be a empty class, named">
 
 
 
@@ -397,6 +397,36 @@
 
       
         <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://isaratech.com/ue4-declaring-and-using-interfaces-in-c/" target="_blank" rel="noopener">UE4 – Declaring and using interfaces in C++</a></p>
+<h2 id="In-A-Word-简而言之"><a href="#In-A-Word-简而言之" class="headerlink" title="In A Word 简而言之"></a>In A Word 简而言之</h2><p><b></b></p>
+<p>When we declarate a interface, we need to declarate two C++ classes.</p>
+<ul>
+<li>One extends from <code>UInterface</code>. It should be a empty class, named with prefix ‘U’.</li>
+<li>Another one can extend from nothing. It should declarate some functions you need, and it should be named with prefix ‘I’.</li>
+</ul>
+<p></p>
+<p>声明interface的时候，需要声明两个：</p>
+<ul>
+<li>一个继承于<code>UInterface</code>，是个空类，以U前缀命名</li>
+<li>另一个不用继承于什么，有实际的内容，以I前缀命名</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">UINTERFACE(BlueprintType)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BROADCAST_API</span> <span class="title">UBroadcastListener</span> :</span> <span class="keyword">public</span> UInterface</span><br><span class="line">&#123;</span><br><span class="line">	GENERATED_BODY()</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BROADCAST_API</span> <span class="title">IBroadcastListener</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	GENERATED_BODY()</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = <span class="string">"Broadcast"</span>)</span><br><span class="line">		<span class="function">int32 <span class="title">OnBroadcastReceived</span><span class="params">(<span class="keyword">const</span> FString&amp; Message)</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>Then you can implement the interface. Your class should extend from the one that really declarte functions, not the empty one.</strong></p>
+<p>然后就可以实现这个类了。继承于<code>I</code>起头那个接口。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">UCLASS(BlueprintType)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BROADCAST_API</span> <span class="title">ULogBroadcastListener</span> :</span> <span class="keyword">public</span> UObject, <span class="keyword">public</span> IBroadcastListener  <span class="comment">// We inherit both UObject and IBroadcastListener</span></span><br><span class="line">&#123;</span><br><span class="line">GENERATED_BODY()</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = <span class="string">"Broadcast"</span>)</span><br><span class="line">    <span class="function">int32 <span class="title">OnBroadcastReceived</span><span class="params">(<span class="keyword">const</span> FString&amp; Message)</span></span>;  <span class="comment">// This is the prototype declared in the interface</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> int32 <span class="title">OnBroadcastReceived_Implementation</span><span class="params">(<span class="keyword">const</span> FString&amp; Message)</span> override</span>; <span class="comment">// This is the declaration of the implementation</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int32 ULogBroadcastListener::OnBroadcastReceived_Implementation(<span class="keyword">const</span> FString&amp; Message)</span><br><span class="line">&#123;</span><br><span class="line">    UE_LOG(BroadcastLog,Warning,TEXT(<span class="string">"Message: %s"</span>), *Message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We first declarate the prototype function(<strong>note that the prototype function doesn’t need to be implemented</strong>). Then declarate and implement the one named with postfix <code>Implementation</code>.</p>
+<p>我们需要先声明一个和接口中签名完全一致的函数，但是不需要定义它。</p>
+<p>然后声明和定义一个以<code>Implementation</code>为后缀的函数，这里面写的是我们真正的逻辑。</p>
+<p>How to use the interface?</p>
+<p>那么，如何使用这个接口呢？</p>
+<h3 id="Storing-a-reference-to-the-interface-使用引用"><a href="#Storing-a-reference-to-the-interface-使用引用" class="headerlink" title="Storing a reference to the interface 使用引用"></a>Storing a reference to the interface 使用引用</h3><p>Let’s say we want to have a IBroadcastListener as a property of a class, so that a user can bind a listener of its choice. This is how it will be defined in the UCLASS:</p>
+<p>如果我们想把接口作为一个property引用起来，那么应该使用<code>TScriptInterface</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = <span class="string">"Broadcast"</span>)</span><br><span class="line">TScriptInterface&lt;IBroadcastListener&gt; BroadcastListenerCopy</span><br></pre></td></tr></table></figure>
+<h3 id="Setting-the-reference-programmatically-绑定引用"><a href="#Setting-the-reference-programmatically-绑定引用" class="headerlink" title="Setting the reference programmatically 绑定引用"></a>Setting the reference programmatically 绑定引用</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ULogBroadcastListener* LogBroadcastListener = NewObject&lt;ULogBroadcastListener&gt;(); <span class="comment">// Instantiating the ULogBroadcastListener</span></span><br><span class="line">BroadcastListener.SetObject(LogBroadcastListener); <span class="comment">// BroadcastListener is of type TScriptInterface</span></span><br><span class="line">BroadcastListener.SetInterface(Cast&lt;IBroadcastListener&gt;(LogBroadcastListener));</span><br></pre></td></tr></table></figure>
+<h3 id="Calling-a-method-of-the-interface-调用方法"><a href="#Calling-a-method-of-the-interface-调用方法" class="headerlink" title="Calling a method of the interface 调用方法"></a>Calling a method of the interface 调用方法</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UObject* BroadcastListenerObject = BroadcastListener.GetObject();</span><br><span class="line">IBroadcastListener::Execute_OnBroadcastReceived(BroadcastListenerObject, Message); <span class="comment">// Message is of type FString</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>The key point here is in the call to the OnBroadcastReceived method: we need to make a static call on a function of interface named Execute_NameOfTheInterfaceMethod. The first parameter of this function is the object we want to call the function on, and thereafter we have all the parameters we want to pass to this function.</p>
+</blockquote>
+<p>关键在于我们要调用的是一个静态方法<code>Execute_OnBroadcastReceived</code>，第一个参数是实例，第二个参数才是成员函数的参数。</p>
 
       
     </div>
@@ -626,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#In-A-Word-简而言之"><span class="nav-number">2.</span> <span class="nav-text">In A Word 简而言之</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Storing-a-reference-to-the-interface-使用引用"><span class="nav-number">2.1.</span> <span class="nav-text">Storing a reference to the interface 使用引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-the-reference-programmatically-绑定引用"><span class="nav-number">2.2.</span> <span class="nav-text">Setting the reference programmatically 绑定引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calling-a-method-of-the-interface-调用方法"><span class="nav-number">2.3.</span> <span class="nav-text">Calling a method of the interface 调用方法</span></a></li></ol></li></ol></div>
             
 
           </div>
