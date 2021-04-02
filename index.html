@@ -383,7 +383,7 @@
         
           
           C++的构造函数被禁止使用多态假设我们有这么一段代码。其中，Foo是虚函数。
-1234567891011121314151617181920212223class Base&#123;public:	Base()	&#123;		Foo();	&#125;	virtual void Foo() &#123; std::cout &lt;&lt; "Base::Foo"; &#125;&#125;class Derived : public Base&#123;	Derived() : Base() &#123;&#125;	virtual void Foo &#123; std::cout &
+1234567891011121314151617181920212223class Base&#123;public:    Base()    &#123;        Foo();    &#125;    virtual void Foo() &#123; std::cout &lt;&lt; "Base::Foo"; &#125;&#125;class Derived : public Base&#123;    Derived() : Base() &#123;&#125;    virtual voi
           ...
           <!--noindex-->
           <div class="post-button text-center">
